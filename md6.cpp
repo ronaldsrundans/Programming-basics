@@ -1,7 +1,7 @@
 /**/
 /*******************************************
-Ronalds Rundans, rr11043
-F8. Izveidot programmu valoda C++, kas apstrada teksta
+Ronalds Rundans
+Izveidot programmu valoda C++, kas apstrada teksta
 failu seciga rezima. Dati no faila janolasa pa vienam
 simbolam (nedrikst nolasit uzreiz visu failu vai veselu
 rindinu). Nedrikst dublet visa faila saturu operativaja
