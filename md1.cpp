@@ -1,6 +1,6 @@
 /*******************************************
-Ronalds Rundans, rr11043
-A20. Izdrukat aritmetiskas progresijas pirmos n loceklus, ja dots a(1) (pirmais loceklis) un d (diference).
+Ronalds Rundans
+Izdrukat aritmetiskas progresijas pirmos n loceklus, ja dots a(1) (pirmais loceklis) un d (diference).
 Programma izveidota: 2015/09/24
 *******************************************/
 #include <iostream>
