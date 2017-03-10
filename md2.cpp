@@ -1,6 +1,6 @@
 /*******************************************
-Ronalds Rundans, rr11043
-B15. Doti naturali skaili n un a(1),a(2),a(3),...,a(n). Atrast minimalo no dotajiem skaitliem(t.i.,tadiem, kas nav pirmskaitli).
+Ronalds Rundans
+Doti naturali skaili n un a(1),a(2),a(3),...,a(n). Atrast minimalo no dotajiem skaitliem(t.i.,tadiem, kas nav pirmskaitli).
 Programma izveidota: 2015/09/30
 *******************************************/
 #include <iostream>
