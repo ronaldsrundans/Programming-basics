@@ -1,0 +1,16 @@
+alignas alignof and and_eq asm auto atomic_cancel atomic_commit atomic_noexcept
+bitand bitor bool break
+case catch char char16_t char32_t class compl concept const const_cast constexpr continue
+default delete do double dynamic_cast decltype
+else enum explicit export extern
+false float for friend goto
+if inline int import 
+long mutable module
+namespace new not not_eq operator noexcept nullptr
+or or_eq private protected public
+register reinterpret_cast return requires
+short signed 
+sizeof static static_cast struct switch static_assert synchronized
+template this throw true try thread_local
+typedef typeid typename union unsigned
+using virtual void volatile wchar_t while xor xor_eq
