@@ -5,7 +5,7 @@ Izveidot programmu valoda C++, kas apstrada teksta
 failu seciga rezima. Dati no faila janolasa pa vienam
 simbolam (nedrikst nolasit uzreiz visu failu vai veselu
 rindinu). Nedrikst dublet visa faila saturu operativaja
-atmina. Sikakas prasibas sk. Laboratorijas darbu noteikumos.
+atmina.
 F8. Doti divi faili f1 un f2. Faila f1 ir patvaligs teksts,
 faila f2 ir ne vairak ka 40 vardu parisu, kas atdaliti ar komatiem.
 Izdrukat faila tekstu no ieejas faila f1, kura visi vardi,
