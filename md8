@@ -1,7 +1,7 @@
 /*Izveidot programmu valoda C++.  Ja programma darbojas
 ar failu, nedrikst dublet visa faila saturu operativaja
 atmina. Ar faila komponenti tiek saprasts fikseta garuma
-ieraksts. Sikakas prasibas sk. Laboratorijas darbu noteikumos.
+ieraksts.
 Uzrakstit programmu, kas visus standarta C++ rezervetos
 vardus ieliek  sakartota tabula. Uzrakstit funkciju, kas ar
 binaras meklešanas palidzibu nosaka, vai dota simbolu virkne
