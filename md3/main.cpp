@@ -1,6 +1,6 @@
 /*******************************************
-Ronalds Rundans, rr11043
-c11.Dotas divas (zema līmeņa) simbolu virknes  a un b
+Ronalds Rundans
+Dotas divas (zema līmeņa) simbolu virknes  a un b
 (sastāv no cipariem un neobligāti mīnusa zīmes), kas
 reprezente divus veselus skaitlus. Izveidot funkciju,
 kas izveido trešo simbolu virkni c, kas reprezente skaitli
