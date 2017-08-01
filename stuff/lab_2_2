@@ -1,0 +1,14 @@
+#include <iostream>
+using namespace std;
+int main ()
+{
+    int x, y;
+    float z;
+    cout << "Input 2 integer values:" << endl;
+    x = 12;
+    y = 7;
+    z = x / 5.0;
+    cout << "Result is " << z << endl;
+    //system ("pause");
+    return 0;
+}
