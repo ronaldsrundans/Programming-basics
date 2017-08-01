@@ -1,0 +1,703 @@
+
+
+#include <iostream>
+#include <cstring>
+#include <fstream>
+#include <cstdlib>
+using namespace std;
+
+typedef struct namenode *ctname;
+
+typedef struct ctreenode *ctree;
+
+struct namenode
+{
+    int key, fix;
+    ctname left, right;
+    char carr[101];
+    int arr[50];
+};
+ctname nullname, rootname, parsename;
+
+class CTName
+{
+    public:
+        void initialize();
+        void sigrotl(ctname &);
+        void sigrotr(ctname &);
+        void insert(ctname &, int, char*,int *, int, bool &, ctname &);
+        void remove(ctname &, char*, int);
+        void display(ctname, int);
+       // void inorder(ctname);
+        bool find(ctname, char*, int);
+        CTName()
+        {}
+};
+/*
+ * Initializing node
+ */
+void CTName::initialize()
+{
+    nullname = new namenode;
+    nullname->left = nullname->right = nullname;
+    rootname = nullname;
+}
+
+/*
+ * Left Rotation
+ */
+void CTName::sigrotl(ctname& k1)
+{
+    ctname k2;
+    k2 = k1->right;
+    k1->right = k2->left;
+    k2->left = k1;
+    k1 = k2;
+}
+
+/*
+ * Right Rotation
+ */
+void CTName::sigrotr(ctname& k1)
+{
+    ctname k2;
+    k2 = k1->left;
+    k1->left = k2->right;
+    k2->right = k1;
+    k1 = k2;
+}
+/*
+ * Insert Element into Treap
+ */
+void CTName::insert(ctname& t, int x, char* c, int*narr, int n, bool & m, ctname& name)
+{
+    if (t == nullname)
+    {
+        cout<<"t->NULL!"<<endl;
+        t = new namenode;
+        t->left = t->right = nullname;
+        t->key = n;
+        t->fix = rand();
+        for(int i=0;i<=x;i++)
+        {
+            t->carr[i]=c[i];
+        }
+        for(int i=0;i<n;i++)
+        {
+            t->arr[i]=narr[i];
+        }
+        m=false;
+        name=t;
+    }
+    else///ja nav tukss koks
+    {
+        cout<<"t->else!"<<endl;
+        int i=0;
+        while(i<x)
+        {
+            if(t->carr[i] == c[i])
+           {
+               i++;
+           }
+           else
+            {
+                break;
+            }
+        }
+        if (t->carr[i] == c[i] && i==x)
+        {
+            cout<<"t sakrit"<<endl;
+            m=true;///bool seit iemet
+            return;
+        }
+        else
+        {
+            if (c[i] < t->carr[i])
+            {
+                insert(t->left, x, c, narr, n, m, name);
+                if (t->left->fix > t->fix)
+                    sigrotr(t);
+            }
+            else
+            {
+                insert(t->right, x,c, narr, n, m, name);
+                if (t->right->fix > t->fix)
+                sigrotl(t);
+            }
+        }
+    }
+}
+
+/*
+ * Remove Element from Treap
+ */
+void CTName::remove(ctname& t, char* c, int l)
+{
+    if (t == nullname)
+        return;
+        int i=0;
+        while(i<l)
+        {
+            if(c[i]==t->carr[i])
+            {
+                i++;
+            }
+            else
+            {
+                break;
+            }
+        }
+    if(c[i]>t->carr[i])
+    {
+            remove(t->right,c, l);
+    }
+    else  if(c[i]<t->carr[i])
+    {
+            remove(t->left,c, l);
+    }
+    else
+    {
+        if (t->left == nullname && t->right == nullname)
+        {
+            delete t;
+            t = nullname;
+        }
+        else if (t->left == nullname)
+        {
+            ctname tmp = t;
+            t = t->right;
+            delete tmp;
+        }
+        else if (t->right == nullname)
+        {
+            ctname tmp = t;
+            t = t->left;
+            delete tmp;
+        }
+        else
+        {
+            if (t->left->fix < t->right->fix)
+            {
+                sigrotl(t);
+                remove(t->left, c,l);
+            }
+            else
+            {
+                sigrotr(t);
+                remove(t->right, c,l);
+            }
+        }
+    }
+}
+/*
+ * Search an element in Treap
+ */
+bool CTName::find(ctname t,char* c, int x)
+{
+    int i=0;
+    while(i<x)
+    {
+        if(t->carr[i]==c[i])
+        {
+            i++;
+        }
+        else
+        {
+            break;
+        }
+    }
+    if (t == nullname)
+       {
+          // cout<<"OK -Tuksa kopa!"<<endl;
+            return false;
+       }
+    if (i == x)
+    {
+        cout<<"OK - Sakrit vardi!"<<endl;
+        return true;
+    }
+
+    else
+    {
+        if (c[i] < t->carr[i])
+            return find(t->left, c,x);
+        else
+            return find(t->right,c, x);
+    }
+}
+/*
+ * Display elements of Treap
+ */
+void CTName::display(ctname ptr, int level)
+{
+    int i;
+    if (ptr == nullname)
+        return;
+    if (ptr != NULL)
+    {
+        display(ptr->right, level + 1);
+        cout<<endl;
+        if (ptr == rootname)
+       	    cout<<"Root->:  ";
+        else
+        {
+            for (i = 0; i < level; i++)
+                cout<<"       ";
+        }
+        //cout<<ptr->key;
+        cout<<ptr->carr<<" ";//key="<<ptr->key<<" ";//" ";
+        for(int j=0;j<ptr->key;j++)
+        {
+            cout<<ptr->arr[j]<<" ";
+        }
+        display(ptr->left, level + 1);
+    }
+}
+struct ctreenode
+{
+    int key, fix;
+    ctree left, right;
+    namenode* name;
+};
+ctree nullnode, root;
+
+class CTree
+{
+    public:
+        void initialize();
+        void sigrotl(ctree &);
+        void sigrotr(ctree &);
+        void insert(ctree &, int, namenode*);
+        void remove(ctree &, int, namenode*);
+        void display(ctree, int);
+        void inorder(ctree);
+        bool find(ctree, int);
+        CTree()
+        {}
+};
+/*
+ * Initializing node
+ */
+void CTree::initialize()
+{
+    nullnode = new ctreenode;
+    nullnode->left = nullnode->right = nullnode;
+    root = nullnode;
+}
+
+/*
+ * Left Rotation
+ */
+void CTree::sigrotl(ctree& k1)
+{
+    ctree k2;
+    k2 = k1->right;
+    k1->right = k2->left;
+    k2->left = k1;
+    k1 = k2;
+}
+
+/*
+ * Right Rotation
+ */
+void CTree::sigrotr(ctree& k1)
+{
+    ctree k2;
+    k2 = k1->left;
+    k1->left = k2->right;
+    k2->right = k1;
+    k1 = k2;
+}
+/*
+ * Insert Element into Treap
+ */
+void CTree::insert(ctree& t, int x, namenode* n)
+{
+    if (t == nullnode)
+    {
+        t = new ctreenode;
+        t->left = t->right = nullnode;
+        t->key = x;
+        t->fix = rand();
+        t->name=n;
+    }
+    else
+    {
+        if (t->key == x)
+        {
+            return;
+	}
+        else
+        {
+            if (x < t->key)
+            {
+                insert(t->left, x, n);
+                if (t->left->fix > t->fix)
+                    sigrotr(t);
+            }
+            else
+            {
+                insert(t->right, x, n);
+                if (t->right->fix > t->fix)
+                sigrotl(t);
+            }
+        }
+    }
+}
+
+/*
+ * Remove Element from Treap
+ */
+void CTree::remove(ctree& t, int x, namenode* n)
+{
+    //z=new namenode;
+    ////z=t->name;
+   // n=z;
+   n=t->name;
+    if (t == nullnode)
+        return;
+    if (x > t->key)
+        remove(t->right, x, n);
+    else if (x < t->key)
+        remove(t->left, x, n);
+    else
+    {
+        if (t->left == nullnode && t->right == nullnode)
+        {
+            delete t;
+            t = nullnode;
+        }
+        else if (t->left == nullnode)
+        {
+            ctree tmp = t;
+            t = t->right;
+            delete tmp;
+        }
+        else if (t->right == nullnode)
+        {
+            ctree tmp = t;
+            t = t->left;
+            delete tmp;
+        }
+        else
+        {
+            if (t->left->fix < t->right->fix)
+            {
+                sigrotl(t);
+                remove(t->left, x,n);
+            }
+            else
+            {
+                sigrotr(t);
+                remove(t->right, x, n);
+            }
+        }
+    }
+}
+/*
+ * Search an element in Treap
+ */
+bool CTree::find(ctree t,int x)
+{
+    if (t == nullnode)
+        return false;
+    if (t->key == x)
+        return true;
+    else
+    {
+        if (x < t->key)
+            return find(t->left, x);
+        else
+            return find(t->right, x);
+    }
+}
+/*
+ * Display elements of Treap
+ */
+void CTree::display(ctree ptr, int level)
+{
+    int i;
+    if (ptr == nullnode)
+        return;
+    if (ptr != NULL)
+    {
+        display(ptr->right, level + 1);
+        cout<<endl;
+        if (ptr == root)
+       	    cout<<"Root->:  ";
+        else
+        {
+            for (i = 0; i < level; i++)
+                cout<<"       ";
+        }
+        cout<<ptr->key<<" "<<ptr->name;
+        display(ptr->left, level + 1);
+    }
+}
+/*
+ * Inorder Travesal of Treap
+ */
+void CTree::inorder(ctree ptr)
+{
+    if (ptr == nullnode)
+        return;
+    if (ptr != NULL)
+    {
+        inorder(ptr->left);
+        cout<<ptr->key<<"  ";
+        inorder(ptr->right);
+    }
+}
+/*
+ * Inorder Travesal of Treap
+
+void CTName::inorder(ctname ptr)
+{
+    if (ptr == nullname)
+        return;
+    if (ptr != NULL)
+    {
+        inorder(ptr->left);
+        cout<<ptr->key<<"  ";
+        inorder(ptr->right);
+    }
+}
+
+ * Main Contains Menu
+ */
+int main()
+{
+    CTName ctn;
+    CTree ct;
+    int choice, num, l=0, i=0, icount=0;
+    char c;
+    bool flag = false;
+    bool match=false;
+    char tmp[101];
+    int narr[50];
+    ctn.initialize();
+    fstream fin("recenzenti.i3", ios::in);
+    fin.get(c);
+    while(fin)
+    {
+        if(c=='I')
+       {
+           cout<<"Insert"<<endl;
+
+            fin.get(c);
+            if(c==' ')
+            {
+                 fin.get(c);
+            }
+            l=0;
+            while(c!=' ')
+            {
+                tmp[l]=c;
+                l++;
+                fin.get(c);
+            }
+            tmp[l]=0;
+            cout<<tmp<<endl;
+            fin.get(c);
+            i=0;
+            while(c!=' ')///cik skaitli
+            {
+               i=i*10+(int)c-'0';
+                fin.get(c);
+            }
+            //cout<<"Count of iI="<<i<<endl;
+            //ct.insert(root, i);//, tmp);
+
+            icount=0;
+
+            while(c!='\n')
+            {
+                fin.get(c);
+                i=0;
+                while(c!=' '&&c!='\n')///pirmais rindas skaitlis
+                {
+                    i=i*10+(int)c-'0';
+                    fin.get(c);
+                }
+                narr[icount]=i;
+                icount++;
+               // cout<<"iI="<<i<<endl;
+               //
+            }
+            ctn.insert(rootname, l, tmp,narr, icount, match, parsename);//, tmp);
+            tmp[0]=0;
+            cout<<"tas darbojas:"<<parsename->carr<<endl;
+            ///nodzes vardu
+            ///pievieno int masivu pie varda koka
+            i=0;
+            while(i<icount)
+            {
+                ct.insert(root, narr[i],parsename);
+                i++;
+            }
+            parsename=nullname;
+
+       }
+        if(c=='D')
+       {
+           cout<<"Delete"<<endl;
+                  while(c!='\n')
+            {
+                fin.get(c);
+                i=0;
+                while(c!=' '&&c!='\n')///pirmais rindas skaitlis
+                {
+                    i=i*10+(int)c-'0';
+                    fin.get(c);
+
+                }
+                if(i!=0)
+                {
+                    cout<<"iD="<<i<<endl;
+
+                    /*if (ct.find(rootname, i))
+                    flag = true;
+                    else
+                    cout<<"Element not found"<<endl;
+                    ct.remove(rootname, i);
+                    if (!ct.find(rootname, i) && flag)
+                    {
+                        cout<<"Element Deleted-OK"<<endl;
+                    }
+                    else
+                    {
+                        cout<<"Element not Deleted-NO"<<endl;
+                    }*/
+
+                }
+            }
+       }
+        /*if(c=='L')
+       {
+           cout<<"Look for "<<endl;
+            while(c!='\n')
+            {
+                fin.get(c);
+                i=0;
+                while(c!=' '&&c!='\n')///pirmais rindas skaitlis
+                {
+                    i=i*10+(int)c-'0';
+                    fin.get(c);
+                }
+                if(i!=0)
+                {
+                    cout<<"iL="<<i<<endl;
+                }
+            }
+            if (ct.find(rootname, i))
+            {
+                flag = true;
+                cout<<"Element "<<i<<" found"<<endl;
+            }
+
+            else
+              {
+                  cout<<"Element not found"<<endl;
+              }
+           // ct.remove(root, num);
+            if (rootname == nullname)
+            {
+                cout<<"Tree is empty-NO"<<endl;
+            }
+        }*/
+        fin.get(c);
+    }
+    fin.close();
+
+
+    while (1)
+    {
+        cout<<endl<<"----------------------------"<<endl;
+        cout<<endl<<"Operations on Treap"<<endl;
+        cout<<endl<<"----------------------------"<<endl;
+        cout<<"1.Insert Element "<<endl;
+        cout<<"2.Delete Element "<<endl;
+        //cout<<"3.Look for an element"<<endl;
+         cout<<"3.Delete Number "<<endl;
+        cout<<"4.Display in Order"<<endl;
+        cout<<"5.Quit"<<endl;
+        cout<<"Enter your choice : ";
+        cin>>choice;
+        switch(choice)
+        {
+        case 1:
+            cout<<"Enter the name to be inserted : ";
+            cin>>tmp;
+            l=strlen(tmp);
+            ctn.insert(rootname, l, tmp, narr, icount, match, parsename);
+            break;
+        case 2:
+            if (rootname == nullname)
+            {
+                cout<<"Tree is empty, nothing to delete"<<endl;
+                continue;
+            }
+            cout<<"Enter the name to be deleted : ";
+            cin>>tmp;
+            l=strlen(tmp);
+            if (ctn.find(rootname,tmp ,l))
+                flag = true;
+            else
+                cout<<"Element not found"<<endl;
+            ctn.remove(rootname, tmp,l);
+            if (!ctn.find(rootname,tmp, num) && flag)
+                cout<<"Element Deleted"<<endl;
+            break;
+        case 3:
+         if (root == nullnode)
+            {
+                cout<<"Tree is empty, nothing to delete"<<endl;
+                continue;
+            }
+            cout<<"Enter the number to be deleted : ";
+            cin>>num;
+            if (ct.find(root, num))
+                flag = true;
+            else
+                cout<<"Element not found"<<endl;
+            ct.remove(root, num, parsename);
+            if (!ct.find(root, num) && flag)
+                cout<<"Element Deleted"<<endl;
+                ///parsename izdruka vardu
+                cout<<&parsename<<endl;
+        case 4:
+            if (rootname == nullname)
+            {
+                cout<<"Tree is empty"<<endl;
+                continue;
+            }
+            cout<<"Display Treap:"<<endl;
+            ctn.display(rootname, 1);
+            cout<<endl;
+            if (root == nullnode)
+            {
+                cout<<"Tree is empty"<<endl;
+                continue;
+            }
+            cout<<"Display Treap:"<<endl;
+            ct.display(root, 1);
+            cout<<endl;
+            break;
+        case 5:
+            exit(1);
+            break;
+        case 6:
+            if (root == nullnode)
+            {
+                cout<<"Tree is empty"<<endl;
+                continue;
+            }
+            cout<<"Display Treap:"<<endl;
+            ct.display(root, 1);
+            cout<<endl;
+            break;
+        default:
+            cout<<"Wrong choice"<<endl;
+        }
+    }
+}
