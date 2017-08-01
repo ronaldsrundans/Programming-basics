@@ -1,0 +1,162 @@
+#include <iostream>
+#include <fstream>
+//#include <cstring>
+using namespace std;
+
+int main()
+{
+    int size1=101;
+    char carr[1010000];
+    char tmpcarr[size1];
+    fstream fin("in1.txt", ios::in);
+    char c;
+    int n=0;
+
+    bool b=1;
+    fin.get(c);
+    while (fin)
+    {
+         int l=0;
+         if(c!=' ' && c!='\n')
+         {
+             while(c!=' ' && c!='\n')
+            {
+             tmpcarr[l]=c;
+             l++;
+             fin.get(c);
+            }
+            tmpcarr[l]=0;
+
+        if(n==0 || carr[(n-1)*size1]<tmpcarr[0])///piekabina beigas
+        {
+            //cout<<"piekabina beigas"<<n<<" "<< tmpcarr[0]<<endl;
+            int i=0;
+            while(tmpcarr[i]!=0)
+            {
+                carr[i+n*size1]=tmpcarr[i];
+                i++;
+            }
+            carr[i+n*size1]=0;
+            n++;///vards pievienots lielajam masivam
+        }
+        else if(n>0 && carr[0]>tmpcarr[0])///ja jauna pirma pozicija
+        {
+            int i=n+1;
+            while(i>0)
+            {
+                int m=0;
+                while(carr[(i-1)*size1+m]!=0)
+                {
+                    carr[i*size1+m]=carr[(i-1)*size1+m];
+                    m++;
+                }
+                carr[i*size1+m]=0;
+                i--;
+            }
+            i=0;///ieraksta jauno pirmo
+            while(tmpcarr[i]!=0)
+            {
+                carr[i]=tmpcarr[i];
+                i++;
+            }
+            carr[i]=0;
+            n++;
+        }
+        else if(n>0)///binari mekle poziciju ja nav talak par galiem
+        {
+            int first=0;
+            int last=n-1;
+            int mid=(first+last)/2;
+            int m=1;
+            while(first<=last && carr[mid*size1]!=tmpcarr[0])
+            {
+               if(tmpcarr[0]>carr[mid*size1])///dazadi sakuma burti
+                {
+                    first=mid+1;
+                }
+                else
+                {
+                    last=mid-1;
+                }
+                mid=(first+last)/2;
+            }
+       // cout<<"mid="<<mid<<" last="<<last<<" first="<<first<<" n="<<n<<endl;
+            if(first>last)///parbida visus vardus par 1 poziciju
+            {
+                int p=n;
+           // cout<<"p="<<p<<endl;
+                while(p>first)
+                {
+                    carr[p*size1]=carr[(p-1)*size1];
+                    p--;
+                }
+                p=0;
+            ///ieraksta jauno vardu vieta
+                while(tmpcarr[p]!=0)
+                {
+                    carr[p+first*size1]=tmpcarr[p];
+                    p++;
+                }
+                carr[p+first*size1]=0;
+                n++;
+            }
+            if(carr[mid*size1]==tmpcarr[0])///vienadi sakuma burti
+                {///salidzina visu vardu
+                    cout<<"Vienadi sakuma burti: "<<tmpcarr[0]<<" n="<<n<<endl;
+                    int i=1;
+                    while(i<=l)///l posizicija glaba "0"
+                    {
+                        if(carr[mid*size1+i]==tmpcarr[i])
+                        {
+                             i++;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                    if(i-1==l)
+                    {
+                        cout<<"abi sakrit"<<endl;
+                    }
+                    else
+                    {
+
+                        cout<<"ne visi burti sakrit "<<endl;
+                        if(carr[mid*size1+i]<tmpcarr[i])
+                        {
+                             cout<<"ne visi burti sakrit "<<endl;
+                             ///parbida visus iznemot [mid] elementu
+
+                        }
+                        else
+                        {
+                                cout<<"ne visi burti sakrit "<<endl;
+                        }
+
+
+                    }
+
+                }
+        }///beidzas bin meklesana
+         }
+    fin.get(c);
+    }
+
+    int m=0;
+    while(m<n)
+    {
+        int i=0;
+        while(carr[i+m*size1]!=0)
+        {
+            cout<<carr[i+m*size1];
+            i++;
+        }
+        cout<<endl;
+        m++;
+    }
+
+    cout<<n<<endl;
+    fin.close();
+    return 0;
+}
