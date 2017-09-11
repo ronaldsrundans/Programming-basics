@@ -12,9 +12,9 @@ struct tree
 {
     tree *right;
     tree *left;
-    char lang[11];
+    char wordstring[11];
 };
-//tree root=NULL;
+tree* root=NULL;
 void stringToList(char s[][4], int n,elem*&first, elem* &last, elem* &r)
 {
     int j=0;
@@ -61,61 +61,30 @@ void deleteList (elem*&first)///saraksta dzesana
 /*
  * Insert Element into Tree
  */
-void insertTree(ctname& t, int x, char* c, int*narr, int n, bool & m, ctname& name)
+void insertTree(tree*t, char* c)
 {
     if (t == NULL)
     {
         cout<<"t->NULL!"<<endl;
         t = new tree;
         t->left = t->right = NULL;
-
-        for(int i=0;i<=x;i++)
-        {
-            t->carr[i]=c[i];
-        }
-        for(int i=0;i<n;i++)
-        {
-            t->arr[i]=narr[i];
-        }
-        m=false;
-        name=t;
     }
     else///ja nav tukss koks
     {
         cout<<"t->else!"<<endl;
         int i=0;
-        while(i<x)
-        {
-            if(t->carr[i] == c[i])
-           {
-               i++;
-           }
-           else
+
+        //else
+//{
+            if (c[i] < t->wordstring[i])
             {
-                break;
-            }
-        }
-        if (t->carr[i] == c[i] && i==x)
-        {
-            cout<<"t sakrit"<<endl;
-            m=true;///bool seit iemet
-            return;
-        }
-        else
-        {
-            if (c[i] < t->carr[i])
-            {
-                insert(t->left, x, c, narr, n, m, name);
-                if (t->left->fix > t->fix)
-                    sigrotr(t);
+                insertTree(t->left, c);
             }
             else
             {
-                insert(t->right, x,c, narr, n, m, name);
-                if (t->right->fix > t->fix)
-                sigrotl(t);
+                insertTree(t->right, c);
             }
-        }
+        //}
     }
 }
 
@@ -137,6 +106,7 @@ int main ()
 
         for(q=firstI;q!=NULL;q=q->next)
         {
+            insertTree(root, q->word);
             cout<<p->word<<"  "<<q->word<<endl;
 
         }
