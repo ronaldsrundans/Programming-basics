@@ -3,70 +3,52 @@
 #include <cstdlib>
 using namespace std;
 
-struct elem/// saistita saraksta elementa deklaracija
+struct elem
 {
     char word[4];
     elem *next;
 };
-/*struct ctreenode
+struct tree
 {
-    int key, fix;
-    ctree left, right;
+    tree *right;
+    tree *left;
+    char lang[11];
 };
-ctree nullnode, root;
-
-typedef struct namenode *ctname;
-struct namenode
-{
-    int key, fix;
-    ctname left, right;
-    char carr[101];
-};
-ctname nullname, rootname, parsename;
-
-
-
-void add_element (elem*&first, elem*&last, char *c)///jauna elementa pievienosana saraksta gala
-{
-    elem *p = new elem;
-    int i=0;
-    while(c[i]!=0)
-    {
-        p->word[i] = c[i];
-        i++;
-    }
-    p->word[i]=0;
-    p->next = NULL;
-    if (first == NULL) first = p;///ja saraksts ir tukss, tad nomaina pirmo elementu
-    else last->next = p;///ja saraksts nav tukss, tad pieliek gala
-    last = p;
-};
-
-void print_list (elem *first)///saraksta izdrukasana
-{
-    for (elem *p = first; p!=NULL; p=p->next)
-    {
-        cout << p->word << endl;
-    };
-};*/
-
-void printString(char s[][4], int n)
+//tree root=NULL;
+void stringToList(char s[][4], int n,elem*&first, elem* &last, elem* &r)
 {
     int j=0;
     for(int i=0;i<n;i++)
     {
+        r=new elem;
         j=0;
         while(s[i][j]!=0)
         {
-             cout<<s[i][j];
+            r->word[j]=s[i][j];
              j++;
         }
-       cout<<endl;
+        r->word[j]=0;
+        r->next=NULL;
+        if (first==NULL)
+        {
+            first=last=r;
+        }
+        else
+        {
+            last->next=r;
+            last=last->next;
+        }
     }
-
 }
-
-void delete_list (elem*&first)///saraksta dzesana
+void printList(elem*first)
+{
+    elem* r;
+ for(r=first;r!=NULL;r=r->next)
+        {
+            cout<<r->word<<endl;
+        }
+}
+void deleteList (elem*&first)///saraksta dzesana
 {
     elem *p = first;
     while (p!=NULL)
@@ -76,30 +58,91 @@ void delete_list (elem*&first)///saraksta dzesana
         p = first;
     };
 };
-void makeList(char (*s)[4], elem* first, elem* last, int n)
+/*
+ * Insert Element into Tree
+ */
+void insertTree(ctname& t, int x, char* c, int*narr, int n, bool & m, ctname& name)
 {
-      for (int i=0;i<n;i++)
+    if (t == NULL)
+    {
+        cout<<"t->NULL!"<<endl;
+        t = new tree;
+        t->left = t->right = NULL;
+
+        for(int i=0;i<=x;i++)
         {
-           // add_element (first, last, );///vertibas pievienosana saistitajam sarakstam
-            //cin >> i;
-        };
+            t->carr[i]=c[i];
+        }
+        for(int i=0;i<n;i++)
+        {
+            t->arr[i]=narr[i];
+        }
+        m=false;
+        name=t;
+    }
+    else///ja nav tukss koks
+    {
+        cout<<"t->else!"<<endl;
+        int i=0;
+        while(i<x)
+        {
+            if(t->carr[i] == c[i])
+           {
+               i++;
+           }
+           else
+            {
+                break;
+            }
+        }
+        if (t->carr[i] == c[i] && i==x)
+        {
+            cout<<"t sakrit"<<endl;
+            m=true;///bool seit iemet
+            return;
+        }
+        else
+        {
+            if (c[i] < t->carr[i])
+            {
+                insert(t->left, x, c, narr, n, m, name);
+                if (t->left->fix > t->fix)
+                    sigrotr(t);
+            }
+            else
+            {
+                insert(t->right, x,c, narr, n, m, name);
+                if (t->right->fix > t->fix)
+                sigrotl(t);
+            }
+        }
+    }
 }
+
+
 
 int main ()
 {
-        elem *first1=NULL, *last1=NULL, *first2=NULL, *last2=NULL, *p;
-        char arrE[5][4]={{"E"},{"E+E"},{"E*E"},{"E-E"},{"I"}};
-        char arrI[5][4]={{"I"},{"a"},{"b"},{"aI"},{"Ib"}};
-        printString(arrE, 5);
-        printString(arrI, 5);
-       // makeList(arrE, first1,  last1, 5);
-      //  makeList(arrE, first2, last3, 5);
-        cout << "The list: " << endl;///saraksta izdruka pirms funkcijas darbibas
-        /*print_list (first1);
-        print_list (first2);
-        delete_list (first1);///izdzes ievadito sarakstu
-        delete_list (first2);///izdzes vienado vertibu sarakstu
-*/
+    elem *firstE=NULL, *lastE=NULL, *p;
+    elem *firstI=NULL, *lastI=NULL, *q;
+    char arrE[5][4]={{"E"},{"E+E"},{"E*E"},{"E-E"},{"I"}};
+    char arrI[5][4]={{"I"},{"a"},{"b"},{"aI"},{"Ib"}};
+    char start[4]="E";
+    stringToList(arrE, 5,firstE,lastE, p);
+    stringToList(arrI, 5,firstI,lastI, p);
+   // printList(firstE);
+  //  printList(firstI);
+    for(p=firstE;p!=NULL;p=p->next)
+    {
+
+        for(q=firstI;q!=NULL;q=q->next)
+        {
+            cout<<p->word<<"  "<<q->word<<endl;
+
+        }
+    }
+    deleteList(firstE);
+    deleteList(firstI);
     return 0;
 }
 
