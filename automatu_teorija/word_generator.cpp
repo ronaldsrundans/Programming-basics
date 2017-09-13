@@ -5,114 +5,174 @@ using namespace std;
 
 struct elem
 {
-    char word[4];
-    elem *next;
+    elem *right=NULL;
+    elem *left=NULL;
+    char word[11];
+    int n=0;
 };
-struct tree
+
+void inorder(elem *ptr)
 {
-    tree *right;
-    tree *left;
-    char wordstring[11];
-};
-tree* root=NULL;
-void stringToList(char s[][4], int n,elem*&first, elem* &last, elem* &r)
-{
-    int j=0;
-    for(int i=0;i<n;i++)
+    if (ptr == NULL)
+        return;
+    //if (ptr != NULL
+    else
     {
-        r=new elem;
-        j=0;
-        while(s[i][j]!=0)
-        {
-            r->word[j]=s[i][j];
-             j++;
-        }
-        r->word[j]=0;
-        r->next=NULL;
-        if (first==NULL)
-        {
-            first=last=r;
-        }
-        else
-        {
-            last->next=r;
-            last=last->next;
-        }
+        inorder(ptr->left);
+       // cout<<ptr->key<<"  ";
+        inorder(ptr->right);
     }
 }
-void printList(elem*first)
-{
-    elem* r;
- for(r=first;r!=NULL;r=r->next)
-        {
-            cout<<r->word<<endl;
-        }
-}
-void deleteList (elem*&first)///saraksta dzesana
-{
-    elem *p = first;
-    while (p!=NULL)
-    {
-        first = first->next;
-        delete p;
-        p = first;
-    };
-};
-/*
- * Insert Element into Tree
- */
-void insertTree(tree*t, char* c)
+void insertNode(elem *t)
 {
     if (t == NULL)
     {
-        cout<<"t->NULL!"<<endl;
-        t = new tree;
+        t = new elem;
         t->left = t->right = NULL;
+       // t->key = x;
+///t->fix = rand();
     }
-    else///ja nav tukss koks
-    {
-        cout<<"t->else!"<<endl;
-        int i=0;
 
-        //else
-//{
-            if (c[i] < t->wordstring[i])
+        else
+        {
+           /* if (x < t->key)
             {
-                insertTree(t->left, c);
+                insert(t->left, x);
+                if (t->left->fix > t->fix)
+                    sigrotr(t);
             }
             else
             {
-                insertTree(t->right, c);
+                insert(t->right, x);
+                if (t->right->fix > t->fix)
+                sigrotl(t);
             }
-        //}
+        }*/
     }
 }
-
-
-
-int main ()
+void stringToList(char s[][4], int n,elem* root)
 {
-    elem *firstE=NULL, *lastE=NULL, *p;
-    elem *firstI=NULL, *lastI=NULL, *q;
-    char arrE[5][4]={{"E"},{"E+E"},{"E*E"},{"E-E"},{"I"}};
-    char arrI[5][4]={{"I"},{"a"},{"b"},{"aI"},{"Ib"}};
-    char start[4]="E";
-    stringToList(arrE, 5,firstE,lastE, p);
-    stringToList(arrI, 5,firstI,lastI, p);
-   // printList(firstE);
-  //  printList(firstI);
-    for(p=firstE;p!=NULL;p=p->next)
+    elem* ptr;
+    ptr=root;
+    int j=0;
+    for(int i=0;i<n;i++)///izveido no vardiem sarakstu
     {
-
-        for(q=firstI;q!=NULL;q=q->next)
+        if(ptr==NULL)
         {
-            insertTree(root, q->word);
-            cout<<p->word<<"  "<<q->word<<endl;
+            ptr=new elem;
+        }
+        else
+        {
+            while(ptr!=NULL)
+                  {
+                    ptr=ptr->left;
+                  }
+        }
+        j=0;
+        while(s[i][j]!=0)
+        {
+            ptr->word[j]=s[i][j];
+             j++;
+        }
+        ptr->word[j]=0;
+        ptr->left=NULL;
+        ptr->right=NULL;
+    }
+}
+void makeTree(elem* ptr, elem* &root)///firstI, rootI
+{
+    ptr=ptr->left;
+    elem* tmp;
+    if(root==NULL)
+    {
+        cout<<"NO LIST"<<endl;
+        root=ptr;///pirmais elem
+    }
+    //tmp=root;
+    else
+    {
+        while(ptr!=NULL)
+        {
+            if(ptr->word[0])
+            {
+                            cout<<ptr->word<<endl;
+            ptr=ptr->left;
+            }
 
         }
     }
-    deleteList(firstE);
-    deleteList(firstI);
+
+
+}
+
+int main ()
+{
+    //elem *firstE=NULL, *lastE=NULL, *p;
+    elem *firstI=NULL, *rootI=NULL, *q, *r;
+    //char arrE[5][4]={{"E"},{"E+E"},{"E*E"},{"E-E"},{"I"}};
+    char arrI[5][4]={{"I"},{"a"},{"b"},{"aI"},{"Ib"}};
+    char start[4]="I";
+    /*
+    stringToList(arrI, 5,firstI);
+    for(q=firstI;q!=0;q=q->left)
+    {
+        cout<<q->word[0]<<endl;
+    }
+*/  int j=0;
+    for(int i=0;i<5;i++)
+    {
+        q=new elem;
+        j=0;
+        while(arrI[i][j]!=0)
+        {
+            q->word[j]=arrI[i][j];
+          //  cout<<arrI[i][j]<<endl;
+             j++;
+        }
+        q->word[j]=0;
+       // cout<<endl;
+        if(firstI==NULL)
+        {
+            firstI=q;
+        }
+        else
+        {
+            r=firstI;
+            while(r->left!=NULL)
+            {
+                r=r->left;
+            }
+            r->left=q;
+        }
+        //cout<<arrI[i]<<endl;
+
+    }
+    q=firstI;
+    while(q!=NULL)
+    {
+       // cout<<q->word<<endl;
+        q=q->left;
+    }
+    makeTree(firstI, rootI);
+    q=rootI;
+     while(q!=NULL)
+    {
+        cout<<q->word<<endl;
+        q=q->left;
+    }
+    q=firstI;
+    while(q!=NULL)
+    {
+        cout<<q->word<<endl;
+        q=q->left;
+    }
+//stringToList(arrE, 5,firstE,lastE, p);
+//stringToList(arrI, 5,firstI,lastI, p);
+   // printList(firstE);
+  //  printList(firstI);
+
+  //  deleteList(firstI);
+
     return 0;
 }
 
