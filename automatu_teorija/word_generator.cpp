@@ -18,26 +18,21 @@ void copyWord(int l,char *from,char*to)
         i--;
     }
 }
-void addElem(elem *&last, elem * newelem)
-{
 
-}
-int haveElem(elem* first,elem* c)
+int haveElem(elem* c1,elem* c2, int &num)
 {
-    elem*p;
-    p=first;
+    elem* p;
+    p=c1;
     int i=0;
-    if(p->word[i]==c->word[i])
-    {
-        while(p->word[i]==c->word[i])
-        {
+    while(c1->word[i]==c2->word[i]&&i<c1->n)
+    {       // cout<<"c1="<<c1->word[i]<<"  c2="<<c2->word[i]<<endl;
             i++;
-        }
-
-        return 1;
     }
-    else
-    return 0;
+    if(i==c1->n)
+    {
+        cout<<"yes"<<endl;
+                num=1;
+    }
 
 }
 
@@ -53,7 +48,7 @@ int main ()
     char tmp3[11];
    // char tmp4[11];
     start=new elem;
-    int i=0,j=0,l=0,k=0,t=0;
+    int i=0,j=0,l=0,k=0,t=0,m=0;
     char startword[11]="E+E+E+E";
     while(startword[i]!=0)
     {
@@ -157,25 +152,20 @@ int main ()
                 }
                 else
                 {
+                    m=0;
                     for(p=print;p!=NULL;p=p->next)
                     {
-                       // if(haveElem(p, r)==1)
-                       //{
-                            cout<<"have="<<haveElem(p, r)<<"="<<r->word<<endl;//
-                            if(haveElem(p, r)==1)
-                            {
-                               // delete r;
-                              //  r=NULL;
-                              //  break;
-                            }
-                          //
 
-                       // };
+
+                            haveElem(p, r,m);
+
 
                     }
 
-                    if(r!=NULL);
+
+                    if(m==0);
                     {
+                        cout<<"m="<<m<<endl;
                         printlast->next=r;
                         printlast=printlast->next;
                     }
