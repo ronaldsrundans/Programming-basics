@@ -50,6 +50,7 @@ int main ()
              j++;
         }
         q->word[j]=0;
+        q->n=j;
        // cout<<endl;
         if(first==NULL)
         {
@@ -96,6 +97,29 @@ int main ()
             while(q!=NULL)
             {
                 cout<<tmp2<<q->word<<tmp3<<endl;
+                while(k<i)
+                {
+                    tmp4[k]=tmp2[k];
+                    k++;
+                }
+                k=0;
+                while(k<q->n)//aizpilda ar jaunajiem simboliem
+                {
+                    tmp4[k+i]=q->word[k];
+                    k++;
+                }
+                j=k+i;
+                while(tmp3[k-j]!=0)//aizpilda ar jaunajiem simboliem
+                {
+                    tmp4[k+i]=tmp3[k-j];
+                    k++;
+                }
+                tmp4[k+i]=0;
+                cout<<"tmp4="<<tmp4<<endl;//word beigas
+               /* while(k<)
+                {
+                    k++;
+                }*/
                 q=q->next;
             }
             /* k=0;
