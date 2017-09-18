@@ -22,6 +22,24 @@ void addElem(elem *&last, elem * newelem)
 {
 
 }
+int haveElem(elem* first,elem* c)
+{
+    elem*p;
+    p=first;
+    int i=0;
+    if(p->word[i]==c->word[i])
+    {
+        while(p->word[i]==c->word[i])
+        {
+            i++;
+        }
+
+        return 1;
+    }
+    else
+    return 0;
+
+}
 
 
 int main ()
@@ -36,7 +54,7 @@ int main ()
    // char tmp4[11];
     start=new elem;
     int i=0,j=0,l=0,k=0,t=0;
-    char startword[11]="E+E";
+    char startword[11]="E+E+E+E";
     while(startword[i]!=0)
     {
        start->word[i]=startword[i];
@@ -77,7 +95,7 @@ int main ()
             tmp2[0]=0;
             tmp3[0]=0;
     copyWord(start->n,start->word,tmp1);
-    cout<<tmp1<<endl;
+    cout<<"Sak="<<tmp1<<endl;
     i=0;
     while(tmp1[i]!=0)
     {
@@ -129,24 +147,41 @@ int main ()
                     k++;
                 }
                r->word[k+i]=0;
+               r->n=k+i;
               cout<<"r="<<r->word<<endl;//word beigas
-                ///saraksta izdruka
-                //p=print;
-
-
                if(print==NULL)
                 {
-                    cout<<"This!?"<<endl;
-                    cout<<"EMPTY"<<endl;
                     print=r;
                     printlast=r;
                     p=print;
                 }
                 else
                 {
-                    printlast->next=r;
-                    printlast=printlast->next;
+                    for(p=print;p!=NULL;p=p->next)
+                    {
+                       // if(haveElem(p, r)==1)
+                       //{
+                            cout<<"have="<<haveElem(p, r)<<"="<<r->word<<endl;//
+                            if(haveElem(p, r)==1)
+                            {
+                               // delete r;
+                              //  r=NULL;
+                              //  break;
+                            }
+                          //
+
+                       // };
+
+                    }
+
+                    if(r!=NULL);
+                    {
+                        printlast->next=r;
+                        printlast=printlast->next;
+                    }
+
                 }
+               // delete r;
                 q=q->next;
             }
         }
