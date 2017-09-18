@@ -17,21 +17,25 @@ void copyWord(int l,char *from,char*to)
         to[i]=from[i];
         i--;
     }
+}
+void addElem(elem *&last, elem * newelem)
+{
 
 }
 
 
 int main ()
 {
-    elem *first=NULL, *last=NULL, *q, *r, *start,*print=NULL, *printlast;//=NULL;
+    elem *first, *last, *q, *r,*p ,*start,*print, *printlast;
+    first=last=print=NULL;
     char arrE[5][4]={{"E"},{"E+E"},{"E*E"},{"E-E"},{"I"}};
     //char arrI[5][4]={{"I"},{"a"},{"b"},{"aI"},{"Ib"}};
     char tmp1[11];
     char tmp2[11];
     char tmp3[11];
-    char tmp4[11];
+   // char tmp4[11];
     start=new elem;
-    int i=0,j=0,l=0,k=0;
+    int i=0,j=0,l=0,k=0,t=0;
     char startword[11]="E+E";
     while(startword[i]!=0)
     {
@@ -54,6 +58,7 @@ int main ()
        // cout<<endl;
         if(first==NULL)
         {
+
             first=q;
             last=q;
         }
@@ -68,6 +73,9 @@ int main ()
     if(start!=NULL)
     {
         l=start->n;
+          tmp1[0]=0;
+            tmp2[0]=0;
+            tmp3[0]=0;
     copyWord(start->n,start->word,tmp1);
     cout<<tmp1<<endl;
     i=0;
@@ -76,7 +84,10 @@ int main ()
         if(tmp1[i]==first->word[0])//sakrit ar "E"
         {
             cout<<"match"<<endl;//then make new strings
+            k=0;
             j=0;
+
+           // r=NULL;
             while(j<i)//word sakumu nokope
             {
                 tmp2[j]=tmp1[j];
@@ -90,74 +101,61 @@ int main ()
                 j++;
             }
             tmp3[j-i-1]=0;
-            cout<<"tmp1="<<tmp1<<endl;//word
-            cout<<"tmp2="<<tmp2<<endl;//word sakums
-            cout<<"tmp3="<<tmp3<<endl;//word beigas*/
-            r=new elem;
+            t=j-i-1;
+
             q=first->next;
             while(q!=NULL)
             {
-                //cout<<"Goal="<<tmp2<<q->word<<tmp3<<endl;
+                r=new elem;
+               // cout<<"Goal="<<tmp2<<q->word<<tmp3<<endl;
                 k=0;
-                while(k<i)
+                while(k<i)///nokope varda pirmo dalu
                 {
-                    tmp4[k]=tmp2[k];
+                   // tmp4[k]=tmp2[k];
                     r->word[k]=tmp2[k];
+
                     k++;
                 }
                 k=0;
                 while(k<q->n)//aizpilda ar jaunajiem simboliem
                 {
-                    tmp4[k+i]=q->word[k];
                     r->word[k+i]=q->word[k];
                     k++;
                 }
                 j=k+i;
-                while(tmp3[k-j]!=0)//aizpilda ar jaunajiem simboliem
+                while(tmp3[k-j+i]!=0)//aizpilda ar jaunajiem simboliem
                 {
-                    cout<<"tmp3="<<tmp3[k-j]<<endl;
-                    tmp4[k+i]=tmp3[k-j];
-                    r->word[k+i]=tmp3[k-j];
+                    r->word[k+i]=tmp3[k-j+i];
                     k++;
                 }
-                tmp4[k+i]=0;
                r->word[k+i]=0;
-               tmp1[0]=0;
-               tmp2[0]=0;
-               tmp3[0]=0;
-               cout<<"r="<<r->word<<endl;//word beigas
+              cout<<"r="<<r->word<<endl;//word beigas
+                ///saraksta izdruka
+                //p=print;
+
+
                if(print==NULL)
                 {
+                    cout<<"This!?"<<endl;
+                    cout<<"EMPTY"<<endl;
                     print=r;
                     printlast=r;
+                    p=print;
                 }
                 else
                 {
                     printlast->next=r;
-                    printlast=r;
+                    printlast=printlast->next;
                 }
-
-                //cout<<"tmp4="<<tmp4<<endl;//word beigas
-               /* while(k<)
-                {
-                    k++;
-                }*/
                 q=q->next;
             }
-
-
-
-
-
         }
         i++;
     }
-
-        q=first;
-        while(q!=NULL)
-        {
-           // cout<<q->word<<endl;
-            q=q->next;
+    delete start;
+      for(p=print;p!=NULL;p=p->next)
+      {
+          cout<<"Print="<<p->word<<endl;
         }
     }
 
