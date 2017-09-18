@@ -30,16 +30,22 @@ int haveElem(elem* c1,elem* c2, int &num)
     }
     if(i==c1->n)
     {
-        cout<<"yes"<<endl;
+        //cout<<"yes"<<endl;
                 num=1;
     }
+
+}
+void addElem(elem* &last, elem* &a)
+{
+    last->next=a;
+    last=last->next;
 
 }
 
 
 int main ()
 {
-    elem *first, *last, *q, *r,*p ,*start,*print, *printlast;
+    elem *first, *last, *q, *r,*p ,*start,*print, *printlast,*z;
     first=last=print=NULL;
     char arrE[5][4]={{"E"},{"E+E"},{"E*E"},{"E-E"},{"I"}};
     //char arrI[5][4]={{"I"},{"a"},{"b"},{"aI"},{"Ib"}};
@@ -155,19 +161,24 @@ int main ()
                     m=0;
                     for(p=print;p!=NULL;p=p->next)
                     {
-
-
                             haveElem(p, r,m);
-
-
+                            if(m==1)
+                            {
+                                //z->next=p->next;
+                                //delete p;
+                                //p=z;
+                                //r=r->next;
+                            }
+                            //z=p;
                     }
 
-
+                    //m=1;
                     if(m==0);
                     {
+                        addElem(printlast,r);
                         cout<<"m="<<m<<endl;
-                        printlast->next=r;
-                        printlast=printlast->next;
+                       // printlast->next=r;
+                       // printlast=printlast->next;
                     }
 
                 }
