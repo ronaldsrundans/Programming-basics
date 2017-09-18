@@ -29,7 +29,7 @@ int haveElem(char* c1,char* c2, int n,int &num)
     }
     if(i==n)
     {
-        cout<<"yes"<<endl;
+       // cout<<"yes"<<endl;
                 num=0;
     }
     else
@@ -121,7 +121,7 @@ int main ()
     {
         if(tmp1[i]==first->word[0])//sakrit ar "E"
         {
-            cout<<"match"<<endl;//then make new strings
+            //cout<<"match"<<endl;//then make new strings
             k=0;
             j=0;
 
@@ -180,12 +180,12 @@ int main ()
                                 break;
                             }
                     }
-                    cout<<"m1="<<m<<endl;
+                   // cout<<"m1="<<m<<endl;
                     if(m==1);
                     {
                         if(m==0)
                         {
-                            cout<<"m2="<<m<<endl;cout<<"m2="<<m<<endl;
+                            //cout<<"m2="<<m<<endl;cout<<"m2="<<m<<endl;
                         }
 
 
@@ -215,18 +215,33 @@ int main ()
     }
     delete start;
     r=print;
+    z=print;
       for(p=print;p!=NULL;p=p->next)
       {
           for(q=print;q!=NULL;q=q->next)
           {
               if(haveElem2(p,q)==1)
               {
-                    cout<<"h="<<p->word<<"  "<<q->word<<endl;
 
+                    if(p!=q)
+                    {
+                       // cout<<"h="<<p->word<<"  "<<q->word<<endl;
+                        z->next=q->next;
+
+                        q=NULL;
+                        q=z;
+                       // cout<<"q="<<q->word<<endl;
+                    }
 
               }
+              z=q;
           }
+          r=p;
         }
+        for(p=print;p!=NULL;p=p->next)
+      {
+      cout<<"Print="<<p->word<<endl;
+      }
     }
     //cout<<"Print="<<p->word<<endl;
 
