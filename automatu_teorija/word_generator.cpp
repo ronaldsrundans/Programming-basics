@@ -23,7 +23,7 @@ void copyWord(int l,char *from,char*to)
 
 int main ()
 {
-    elem *first=NULL, *last=NULL, *q, *r, *start;//=NULL;
+    elem *first=NULL, *last=NULL, *q, *r, *start,*print=NULL, *printlast;//=NULL;
     char arrE[5][4]={{"E"},{"E+E"},{"E*E"},{"E-E"},{"I"}};
     //char arrI[5][4]={{"I"},{"a"},{"b"},{"aI"},{"Ib"}};
     char tmp1[11];
@@ -83,7 +83,7 @@ int main ()
                 j++;
             }
              tmp2[j]=0;
-            j=i+1;
+            j=j+1;
             while(j<l)//word beigas
             {
                 tmp3[j-i-1]=tmp1[j];
@@ -92,53 +92,59 @@ int main ()
             tmp3[j-i-1]=0;
             cout<<"tmp1="<<tmp1<<endl;//word
             cout<<"tmp2="<<tmp2<<endl;//word sakums
-            cout<<"tmp3="<<tmp3<<endl;//word beigas
+            cout<<"tmp3="<<tmp3<<endl;//word beigas*/
+            r=new elem;
             q=first->next;
             while(q!=NULL)
             {
-                cout<<tmp2<<q->word<<tmp3<<endl;
+                //cout<<"Goal="<<tmp2<<q->word<<tmp3<<endl;
+                k=0;
                 while(k<i)
                 {
                     tmp4[k]=tmp2[k];
+                    r->word[k]=tmp2[k];
                     k++;
                 }
                 k=0;
                 while(k<q->n)//aizpilda ar jaunajiem simboliem
                 {
                     tmp4[k+i]=q->word[k];
+                    r->word[k+i]=q->word[k];
                     k++;
                 }
                 j=k+i;
                 while(tmp3[k-j]!=0)//aizpilda ar jaunajiem simboliem
                 {
+                    cout<<"tmp3="<<tmp3[k-j]<<endl;
                     tmp4[k+i]=tmp3[k-j];
+                    r->word[k+i]=tmp3[k-j];
                     k++;
                 }
                 tmp4[k+i]=0;
-                cout<<"tmp4="<<tmp4<<endl;//word beigas
+               r->word[k+i]=0;
+               tmp1[0]=0;
+               tmp2[0]=0;
+               tmp3[0]=0;
+               cout<<"r="<<r->word<<endl;//word beigas
+               if(print==NULL)
+                {
+                    print=r;
+                    printlast=r;
+                }
+                else
+                {
+                    printlast->next=r;
+                    printlast=r;
+                }
+
+                //cout<<"tmp4="<<tmp4<<endl;//word beigas
                /* while(k<)
                 {
                     k++;
                 }*/
                 q=q->next;
             }
-            /* k=0;
-            while(k<i)//sak
-            {
-                tmp4[k]=tmp1[k];
-                k++;
-            }
-            while(k<j-i-1+k)//vidus
-            {
-                tmp4[k]=tmp1[k];
-                k++;
-            }
-            while(k<)//beigas
-             {
-                tmp4[k]=tmp1[k];
-                k++;
-            }
-*/
+
 
 
 
