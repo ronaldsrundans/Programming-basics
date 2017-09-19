@@ -109,6 +109,7 @@ int main ()
 {
     elem *first, *last, *q, *r,*p ,*ptr,*print, *printlast,*z,*firstE, *lastE,*firstI, *lastI;;
      firstI=lastI=firstE=lastE=first=last=print=NULL;
+     ///izveduma likumi
     char arrE[5][4]={{"E"},{"E+E"},{"E*E"},{"E-E"},{"I"}};
     char arrI[5][4]={{"I"},{"a"},{"b"},{"aI"},{"Ib"}};
     char tmp1[11];
@@ -117,66 +118,150 @@ int main ()
     char tmp4[11];
     first=new elem;
     int i=0,j=0,l=0,k=0,t=0,m=0,countE=0,countI=0;
-    char startword[11]="E+E+E+E";
+    ///sakuma vards
+    char startword[11]="E";
     while(startword[i]!=0)
     {
        first->word[i]=startword[i];
        i++;
     }
     first->n=i;
+    last=first;
+    //cout<<"Last="<<last->word<<endl;
+    last->next=NULL;
     stringToList(arrE,5,firstE, lastE);
     stringToList(arrI,5,firstI, lastI);
-    printList(firstE);
+   ///sarakstu izdrukasana
+  /* printList(firstE);
     printList(firstI);
-    printList(first);
+    printList(first);*/
     ptr=first;
     while(ptr!=NULL)
     {
-            tmp1[0]=0;
-            tmp2[0]=0;
-            tmp3[0]=0;
-            tmp4[0]=0;
-
-
+        tmp1[0]=0;
+        tmp2[0]=0;
+        tmp3[0]=0;
+        tmp4[0]=0;
+        countE=0;
+        countI=0;
         i=0;
+        l=ptr->n;
+        //cout<<l<<endl;
 
+        copyWord(ptr->n,ptr->word,tmp1);
+        while(i<l)///sakas simbolu meklesana
+        {
+            cout<<tmp1[i]<<endl;
+            if(tmp1[i]==firstE->word[0])
+            {
+                cout<<"yes E"<<endl;
+                countE++;
+                k=0;
+                j=0;
+                while(j<i)//word sakumu nokope
+                {
+                    tmp2[j]=tmp1[j];
+                    j++;
+                }
+                tmp2[j]=0;
+                j=j+1;
+                while(j<l)//word beigas
+                {
+                    tmp3[j-i-1]=tmp1[j];
+                    j++;
+                }
+                tmp3[j-i-1]=0;
+                t=j-i-1;
+                q=firstE->next;
+                while(q!=NULL)
+                {
+                    k=0;
+                    while(k<i)///nokope varda pirmo dalu
+                    {
+                        tmp4[k]=tmp2[k];
+                        k++;
+                    }
+                    k=0;
+                    while(k<q->n)//aizpilda ar jaunajiem simboliem
+                    {
+                        tmp4[k+i]=q->word[k];
+                        k++;
+                    }
+                    j=k+i;
+                    while(tmp3[k-j+i]!=0)//aizpilda ar jaunajiem simboliem
+                    {
+                        tmp4[k+i]=tmp3[k-j+i];
+                        k++;
+                    }
+                    tmp4[k+i]=0;
+                    m=1;
+                    for(p=first;p!=NULL;p=p->next)
+                    {
+                            haveElem(p->word, tmp4,p->n,m);
+                            if(m==0)
+                            {
+                                break;
+                            }
+                    }
+                    if(m==1)
+                    {
+                        r=new elem;
+                        r->n=k+i;
+                        for(m=k+i;m>=0;m--)
+                        {
+                            r->word[m]=tmp4[m];
+                        }
+                        cout<<r->word<<endl;
+                        last->next=r;
+                        last=r;
+                    }
+                    //last->next=NULL;
+
+
+                    q=q->next;///uzgenere nakamo jauno vardu
+                }
+            }
+
+            if(tmp1[i]==firstI->word[0])
+            {
+                cout<<"yes I"<<endl;
+                countI++;
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+            i++;
+        }///beidzas simbolu meklesana
+        if(countI==0 && countE==0)///varda izdrukasa jo nesatur ne E ne I
+        {
+            cout<<"missing print"<<endl;
+            //for()
+        }
+
+
+
+
+//cout<<tmp1<<endl;
+        first=first->next;
+        delete ptr;
+        ptr=first;
     }
 
 
 
    /* if(start!=NULL)
     {
-        l=start->n;
-          tmp1[0]=0;
-            tmp2[0]=0;
-            tmp3[0]=0;
-            tmp4[0]=0;
-    copyWord(start->n,start->word,tmp1);
-    cout<<"Sak="<<tmp1<<endl;
-    i=0;
-    while(tmp1[i]!=0)
-    {
-        if(tmp1[i]==first->word[0])//sakrit ar "E"
-        {
-            //cout<<"match"<<endl;//then make new strings
-            k=0;
-            j=0;
 
-           // r=NULL;
-            while(j<i)//word sakumu nokope
-            {
-                tmp2[j]=tmp1[j];
-                j++;
-            }
-             tmp2[j]=0;
-            j=j+1;
-            while(j<l)//word beigas
-            {
-                tmp3[j-i-1]=tmp1[j];
-                j++;
-            }
-            tmp3[j-i-1]=0;
-            t=j-i-1;
 
             q=first->next;
             while(q!=NULL)
