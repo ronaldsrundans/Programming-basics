@@ -107,7 +107,7 @@ void stringToList(char s[][4], int n,elem* &f, elem* &l)
 
 int main ()
 {
-    elem *first, *last, *q, *r,*p ,*ptr,*print, *printlast,*z,*firstE, *lastE,*firstI, *lastI;;
+    elem *first, *last, *q, *r,*p ,*u, *v,*ptr,*print, *printlast,*z,*firstE, *lastE,*firstI, *lastI;;
      firstI=lastI=firstE=lastE=first=last=print=NULL;
      ///izveduma likumi
     char arrE[5][4]={{"E"},{"E+E"},{"E*E"},{"E-E"},{"I"}};
@@ -151,10 +151,10 @@ int main ()
         copyWord(ptr->n,ptr->word,tmp1);
         while(i<l)///sakas simbolu meklesana
         {
-            cout<<tmp1[i]<<endl;
+           // cout<<tmp1[i]<<endl;
             if(tmp1[i]==firstE->word[0])
             {
-                cout<<"yes E"<<endl;
+               // cout<<"yes E"<<endl;
                 countE++;
                 k=0;
                 j=0;
@@ -194,6 +194,65 @@ int main ()
                         k++;
                     }
                     tmp4[k+i]=0;
+                    r=new elem;
+                    r->n=k+i;
+                    for(m=k+i;m>=0;m--)
+                    {
+                        r->word[m]=tmp4[m];
+
+                    }
+
+                    last->next=r;
+                    last=last->next;
+                    printList(first);
+                    break;
+                    q=q->next;///uzgenere nakamo jauno vardu no E
+                }
+            }
+
+
+            if(tmp1[i]==firstI->word[0])
+            {
+                //cout<<"yes I"<<endl;
+                countI++;
+                k=0;
+                j=0;
+                while(j<i)//word sakumu nokope
+                {
+                    tmp2[j]=tmp1[j];
+                    j++;
+                }
+                tmp2[j]=0;
+                j=j+1;
+                while(j<l)//word beigas
+                {
+                    tmp3[j-i-1]=tmp1[j];
+                    j++;
+                }
+                tmp3[j-i-1]=0;
+                t=j-i-1;
+                q=firstI->next;
+                while(q!=NULL)
+                {
+                    k=0;
+                    while(k<i)///nokope varda pirmo dalu
+                    {
+                        tmp4[k]=tmp2[k];
+                        k++;
+                    }
+                    k=0;
+                    while(k<q->n)//aizpilda ar jaunajiem simboliem
+                    {
+                        tmp4[k+i]=q->word[k];
+                        k++;
+                    }
+                    j=k+i;
+                    while(tmp3[k-j+i]!=0)//aizpilda ar jaunajiem simboliem
+                    {
+                        tmp4[k+i]=tmp3[k-j+i];
+                        k++;
+                    }
+                    tmp4[k+i]=0;
                     m=1;
                     for(p=first;p!=NULL;p=p->next)
                     {
@@ -211,21 +270,15 @@ int main ()
                         {
                             r->word[m]=tmp4[m];
                         }
-                        cout<<r->word<<endl;
+                       // cout<<r->word<<endl;
                         last->next=r;
                         last=r;
                     }
                     //last->next=NULL;
 
 
-                    q=q->next;///uzgenere nakamo jauno vardu
+                    q=q->next;///uzgenere nakamo jauno vardu no E
                 }
-            }
-
-            if(tmp1[i]==firstI->word[0])
-            {
-                cout<<"yes I"<<endl;
-                countI++;
             }
 
 
@@ -245,6 +298,8 @@ int main ()
         if(countI==0 && countE==0)///varda izdrukasa jo nesatur ne E ne I
         {
             cout<<"missing print"<<endl;
+            printList(first);
+
             //for()
         }
 
@@ -252,7 +307,11 @@ int main ()
 
 
 //cout<<tmp1<<endl;
+        cout<<"LIST:"<<endl;
+            printList(first);
+                    cout<<"END LIST"<<endl;
         first=first->next;
+      //  cout<<"nak="<<first->word<<endl;
         delete ptr;
         ptr=first;
     }
