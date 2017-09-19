@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <cstring>
 #include <cstdlib>
@@ -61,53 +62,89 @@ int haveElem2(elem* c1,elem* c2)
 
 }
 
+
+void stringToList(char s[][4], int n,elem* &f, elem* &l)
+{
+    elem* t;
+    int j=0;
+    for(int i=0;i<n;i++)///izveido no vardiem sarakstu
+   {
+        t=new elem;
+        j=0;
+        while(s[i][j]!=0)
+        {
+            t->word[j]=s[i][j];
+             j++;
+        }
+        t->word[j]=0;
+        t->n=j;
+       // cout<<t->word<<endl;
+        if(f==NULL)
+        {
+
+            f=t;
+            l=t;
+        }
+       else
+        {
+            l->next=t;
+            l=t;
+        }
+        //cout<<arrE[i]<<e
+     }
+ }
+ void printList(elem *f)
+ {
+
+ elem* p;
+
+     for(p=f;p!=NULL;p=p->next)
+      {
+      cout<<p->word<<endl;
+      }
+ }
+
+
 int main ()
 {
-    elem *first, *last, *q, *r,*p ,*start,*print, *printlast,*z;
-    first=last=print=NULL;
+    elem *first, *last, *q, *r,*p ,*ptr,*print, *printlast,*z,*firstE, *lastE,*firstI, *lastI;;
+     firstI=lastI=firstE=lastE=first=last=print=NULL;
     char arrE[5][4]={{"E"},{"E+E"},{"E*E"},{"E-E"},{"I"}};
-    //char arrI[5][4]={{"I"},{"a"},{"b"},{"aI"},{"Ib"}};
+    char arrI[5][4]={{"I"},{"a"},{"b"},{"aI"},{"Ib"}};
     char tmp1[11];
     char tmp2[11];
     char tmp3[11];
     char tmp4[11];
-    start=new elem;
-    int i=0,j=0,l=0,k=0,t=0,m=0;
+    first=new elem;
+    int i=0,j=0,l=0,k=0,t=0,m=0,countE=0,countI=0;
     char startword[11]="E+E+E+E";
     while(startword[i]!=0)
     {
-       start->word[i]=startword[i];
+       first->word[i]=startword[i];
        i++;
     }
-    start->n=i;
-    i=0;
-    for(i=0;i<5;i++)
+    first->n=i;
+    stringToList(arrE,5,firstE, lastE);
+    stringToList(arrI,5,firstI, lastI);
+    printList(firstE);
+    printList(firstI);
+    printList(first);
+    ptr=first;
+    while(ptr!=NULL)
     {
-        q=new elem;
-        j=0;
-        while(arrE[i][j]!=0)
-        {
-            q->word[j]=arrE[i][j];
-             j++;
-        }
-        q->word[j]=0;
-        q->n=j;
-       // cout<<endl;
-        if(first==NULL)
-        {
+            tmp1[0]=0;
+            tmp2[0]=0;
+            tmp3[0]=0;
+            tmp4[0]=0;
 
-            first=q;
-            last=q;
-        }
-       else
-        {
-            last->next=q;
-            last=q;
-        }
-        //cout<<arrE[i]<<endl;
+
+        i=0;
+
     }
 
-    if(start!=NULL)
+
+
+   /* if(start!=NULL)
     {
         l=start->n;
           tmp1[0]=0;
@@ -244,7 +281,6 @@ int main ()
       }
     }
     //cout<<"Print="<<p->word<<endl;
-
+*/
     return 0;
 }
-
