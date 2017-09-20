@@ -107,7 +107,7 @@ void stringToList(char s[][4], int n,elem* &f, elem* &l)
 
 int main ()
 {
-    elem *first, *last, *q, *r,*p ,*u, *v,*ptr,*print, *printlast,*z,*firstE, *lastE,*firstI, *lastI;;
+    elem *first, *last, *q, *r,*p ,*u, *v,*ptr,*print, *printlast,*z,*firstE, *lastE,*firstI, *lastI,*start, *stop;
      firstI=lastI=firstE=lastE=first=last=print=NULL;
      ///izveduma likumi
     char arrE[5][4]={{"E"},{"E+E"},{"E*E"},{"E-E"},{"I"}};
@@ -117,7 +117,7 @@ int main ()
     char tmp3[11];
     char tmp4[11];
     first=new elem;
-    int i=0,j=0,l=0,k=0,t=0,m=0,countE=0,countI=0;
+    int i=0,j=0,l=0,k=0,t=0,m=0,countE=0,countI=0, num=0;
     ///sakuma vards
     char startword[11]="E";
     while(startword[i]!=0)
@@ -136,7 +136,7 @@ int main ()
     printList(firstI);
     printList(first);*/
     ptr=first;
-    while(ptr!=NULL)
+    while(ptr!=NULL && num<11)
     {
         tmp1[0]=0;
         tmp2[0]=0;
@@ -144,6 +144,8 @@ int main ()
         tmp4[0]=0;
         countE=0;
         countI=0;
+        start=NULL;
+        stop=NULL;
         i=0;
         l=ptr->n;
         //cout<<l<<endl;
@@ -194,21 +196,59 @@ int main ()
                         k++;
                     }
                     tmp4[k+i]=0;
-                    r=new elem;
-                    r->n=k+i;
-                    for(m=k+i;m>=0;m--)
-                    {
-                        r->word[m]=tmp4[m];
 
-                    }
+                         m=1;
+                      for(p=print;p!=NULL;p=p->next)
+                      {
 
-                    last->next=r;
-                    last=last->next;
-                    printList(first);
-                    break;
-                    q=q->next;///uzgenere nakamo jauno vardu no E
-                }
+                             haveElem(p->word, tmp4,p->n,m);
+                             if(m==0)
+                            {
+                                break;
+                             }
+                             //z=p;
+                      }
+
+                    //m=1;
+                    if(m==0);
+                     cout<<"m1="<<m<<endl;
+                     if(m==1)
+                      {
+                         addElem(printlast,r);
+                         cout<<"m="<<m<<endl;
+                        // printlast->next=r;
+                        // printlast=printlast->next;
+
+
+
+
+                // delete r;
+
+                        // addElem(printlast,r);
+                        r=new elem;
+                         r->n=k+i;
+                         for(m=k+i;m>=0;m--)
+                         {
+                             r->word[m]=tmp4[m];
+                         }
+
+                          if(print==NULL)
+                         {
+                             print=r;
+                             printlast=r;
+                             p=print;
+                         }
+                         else
+                         {
+                             addElem(printlast,r);
+                         }
+                     }
+                  q=q->next;
+              }
+
+
             }
+
 
 
             if(tmp1[i]==firstI->word[0])
@@ -253,31 +293,28 @@ int main ()
                         k++;
                     }
                     tmp4[k+i]=0;
-                    m=1;
-                    for(p=first;p!=NULL;p=p->next)
+
+                    r=new elem;
+                    r->n=k+i;
+                    for(m=k+i;m>=0;m--)
                     {
-                            haveElem(p->word, tmp4,p->n,m);
-                            if(m==0)
-                            {
-                                break;
-                            }
+                        r->word[m]=tmp4[m];
+
                     }
-                    if(m==1)
-                    {
-                        r=new elem;
-                        r->n=k+i;
-                        for(m=k+i;m>=0;m--)
-                        {
-                            r->word[m]=tmp4[m];
-                        }
-                       // cout<<r->word<<endl;
-                        last->next=r;
-                        last=r;
-                    }
-                    //last->next=NULL;
+                    cout<<"r word="<<r->word<<"   n="<<r->n<<endl;
+                    num=r->n;
+
+                    ///kluda?
+
+                    last->next=r;
+                    last=last->next;
+
+                    printList(first);
+                    //break;
+                    q=q->next;///uzgenere nakamo jauno vardu no I
 
 
-                    q=q->next;///uzgenere nakamo jauno vardu no E
+
                 }
             }
 
