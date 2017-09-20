@@ -1,4 +1,5 @@
 
+
 #include <iostream>
 #include <cstring>
 #include <cstdlib>
@@ -20,21 +21,28 @@ void copyWord(int l,char *from,char*to)
     }
 }
 
-int haveElem(char* c1,char* c2, int n,int &num)
+int haveElem(char* c1,char* c2, int n,int x,int &num)
 {
     int i=0;
    // cout<<num<<endl;
+   if (n==x)
+   {
     while(c1[i]==c2[i]&&i<n)
     {       // cout<<"c1="<<c1->word[i]<<"  c2="<<c2->word[i]<<endl;
             i++;
     }
     if(i==n)
     {
-       // cout<<"yes"<<endl;
-                num=0;
+        //cout<<"yes"<<endl;
+                num=0;///ja ir vienadi vardi
     }
     else
         num=1;
+    }
+    else
+    {
+    num=1;
+    }
 
 
 }
@@ -107,8 +115,8 @@ void stringToList(char s[][4], int n,elem* &f, elem* &l)
 
 int main ()
 {
-    elem *first, *last, *q, *r,*p ,*u, *v,*ptr,*print, *printlast,*z,*firstE, *lastE,*firstI, *lastI,*start, *stop;
-     firstI=lastI=firstE=lastE=first=last=print=NULL;
+    elem *first, *last, *q, *r,*p ,*u, *v,*ptr,*tmpfirst, *tmplast,*z,*firstE, *lastE,*firstI, *lastI,*start, *stop;
+     firstI=lastI=firstE=lastE=first=last=tmpfirst=tmplast=NULL;
      ///izveduma likumi
     char arrE[5][4]={{"E"},{"E+E"},{"E*E"},{"E-E"},{"I"}};
     char arrI[5][4]={{"I"},{"a"},{"b"},{"aI"},{"Ib"}};
@@ -119,25 +127,37 @@ int main ()
     first=new elem;
     int i=0,j=0,l=0,k=0,t=0,m=0,countE=0,countI=0, num=0;
     ///sakuma vards
-    char startword[11]="E";
+    char startword[11]="E+E";
     while(startword[i]!=0)
     {
        first->word[i]=startword[i];
        i++;
     }
     first->n=i;
+    cout<<i<<endl;
     last=first;
     //cout<<"Last="<<last->word<<endl;
-    last->next=NULL;
+    //last->next=NULL;
     stringToList(arrE,5,firstE, lastE);
     stringToList(arrI,5,firstI, lastI);
    ///sarakstu izdrukasana
   /* printList(firstE);
-    printList(firstI);
-    printList(first);*/
+    printList(firstI);*/
+   // printList(firstI);
     ptr=first;
-    while(ptr!=NULL && num<11)
+//cout<<ptr<<endl;
+    //if(ptr!=NULL)
+  //  while(ptr!=NULL)
+  while(t<2)
     {
+
+
+    tmpfirst=NULL;
+q=first;
+//q=first;
+// cout<<"Start LIST:"<<endl;
+     printList(q);
+        //    cout<<"END LIST"<<endl;
         tmp1[0]=0;
         tmp2[0]=0;
         tmp3[0]=0;
@@ -148,15 +168,16 @@ int main ()
         stop=NULL;
         i=0;
         l=ptr->n;
-        //cout<<l<<endl;
+        cout<<l<<endl;
 
         copyWord(ptr->n,ptr->word,tmp1);
+       // cout<<tmp1<<endl;
         while(i<l)///sakas simbolu meklesana
         {
            // cout<<tmp1[i]<<endl;
             if(tmp1[i]==firstE->word[0])
             {
-               // cout<<"yes E"<<endl;
+            cout<<"yes E"<<endl;
                 countE++;
                 k=0;
                 j=0;
@@ -198,33 +219,20 @@ int main ()
                     tmp4[k+i]=0;
 
                          m=1;
-                      for(p=print;p!=NULL;p=p->next)
+                      for(p=tmpfirst;p!=NULL;p=p->next)
                       {
 
-                             haveElem(p->word, tmp4,p->n,m);
+                             haveElem(p->word, tmp4,p->n,k+i,m);
                              if(m==0)
                             {
                                 break;
                              }
-                             //z=p;
-                      }
+                        }
 
-                    //m=1;
-                    if(m==0);
-                     cout<<"m1="<<m<<endl;
                      if(m==1)
                       {
-                         addElem(printlast,r);
-                         cout<<"m="<<m<<endl;
-                        // printlast->next=r;
-                        // printlast=printlast->next;
+                         //addElem(printlast,r);
 
-
-
-
-                // delete r;
-
-                        // addElem(printlast,r);
                         r=new elem;
                          r->n=k+i;
                          for(m=k+i;m>=0;m--)
@@ -232,15 +240,17 @@ int main ()
                              r->word[m]=tmp4[m];
                          }
 
-                          if(print==NULL)
+                          if(tmpfirst==NULL)
                          {
-                             print=r;
-                             printlast=r;
-                             p=print;
+                             tmpfirst=r;
+                             tmplast=r;
+                             //p=print;
                          }
                          else
                          {
-                             addElem(printlast,r);
+                             ///addElem(printlast,r);
+                             tmplast->next=r;
+                             tmplast=tmplast->next;
                          }
                      }
                   q=q->next;
@@ -248,12 +258,11 @@ int main ()
 
 
             }
-
-
-
-            if(tmp1[i]==firstI->word[0])
+///atrada "I"
+  /* if(tmp1[i]==firstI->word[0])
             {
-                //cout<<"yes I"<<endl;
+        //    cout<<"found I"<<endl;
+               cout<<"yes I"<<endl;
                 countI++;
                 k=0;
                 j=0;
@@ -294,37 +303,46 @@ int main ()
                     }
                     tmp4[k+i]=0;
 
-                    r=new elem;
-                    r->n=k+i;
-                    for(m=k+i;m>=0;m--)
-                    {
-                        r->word[m]=tmp4[m];
+                         m=1;
+                      for(p=tmpfirst;p!=NULL;p=p->next)
+                      {
 
-                    }
-                    cout<<"r word="<<r->word<<"   n="<<r->n<<endl;
-                    num=r->n;
+                             haveElem(p->word, tmp4,p->n,k+i,m);
+                             if(m==0)
+                            {
+                                break;
+                             }
+                        }
 
-                    ///kluda?
+                     if(m==1)
+                      {
+                         //addElem(printlast,r);
 
-                    last->next=r;
-                    last=last->next;
+                        r=new elem;
+                         r->n=k+i;
+                         for(m=k+i;m>=0;m--)
+                         {
+                             r->word[m]=tmp4[m];
+                         }
 
-                    printList(first);
-                    //break;
-                    q=q->next;///uzgenere nakamo jauno vardu no I
+                          if(tmpfirst==NULL)
+                         {
+                             tmpfirst=r;
+                             tmplast=r;
+                             //p=print;
+                         }
+                         else
+                         {
+                             ///addElem(printlast,r);
+                             tmplast->next=r;
+                             tmplast=tmplast->next;
+                         }
+                     }
+                  q=q->next;
+              }
 
 
-
-                }
-            }
-
-
-
-
-
-
-
-
+            }*/
 
 
 
@@ -332,33 +350,62 @@ int main ()
 
             i++;
         }///beidzas simbolu meklesana
+      //   cout<<"I="<<countI<<endl;
+      //  cout<<"E="<<countE<<endl;
+        t++;
+
         if(countI==0 && countE==0)///varda izdrukasa jo nesatur ne E ne I
         {
-            cout<<"missing print"<<endl;
-            printList(first);
+
+        cout<<"Print="<<tmp1<<endl;
+           // cout<<"Print:"<<ptr->word<<endl;
+            /*q=ptr;
+            while(q->word[i]!=0)
+            {
+            cout<<q->word[i]<<endl;
+
+            }*/
+//printList(first);
 
             //for()
         }
 
-
-
-
-//cout<<tmp1<<endl;
-        cout<<"LIST:"<<endl;
-            printList(first);
+/*
+cout<<"LIST:"<<endl;
+            printList(tmpfirst);
                     cout<<"END LIST"<<endl;
+*/
+//cout<<tmp1<<endl
+p=tmpfirst;
+while(p!=NULL)
+{
+q=p->next;
+last->next=p;
+last=last->next;
+p=p->next;
+}
+
+
+q=first;
+       // cout<<"LIST:"<<endl;
+  //  printList(q);
+       // cout<<"END LIST"<<endl;
         first=first->next;
       //  cout<<"nak="<<first->word<<endl;
         delete ptr;
         ptr=first;
+       /// cout<<"LIST:"<<endl;
+        //    printList(first);
+         //   cout<<"END LIST"<<endl;
+       // cout<<"ptr="<<ptr->word<<endl;
+        //break;
+//        break;
     }
 
 
 
    /* if(start!=NULL)
     {
-
-
             q=first->next;
             while(q!=NULL)
             {
@@ -369,7 +416,6 @@ int main ()
                 {
                     tmp4[k]=tmp2[k];
                   //  r->word[k]=tmp2[k];
-
                     k++;
                 }
                 k=0;
@@ -388,7 +434,6 @@ int main ()
                 }
                 tmp4[k+i]=0;
                // r->word[k+i]=0;
-
                 m=1;
                     for(p=print;p!=NULL;p=p->next)
                     {
@@ -405,8 +450,6 @@ int main ()
                         {
                             //cout<<"m2="<<m<<endl;cout<<"m2="<<m<<endl;
                         }
-
-
                        // addElem(printlast,r);
                         r=new elem;
                         r->n=k+i;
@@ -414,7 +457,6 @@ int main ()
                         {
                             r->word[m]=tmp4[m];
                         }
-
                          if(print==NULL)
                         {
                             print=r;
@@ -440,17 +482,14 @@ int main ()
           {
               if(haveElem2(p,q)==1)
               {
-
                     if(p!=q)
                     {
                        // cout<<"h="<<p->word<<"  "<<q->word<<endl;
                         z->next=q->next;
-
                         q=NULL;
                         q=z;
                        // cout<<"q="<<q->word<<endl;
                     }
-
               }
               z=q;
           }
@@ -465,3 +504,4 @@ int main ()
 */
     return 0;
 }
+
