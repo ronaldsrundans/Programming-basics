@@ -141,7 +141,7 @@ int main ()
    // first=firstE;
     ptr=first;
     last=first;
-while(ptr!=NULL && t<5)
+while(ptr!=NULL && t<4)
 {
       //  cout<<ptr->word[0]<<endl;
         tmpfirst=NULL;
@@ -156,8 +156,7 @@ while(ptr!=NULL && t<5)
        // stop=NULL;
         i=0;
         l=ptr->n;
-        if(l<11)
-       {// copyWord(ptr->n,ptr->word,tmp1);
+
         while(i<l)
         {
             tmp1[i]=ptr->word[i];
@@ -249,7 +248,37 @@ while(ptr!=NULL && t<5)
               }
             }
 
+
+            i++;
+        }///beidzas E meklesana un jaunu elementu izveidosana
+
+
+       // tmp1[0]=0;
+        tmp2[0]=0;
+        tmp3[0]=0;
+        tmp4[0]=0;
+       // countE=0;
+        //countI=0;
+        //start=NULL;
+       // stop=NULL;
+        i=0;
+        l=ptr->n;
+
+        while(i<l)
+        {
+            tmp1[i]=ptr->word[i];
+            i++;
+        }
+        tmp1[i]=0;
+        i=0;
+        while(i<l)///sakas simbolu meklesana
+        {
+
+
 ///I parbaude
+        i=0;
+        while(i<l)///sakas simbolu meklesana
+        {
               if(tmp1[i]==firstI->word[0])
             {
             //cout<<"yes I="<<tmp1<<endl;
@@ -335,7 +364,7 @@ while(ptr!=NULL && t<5)
 
 
             i++;
-        }///beidzas E,I meklesana un jaunu elementu izveidosana
+        }///beidzas E meklesana un jaunu elementu izveidosana
 
 
  if(countI==0 && countE==0)///varda izdrukasa jo nesatur ne E ne I
