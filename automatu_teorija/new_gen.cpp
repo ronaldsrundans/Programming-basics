@@ -105,15 +105,12 @@ if (arr[3]==5)
 {
     sum=sum+2;
 }
-if (arr[4]==5)
+if (arr[4]>1)
 {
     sum=sum+2;
 }
 ///?
-if(arr[2]>1)
-{
-    sum=sum+2;
-}
+
 //sum=arr[2]+arr[3]+arr[4];
  if (arr[4]==5 && arr[3]==5)c[3]=c2[arr[3]];
 else if (sum<4)c[3]=c2[arr[3]];///ja (nak) pos ir"/0" un pats a vai b
