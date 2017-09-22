@@ -1,3 +1,4 @@
+
 #include <cstring>
 #include <iostream>
 #include <fstream>
@@ -8,7 +9,7 @@ int main()
 fstream fout;
 fout.open("out.txt",ios::out);
     int arr[10]={0,0,0,0,0,0,0,0,0,0};
-    int i=0,k=0,m=0,n=0,o=0,p=0,q=0,r=0,s=0,j=0,sum=0;
+    int i=0,k=0,m=0,n=0,o=0,p=0,q=0,r=0,s=0,j=0,sum=0, num=0;
     char c1[3]="ab";
     char c2[6]="ab+-*";
 
@@ -49,14 +50,16 @@ fout.open("out.txt",ios::out);
                                             c[0]=c1[arr[0]];///te bus tikai "a" vai "b"
                                             ///pos1
 sum=0;
-if (arr[1]>1)
+if (arr[1]>1 )
 {
     sum=sum+2;
 }
+/*
 if (arr[2]>1)
 {
     sum=sum+2;
-}
+}*/
+
 if (arr[1]==5)
 {
     sum=sum+2;
@@ -73,10 +76,7 @@ else if (sum<4)c[1]=c2[arr[1]];///ja (nak) pos ir"/0" un pats a vai b
 else continue;
                               ///pos2
 sum=0;
-if (arr[1]>1)
-{
-    sum=sum+2;
-}
+
 if (arr[2]>1)
 {
     sum=sum+2;
@@ -208,7 +208,7 @@ else continue;
                                                 ///pos7
 
 sum=0;
-if (arr[6]>1)
+if (arr[8]>1 or arr[6]>1)
 {
     sum=sum+2;
 }
@@ -216,24 +216,25 @@ if (arr[7]>1)
 {
     sum=sum+2;
 }
+
+
 if (arr[7]==5)
 {
     sum=sum+2;
-}
-
+}/*
 if (arr[8]==5)
 {
     sum=sum+2;
 }
+*/
 
 //sum=arr[6]+arr[7]+arr[8];
 if (arr[8]==5 && arr[7]==5) c[7]=c2[arr[7]];
 else if (sum<4)c[7]=c2[arr[7]];///ja (nak) pos ir"/0" un pats a vai b
 
 else continue;
-                                           // c[7]=c2[arr[7]];
-                                            ///pos8
 
+                                            ///pos8
 
 sum=0;
 if (arr[7]>1)
@@ -252,8 +253,6 @@ if(arr[9]==2)
 {
     sum=sum+2;
 }
-
-//sum=arr[7]+arr[8]+arr[9];
 if (arr[9]==2 && arr[8]==5)c[8]=c2[arr[8]];
 else if (sum<4)c[8]=c2[arr[8]];///ja (nak) pos ir"/0" un pats a vai b
 else continue;
@@ -261,8 +260,8 @@ else continue;
                                         ///pos9
                                         c[9]=c1[arr[9]];
 
-
-                                        fout<<"c="<<c<<endl;
+                                        num++;
+                                        fout<<"c="<<c<<" n="<<num<<endl;
                                         cout<<c<<endl;
                                     }///pos 0
                                 }///pos 1
@@ -277,3 +276,4 @@ else continue;
     //if (c[3]==0)cout << "Hello world!" << endl;
     return 0;
 }
+
