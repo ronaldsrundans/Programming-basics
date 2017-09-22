@@ -51,34 +51,39 @@ fout.open("out.txt",ios::out);
 sum=0;
 if (arr[1]>1)
 {
-    sum=sum+3;
+    sum=sum+2;
 }
 if (arr[2]>1)
 {
-    sum=sum+3;
-}                                           // c[1]=c2[arr[1]];
- if (sum<5)c[1]=c2[arr[1]];///ja (nak) pos ir"/0" un pats a vai b
-else if (arr[1]==5 && arr[2]==5)c[1]=c2[arr[1]];
+    sum=sum+2;
+}
+if (arr[1]==5)
+{
+    sum=sum+2;
+}                                       // c[1]=c2[arr[1]];
+
+ if (arr[2]==5 && arr[1]==5 )c[1]=c2[arr[1]];
+
+else if (sum<4)c[1]=c2[arr[1]];///ja (nak) pos ir"/0" un pats a vai b
+//else if (arr[1]==5 && arr[2]==5)c[1]=c2[arr[1]];
 else continue;
                               ///pos2
 sum=0;
 if (arr[1]>1)
 {
-    sum=sum+3;
+    sum=sum+2;
 }
 if (arr[2]>1)
 {
-    sum=sum+3;
+    sum=sum+2;
 }
-if (arr[3]>1)
-{
-    sum=sum+3;
-}
+
 //if (arr[3] && arr[2]==5)c[2]=c2[arr[2]];///ja (nak) pos ir"/0" un pats a vai b
 //else
 //sum=arr[1]+arr[2]+arr[3];
 
- if (sum<6)c[2]=c2[arr[2]];///ja (nak) pos ir"/0" un pats a vai b
+if (arr[3]==5 && arr[2]==5) c[2]=c2[arr[2]];
+else if (sum<4)c[2]=c2[arr[2]];///ja (nak) pos ir"/0" un pats a vai b
 
 //if((arr[3]<2 or arr[1]<2)&& arr[2]<5)c[2]=c2[arr[2]];
  //else if (arr[3]==5&&(arr[2]==5 or arr[2]<2))c[2]=c2[arr[2]];
@@ -109,18 +114,16 @@ else continue;*/
 sum=0;
 if (arr[2]>1)
 {
-    sum=sum+3;
+    sum=sum+2;
 }
 if (arr[3]>1)
 {
-    sum=sum+3;
+    sum=sum+2;
 }
-if (arr[4]>1)
-{
-    sum=sum+3;
-}
+
 //sum=arr[2]+arr[3]+arr[4];
- if (sum<6)c[3]=c2[arr[3]];///ja (nak) pos ir"/0" un pats a vai b
+ if (arr[4]==5 && (arr[3]<2)or(arr[3]==5) )c[3]=c2[arr[3]];
+else if (sum<4)c[3]=c2[arr[3]];///ja (nak) pos ir"/0" un pats a vai b
 
 //if((arr[2]<2 or arr[4]<2)&& arr[3]<5)c[3]=c2[arr[3]];
 //else if (arr[4]==5 &&arr[3]==5)c[3]=c2[arr[3]];///ja (nak) pos ir"/0" un pats a vai b
@@ -141,17 +144,15 @@ else continue;*/
 sum=0;
 if (arr[3]>1)
 {
-    sum=sum+3;
+    sum=sum+2;
 }
 if (arr[4]>1)
 {
-    sum=sum+3;
+    sum=sum+2;
 }
-if (arr[5]>1)
-{
-    sum=sum+3;
-}
- if (sum<6)c[4]=c2[arr[4]];///ja (nak) pos ir"/0" un pats a vai b
+
+if (arr[5]==5 && (arr[4]<2)or(arr[7]==5) )c[4]=c2[arr[4]];
+else if (sum<4)c[4]=c2[arr[4]];///ja (nak) pos ir"/0" un pats a vai b
 
 else continue;
 
@@ -169,18 +170,16 @@ else continue;*/
 sum=0;
 if (arr[4]>1)
 {
-    sum=sum+3;
+    sum=sum+2;
 }
 if (arr[5]>1)
 {
-    sum=sum+3;
+    sum=sum+2;
 }
-if (arr[6]>1)
-{
-    sum=sum+3;
-}
+
 //sum=arr[4]+arr[5]+arr[6];
- if (sum<6)c[5]=c2[arr[5]];///ja (nak) pos ir"/0" un pats a vai b
+if (arr[6]==5 && (arr[5]<2)or(arr[5]==5) )c[5]=c2[arr[5]];
+else if (sum<4)c[5]=c2[arr[5]];///ja (nak) pos ir"/0" un pats a vai b
 
 else continue;
 
@@ -197,18 +196,17 @@ else continue;*/
 sum=0;
 if (arr[5]>1)
 {
-    sum=sum+3;
+    sum=sum+2;
 }
 if (arr[6]>1)
 {
-    sum=sum+3;
+    sum=sum+2;
 }
-if (arr[7]>1)
-{
-    sum=sum+3;
-}
+
 //sum=arr[5]+arr[6]+arr[7];
- if (sum<5)c[6]=c2[arr[6]];///ja (nak) pos ir"/0" un pats a vai b
+
+ if (arr[7]==5 && (arr[6]<2)or(arr[6]==5) )c[6]=c2[arr[6]];
+else if (sum<4)c[6]=c2[arr[6]];///ja (nak) pos ir"/0" un pats a vai b
 
 else continue;
                                                 //c[6]=c2[arr[6]];
@@ -232,18 +230,16 @@ else  if (arr[8]==5 &&arr[7]==5)c[7]=c2[arr[7]];///ja (nak) pos ir"/0" un pats a
 sum=0;
 if (arr[6]>1)
 {
-    sum=sum+3;
+    sum=sum+2;
 }
 if (arr[7]>1)
 {
-    sum=sum+3;
+    sum=sum+2;
 }
-if (arr[8]>1)
-{
-    sum=sum+3;
-}
+
 //sum=arr[6]+arr[7]+arr[8];
- if (sum<6)c[7]=c2[arr[7]];///ja (nak) pos ir"/0" un pats a vai b
+if (arr[8]==5 && (arr[7]<2)or(arr[7]==5) )c[7]=c2[arr[7]];
+else if (sum<6)c[7]=c2[arr[7]];///ja (nak) pos ir"/0" un pats a vai b
 
 else continue;
                                            // c[7]=c2[arr[7]];
@@ -263,15 +259,16 @@ else  if (arr[9]==5 &&arr[8]==5)c[8]=c2[arr[8]];///ja (nak) pos ir"/0" un pats a
 sum=0;
 if (arr[7]>1)
 {
-    sum=sum+3;
+    sum=sum+2;
 }
 if (arr[8]>1)
 {
-    sum=sum+3;
+    sum=sum+2;
 }
 
 //sum=arr[7]+arr[8]+arr[9];
- if (sum<6)c[8]=c2[arr[8]];///ja (nak) pos ir"/0" un pats a vai b
+if (arr[9]==3 && (arr[8]<2)or(arr[8]==5))c[8]=c2[arr[8]];
+ if (sum<4)c[8]=c2[arr[8]];///ja (nak) pos ir"/0" un pats a vai b
 else continue;
                                       //  c[8]=c2[arr[8]];
                                         ///pos9
