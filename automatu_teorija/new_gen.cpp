@@ -128,7 +128,7 @@ if (arr[4]==5)
 {
     sum=sum+2;
 }
-if (arr[5]==5)
+if (arr[5]>1)
 {
     sum=sum+2;
 }
@@ -151,7 +151,7 @@ if (arr[5]==5)
 {
     sum=sum+2;
 }
-if (arr[6]==5)
+if (arr[6]>1)
 {
     sum=sum+2;
 }
@@ -178,7 +178,7 @@ if (arr[6]==5)
 {
     sum=sum+2;
 }
-if (arr[7]==5)
+if (arr[7]>1)
 {
     sum=sum+2;
 }
@@ -207,15 +207,10 @@ if (arr[7]==5)
 {
     sum=sum+2;
 }
-if (arr[8]==5)
+if (arr[8]>1)
 {
     sum=sum+2;
 }
-if(arr[6]>1)
-{
-    sum=sum+2;
-}
-
 
 //sum=arr[6]+arr[7]+arr[8];
 if (arr[8]==5 && arr[7]==5) c[7]=c2[arr[7]];
@@ -226,10 +221,11 @@ else continue;
                                             ///pos8
 
 sum=0;
+/*
 if (arr[7]>1)
 {
     sum=sum+2;
-}
+}*/
 if (arr[8]>1)
 {
     sum=sum+2;
