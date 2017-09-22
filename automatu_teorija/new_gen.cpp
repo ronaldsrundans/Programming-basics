@@ -182,10 +182,11 @@ if (arr[7]>1)
 {
     sum=sum+2;
 }
+/*
 if(arr[5]>1)
 {
     sum=sum+2;
-}
+}*/
 //sum=arr[5]+arr[6]+arr[7];
 
  if (arr[7]==5 && arr[6]==5) c[6]=c2[arr[6]];
@@ -247,7 +248,7 @@ else continue;
 
                                         num++;
                                         fout<<"c="<<c<<" n="<<num<<endl;
-                                        cout<<c<<endl;
+                                       // cout<<c<<endl;
                                     }///pos 0
                                 }///pos 1
                             }///pos 2
