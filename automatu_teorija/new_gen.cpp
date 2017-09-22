@@ -79,14 +79,11 @@ if (arr[2]==5)
 {
     sum=sum+2;
 }
-if (arr[3]==5)
+if (arr[3]>1)
 {
     sum=sum+2;
 }
-/*if(arr[1]>1)
-{
-    sum=sum+2;
-}*/
+
 if (arr[3]==5 && arr[2]==5) c[2]=c2[arr[2]];
 else if (sum<4)c[2]=c2[arr[2]];///ja (nak) pos ir"/0" un pats a vai b
 
@@ -112,11 +109,11 @@ if (arr[4]==5)
 {
     sum=sum+2;
 }
-/*
-if(arr[1]>1)
+///?
+if(arr[2]>1)
 {
     sum=sum+2;
-}*/
+}
 //sum=arr[2]+arr[3]+arr[4];
  if (arr[4]==5 && arr[3]==5)c[3]=c2[arr[3]];
 else if (sum<4)c[3]=c2[arr[3]];///ja (nak) pos ir"/0" un pats a vai b
@@ -135,10 +132,6 @@ if (arr[4]==5)
     sum=sum+2;
 }
 if (arr[5]==5)
-{
-    sum=sum+2;
-}
-if(arr[3]>1)
 {
     sum=sum+2;
 }
@@ -165,10 +158,11 @@ if (arr[6]==5)
 {
     sum=sum+2;
 }
+/*
 if(arr[4]>1)
 {
     sum=sum+2;
-}
+}*/
 //sum=arr[4]+arr[5]+arr[6];
 if (arr[6]==5 && arr[5]==5)c[5]=c2[arr[5]];
 else if (sum<4)c[5]=c2[arr[5]];///ja (nak) pos ir"/0" un pats a vai b
