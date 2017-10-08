@@ -52,30 +52,27 @@ void permutation(int n, int* arr1, int *arr2, int *arrp)
 void dectobin(int dec,int* bin)
 {
     int tmp=dec;
-    cout<<"tmp="<<tmp<<endl;
+    //cout<<"tmp="<<tmp<<endl;
     for(int i=3;i>=0;i--)
     {
         bin[i]=tmp%2;
         tmp=tmp/2;
     }
 }
-
+void split(int *arr, int* arr1, int *arr2, int n)
+{
+    for(int i=0;i<n;i++)
+    {
+        arr1[i]=arr[i];
+        arr2[i]=arr[i+n];
+    }
+}
 
 
 
 
 int main()
 {
-
-/*fout.open ("out.txt", ios::out);
- //   int keyf[56];
- int test1[4]={0,0,1,1};
- int test2[4]={0,1,0,1};
- int test3[4];
- xorfunc(test1,test2,test3,4);
- */
-
-
     int keyfsh[56];
     int keyfcomp[48];
     int keyfl[28];
@@ -84,7 +81,7 @@ int main()
     int tmpr[28];
     int keyf[56]={0,1,1,0,1,1,0,0,0,1,1,0,0,0,0,1,1,1,0,1,0,1,1,1,0,1,1,1,1,0,0,1,1,0,1,0,1,0,1,1,0,0,0,1,1,0,1,0,0,1,1,1,1,0,0,1};
     int plain[64]={1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0};
-    int mplain[64];
+    int ipplain[64];
     int rplain[64];
     int exp[48];
     int rn[32];
@@ -98,21 +95,23 @@ int main()
     int stmp;
     int ctmp;
     int k;
-    int bina[4];
+    /*int bina[4];
     dectobin(14,bina);
     for(int y=0;y<4;y++)
     {
         cout<<"bina="<<bina[y]<<endl;
-    }
+    }*/
 
     int ip[]={58,50,42,34,26,18,10,2,60,52,44,36,28,20,12,4,62,54,46,38,30,22,14,6,64,56,48,40,32,24,16,8,57,49,41,33,25,17,9,1,59,51,43,35,27,19,11,3,61,53,45,37,29,21,13,5,63,55,47,39,31,23,15,7};
-/*int test1[64];
- int test2[64];
- for(int y=1;y<65;y++)
+
+for(int y=1;y<65;y++)
  {
-     test1[y-1]=y;
+     plain[y-1]=y;
     // cout<<"test1["<<y<<"]="<< test1[y-1]<<endl;
  }
+/*int test1[64];
+ int test2[64];
+
 
  permutation(64,test1,test2,ip);
 
@@ -173,19 +172,30 @@ int main()
 
     int i=0,j=0;
         ///Initial permutation
-    for(i=0;i<64;i++)
+    permutation(64, plain, ipplain, ip);
+    /*  for(int y=0;y<64;y++)
+ {
+     cout<<"ipplain="<<ipplain[y]<<endl;
+ }*/
+
+    /*for(i=0;i<64;i++)
     {
             //tmp=plain[i];
           //  cout<<i<<"   "<<ip[i]<<endl;
             mplain[i]=plain[ip[i]];
           //  cout<<i<<"   "<<mplain[i]<<endl;
            // plain[ip[i]]=tmp;
-    }///
+    }/*/
 
-    ///L and R
-    for(i=0;i<32;i++)
+ ///split into L and R
+split(ipplain,ln,rn,32);
+
+      for(int y=0;y<32;y++)
     {
-        ln[i]=mplain[i];
+        cout<<"ln="<<ln[y]<<endl;
+        cout<<"rn="<<rn[y]<<endl;
+    }
+  /*       ln[i]=mplain[i];
 //cout<<"LN="<<ln[i]<<endl;
 
         rn[i]=mplain[i+32];
@@ -206,7 +216,7 @@ int main()
          }
 
     ///function F
-   /* for(i=0;i<16;i++)
+    for(i=0;i<16;i++)
     {
     ///shift
   shift(keyfl,bsh[i]);
@@ -318,7 +328,7 @@ int main()
 
 
     }///function F end
-*/
+
          ///Final permutation
     for(i=0;i<64;i++)
     {
@@ -326,7 +336,7 @@ int main()
             rplain[i]=mplain[fp[i]];
            //cout<<rplain[i]<<endl;
            // plain[fp[i]]=tmp;
-    }
+    }*/
   //  for
 
    // fout.close
