@@ -113,12 +113,12 @@ int main()
 
     int ip[]={58,50,42,34,26,18,10,2,60,52,44,36,28,20,12,4,62,54,46,38,30,22,14,6,64,56,48,40,32,24,16,8,57,49,41,33,25,17,9,1,59,51,43,35,27,19,11,3,61,53,45,37,29,21,13,5,63,55,47,39,31,23,15,7};
 
-for(int y=1;y<65;y++)
+/*for(int y=1;y<65;y++)
  {
      plain[y-1]=y;
     // cout<<"test1["<<y<<"]="<< test1[y-1]<<endl;
  }
-/*int test1[64];
+int test1[64];
  int test2[64];
 
 
@@ -319,6 +319,12 @@ permutation(32, sbox, xbox, pbox);
             }
             fout<<endl;
 /// XOR(xbox,ln)
+fout<<"ln=";
+for(int k=0;k<32;k++)
+            {
+                fout<<ln[k];
+            }
+            fout<<endl;
 xorfunc(xbox,ln,rn1,32);
 ///new ipplain
  for(j=0;j<32;j++)
