@@ -1,4 +1,5 @@
 
+
 #include <iostream>
 #include <fstream>
 #include <cstring>
@@ -74,7 +75,7 @@ void split(int *arr, int* arr1, int *arr2, int n)
 int main()
 {
     fstream fout;
-    fstream fin ("in.txt", ios::in);
+    //fstream fin ("in.txt", ios::in);
     fout.open ("out.txt", ios::out);
 
     int keyfsh[56];
@@ -94,7 +95,7 @@ int main()
     int plain[64]={1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0};
         int c;
         int m=0;
-     fin >>c;
+/*     fin >>c;
 
  while (!fin.eof())
  {
@@ -102,7 +103,7 @@ int main()
  plain[m]=c;
  m++;
  fin >> c; };
- fin.close ();
+ fin.close ();*/
  int ipplain[64];
     int cypher[64];
     int exp[48];
@@ -133,10 +134,7 @@ int main()
  }
 int test1[64];
  int test2[64];
-
-
  permutation(64,test1,test2,ip);
-
   for(int y=0;y<64;y++)
  {
      cout<<test2[y]<<endl;
@@ -222,10 +220,8 @@ int test1[64];
     }
          ln[i]=mplain[i];
 //cout<<"LN="<<ln[i]<<endl;
-
         rn[i]=mplain[i+32];
         //cout<<"RN="<<rn[i]<<endl;
-
     }
 */
    ///key permutationS
@@ -236,13 +232,14 @@ int test1[64];
 
     split(kpkey,kpkeyl,kpkeyr,28);
 
+
+
       /*for(int y=0;y<56;y++)
     {
 //cout<<"kpkeyl="<<kpkeyl[y]<<endl;
 //cout<<"kpkeyr="<<kpkeyr[y]<<endl;
 cout<<"kpkey="<<kpkey[y]<<endl;
     }
-
    for(i=0;i<56;i++)
          {
             cout<<"key="<<kpkey[i]<<endl;
@@ -291,6 +288,8 @@ cout<<"kpkey="<<kpkey[y]<<endl;
         {
             row=exp[j]*2+exp[j+5];
             col=8*exp[j+1]+4*exp[j+2]+2*exp[j+3]+exp[j+4];
+            row=row-1;
+            col=col-1;
             stmp=0;
             if(j==0)stmp=sbox1[row][col];
             else if(j==6)stmp=sbox2[row][col];
