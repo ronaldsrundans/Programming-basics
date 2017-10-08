@@ -1,5 +1,3 @@
-
-
 #include <iostream>
 #include <fstream>
 #include <cstring>
@@ -53,7 +51,6 @@ void permutation(int n, int* arr1, int *arr2, int *arrp)
 void dectobin(int dec,int* bin)
 {
     int tmp=dec;
-    //cout<<"tmp="<<tmp<<endl;
     for(int i=3;i>=0;i--)
     {
         bin[i]=tmp%2;
@@ -68,18 +65,12 @@ void split(int *arr, int* arr1, int *arr2, int n)
         arr2[i]=arr[i+n];
     }
 }
-
-
-
-
 int main()
 {
     fstream fout;
-    //fstream fin ("in.txt", ios::in);
+    fstream fin ("in.txt", ios::in);
     fout.open ("out.txt", ios::out);
-
     int keyfsh[56];
-    //int keyfcomp[48];
     int kpkeyl[28];
     int kpkeyr[28];
     int kpkey[56];
@@ -89,19 +80,24 @@ int main()
     int bintmp[4];
     int sbox[32];
     int xbox[32];
-    int key[64]={1,1,1,0,0,1,0,1,0,1,1,1,0,1,1,0,0,0,1,1,0,0,0,0,1,1,1,0,1,0,1,1,1,0,1,1,1,1,0,0,1,1,0,1,0,1,0,1,1,0,0,0,1,1,0,1,0,1,1,1,1,0,0,1};
+    int   key[64]={1,1,1,0,0,1,0,1,0,1,1,1,0,1,1,0,0,0,1,1,0,0,0,0,1,1,1,0,1,0,1,1,1,0,1,1,1,1,0,0,1,1,0,1,0,1,0,1,1,0,0,0,1,1,0,1,0,1,1,1,1,0,0,1};
     int plain[64]={1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0};
-        int c;
-        int m=0;
-/*     fin >>c;
+    int c;
+    int m=0;
+    fin >>c;
 
  while (!fin.eof())
  {
- //cout << c << endl;
+ cout << c;
  plain[m]=c;
  m++;
  fin >> c; };
- fin.close ();*/
+ fin.close ();
+ cout << endl;
+ for(int i=0;i<64;i++)
+ {
+     cout<<plain[i];
+ }
  int ipplain[64];
     int cypher[64];
     int exp[48];
@@ -209,8 +205,6 @@ int main()
         {
             row=exp[j]*2+exp[j+5];
             col=8*exp[j+1]+4*exp[j+2]+2*exp[j+3]+exp[j+4];
-            row=row-1;
-            col=col-1;
             stmp=0;
             if(j==0)stmp=sbox1[row][col];
             else if(j==6)stmp=sbox2[row][col];
@@ -225,7 +219,6 @@ int main()
             {
                 sbox[ctmp+k]=bintmp[k];
             }
-
             ctmp=ctmp+4;
         }///Sbox substitution END
 
@@ -246,9 +239,11 @@ xorfunc(xbox,ln,rn1,32);
 
          ///Final permutation
 permutation(64, ipplain,cypher , fp);
+cout<<endl;
 for(i=0;i<64;i++)
     {
         fout<<cypher[i]<<endl;
+        cout<<cypher[i];
     }
     fout.close();
     return 0;
