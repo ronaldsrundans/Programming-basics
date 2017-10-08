@@ -33,8 +33,8 @@ int main()
     int keyfr[28];
      int tmpl[28];
     int tmpr[28];
-    int keyf[56]={0,1,1,0,1,1,0,0,0,1,1,0,0,0,0,1,1,1,0,1,0,1,1,1,1,0,1,1,0,0,1,1,0,1,0,1,0,1,1,0,0,0,1,1,0,1,0,0,1,1,1,1,0,0,1};
-    int plain[64]={1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0};
+    int keyf[56]={0,1,1,0,1,1,0,0,0,1,1,0,0,0,0,1,1,1,0,1,0,1,1,1,0,1,1,1,1,0,0,1,1,0,1,0,1,0,1,1,0,0,0,1,1,0,1,0,0,1,1,1,1,0,0,1};
+    int plain[64]={1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0};
     int mplain[64];
     int rplain[64];
     int exp[48];
@@ -42,6 +42,7 @@ int main()
     int ln[32];
     int rn1[32];
     int ln1[32];
+    int fpbox[32];
     int tmp;
     int row;
     int col;
@@ -99,13 +100,16 @@ int main()
                     {1,15,13,8,10,3,7,4,12,5,6,11,0,14,9,2},
                     {7,11,4,1,9,12,14,2,0,6,10,13,15,3,5,8},
                     {2,1,14,7,4,10,8,13,15,12,9,0,3,5,6,11}};
+    int pbox[32]={16,7,20,21,29,12, 28, 17, 1, 15, 23, 26 ,5 ,18 ,31 ,10, 2 ,8 ,24 ,14 ,32 ,27, 3, 9,19,13,30,6,22,11,4,25};
 
     int i=0,j=0;
         ///Initial permutation
     for(i=0;i<64;i++)
     {
             //tmp=plain[i];
+          //  cout<<i<<"   "<<ip[i]<<endl;
             mplain[i]=plain[ip[i]];
+          //  cout<<i<<"   "<<mplain[i]<<endl;
            // plain[ip[i]]=tmp;
     }///
 
@@ -113,8 +117,11 @@ int main()
     for(i=0;i<32;i++)
     {
         ln[i]=mplain[i];
+//cout<<"LN="<<ln[i]<<endl;
 
         rn[i]=mplain[i+32];
+        //cout<<"RN="<<rn[i]<<endl;
+
     }
 
    ///key permutationS
@@ -198,7 +205,7 @@ int main()
             if(j==42)             stmp=sbox8[row][col];
             for(k=0;k<4;k++)
             {
-                rn[ctmp+k]=stmp%2;
+                fpbox[ctmp+k]=stmp%2;
                // cout<<rn[ctmp+k]<<endl;
                 stmp=stmp/2;
             }
@@ -209,14 +216,36 @@ int main()
          ///End of Sbox permutation
 
          ///Pbox permutation
-            for(i=0;i<32;i++)
+            for(j=0;j<32;j++)
             {
             //tmp=plain[i];
-            mplain[i]=plain[ip[i]];
+            rn[j]=fpbox[pbox[j]];
            // plain[ip[i]]=tmp;
             }///
-
          ///End ofPbox permutation
+         ///XOR start
+        /// XOR
+        for(j=0;j<32;j++)
+        {
+            if(((rn[j]==1) or (ln[j]==1))&& (rn[j]!= ln[j]))
+            {
+                rn1[j]=1;
+            }
+            else
+            {
+                rn1[j]=0;
+            }
+         }
+         /// end of XOR
+         ///XOR END
+         ///salipina kopa
+            for(j=0;j<32;j++)///right and left (n-1)
+        {
+            mplain[j]=ln1[j];
+            mplain[j+32]=rn1[j];
+           // ln1[j]=mplain[j+32];
+        }
+
 
 
     }///function F end
@@ -226,8 +255,10 @@ int main()
     {
             //tmp=plain[i];
             rplain[i]=mplain[fp[i]];
+
            // plain[fp[i]]=tmp;
     }
+
     cout << "Hello world!" << endl;
     return 0;
 }
