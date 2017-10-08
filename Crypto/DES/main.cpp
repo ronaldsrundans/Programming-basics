@@ -1,6 +1,7 @@
 
 #include <iostream>
-
+#include <fstream>
+#include <cstring>
 using namespace std;
 
 void shift(int* arr,int n)
@@ -24,8 +25,30 @@ void shift(int* arr,int n)
         arr[26]=tmp3;
     }
 }
+void xorfunc(int *arr1, int *arr2, int* arr3, int n)
+{
+    for(int i=0;i<n;i++)
+        {
+            if(((arr1[i]==1) or (arr2[i]==1))&& (arr1[i]!= arr2[i]))
+            {
+                arr3[i]=1;
+            }
+            else
+            {
+                arr3[i]=0;
+            }
+         }
+
+}
+
+
+
+
+
 int main()
 {
+
+//fout.open ("out.txt", ios::out);
  //   int keyf[56];
     int keyfsh[56];
     int keyfcomp[48];
@@ -137,7 +160,7 @@ int main()
          }
 
     ///function F
-    for(i=0;i<16;i++)
+   /* for(i=0;i<16;i++)
     {
     ///shift
   shift(keyfl,bsh[i]);
@@ -203,7 +226,7 @@ int main()
             if(j==30)            stmp= sbox6[row][col];
             if(j==36)             stmp=sbox7[row][col];
             if(j==42)             stmp=sbox8[row][col];
-            for(k=0;k<4;k++)
+            for(k=3;k>=0;k++)
             {
                 fpbox[ctmp+k]=stmp%2;
                // cout<<rn[ctmp+k]<<endl;
@@ -249,15 +272,19 @@ int main()
 
 
     }///function F end
-
+*/
          ///Final permutation
     for(i=0;i<64;i++)
     {
             //tmp=plain[i];
             rplain[i]=mplain[fp[i]];
-
+           cout<<rplain[i]<<endl;
            // plain[fp[i]]=tmp;
     }
+  //  for
+
+   // fout.close
+
 
     cout << "Hello world!" << endl;
     return 0;
