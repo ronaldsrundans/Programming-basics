@@ -83,7 +83,7 @@ int main()
     int cpkey[48];
     int tmpl[28];
     int tmpr[28];
-    int key[56]={0,1,1,1,0,1,1,0,0,0,1,1,0,0,0,0,1,1,1,0,1,0,1,1,1,0,1,1,1,1,0,0,1,1,0,1,0,1,0,1,1,0,0,0,1,1,0,1,0,1,1,1,1,0,0,1};
+    int key[64]={1,1,1,0,0,1,0,1,0,1,1,1,0,1,1,0,0,0,1,1,0,0,0,0,1,1,1,0,1,0,1,1,1,0,1,1,1,1,0,0,1,1,0,1,0,1,0,1,1,0,0,0,1,1,0,1,0,1,1,1,1,0,0,1};
     int plain[64]={1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0};
     int ipplain[64];
     int kpkey[56];
@@ -209,13 +209,21 @@ split(ipplain,ln,rn,32);
     }
 */
    ///key permutationS
+//   key[0]<<endl;
     permutation(56, key, kpkey, kp);
+
     ///split key
+
     split(kpkey,kpkeyl,kpkeyr,28);
 
+      /*for(int y=0;y<56;y++)
+    {
+//cout<<"kpkeyl="<<kpkeyl[y]<<endl;
+//cout<<"kpkeyr="<<kpkeyr[y]<<endl;
+cout<<"kpkey="<<kpkey[y]<<endl;
+    }
 
-
-      /*   for(i=0;i<56;i++)
+   for(i=0;i<56;i++)
          {
             cout<<"key="<<kpkey[i]<<endl;
          }
@@ -230,8 +238,10 @@ split(ipplain,ln,rn,32);
      for(i=0;i<16;i++)
     {
         fout<<"funcF="<<i+1<<endl;
+        //cout<<kpkeyl[27]<<endl;
         shift(kpkeyl,bsh[i]);
         shift(kpkeyr,bsh[i]);
+
         /*for(int y=0;y<28;y++)
         {
             fout<<"kpkeyl="<<kpkeyl[y]<<endl;
