@@ -79,14 +79,16 @@ int main()
     //int keyfcomp[48];
     int kpkeyl[28];
     int kpkeyr[28];
+    int kpkey[56];
     int fkey[56];
     int cpkey[48];
-    int tmpl[28];
-    int tmpr[28];
+    int rnexp[48];
+   // int tmpl[28];
+   // int tmpr[28];
     int key[64]={1,1,1,0,0,1,0,1,0,1,1,1,0,1,1,0,0,0,1,1,0,0,0,0,1,1,1,0,1,0,1,1,1,0,1,1,1,1,0,0,1,1,0,1,0,1,0,1,1,0,0,0,1,1,0,1,0,1,1,1,1,0,0,1};
     int plain[64]={1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0};
     int ipplain[64];
-    int kpkey[56];
+
     int rplain[64];
     int exp[48];
     int rn[32];
@@ -192,8 +194,8 @@ for(int y=1;y<65;y++)
            // plain[ip[i]]=tmp;
     }/*/
 
- ///split into L and R
-split(ipplain,ln,rn,32);
+ /////split into L and R
+//split(ipplain,ln,rn,32);
 
    /*   for(int y=0;y<32;y++)
     {
@@ -238,7 +240,15 @@ cout<<"kpkey="<<kpkey[y]<<endl;
      for(i=0;i<16;i++)
     {
         fout<<"funcF="<<i+1<<endl;
+         ///split into L and R
+        split(ipplain,ln,rn,32);
+        for(j=0;j<32;j++)
+        {
+            ln1[j]=rn[j];
+        }
+
         //cout<<kpkeyl[27]<<endl;
+        ///bit shift
         shift(kpkeyl,bsh[i]);
         shift(kpkeyr,bsh[i]);
 
@@ -253,11 +263,20 @@ cout<<"kpkey="<<kpkey[y]<<endl;
             fkey[j]=kpkeyl[j];
             fkey[j+28]=kpkeyr[j];
         }
-         for(j=0;j<56;j++)
+        /* for(j=0;j<56;j++)
         {
             fout<<"fkey["<<j<<"]="<<fkey[j]<<endl;
-        }
-
+        }*/
+///fkey compression permutation
+ permutation(48, fkey, cpkey, cp);
+      /*   for(j=0;j<48;j++)
+        {
+            fout<<"fcomp["<<j<<"]="<<cpkey[j]<<endl;
+        }*/
+///Expantion Permutation
+ permutation(48, rn, rnexp, cp);
+ /// XOR (RNEXP,CPKEY)
+ xorfunc(rnexp,cpkey,exp,48);
 
 
 
@@ -266,40 +285,10 @@ cout<<"kpkey="<<kpkey[y]<<endl;
     }///function F end
     /*
 
-    ///shift
-  shift(keyfl,bsh[i]);
-  shift(keyfr,bsh[i]);
-
-         ///key after shift
-           for(j=0;j<28;j++)
-         {
-                keyfsh[j]=keyfl[j];
-                keyfsh[j+28]=keyfr[j];
-                keyf[j]=keyfl[j];
-                keyf[j+28]=keyfr[j];
-         }
-
-          ///end of key after shift
-
-         ///compression permutation
-         for(j=0;j<48;j++)
-         {
-          keyfcomp[j]=keyfsh[cp[j]];
-         }///end of compression permutation
 
 
-       for(j=0;j<32;j++)///right and left (n-1)
-        {
-            ln[j]=mplain[j];
-            rn[j]=mplain[j+32];
-            ln1[j]=mplain[j+32];
-        }
 
-        ///Expantion Permutation
-        for(j=0;j<48;j++)
-        {
-            exp[j]=rn[ep[j]];
-         }///end of Expantion Permutation
+
 
          /// XOR
         for(j=0;j<48;j++)
