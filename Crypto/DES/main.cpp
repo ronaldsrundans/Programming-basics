@@ -326,6 +326,12 @@ for(int k=0;k<32;k++)
             }
             fout<<endl;
 xorfunc(xbox,ln,rn1,32);
+fout<<"rn1=";
+for(int k=0;k<32;k++)
+            {
+                fout<<rn1[k];
+            }
+            fout<<endl;
 ///new ipplain
  for(j=0;j<32;j++)
         {
@@ -335,7 +341,7 @@ xorfunc(xbox,ln,rn1,32);
     }///function F end
 
          ///Final permutation
-//permutation(64, ipplain,cypher , fp);
+permutation(64, ipplain,cypher , fp);
 for(i=0;i<64;i++)
     {
         fout<<cypher[i]<<endl;
