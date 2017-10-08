@@ -219,18 +219,18 @@ split(ipplain,ln,rn,32);
          }
  */
 
-for(int y=1;y<29;y++)
+/*for(int y=1;y<29;y++)
     {
-       kpkeyl[y]=y;
-       kpkeyr[y]=y+28;
-    }
+       kpkeyl[y-1]=y;
+       kpkeyr[y-1]=y+28;
+    }*/
     ///function F
      for(i=0;i<16;i++)
     {
         fout<<"funcF="<<i+1<<endl;
         shift(kpkeyl,bsh[i]);
         shift(kpkeyr,bsh[i]);
-        for(int y=0;y<28;y++)
+        /*for(int y=0;y<28;y++)
         {
             fout<<"kpkeyl="<<kpkeyl[y]<<endl;
 //cout<<"kpkeyr="<<kpkeyr[y]<<endl;
@@ -238,7 +238,7 @@ for(int y=1;y<29;y++)
         for(int y=0;y<28;y++)
         {
              fout<<"kpkeyr="<<kpkeyr[y]<<endl;
-        }
+        }*/
 
 
 
