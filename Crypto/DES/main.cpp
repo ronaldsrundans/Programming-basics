@@ -38,7 +38,16 @@ void xorfunc(int *arr1, int *arr2, int* arr3, int n)
                 arr3[i]=0;
             }
          }
+}
 
+void permutation(int n, int* arr1, int *arr2, int *arrp)
+{
+    int tmp;
+    for(int i=0;i<n;i++)
+    {
+
+            arr2[i]=arr1[arrp[i]-1];
+    }
 }
 
 
@@ -48,8 +57,15 @@ void xorfunc(int *arr1, int *arr2, int* arr3, int n)
 int main()
 {
 
-//fout.open ("out.txt", ios::out);
+/*fout.open ("out.txt", ios::out);
  //   int keyf[56];
+ int test1[4]={0,0,1,1};
+ int test2[4]={0,1,0,1};
+ int test3[4];
+ xorfunc(test1,test2,test3,4);
+ */
+
+
     int keyfsh[56];
     int keyfcomp[48];
     int keyfl[28];
@@ -74,6 +90,20 @@ int main()
     int k;
 
     int ip[]={58,50,42,34,26,18,10,2,60,52,44,36,28,20,12,4,62,54,46,38,30,22,14,6,64,56,48,40,32,24,16,8,57,49,41,33,25,17,9,1,59,51,43,35,27,19,11,3,61,53,45,37,29,21,13,5,63,55,47,39,31,23,15,7};
+int test1[64];
+ int test2[64];
+ for(int y=1;y<65;y++)
+ {
+     test1[y-1]=y;
+    // cout<<"test1["<<y<<"]="<< test1[y-1]<<endl;
+ }
+
+ permutation(64,test1,test2,ip);
+
+  for(int y=0;y<64;y++)
+ {
+     cout<<test2[y]<<endl;
+ }
 
     int kp[]={57,49,41,33,25,17,9,1,58,50,42,34,26,18,10,2,59,51,43,35,27,19,11,3,60,52,44,36,63,55,47,39,31,23,15,7,62,54,46,38,30,22,14,6,61,53,45,37,29,21,13,5,28,20,12,4};
     int bsh[]={1,1,2,2,2,2,2,2,1,2,2,2,2,2,2,1};
@@ -278,7 +308,7 @@ int main()
     {
             //tmp=plain[i];
             rplain[i]=mplain[fp[i]];
-           cout<<rplain[i]<<endl;
+           //cout<<rplain[i]<<endl;
            // plain[fp[i]]=tmp;
     }
   //  for
