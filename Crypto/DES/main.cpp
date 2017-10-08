@@ -278,25 +278,46 @@ cout<<"kpkey="<<kpkey[y]<<endl;
         {
             row=exp[j]*2+exp[j+5];
             col=8*exp[j+1]+4*exp[j+2]+2*exp[j+3]+exp[j+4];
-
+            stmp=0;
             if(j==0)stmp=sbox1[row][col];
-            if(j==6)stmp=sbox2[row][col];
-            if(j==12)stmp=sbox3[row][col];
-            if(j==18)stmp=sbox4[row][col];
-            if(j==24)stmp= sbox5[row][col];
-            if(j==30)stmp= sbox6[row][col];
-            if(j==36)stmp=sbox7[row][col];
-            if(j==42)stmp=sbox8[row][col];
-
+            else if(j==6)stmp=sbox2[row][col];
+            else if(j==12)stmp=sbox3[row][col];
+            else if(j==18)stmp=sbox4[row][col];
+           else  if(j==24)stmp= sbox5[row][col];
+            else if(j==30)stmp= sbox6[row][col];
+            else if(j==36)stmp=sbox7[row][col];
+           else  if(j==42)stmp=sbox8[row][col];
+            fout<<"round="<<i;//<<" dec="<<stmp;
             dectobin(stmp,bintmp);
+            fout<<"  bin=";
             for(int k=0;k<4;k++)
             {
-                sbox[ctmp+k]=bintmp[k];
+                fout<<bintmp[k];
             }
+fout<<endl;
+            for(int k=0;k<4;k++)
+            {
+
+                sbox[ctmp+k]=bintmp[k];
+                fout<<"n="<<ctmp+k<<"  sbox="<< sbox[ctmp+k]<<endl;
+            }
+            fout<<endl;
             ctmp=ctmp+4;
         }///Sbox substitution END
+        fout<<"sbox=";
+         for(int k=0;k<32;k++)
+            {
+                fout<<sbox[k];
+            }
+            fout<<endl;
     ///Pbox permutation
 permutation(32, sbox, xbox, pbox);
+ fout<<"xbox=";
+ for(int k=0;k<32;k++)
+            {
+                fout<<xbox[k];
+            }
+            fout<<endl;
 /// XOR(xbox,ln)
 xorfunc(xbox,ln,rn1,32);
 ///new ipplain
