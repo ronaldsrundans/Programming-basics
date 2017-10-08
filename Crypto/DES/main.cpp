@@ -74,7 +74,9 @@ void split(int *arr, int* arr1, int *arr2, int n)
 int main()
 {
     fstream fout;
+    fstream fin ("in.txt", ios::in);
     fout.open ("out.txt", ios::out);
+
     int keyfsh[56];
     //int keyfcomp[48];
     int kpkeyl[28];
@@ -90,7 +92,18 @@ int main()
    // int tmpr[28];
     int key[64]={1,1,1,0,0,1,0,1,0,1,1,1,0,1,1,0,0,0,1,1,0,0,0,0,1,1,1,0,1,0,1,1,1,0,1,1,1,1,0,0,1,1,0,1,0,1,0,1,1,0,0,0,1,1,0,1,0,1,1,1,1,0,0,1};
     int plain[64]={1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0};
-    int ipplain[64];
+        int c;
+        int m=0;
+     fin >>c;
+
+ while (!fin.eof())
+ {
+ //cout << c << endl;
+ plain[m]=c;
+ m++;
+ fin >> c; };
+ fin.close ();
+ int ipplain[64];
     int cypher[64];
     int exp[48];
     int rn[32];
@@ -287,51 +300,31 @@ cout<<"kpkey="<<kpkey[y]<<endl;
             else if(j==30)stmp= sbox6[row][col];
             else if(j==36)stmp=sbox7[row][col];
            else  if(j==42)stmp=sbox8[row][col];
-            fout<<"round="<<i;//<<" dec="<<stmp;
+           // fout<<"round="<<i;//<<" dec="<<stmp;
             dectobin(stmp,bintmp);
-            fout<<"  bin=";
+            //fout<<"  bin=";
             for(int k=0;k<4;k++)
             {
-                fout<<bintmp[k];
+               // fout<<bintmp[k];
             }
-fout<<endl;
+
             for(int k=0;k<4;k++)
             {
 
                 sbox[ctmp+k]=bintmp[k];
-                fout<<"n="<<ctmp+k<<"  sbox="<< sbox[ctmp+k]<<endl;
+                //fout<<"n="<<ctmp+k<<"  sbox="<< sbox[ctmp+k]<<endl;
             }
-            fout<<endl;
+            //fout<<endl;
             ctmp=ctmp+4;
         }///Sbox substitution END
-        fout<<"sbox=";
-         for(int k=0;k<32;k++)
-            {
-                fout<<sbox[k];
-            }
-            fout<<endl;
+
     ///Pbox permutation
 permutation(32, sbox, xbox, pbox);
- fout<<"xbox=";
- for(int k=0;k<32;k++)
-            {
-                fout<<xbox[k];
-            }
-            fout<<endl;
+
 /// XOR(xbox,ln)
-fout<<"ln=";
-for(int k=0;k<32;k++)
-            {
-                fout<<ln[k];
-            }
-            fout<<endl;
+
 xorfunc(xbox,ln,rn1,32);
-fout<<"rn1=";
-for(int k=0;k<32;k++)
-            {
-                fout<<rn1[k];
-            }
-            fout<<endl;
+
 ///new ipplain
  for(j=0;j<32;j++)
         {
@@ -354,6 +347,6 @@ for(i=0;i<64;i++)
     fout.close();
 
 
-    cout << "Hello world!" << endl;
+   // cout << "Hello world!" << endl;
     return 0;
 }
