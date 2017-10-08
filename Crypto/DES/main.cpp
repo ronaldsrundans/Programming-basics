@@ -76,12 +76,14 @@ int main()
     fstream fout;
     fout.open ("out.txt", ios::out);
     int keyfsh[56];
-    int keyfcomp[48];
+    //int keyfcomp[48];
     int kpkeyl[28];
     int kpkeyr[28];
+    int fkey[56];
+    int cpkey[48];
     int tmpl[28];
     int tmpr[28];
-    int key[56]={0,1,1,0,1,1,0,0,0,1,1,0,0,0,0,1,1,1,0,1,0,1,1,1,0,1,1,1,1,0,0,1,1,0,1,0,1,0,1,1,0,0,0,1,1,0,1,0,0,1,1,1,1,0,0,1};
+    int key[56]={0,1,1,1,0,1,1,0,0,0,1,1,0,0,0,0,1,1,1,0,1,0,1,1,1,0,1,1,1,1,0,0,1,1,0,1,0,1,0,1,1,0,0,0,1,1,0,1,0,1,1,1,1,0,0,1};
     int plain[64]={1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0};
     int ipplain[64];
     int kpkey[56];
@@ -234,11 +236,20 @@ split(ipplain,ln,rn,32);
         {
             fout<<"kpkeyl="<<kpkeyl[y]<<endl;
 //cout<<"kpkeyr="<<kpkeyr[y]<<endl;
-        }
-        for(int y=0;y<28;y++)
-        {
-             fout<<"kpkeyr="<<kpkeyr[y]<<endl;
         }*/
+        for(j=0;j<28;j++)
+        {
+             //fout<<"kpkeyr="<<kpkeyr[y]<<endl;
+            fkey[j]=kpkeyl[j];
+            fkey[j+28]=kpkeyr[j];
+        }
+         for(j=0;j<56;j++)
+        {
+            fout<<"fkey["<<j<<"]="<<fkey[j]<<endl;
+        }
+
+
+
 
 
 
