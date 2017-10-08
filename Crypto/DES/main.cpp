@@ -45,6 +45,9 @@ int main()
     int tmp;
     int row;
     int col;
+    int stmp;
+    int ctmp;
+    int k;
 
     int ip[]={58,50,42,34,26,18,10,2,60,52,44,36,28,20,12,4,62,54,46,38,30,22,14,6,64,56,48,40,32,24,16,8,57,49,41,33,25,17,9,1,59,51,43,35,27,19,11,3,61,53,45,37,29,21,13,5,63,55,47,39,31,23,15,7};
 
@@ -179,25 +182,40 @@ int main()
          /// end of XOR
 
          ///Sbox permutation
+         ctmp=0;
         for(j=0;j<48;j=j+6)
         {
             row=exp[j]*2+exp[j+5];
             col=8*exp[j+1]+4*exp[j+2]+2*exp[j+3]+exp[j+4];
 
-            if(j==0)            sbox1[row][col];
-            if(j==6)            sbox2[row][col];
-            if(j==12)            sbox3[row][col];
-            if(j==18)            sbox4[row][col];
-            if(j==24)            sbox5[row][col];
-            if(j==30)            sbox6[row][col];
-            if(j==36)            sbox7[row][col];
-            if(j==42)            sbox8[row][col];
+            if(j==0)            stmp=sbox1[row][col];
+            if(j==6)            stmp=sbox2[row][col];
+            if(j==12)             stmp=sbox3[row][col];
+            if(j==18)             stmp=sbox4[row][col];
+            if(j==24)            stmp= sbox5[row][col];
+            if(j==30)            stmp= sbox6[row][col];
+            if(j==36)             stmp=sbox7[row][col];
+            if(j==42)             stmp=sbox8[row][col];
+            for(k=0;k<4;k++)
+            {
+                rn[ctmp+k]=stmp%2;
+               // cout<<rn[ctmp+k]<<endl;
+                stmp=stmp/2;
+            }
+            ctmp=ctmp+4;
 
 
         }
          ///End of Sbox permutation
 
          ///Pbox permutation
+            for(i=0;i<32;i++)
+            {
+            //tmp=plain[i];
+            mplain[i]=plain[ip[i]];
+           // plain[ip[i]]=tmp;
+            }///
+
          ///End ofPbox permutation
 
 
