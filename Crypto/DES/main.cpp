@@ -73,15 +73,18 @@ void split(int *arr, int* arr1, int *arr2, int n)
 
 int main()
 {
+    fstream fout;
+    fout.open ("out.txt", ios::out);
     int keyfsh[56];
     int keyfcomp[48];
-    int keyfl[28];
-    int keyfr[28];
-     int tmpl[28];
+    int kpkeyl[28];
+    int kpkeyr[28];
+    int tmpl[28];
     int tmpr[28];
-    int keyf[56]={0,1,1,0,1,1,0,0,0,1,1,0,0,0,0,1,1,1,0,1,0,1,1,1,0,1,1,1,1,0,0,1,1,0,1,0,1,0,1,1,0,0,0,1,1,0,1,0,0,1,1,1,1,0,0,1};
+    int key[56]={0,1,1,0,1,1,0,0,0,1,1,0,0,0,0,1,1,1,0,1,0,1,1,1,0,1,1,1,1,0,0,1,1,0,1,0,1,0,1,1,0,0,0,1,1,0,1,0,0,1,1,1,1,0,0,1};
     int plain[64]={1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0};
     int ipplain[64];
+    int kpkey[56];
     int rplain[64];
     int exp[48];
     int rn[32];
@@ -190,34 +193,58 @@ for(int y=1;y<65;y++)
  ///split into L and R
 split(ipplain,ln,rn,32);
 
-      for(int y=0;y<32;y++)
+   /*   for(int y=0;y<32;y++)
     {
         cout<<"ln="<<ln[y]<<endl;
         cout<<"rn="<<rn[y]<<endl;
     }
-  /*       ln[i]=mplain[i];
+         ln[i]=mplain[i];
 //cout<<"LN="<<ln[i]<<endl;
 
         rn[i]=mplain[i+32];
         //cout<<"RN="<<rn[i]<<endl;
 
     }
-
+*/
    ///key permutationS
-         for(i=0;i<56;i++)
-         {
-            keyf[kp[i]];
-         }
-         ///end of key permutation
-    for(i=0;i<28;i++)///slit inyo halves
-         {
-            keyfl[i]=keyf[kp[i]];///left
-            keyfr[i]=keyf[kp[i+28]];///right
-         }
+    permutation(56, key, kpkey, kp);
+    ///split key
+    split(kpkey,kpkeyl,kpkeyr,28);
 
-    ///function F
-    for(i=0;i<16;i++)
+
+
+      /*   for(i=0;i<56;i++)
+         {
+            cout<<"key="<<kpkey[i]<<endl;
+         }
+ */
+
+for(int y=1;y<29;y++)
     {
+       kpkeyl[y]=y;
+       kpkeyr[y]=y+28;
+    }
+    ///function F
+     for(i=0;i<16;i++)
+    {
+        fout<<"funcF="<<i+1<<endl;
+        shift(kpkeyl,bsh[i]);
+        shift(kpkeyr,bsh[i]);
+        for(int y=0;y<28;y++)
+        {
+            fout<<"kpkeyl="<<kpkeyl[y]<<endl;
+//cout<<"kpkeyr="<<kpkeyr[y]<<endl;
+        }
+        for(int y=0;y<28;y++)
+        {
+             fout<<"kpkeyr="<<kpkeyr[y]<<endl;
+        }
+
+
+
+    }///function F end
+    /*
+
     ///shift
   shift(keyfl,bsh[i]);
   shift(keyfr,bsh[i]);
@@ -339,7 +366,7 @@ split(ipplain,ln,rn,32);
     }*/
   //  for
 
-   // fout.close
+    fout.close();
 
 
     cout << "Hello world!" << endl;
