@@ -83,13 +83,15 @@ int main()
     int fkey[56];
     int cpkey[48];
     int rnexp[48];
+    int bintmp[4];
+    int sbox[32];
+    int xbox[32];
    // int tmpl[28];
    // int tmpr[28];
     int key[64]={1,1,1,0,0,1,0,1,0,1,1,1,0,1,1,0,0,0,1,1,0,0,0,0,1,1,1,0,1,0,1,1,1,0,1,1,1,1,0,0,1,1,0,1,0,1,0,1,1,0,0,0,1,1,0,1,0,1,1,1,1,0,0,1};
     int plain[64]={1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0};
     int ipplain[64];
-
-    int rplain[64];
+    int cypher[64];
     int exp[48];
     int rn[32];
     int ln[32];
@@ -101,7 +103,7 @@ int main()
     int col;
     int stmp;
     int ctmp;
-    int k;
+    //int k;
     /*int bina[4];
     dectobin(14,bina);
     for(int y=0;y<4;y++)
@@ -239,7 +241,7 @@ cout<<"kpkey="<<kpkey[y]<<endl;
     ///function F
      for(i=0;i<16;i++)
     {
-        fout<<"funcF="<<i+1<<endl;
+       // fout<<"funcF="<<i+1<<endl;
          ///split into L and R
         split(ipplain,ln,rn,32);
         for(j=0;j<32;j++)
@@ -277,98 +279,51 @@ cout<<"kpkey="<<kpkey[y]<<endl;
  permutation(48, rn, rnexp, cp);
  /// XOR (RNEXP,CPKEY)
  xorfunc(rnexp,cpkey,exp,48);
-
-
-
-
-
-    }///function F end
-    /*
-
-
-
-
-
-
-         /// XOR
-        for(j=0;j<48;j++)
-        {
-            if(((keyfcomp[j]==1) or (exp[j]==1))&& (keyfcomp[j]!= exp[j]))
-            {
-                exp[j]=1;
-            }
-            else
-            {
-                exp[j]=0;
-            }
-         }
-         /// end of XOR
-
-         ///Sbox permutation
+     ///Sbox substitution
          ctmp=0;
         for(j=0;j<48;j=j+6)
         {
             row=exp[j]*2+exp[j+5];
             col=8*exp[j+1]+4*exp[j+2]+2*exp[j+3]+exp[j+4];
 
-            if(j==0)            stmp=sbox1[row][col];
-            if(j==6)            stmp=sbox2[row][col];
-            if(j==12)             stmp=sbox3[row][col];
-            if(j==18)             stmp=sbox4[row][col];
-            if(j==24)            stmp= sbox5[row][col];
-            if(j==30)            stmp= sbox6[row][col];
-            if(j==36)             stmp=sbox7[row][col];
-            if(j==42)             stmp=sbox8[row][col];
-            for(k=3;k>=0;k++)
+            if(j==0)stmp=sbox1[row][col];
+            if(j==6)stmp=sbox2[row][col];
+            if(j==12)stmp=sbox3[row][col];
+            if(j==18)stmp=sbox4[row][col];
+            if(j==24)stmp= sbox5[row][col];
+            if(j==30)stmp= sbox6[row][col];
+            if(j==36)stmp=sbox7[row][col];
+            if(j==42)stmp=sbox8[row][col];
+
+            dectobin(stmp,bintmp);
+            for(int k=0;k<4;k++)
             {
-                fpbox[ctmp+k]=stmp%2;
-               // cout<<rn[ctmp+k]<<endl;
-                stmp=stmp/2;
+                sbox[ctmp+k]=bintmp[k];
             }
             ctmp=ctmp+4;
-
-
-        }
-         ///End of Sbox permutation
-
-         ///Pbox permutation
-            for(j=0;j<32;j++)
-            {
-            //tmp=plain[i];
-            rn[j]=fpbox[pbox[j]];
-           // plain[ip[i]]=tmp;
-            }///
-         ///End ofPbox permutation
-         ///XOR start
-        /// XOR
-        for(j=0;j<32;j++)
+        }///Sbox substitution END
+    ///Pbox permutation
+permutation(32, sbox, xbox, pbox);
+/// XOR(xbox,ln)
+xorfunc(xbox,ln,rn1,32);
+///new ipplain
+ for(j=0;j<32;j++)
         {
-            if(((rn[j]==1) or (ln[j]==1))&& (rn[j]!= ln[j]))
-            {
-                rn1[j]=1;
-            }
-            else
-            {
-                rn1[j]=0;
-            }
-         }
-         /// end of XOR
-         ///XOR END
-         ///salipina kopa
-            for(j=0;j<32;j++)///right and left (n-1)
-        {
-            mplain[j]=ln1[j];
-            mplain[j+32]=rn1[j];
-           // ln1[j]=mplain[j+32];
+         ipplain[j]=ln1[j];
+            ipplain[j+32]=rn1[j];
         }
-
-
-
     }///function F end
 
          ///Final permutation
-    for(i=0;i<64;i++)
+permutation(64, ipplain,cypher , fp);
+for(i=0;i<64;i++)
     {
+       // fout<<cypher[i]<<endl;
+
+    }
+
+
+    /*
             //tmp=plain[i];
             rplain[i]=mplain[fp[i]];
            //cout<<rplain[i]<<endl;
