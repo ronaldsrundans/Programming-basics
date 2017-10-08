@@ -176,7 +176,27 @@ int main()
          ///Sbox permutation
         for(j=0;j<48;j=j+6)
         {
-            row=exp[j]
+            row=exp[j]*2+exp[j+5];
+            col=8*exp[j+1]+4*exp[j+2]+2*exp[j+3]+exp[j+4];
+
+            j==0
+            sbox1[row][col];
+            j==6
+            sbox2[row][col];
+            j==12
+            sbox3[row][col];
+            j==18
+            sbox4[row][col];
+            j==24
+            sbox5[row][col];
+            j==30
+            sbox6[row][col];
+            j==36
+            sbox7[row][col];
+            j==42
+            sbox8[row][col];
+
+
         }
          ///End of Sbox permutation
 
