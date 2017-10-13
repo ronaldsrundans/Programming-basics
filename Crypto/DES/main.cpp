@@ -201,7 +201,6 @@ int main()
     int ln[32];
     int rn1[32];
     int ln1[32];
-
     int tmp;
     int row;
     int col;
@@ -210,26 +209,15 @@ int main()
     int i=0,j=0;
         ///Initial permutation
     permutation(64, plain, ipplain, ip);
-
    ///key permutationS
-
     permutation(56, key, kpkey, kp);
-
     ///split key
-
     split(kpkey,kpkeyl,kpkeyr,28);
-
     ///function F
      for(i=0;i<16;i++)
     {
         ///split into L and R
         split(ipplain,ln,rn,32);
-
-    for(int k=0;k<32;k++)
-    {
-       // cout<<rn[k];
-    }
-  //  cout<<endl;
         ///l(n+1)
         for(j=0;j<32;j++)
         {
@@ -243,62 +231,18 @@ int main()
             fkey[j]=kpkeyl[j];
             fkey[j+28]=kpkeyr[j];
         }
-        fout<<endl;
-          for(j=0;j<28;j++)
-        {
-            fout<<kpkeyl[j];
-        }
- fout<<endl;
-          for(j=0;j<28;j++)
-        {
-            fout<<kpkeyr[j];
-        }
-        fout<<endl;
 ///fkey compression permutation
  permutation(48, fkey, cpkey, cp);
-
- fout<<"After perm"<<endl;
-          for(j=0;j<48;j++)
-        {
-            fout<<cpkey[j];
-        }
-        fout<<endl;
 ///Expantion Permutation
  permutation(48, rn, rnexp, ep);
- // cout<<"rn"<<endl;
- for(int k=0;k<32;k++)
-    {
-    //    cout<<rn[k];
-    }
-   // cout<<endl;
-    //  cout<<"rnexp"<<endl;
- for(int k=0;k<48;k++)
-    {
-    //    cout<<rnexp[k];
-    }
-   // cout<<endl;
  /// XOR (RNEXP,CPKEY)
  xorfunc(rnexp,cpkey,exp,48);
-      // cout<<"xor"<<endl;
- for(int k=0;k<48;k++)
-    {
-       // cout<<exp[k];
-    }
-   // cout<<endl;
      ///Sbox substitution
          ctmp=0;
         for(j=0;j<48;j=j+6)
         {
-            //cout<<"round="<<i<<endl;
             row=exp[j]*2+exp[j+5];
-
             col=8*exp[j+1]+4*exp[j+2]+2*exp[j+3]+exp[j+4];
-            if(i==0)
-            {
-               // cout<<"row="<<row<<endl;
-              //  cout<<"col="<<col<<endl;
-            }
-
             stmp=0;
             if(j==0)stmp=sbox1[row][col];
             if(j==6)stmp=sbox2[row][col];
@@ -308,21 +252,22 @@ int main()
             if(j==30)stmp= sbox6[row][col];
             if(j==36)stmp=sbox7[row][col];
             if(j==42)stmp=sbox8[row][col];
-            cout<<"round="<<i<<endl;
             dectobin(stmp,bintmp);
 
             for(int k=0;k<4;k++)
             {
                 sbox[ctmp+k]=bintmp[k];
-                cout<<bintmp[k];
             }
             ctmp=ctmp+4;
         }///Sbox substitution END
 
         ///Pbox permutation
         permutation(32, sbox, xbox, pbox);
+
+
         /// XOR(xbox,ln)
         xorfunc(xbox,ln,rn1,32);
+
         ///new ipplain
         for(j=0;j<32;j++)
         {
@@ -330,9 +275,14 @@ int main()
             ipplain[j+32]=rn1[j];
         }
     }///function F end
-
+     for(j=0;j<32;j++)
+        {
+            ipplain[j]=rn1[j];
+            ipplain[j+32]=ln1[j];
+        }
         ///Final permutation
         permutation(64, ipplain,cypher , fp);
+         permutation(64, test1,test2 , fp);
         cout<<endl;
         cout<<"plain=";
     for(i=0;i<64;i++)
@@ -343,12 +293,10 @@ int main()
     cout<<"cypher=";
     for(i=0;i<64;i++)
     {
-        //fout<<cypher[i]<<endl;
         cout<<cypher[i];
         plain[i]=cypher[i];///decryp
         dekey[i]=key[i];
     }
-    //fout.close();
     ///Decryption
           ///Initial permutation
     permutation(64, plain, ipplain, ip);
@@ -382,12 +330,6 @@ int main()
             fkey[j]=kpkeyl[j];
             fkey[j+28]=kpkeyr[j];
         }
-          fout<<"round="<<i<<endl;
-          for(j=0;j<56;j++)
-        {
-            fout<<fkey[j];
-        }
-        fout<<endl;
 ///fkey compression permutation
  permutation(48, fkey, cpkey, cp);
 
@@ -432,24 +374,20 @@ int main()
             ipplain[j+32]=rn1[j];
         }
     }///function F end
-
+    for(j=0;j<32;j++)
+    {
+            ipplain[j]=rn1[j];
+            ipplain[j+32]=ln1[j];
+    }
          ///Final permutation
     permutation(64, ipplain,cypher , fp);
     cout<<endl;
-    cout<<"deplain=";
+    cout<<"decypplain="<<endl;
     for(i=0;i<64;i++)
     {
-        //fout<<cypher[i]<<endl;
         cout<<cypher[i];
     }
     cout<<endl;
-    cout<<"dekey=";
-    for(i=0;i<64;i++)
-    {
-        //fout<<cypher[i]<<endl;
-        cout<<key[i];
-    }
-
     fout.close();
     return 0;
 }
