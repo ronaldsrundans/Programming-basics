@@ -16,7 +16,7 @@ int ip[64]={58,50,42,34,26,18,10,2,60,52,44,36,28,20,12,4,
             23,19,12,4,26,8,16,7,27,20,13,2,
             41,52,31,37,47,55,30,40,51,45,33,48,
             44,49,39,56,34,53,46,42,50,36,29,32};
-    int ep[48]={32,1,2,3,4,5,6,7,8,9,
+    int ep[48]={32,1,2,3,4,5,4,5,6,7,8,9,
     8,9,10,11,12,13,12,13,14,15,16,17,
     16,17,18,19,20,21,20,21,22,23,24,25,
     24,25,26,27,28,29,30,31,32,1};
@@ -131,7 +131,6 @@ void permutation(int n, int* arr1, int *arr2, int *arrp)
     int tmp;
     for(int i=0;i<n;i++)
     {
-
             arr2[i]=arr1[arrp[i]-1];
     }
 }
@@ -162,6 +161,8 @@ int main()
     int keyfsh[56];
     int kpkeyl[28];
     int kpkeyr[28];
+     int test1[64];
+      int test2[48];
     int kpkey[56];
     int fkey[56];
     int cpkey[48];
@@ -176,6 +177,7 @@ int main()
     {
         key[i]=1;
         plain[i]=1;
+        test1[i]=i+1;
     }
     int c;
     int m=0;
@@ -194,6 +196,7 @@ int main()
     int ln[32];
     int rn1[32];
     int ln1[32];
+
     int tmp;
     int row;
     int col;
@@ -202,17 +205,12 @@ int main()
     int i=0,j=0;
         ///Initial permutation
     permutation(64, plain, ipplain, ip);
-        cout << "plain=";
 
    ///key permutationS
 
-    permutation(64, key, kpkey, kp);
-    cout<<"kpkey="<<endl;
-   for(int i=0;i<64;i++)
-    {
-        cout<<kpkey[i];
-    }
-    cout<<endl;
+    permutation(56, key, kpkey, kp);
+
+
     ///split key
 
     split(kpkey,kpkeyl,kpkeyr,28);
@@ -222,6 +220,7 @@ int main()
     {
         ///split into L and R
         split(ipplain,ln,rn,32);
+        ///l(n+1)
         for(j=0;j<32;j++)
         {
             ln1[j]=rn[j];
@@ -234,7 +233,7 @@ int main()
             fkey[j]=kpkeyl[j];
             fkey[j+28]=kpkeyr[j];
         }
-        fout<<"round="<<i<<endl;
+        fout<<"round="<<i+1<<endl;
           for(j=0;j<56;j++)
         {
             fout<<fkey[j];
@@ -244,8 +243,15 @@ int main()
 ///fkey compression permutation
  permutation(48, fkey, cpkey, cp);
 
+cout<<endl;
 ///Expantion Permutation
  permutation(48, rn, rnexp, ep);
+ permutation(48, test1, test2, ep);
+cout<<"test2"<<endl;
+for(int k=0;k<48;k++)
+{
+    cout<<test2[k];
+}
  /// XOR (RNEXP,CPKEY)
  xorfunc(rnexp,cpkey,exp,48);
      ///Sbox substitution
@@ -253,9 +259,9 @@ int main()
         for(j=0;j<48;j=j+6)
         {
             row=exp[j]*2+exp[j+5];
-            cout<<"row="<<row<<endl;
+            //cout<<"row="<<row<<endl;
             col=8*exp[j+1]+4*exp[j+2]+2*exp[j+3]+exp[j+4];
-            cout<<"col="<<col<<endl;
+           // cout<<"col="<<col<<endl;
             stmp=0;
             if(j==0)stmp=sbox1[row][col];
             if(j==6)stmp=sbox2[row][col];
