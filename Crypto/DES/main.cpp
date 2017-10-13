@@ -1,3 +1,4 @@
+///Ronalds Rundans
 #include <iostream>
 #include <fstream>
 #include <cstring>
@@ -187,7 +188,7 @@ int main()
 
     int m=0;
 
-    cout << "plain=";
+    cout << "plain="<<endl;
     for(int i=0;i<64;i++)
     {
         cout<<plain[i];
@@ -283,14 +284,13 @@ int main()
         ///Final permutation
         permutation(64, ipplain,cypher , fp);
          permutation(64, test1,test2 , fp);
-        cout<<endl;
-        cout<<"plain=";
+    cout<<"key="<<endl;
     for(i=0;i<64;i++)
     {
-        cout<<plain[i];
+        cout<<key[i];
     }
     cout<<endl;
-    cout<<"cypher=";
+    cout<<"cypher text="<<endl;
     for(i=0;i<64;i++)
     {
         cout<<cypher[i];
@@ -382,7 +382,7 @@ int main()
          ///Final permutation
     permutation(64, ipplain,cypher , fp);
     cout<<endl;
-    cout<<"decypplain="<<endl;
+    cout<<"decryp plain="<<endl;
     for(i=0;i<64;i++)
     {
         cout<<cypher[i];
