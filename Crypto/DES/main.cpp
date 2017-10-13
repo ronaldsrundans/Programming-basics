@@ -65,6 +65,7 @@ int ip[64]={58,50,42,34,26,18,10,2,60,52,44,36,28,20,12,4,
                     {1,15,13,8,10,3,7,4,12,5,6,11,0,14,9,2},
                     {7,11,4,1,9,12,14,2,0,6,10,13,15,3,5,8},
                     {2,1,14,7,4,10,8,13,15,12,9,0,3,5,6,11}};
+
     int pbox[32]={16,7,20,21,29,12,28,17,1,15,23,26,5,18,31,10,
                     2,8,24,14,32,27,3,9,19,13,30,6,22,11,4,25};
 
@@ -171,21 +172,25 @@ int main()
     int sbox[32];
     int xbox[32];
     int   dekey[64];
-    int   key[64];
+    /*int   key[64];
     int plain[64];
+
     for(int i=0;i<64;i++)
     {
         key[i]=1;
         plain[i]=1;
         test1[i]=i+1;
-    }
+    }*/
+     int plain[64]={0,0,0,0,0,0,0,1,0,0,1,0,0,0,1,1,0,1,0,0,0,1,0,1,0,1,1,0,0,1,1,1,1,0,0,0,1,0,0,1,1,0,1,0,1,0,1,1,1,1,0,0,1,1,0,1,1,1,1,0,1,1,1,1};
+    int   key[64]={0,0,0,1,0,0,1,1,0,0,1,1,0,1,0,0,0,1,0,1,0,1,1,1,0,1,1,1,1,0,0,1,1,0,0,1,1,0,1,1,1,0,1,1,1,1,0,0,1,1,0,1,1,1,1,1,1,1,1,1,0,0,0,1};
     int c;
+
     int m=0;
 
-    cout << "key=";
+    cout << "plain=";
     for(int i=0;i<64;i++)
     {
-        cout<<key[i];
+        cout<<plain[i];
     }
     cout<<endl;
 
@@ -210,7 +215,6 @@ int main()
 
     permutation(56, key, kpkey, kp);
 
-
     ///split key
 
     split(kpkey,kpkeyl,kpkeyr,28);
@@ -220,6 +224,12 @@ int main()
     {
         ///split into L and R
         split(ipplain,ln,rn,32);
+
+    for(int k=0;k<32;k++)
+    {
+       // cout<<rn[k];
+    }
+  //  cout<<endl;
         ///l(n+1)
         for(j=0;j<32;j++)
         {
@@ -233,35 +243,62 @@ int main()
             fkey[j]=kpkeyl[j];
             fkey[j+28]=kpkeyr[j];
         }
-        fout<<"round="<<i+1<<endl;
-          for(j=0;j<56;j++)
+        fout<<endl;
+          for(j=0;j<28;j++)
         {
-            fout<<fkey[j];
-
+            fout<<kpkeyl[j];
+        }
+ fout<<endl;
+          for(j=0;j<28;j++)
+        {
+            fout<<kpkeyr[j];
         }
         fout<<endl;
 ///fkey compression permutation
  permutation(48, fkey, cpkey, cp);
 
-cout<<endl;
+ fout<<"After perm"<<endl;
+          for(j=0;j<48;j++)
+        {
+            fout<<cpkey[j];
+        }
+        fout<<endl;
 ///Expantion Permutation
  permutation(48, rn, rnexp, ep);
- permutation(48, test1, test2, ep);
-cout<<"test2"<<endl;
-for(int k=0;k<48;k++)
-{
-    cout<<test2[k]<<"k="<<k<<endl;
-}
+ // cout<<"rn"<<endl;
+ for(int k=0;k<32;k++)
+    {
+    //    cout<<rn[k];
+    }
+   // cout<<endl;
+    //  cout<<"rnexp"<<endl;
+ for(int k=0;k<48;k++)
+    {
+    //    cout<<rnexp[k];
+    }
+   // cout<<endl;
  /// XOR (RNEXP,CPKEY)
  xorfunc(rnexp,cpkey,exp,48);
+      // cout<<"xor"<<endl;
+ for(int k=0;k<48;k++)
+    {
+       // cout<<exp[k];
+    }
+   // cout<<endl;
      ///Sbox substitution
          ctmp=0;
         for(j=0;j<48;j=j+6)
         {
+            //cout<<"round="<<i<<endl;
             row=exp[j]*2+exp[j+5];
-            //cout<<"row="<<row<<endl;
+
             col=8*exp[j+1]+4*exp[j+2]+2*exp[j+3]+exp[j+4];
-           // cout<<"col="<<col<<endl;
+            if(i==0)
+            {
+               // cout<<"row="<<row<<endl;
+              //  cout<<"col="<<col<<endl;
+            }
+
             stmp=0;
             if(j==0)stmp=sbox1[row][col];
             if(j==6)stmp=sbox2[row][col];
@@ -271,10 +308,13 @@ for(int k=0;k<48;k++)
             if(j==30)stmp= sbox6[row][col];
             if(j==36)stmp=sbox7[row][col];
             if(j==42)stmp=sbox8[row][col];
+            cout<<"round="<<i<<endl;
             dectobin(stmp,bintmp);
+
             for(int k=0;k<4;k++)
             {
                 sbox[ctmp+k]=bintmp[k];
+                cout<<bintmp[k];
             }
             ctmp=ctmp+4;
         }///Sbox substitution END
@@ -320,7 +360,6 @@ for(int k=0;k<48;k++)
        for(i=0;i<56;i++)
     {
         key[i]=fkey[i];
-       // key[i+28]=kpkeyr[55-i];
     }
 ///split key
 
