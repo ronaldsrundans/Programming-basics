@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <fstream>
 #include <cstring>
@@ -171,14 +170,13 @@ int main()
     int sbox[32];
     int xbox[32];
     int   dekey[64];
-    int   key[64];//={1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
-    int plain[64];//={1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1};
+    int   key[64];
+    int plain[64];
     for(int i=0;i<64;i++)
     {
         key[i]=1;
         plain[i]=1;
     }
-    key[26]=0;
     int c;
     int m=0;
 
@@ -187,6 +185,8 @@ int main()
     {
         cout<<key[i];
     }
+    cout<<endl;
+
     int ipplain[64];
     int cypher[64];
     int exp[48];
@@ -202,11 +202,17 @@ int main()
     int i=0,j=0;
         ///Initial permutation
     permutation(64, plain, ipplain, ip);
+        cout << "plain=";
 
    ///key permutationS
 
-    permutation(56, key, kpkey, kp);
-
+    permutation(64, key, kpkey, kp);
+    cout<<"kpkey="<<endl;
+   for(int i=0;i<64;i++)
+    {
+        cout<<kpkey[i];
+    }
+    cout<<endl;
     ///split key
 
     split(kpkey,kpkeyl,kpkeyr,28);
@@ -247,7 +253,9 @@ int main()
         for(j=0;j<48;j=j+6)
         {
             row=exp[j]*2+exp[j+5];
+            cout<<"row="<<row<<endl;
             col=8*exp[j+1]+4*exp[j+2]+2*exp[j+3]+exp[j+4];
+            cout<<"col="<<col<<endl;
             stmp=0;
             if(j==0)stmp=sbox1[row][col];
             if(j==6)stmp=sbox2[row][col];
@@ -400,4 +408,3 @@ int main()
     fout.close();
     return 0;
 }
-
