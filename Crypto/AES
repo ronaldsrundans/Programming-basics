@@ -1,0 +1,113 @@
+#include <iostream>
+
+using namespace std;
+
+void xorfunc(int arr1[][4], int arr2[][4], int arr3[][4], int n, int col)
+{
+    for(int i=0;i<n;i++)
+        {
+            if(((arr1[i][col]==1) or (arr2[i][col]==1))&& (arr1[i][col]!= arr2[i][col]))
+            {
+                arr3[i][col]=1;
+            }
+            else
+            {
+                arr3[i][col]=0;
+            }
+         }
+}
+void addroundkey()
+{}
+void subbytes()
+{}
+void shiftrows()
+{}
+void mixcol()
+{}
+void expandkey()
+{}
+void dectobin(int dec,int* bin)
+{
+    int tmp=dec;
+    for(int i=3;i>=0;i--)
+    {
+        bin[i]=tmp%2;
+        tmp=tmp/2;
+    }
+}
+void hextobin(char* hex,int hexcount, int *arr)
+{
+    int n;
+    int k;
+    int i;
+
+    for(k=0;k<hexcount;k++)
+    {
+    //cout<<hex[k]<<endl;
+    n=(int)hex[k];
+    //cout<<n<<endl;
+    if(n>='a')
+    {
+        n=n-'a'+10;
+    }
+        else
+        {
+            n=n-'0';
+        }
+//cout<<n<<endl;
+        for(i=3;i>=0;i--)
+        {
+            arr[i+k*4]=n%2;
+            n=n/2;
+        }
+    }
+}
+int main()
+{
+char plain16[33]="3243f6a8885a308d313198a2e0370734";
+char key16 [33]="2b7e151628aed2a6abf7158809cf4f3c";
+char sbox[192]="";
+int w0[32];
+int w1[32];
+int w2[32];
+int w3[32];
+int w4[32];
+int w5[32];
+int w6[32];
+int w7[32];
+int arr[128];
+int arrp[128];
+hextobin(key16,33,arr);
+hextobin(plain16,33,arrp);
+int input[32][4];
+int roundinput[32][4];
+int roundkey[32][4];
+for(int i=0;i<4;i++)
+{
+    for(int j=0;j<32;j++)
+    {
+        roundkey[j][i]=arr[j+i*32];
+    }
+}
+
+for(int i=0;i<4;i++)
+{
+    for(int j=0;j<32;j++)
+    {
+        input[j][i]=arrp[j+i*32];
+    }
+}
+for(int i=0;i<4;i++)
+{
+    for(int j=0;j<32;j++)
+    {
+        xorfunc(input, roundkey,roundinput,32, i);
+    }
+    cout<<endl;
+}
+///plain
+///key
+
+    cout << "Hello world!" << endl;
+    return 0;
+}
