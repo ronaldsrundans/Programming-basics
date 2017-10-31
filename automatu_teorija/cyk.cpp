@@ -2,7 +2,7 @@
 #include <cstring>
 using namespace std;
 
-void searchString(char*c,int arr[][4], char arrChar[][6], int *arrP)
+void searchString(char*c,int arr[][4], char arrChar[][6],int *arrP ,int n)
 {
     int i,j,k,d,m,pos;
 
@@ -28,11 +28,12 @@ void searchString(char*c,int arr[][4], char arrChar[][6], int *arrP)
           //  cout<<d<<"m="<<m<<endl;
             if(d==m)
             {
-                pos=arrP[0]+1;
+                arrP[n]=i;
+               // pos=arrP[0]+1;
                // cout<<"pos="<<pos<<endl;
-                //cout<<"match="<<c[0]<<endl;
-                arrP[pos]=i;
-               arrP[0]=pos;
+                cout<<"match="<<c[0]<<i<<endl;
+               // arrP[pos]=i;
+               //arrP[0]=pos;
             }
            // cout<<endl;
         }
@@ -41,7 +42,7 @@ void searchString(char*c,int arr[][4], char arrChar[][6], int *arrP)
 
 int main()
 {
-    int i,j,k,pos,x,y;
+    int i,j,k,pos,x,y,tmp;
     int n=0;
     int arrInt1[5];///rinda norada burtu no abbb
     char arrChar[3][6]={{"SSAAB"},
@@ -55,17 +56,24 @@ int main()
 //cout<<"c=j=0"<<c[0]<<endl;
     for(j=0;j<4;j++)
     {
-        arrInt1[0]=0;
+        //arrInt1[0]=0;
         c[0]=word[j];
         c[1]=0;
-        searchString(c,arrInt,arrChar,arrInt1);
+      //  tmp=0;
+        searchString(c,arrInt,arrChar,arrInt1,j);
+      //  arrInt1[j]=tmp;
 
-        cout<<"arr="<<endl;
-        x=arrInt1[0];
-        for(y=1;y<=x;y++)
-        {
-            cout<<arrInt1[y]<<endl;
-        }
+
     }
+    cout<<"arr="<<endl;
+        //x=4
+        for(y=0;y<3;y++)
+        {
+            cout<<arrInt1[y]<<arrInt1[y+1]<<endl;
+            c[0]=arrChar[arrInt1[y]][0];
+            c[1]=arrChar[arrInt1[y+1]][0];
+            c[2]=0;
+            cout<<c<<endl;
+        }
     return 0;
 }
