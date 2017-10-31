@@ -58,7 +58,7 @@ int main()
     int arrInt[3][4]={{2,1,3,5},
                 {2,1,3,4},
                 {2,1,3,4}};
-    char word[5]="abbb";
+    char word[5]="aaab";
     char c[2];
 //cout<<"c=j=0"<<c[0]<<endl;
     for(j=0;j<4;j++)
