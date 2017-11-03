@@ -49,7 +49,7 @@ int main()
     int m=0;
     int **marr;
     int *d;
-    char word[5]="abbb";
+    char word[5]="aaab";
     char c[2];
     int arrInt1[4][30];///rinda norada burtu no abbb
     for(y=0;y<4;y++)
@@ -228,8 +228,8 @@ cout<<"l-p="<<i-k<<"  s+p="<<j+k<<endl;
 
     }
     cout<<"end="<<endl;
-cout<<marr[9][0]<<endl;
-for(i=0;i<10;i++)
+j=marr[9][0];
+for(i=0;i<j;i++)
 {
     cout<<marr[9][i]<<endl;
     if(marr[9][i]==0)
