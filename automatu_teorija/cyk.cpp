@@ -3,7 +3,7 @@
 #include <cstring>
 using namespace std;
 
-void searchString2(char*c,int arr[][4], char arrChar[][6],int **arrP, int n)
+void searchString2(char*c,int arr[][20], char arrChar[][100],int **arrP, int n)
 {
     int i,j,k,d,m,pos;
     for(i=0;i<3;i++)///rinda
@@ -38,22 +38,37 @@ int main()
     int *d;
    // char word[30]="ababa";
 
-///char word[30]="abbabbabbacabbaaaaabbaac";
+char word[30]="abbabbabbacabbaaaaabbaac";
 ///char word[30]="acaaaaaabbaaaaaaaaaaaaaaaaaa";
-char word[30]="abbabbabbbbabbabbaaaaabb";
+///char word[30]="abbabbabbbbabbabbaaaaabb";
 
 
     char c[2];
     int arrInt2[3][5];
     int arrInt3[2][5];
     int arrInftF[1][5];
-
+/*
     char arrChar[3][6]={{"SSAAB"},
                     {"AABa"},
                     {"BBBb"}};
     int arrInt[3][4]={{2,1,3,5},
                 {2,1,3,4},
                 {2,1,3,4}};
+                */
+char arrChar[6][100]={{"SaEabbaECCaaabbaCbbSbbFEAaAAcaEabCSCEaCDaaabCaCDa"},
+                    {"AbbbaaAbCaabCEaabbS"},
+                    {"CaEabCaabC"},
+                    {"DabaEbbcbabb"},
+                    {"EEaabbSaCSFEaaAaAAcaEabCSCEaCDa"},
+                    {"FAaAAcFEaEabCSCEaCDaaabCaCDa"}
+                };
+                int arrInt[6][20]={{14,1,6,9,11,15,17,19,22,24,29,34,36,41,45,49},
+                                    {12,1,4,9,13,16,19,22,24,26,31,36,38,43},
+                                   {4,1,3,6,11,15},
+                                   {4,1,3,7,9,12},
+                                   {11,1,4,7,10,12,14,19,24,26,30,34,38},
+                                   {7,1,6,8,13,15,20,24,28},
+                                    };
     n=0;
     while(word[n]!=0)
     {
