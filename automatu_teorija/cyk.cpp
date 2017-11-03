@@ -33,7 +33,8 @@ void searchString2(char*c,int arr[][4], char arrChar[][6],int **arrP, int n)
                 //arrP[n]=i;
                 pos=arrP[n][0]+1;
                // cout<<"pos="<<pos<<endl;
-                cout<<"match[n]="<<n<<"i="<<i<<endl;
+                cout<<"match[n]="<<c<<endl;
+                //<<n<<"i="<<i<<endl;
                 arrP[n][pos]=i;
                arrP[n][0]=pos;
             }
@@ -43,12 +44,12 @@ void searchString2(char*c,int arr[][4], char arrChar[][6],int **arrP, int n)
 }
 int main()
 {
-    int i,j,k,l,pos,x,y,tmp;
+    int i,j,k,l,pos,x,y,x1,y1,r,tmp;
     int n=0;
     int m=0;
     int **marr;
     int *d;
-    char word[5]="aaab";
+    char word[5]="abbb";
     char c[2];
     int arrInt1[4][30];///rinda norada burtu no abbb
     for(y=0;y<4;y++)
@@ -96,6 +97,7 @@ d=new int[n];///diff
        marr[i]=new int [30];
        marr[i][0]=0;
     }
+
    // cout<<"test1="<<marr[2][0]<<endl;
      for(j=0;j<n;j++)
     {
@@ -116,30 +118,71 @@ d=new int[n];///diff
             // cout<<"j="<<j<<endl;
             for(k=1;k<=i-1;k++)///partition of span
             {
+
+                 // cout<<"c1 rinda=";
+                // cout<<"["<<d[k-1]<<"]+ ["<<j-1<<"] ="<<d[k-1]+j-1<<endl;
+               //  cout<<"c1 el sk="<<marr[d[k-1]+j-1][0]<<endl;
+                    x1=marr[d[k-1]+j-1][0];///elementu sk rinda
+                    y1=marr[d[i-k-1]+j+k-1][0];
+                    r=d[i-1]+j-1;
+                //    cout<<"c2 rinda=";
+
+                // cout<<"["<<d[i-k-1]<<"]+ ["<<j+k-1<<"] ="<<d[i-k-1]+j+k-1<<endl;
+              //   cout<<"c2 el sk="<<marr[d[i-k-1]+j+k-1][0]<<endl;
+                // cout<<"rez rinda="<<d[i-1]+j-1<<endl;
+                 if(marr[d[i-k-1]+j+k-1][0]==0 ||  marr[d[k-1]+j-1][0]==0)continue;
+                 else
+                 {
+                     for(x=1;x<=x1;x++)
+                     {
+                         for(y=1;y<=y1;y++)
+                         {
+
+                            c[0]=arrChar[marr[d[k-1]+j-1][x]][0];
+                            c[1]=arrChar[marr[d[i-k-1]+j+k-1][y]][0];
+                            c[2]=0;
+                            cout<<c<<endl;
+                            searchString2(c,arrInt,arrChar,marr,r);
+
+                         }
+                     }
+
+                 }
                /* tmp++;
                 cout<<"tmp="<<tmp<<endl;
                 // cout<<"k="<<k<<endl;
                  cout<<"ijk  "<<i<<" "<<j<<" "<<k<<endl;
                  ///insert for for
-                 cout<<"c1 rinda=";
-                 cout<<"["<<d[k-1]<<"]+ ["<<j-1<<"] ="<<d[k-1]+j-1<<endl;
-                    cout<<"c2 rinda=";
-                 cout<<"["<<d[i-k-1]<<"]+ ["<<j+k-1<<"] ="<<d[i-k-1]+j+k-1<<endl;
+
                     cout<<"c1=";
                  cout<<"["<<k<<"] ["<<j<<"]"<<endl;
                     cout<<"c2=";
                  cout<<"["<<i-k<<"] ["<<j+k<<"]"<<endl;
-                 cout<<"rez rinda="<<d[i-1]+j-1<<endl;*/
+                 */
 
+///missing for for
+
+  /*  for(x=d[k-1]+j-1;x<marr[d[k-1]+j-1][0];x++)///rinda
+    {
+        for(y=1;y<=marr[x][0];y++)///colonna
+        {
+                    cout<<"x y"<<x<<"  "<<y<<"=>"<<arrChar[marr[x][y]][0]<<endl;
+        }
+
+    }
 
                 cout<<d[k-1]+j-1<<"   "<<d[i-k-1]+j+k-1<<endl;
                  cout<<arrChar[d[k-1]+j-1][0]<<"  "<<arrChar[d[i-k-1]+j+k-1][0]<<endl;
                   c[0]=arrChar[d[k-1]+j-1][0];
                   c[1]=arrChar[d[i-k-1]+j+k-1][0];
                   c[2]=0;
+                  cout<<c<<endl;
+                  searchString2(c,arrInt,arrChar,marr,d[i-1]+j-1);
                 //arrChar[d[k-1]+j-1][0]][0];
                // cout<<c[0]<<endl;
                  cout<<endl;
+                 cout<<marr[d[i-1]+j-1][0];
+                 break;*/
                    //
                    // c[1]=arrChar[d[i-k-1]+j+k-1][0];
 
@@ -184,23 +227,19 @@ cout<<"l-p="<<i-k<<"  s+p="<<j+k<<endl;
         }
 
     }
-/*
-    tmp=0;/// d[i]
-           for(x=1;x<)
-                 {
-                     for(y=1;)
-                     {
-                            c[0]=arrChar[d[k-1]+j-1][0];
-                            c[1]=arrChar[d[i-k-1]+j+k-1][0];
-                            c[2]=0;
-                        cout<<c<<endl;
-//cout<<"rez rinda="<<<<endl;
-                        searchString2(c,arrInt,arrChar,marr,d[i-1]+j-1);
-                     }
-                 }
+i=2;
+
+    for(x=d[i-2];x<d[i-1];x++)///rinda
+    {
+        for(y=1;y<=marr[x][0];y++)///colonna
+        {
+                    cout<<"x y"<<x<<"  "<<y<<"=>"<<arrChar[marr[x][y]][0]<<endl;
+        }
+
+    }
 
 
-*/
+
 for (i=0; i<m; i++) delete[] marr[i];
  delete[] marr;
 
