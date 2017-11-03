@@ -116,7 +116,7 @@ d=new int[n];///diff
             // cout<<"j="<<j<<endl;
             for(k=1;k<=i-1;k++)///partition of span
             {
-                tmp++;
+               /* tmp++;
                 cout<<"tmp="<<tmp<<endl;
                 // cout<<"k="<<k<<endl;
                  cout<<"ijk  "<<i<<" "<<j<<" "<<k<<endl;
@@ -129,13 +129,33 @@ d=new int[n];///diff
                  cout<<"["<<k<<"] ["<<j<<"]"<<endl;
                     cout<<"c2=";
                  cout<<"["<<i-k<<"] ["<<j+k<<"]"<<endl;
-                 
-                 c[0]=arrChar[d[k-1]+j-1][0];
-                c[1]=arrChar[d[i-k-1]+j+k-1][0];
-                 c[2]=0;
- cout<<c<<endl;
+                 cout<<"rez rinda="<<d[i-1]+j-1<<endl;*/
+
+
+                cout<<d[k-1]+j-1<<"   "<<d[i-k-1]+j+k-1<<endl;
+                 cout<<arrChar[d[k-1]+j-1][0]<<"  "<<arrChar[d[i-k-1]+j+k-1][0]<<endl;
+                  c[0]=arrChar[d[k-1]+j-1][0];
+                  c[1]=arrChar[d[i-k-1]+j+k-1][0];
+                  c[2]=0;
+                //arrChar[d[k-1]+j-1][0]][0];
+               // cout<<c[0]<<endl;
+                 cout<<endl;
+                   //
+                   // c[1]=arrChar[d[i-k-1]+j+k-1][0];
+
+
+               /*  for()
+                 {
+                     for()
+                     {
+
+                            c[2]=0;
+                        cout<<c<<endl;
 //cout<<"rez rinda="<<<<endl;
-searchString2(c,arrInt,arrChar,marr,d[i-1]+j-1);
+                        searchString2(c,arrInt,arrChar,marr,d[i-1]+j-1);
+                     }
+                 }*/
+
 
                  ///fix search bigger arr
                 //
@@ -164,6 +184,23 @@ cout<<"l-p="<<i-k<<"  s+p="<<j+k<<endl;
         }
 
     }
+/*
+    tmp=0;/// d[i]
+           for(x=1;x<)
+                 {
+                     for(y=1;)
+                     {
+                            c[0]=arrChar[d[k-1]+j-1][0];
+                            c[1]=arrChar[d[i-k-1]+j+k-1][0];
+                            c[2]=0;
+                        cout<<c<<endl;
+//cout<<"rez rinda="<<<<endl;
+                        searchString2(c,arrInt,arrChar,marr,d[i-1]+j-1);
+                     }
+                 }
+
+
+*/
 for (i=0; i<m; i++) delete[] marr[i];
  delete[] marr;
 
