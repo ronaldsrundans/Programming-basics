@@ -47,6 +47,7 @@ int main()
     int n=0;
     int m=0;
     int **marr;
+    int *d;
     char word[5]="aaab";
     char c[2];
     int arrInt1[4][30];///rinda norada burtu no abbb
@@ -68,6 +69,8 @@ int main()
 //cout<<"c=j=0"<<c[0]<<endl;
 
     n=4;
+
+
     //
     for(i=1;i<=n;i++)///sola garums
     {
@@ -76,6 +79,17 @@ int main()
     cout<<"m="<<m<<endl;
     cout<<"n="<<n<<endl;
 marr=new int* [m];
+d=new int[n];///diff
+ d[0]=0;
+ l=n;
+  for(i=1;i<n;i++)///set diff arr
+{
+    d[i]=d[i-1]+l;
+   // cout<<"d[i]="<<d[i]<<endl;
+    l=l-1;
+}
+
+
  for(i=0;i<m;i++)
     {
        marr[i]=new int [30];
@@ -87,7 +101,9 @@ marr=new int* [m];
         c[0]=word[j];
         c[1]=0;
         searchString2(c,arrInt,arrChar,marr,j);
-       // cout<<arrChar[marr[j][1]][0]<<endl;
+        // cout<<marr[j][0]<<endl;
+        //cout<<arrChar[marr[j][1]][0]<<endl;
+
     }
 
 
@@ -102,9 +118,10 @@ marr=new int* [m];
                 // cout<<"k="<<k<<endl;
                  //cout<<"ijk  "<<i<<" "<<j<<" "<<k<<endl;
                  ///insert for for
-                 cout<<"["<<k<<"] ["<<j<<"] "<<endl;
-
-                 cout<<"["<<i-k<<"] ["<<j+k<<"] "<<endl;
+                 cout<<"c1 rinda=";
+                 cout<<"["<<d[k-1]<<"]+ ["<<j-1<<"] ="<<d[k-1]+j-1<<endl;
+                    cout<<"c2 rinda=";
+                 cout<<"["<<d[i-k-1]<<"]+ ["<<j+k-1<<"] ="<<d[i-k-1]+j+k-1<<endl;
                  ///fix search bigger arr
                  cout<<endl;
   //cout<<"start="<<j<<"  l="<<i<<endl;
