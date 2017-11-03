@@ -122,8 +122,16 @@ d=new int[n];///diff
                  cout<<"["<<d[k-1]<<"]+ ["<<j-1<<"] ="<<d[k-1]+j-1<<endl;
                     cout<<"c2 rinda=";
                  cout<<"["<<d[i-k-1]<<"]+ ["<<j+k-1<<"] ="<<d[i-k-1]+j+k-1<<endl;
+                    cout<<"c1=";
+                 cout<<"["<<k<<"] ["<<j<<"]"<<endl;
+                    cout<<"c2=";
+                 cout<<"["<<i-k<<"] ["<<j+k<<"]"<<endl;
+cout<<"rez rinda="<<j+k+i<<endl;
+
                  ///fix search bigger arr
+                //
                  cout<<endl;
+
   //cout<<"start="<<j<<"  l="<<i<<endl;
 
 
