@@ -129,11 +129,17 @@ d=new int[n];///diff
                  cout<<"["<<k<<"] ["<<j<<"]"<<endl;
                     cout<<"c2=";
                  cout<<"["<<i-k<<"] ["<<j+k<<"]"<<endl;
-cout<<"rez rinda="<<d[i-1]+j-1<<endl;
+                 
+                 c[0]=arrChar[d[k-1]+j-1][0];
+                c[1]=arrChar[d[i-k-1]+j+k-1][0];
+                 c[2]=0;
+ cout<<c<<endl;
+//cout<<"rez rinda="<<<<endl;
+searchString2(c,arrInt,arrChar,marr,d[i-1]+j-1);
 
                  ///fix search bigger arr
                 //
-                 cout<<endl;
+
 
   //cout<<"start="<<j<<"  l="<<i<<endl;
 
