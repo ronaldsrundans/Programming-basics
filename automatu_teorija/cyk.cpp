@@ -49,12 +49,18 @@ int main()
     int m=0;
     int **marr;
     int *d;
-    char word[30]="ababa";
+   // char word[30]="ababa";
+
+///char word[30]="abbabbabbacabbaaaaabbaac";
+///char word[30]="acaaaaaabbaaaaaaaaaaaaaaaaaa";
+char word[30]="abbabbabbbbabbabbaaaaabb";
+
+
     char c[2];
-    int arrInt1[4][30];///rinda norada burtu no abbb
+   // int arrInt1[4][100];///rinda norada burtu no abbb
     for(y=0;y<4;y++)
     {
-        arrInt1[y][0]=0;
+        //arrInt1[y][0]=0;
     }
     int arrInt2[3][5];
     int arrInt3[2][5];
@@ -99,7 +105,7 @@ d=new int[n];///diff
 
  for(i=0;i<m;i++)
     {
-       marr[i]=new int [30];
+       marr[i]=new int [10000];
        marr[i][0]=0;
     }
 
