@@ -227,16 +227,17 @@ cout<<"l-p="<<i-k<<"  s+p="<<j+k<<endl;
         }
 
     }
-i=2;
-
-    for(x=d[i-2];x<d[i-1];x++)///rinda
+    cout<<"end="<<endl;
+cout<<marr[9][0]<<endl;
+for(i=0;i<10;i++)
+{
+    cout<<marr[9][i]<<endl;
+    if(marr[9][i]==0)
     {
-        for(y=1;y<=marr[x][0];y++)///colonna
-        {
-                    cout<<"x y"<<x<<"  "<<y<<"=>"<<arrChar[marr[x][y]][0]<<endl;
-        }
-
+        cout<<"pieder!"<<endl;
+        break;
     }
+}
 
 
 
