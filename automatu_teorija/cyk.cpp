@@ -4,7 +4,7 @@
 using namespace std;
 
 
-void searchString2(char*c,int arr[][4], char arrChar[][6],int arrP[][5], int n)
+void searchString2(char*c,int arr[][4], char arrChar[][6],int **arrP, int n)
 {
     int i,j,k,d,m,pos;
 
@@ -49,7 +49,7 @@ int main()
     int **marr;
     char word[5]="aaab";
     char c[2];
-    int arrInt1[4][5];///rinda norada burtu no abbb
+    int arrInt1[4][30];///rinda norada burtu no abbb
     for(y=0;y<4;y++)
     {
         arrInt1[y][0]=0;
@@ -66,26 +66,31 @@ int main()
                 {2,1,3,4}};
 
 //cout<<"c=j=0"<<c[0]<<endl;
-    for(j=0;j<4;j++)
-    {
-        c[0]=word[j];
-        c[1]=0;
-        searchString2(c,arrInt,arrChar,arrInt1,j);
-        //cout<<arrChar[arrInt1[j][1]][0]<<endl;
-    }
+
     n=4;
     //
-    for(i=1;i<n;i++)///sola garums
+    for(i=1;i<=n;i++)///sola garums
     {
         m=m+i;
     }
     cout<<"m="<<m<<endl;
     cout<<"n="<<n<<endl;
 marr=new int* [m];
- for(i=0;i<m;i++)///sola garums
+ for(i=0;i<m;i++)
     {
-       marr[i]=new int [n];
+       marr[i]=new int [30];
+       marr[i][0]=0;
     }
+   // cout<<"test1="<<marr[2][0]<<endl;
+     for(j=0;j<n;j++)
+    {
+        c[0]=word[j];
+        c[1]=0;
+        searchString2(c,arrInt,arrChar,marr,j);
+       // cout<<arrChar[marr[j][1]][0]<<endl;
+    }
+
+
     for(i=2;i<=n;i++)///sola garums
     {
        // cout<<"i="<<i<<endl;
@@ -125,7 +130,7 @@ cout<<"l-p="<<i-k<<"  s+p="<<j+k<<endl;
         }
 
     }
-for (int i=0; i<m; i++) delete[] marr[i];
+for (i=0; i<m; i++) delete[] marr[i];
  delete[] marr;
 
     return 0;
