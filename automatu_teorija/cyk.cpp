@@ -69,6 +69,7 @@ int main()
 //cout<<"c=j=0"<<c[0]<<endl;
 
     n=4;
+    tmp=0;
 
 
     //
@@ -115,8 +116,10 @@ d=new int[n];///diff
             // cout<<"j="<<j<<endl;
             for(k=1;k<=i-1;k++)///partition of span
             {
+                tmp++;
+                cout<<"tmp="<<tmp<<endl;
                 // cout<<"k="<<k<<endl;
-                 //cout<<"ijk  "<<i<<" "<<j<<" "<<k<<endl;
+                 cout<<"ijk  "<<i<<" "<<j<<" "<<k<<endl;
                  ///insert for for
                  cout<<"c1 rinda=";
                  cout<<"["<<d[k-1]<<"]+ ["<<j-1<<"] ="<<d[k-1]+j-1<<endl;
@@ -126,7 +129,7 @@ d=new int[n];///diff
                  cout<<"["<<k<<"] ["<<j<<"]"<<endl;
                     cout<<"c2=";
                  cout<<"["<<i-k<<"] ["<<j+k<<"]"<<endl;
-cout<<"rez rinda="<<j+k+i<<endl;
+cout<<"rez rinda="<<d[i-1]+j-1<<endl;
 
                  ///fix search bigger arr
                 //
