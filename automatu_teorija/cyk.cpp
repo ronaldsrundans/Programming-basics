@@ -135,9 +135,9 @@ d=new int[n];///diff
                 // cout<<"["<<d[i-k-1]<<"]+ ["<<j+k-1<<"] ="<<d[i-k-1]+j+k-1<<endl;
               //   cout<<"c2 el sk="<<marr[d[i-k-1]+j+k-1][0]<<endl;
                 // cout<<"rez rinda="<<d[i-1]+j-1<<endl;
-                 if(marr[d[i-k-1]+j+k-1][0]==0 ||  marr[d[k-1]+j-1][0]==0)continue;
-                 else
-                 {
+                // if(marr[d[i-k-1]+j+k-1][0]==0 ||  marr[d[k-1]+j-1][0]==0)continue;
+               //  else
+               //  {
                      for(x=1;x<=x1;x++)
                      {
                          for(y=1;y<=y1;y++)
@@ -150,13 +150,14 @@ d=new int[n];///diff
                             searchString2(c,arrInt,arrChar,marr,r);
                          }
                      }
-                 }
+                 //}
             }
         }
     }
    // cout<<"end="<<endl;
 j=marr[m-1][0];
-for(i=0;i<j;i++)
+//cout<<"j="<<j<<endl;
+for(i=1;i<=j;i++)
 {
    // cout<<marr[9][i]<<endl;
     if(marr[m-1][i]==0)
