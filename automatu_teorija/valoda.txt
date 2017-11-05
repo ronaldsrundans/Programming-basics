@@ -1,0 +1,35 @@
+Na a
+Nb b
+Nc c
+S NaNEabb NaNEC NcNa NaNabb NaC  NbNb SNbb FE ANaAAc NaNEabC SC ENaCDa NaNabC NaNCDa
+A NbNbb NaNaAbC NaNabC Enaa NbbS NaNCS FE NaNa ANaAAc NaNEabC SC ENaCDa
+C NaE NbNbb NaNaAbC NaNabC
+D NaNb NaNEbb NcNb NaNbb
+E Enaa NbbS NaNCS FE NaNa ANaAAc NaNEabC SC ENaCDa NaNabC
+F ANaAAc FE NaNEabC SC  ENaCDa NaNabC NaNCDa
+NEabb ENabb 
+Nabb NaNbb
+Nbb NbNb
+NEC EC
+NaAAc NaNAAc
+NAAc ANAc
+NAc ANc
+NEabC ENabC
+NabC NabC
+NDa DNa
+NbC NbC
+NaAbC NaNAbC
+NAbC ANbC
+Naa NaNa
+NCS CS
+NabC NabC
+Nab NaNb
+NaCDa NaNCDa
+NCDa CNDa
+NDa DNa
+NEbb ENbb
+
+
+
+
+
