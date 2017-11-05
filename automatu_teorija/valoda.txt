@@ -1,33 +1,31 @@
-Na a
-Nb b
-Nc c
-S NaNEabb NaNEC NcNa NaNabb NaC  NbNb SNbb FE ANaAAc NaNEabC SC ENaCDa NaNabC NaNCDa
-A NbNbb NaNaAbC NaNabC Enaa NbbS NaNCS FE NaNa ANaAAc NaNEabC SC ENaCDa
-C NaE NbNbb NaNaAbC NaNabC
-D NaNb NaNEbb NcNb NaNbb
-E Enaa NbbS NaNCS FE NaNa ANaAAc NaNEabC SC ENaCDa NaNabC
-F ANaAAc FE NaNEabC SC  ENaCDa NaNabC NaNCDa
-NEabb ENabb 
-Nabb NaNbb
-Nbb NbNb
-NEC EC
-NaAAc NaNAAc
-NAAc ANAc
-NAc ANc
-NEabC ENabC
-NabC NabC
-NDa DNa
-NbC NbC
-NaAbC NaNAbC
-NAbC ANbC
-Naa NaNa
-NCS CS
-NabC NabC
-Nab NaNb
-NaCDa NaNCDa
-NCDa CNDa
-NDa DNa
-NEbb ENbb
+X a
+Y b
+Z c
+S X3 XT CX XH XC  YY SU FE A2 XG SC EQ XB XM
+A YU XK XB EW US XI FE XX A2 XG SC EQ
+C XE YU XK XB
+D XY XO ZY XU
+E EW US XI FE XX A2 XG SC EQ XB
+F A2 FE XG SC  EQ XB XM
+3 EH 
+H XU
+U YY
+T EC
+2 X1
+1 AR
+R AZ
+G EB
+B VC
+P DX
+L YC
+K XJ
+J AL
+W XX
+I CS
+V XY
+Q XM
+M CP
+O EU
 
 
 
