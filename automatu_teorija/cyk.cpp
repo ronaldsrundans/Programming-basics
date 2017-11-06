@@ -25,7 +25,7 @@ void searchString2(char*c,int arr[][20], char arrChar[][100],int **arrP, int n)
             {
 
                 pos=arrP[n][0]+1;
-              //  cout<<"pos"<<pos<<endl;
+                if(pos>12800)  cout<<"pos"<<pos<<endl;
                 arrP[n][pos]=i;
                arrP[n][0]=pos;
             }
@@ -34,30 +34,20 @@ void searchString2(char*c,int arr[][20], char arrChar[][100],int **arrP, int n)
 }
 int main()
 {
-    int i,j,k,l,pos,x,y,x1,y1,r,tmp;
+    int i,j,k,l,pos,x,y,x1,y1,r;
     int n=0;
     int m=0;
     int **marr;
     int *d;
    // char word[30]="ababa";
 
-char word[30]="abbabbabbacabbaaaaabbaac";
-///char word[30]="acaaaaaabbaaaaaaaaaaaaaaaaaa";
-///char word[30]="abbabbabbbbabbabbaaaaabb";
+///char word[30]="abbabbabbacabbaaaaabbaac"; ///pieder
+char word[30]="acaaaaaabbaaaaaaaaaaaaaaaaaa";
+///char word[30]="abbabbabbbbabbabbaaaaabb";///pieder
 
 
     char c[2];
-    int arrInt2[3][5];
-    int arrInt3[2][5];
-    int arrInftF[1][5];
-/*
-    char arrChar[3][6]={{"SSAAB"},
-                    {"AABa"},
-                    {"BBBb"}};
-    int arrInt[3][4]={{2,1,3,5},
-                {2,1,3,4},
-                {2,1,3,4}};
-                */
+
 char arrChar[28][100]={   {"SX3XTCXXHXCYYSUFEA2XGSCEQXBXM"},
                         {"AYUXKXBEWUSXIFEXXA2XGSCEQ"},
                         {"CXEYUXKXB"},
@@ -120,7 +110,7 @@ char arrChar[28][100]={   {"SX3XTCXXHXCYYSUFEA2XGSCEQXBXM"},
     {
         n++;
     }
-    tmp=0;
+//    tmp=0;
     for(i=1;i<=n;i++)///sola garums
     {
         m=m+i;
@@ -138,7 +128,7 @@ char arrChar[28][100]={   {"SX3XTCXXHXCYYSUFEA2XGSCEQXBXM"},
     }
     for(i=0;i<m;i++)
     {
-       marr[i]=new int [1000000];
+       marr[i]=new int [1288800];
        marr[i][0]=0;
     }
     for(j=0;j<n;j++)
