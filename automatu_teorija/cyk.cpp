@@ -6,10 +6,11 @@ using namespace std;
 void searchString2(char*c,int arr[][20], char arrChar[][100],int **arrP, int n)
 {
     int i,j,k,d,m,pos;
-    for(i=0;i<3;i++)///rinda
+    for(i=0;i<28;i++)///rinda
     {
         for(k=0;k<arr[i][0];k++)///elem-s p.k.
         {
+            cout<<"Match="<<c<<endl;
             d=arr[i][k+2]-arr[i][1+k];
             m=0;
             for(j=arr[i][1+k];j<arr[i][k+2];j++)///elem-sak un beigas
@@ -22,6 +23,7 @@ void searchString2(char*c,int arr[][20], char arrChar[][100],int **arrP, int n)
             }
             if(d==m)
             {
+
                 pos=arrP[n][0]+1;
                 arrP[n][pos]=i;
                arrP[n][0]=pos;
