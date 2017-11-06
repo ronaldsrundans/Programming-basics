@@ -10,7 +10,7 @@ void searchString2(char*c,int arr[][20], char arrChar[][100],int **arrP, int n)
     {
         for(k=0;k<arr[i][0];k++)///elem-s p.k.
         {
-            cout<<"Match="<<c<<endl;
+            //cout<<"Match="<<c<<endl;
             d=arr[i][k+2]-arr[i][1+k];
             m=0;
             for(j=arr[i][1+k];j<arr[i][k+2];j++)///elem-sak un beigas
@@ -25,6 +25,7 @@ void searchString2(char*c,int arr[][20], char arrChar[][100],int **arrP, int n)
             {
 
                 pos=arrP[n][0]+1;
+              //  cout<<"pos"<<pos<<endl;
                 arrP[n][pos]=i;
                arrP[n][0]=pos;
             }
@@ -137,7 +138,7 @@ char arrChar[28][100]={   {"SX3XTCXXHXCYYSUFEA2XGSCEQXBXM"},
     }
     for(i=0;i<m;i++)
     {
-       marr[i]=new int [10000];
+       marr[i]=new int [1000000];
        marr[i][0]=0;
     }
     for(j=0;j<n;j++)
