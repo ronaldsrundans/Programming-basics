@@ -3,6 +3,33 @@
 #include <cstring>
 using namespace std;
 
+void Print(int n, int **arr)///funkcija izmet atkartojumus
+{
+   // cout<<arr[n][0]<<endl;
+   int tmp[100000];
+    int j=arr[n][0];
+    int i,k, pos;
+    tmp[0]=0;
+    for(i=j;i>0;i--)
+    {
+        pos=tmp[0]+1;
+        if(arr[n][i]>-1)
+        {
+            tmp[pos]=arr[n][i];
+            for(k=j;k>0;k--)
+            {
+                if(arr[n][k]==tmp[pos])arr[n][k]=-1;
+
+            }
+            tmp[0]=pos;
+        }
+        else continue;
+    }
+    for(i=tmp[0];i>-1;i--)///
+    {
+        arr[n][i]=tmp[i];
+    }
+}
 void searchString2(char*c,int arr[][20], char arrChar[][100],int **arrP, int n)
 {
     int i,j,k,d,m,pos;
@@ -25,7 +52,7 @@ void searchString2(char*c,int arr[][20], char arrChar[][100],int **arrP, int n)
             {
 
                 pos=arrP[n][0]+1;
-                if(pos>12800)  cout<<"pos"<<pos<<endl;
+               // if(pos>1280000)  cout<<"pos"<<pos<<endl;
                 arrP[n][pos]=i;
                arrP[n][0]=pos;
             }
@@ -39,15 +66,15 @@ int main()
     int m=0;
     int **marr;
     int *d;
-   // char word[30]="ababa";
-
+    char word[30]="bbaa";
 ///char word[30]="abbabbabbacabbaaaaabbaac"; ///pieder
-char word[30]="acaaaaaabbaaaaaaaaaaaaaaaaaa";
+
+///char word[30]="acaaaaaabbaaaaaaaaaaaaaaaaaa"; ///pieder
 ///char word[30]="abbabbabbbbabbabbaaaaabb";///pieder
 
 
     char c[2];
-
+///gramatika-rindas pirmais simbols vai klut par kadu no nakamajiem simboliem
 char arrChar[28][100]={   {"SX3XTCXXHXCYYSUFEA2XGSCEQXBXM"},
                         {"AYUXKXBEWUSXIFEXXA2XGSCEQ"},
                         {"CXEYUXKXB"},
@@ -76,6 +103,9 @@ char arrChar[28][100]={   {"SX3XTCXXHXCYYSUFEA2XGSCEQXBXM"},
                         {"TEC"},
                         {"UYY"},
                         {"HXU"}};
+                        ///masivs ir saistits ar ieprieksejo masivu
+                        ///rindas pirmais elements rada cik elementi sekos
+                        ///otra
         int arrInt[28][20]={{14,1,3,5,7,9,11,13,15,17,19,21,23,25,27,28},
                             {12,1,3,5,7,9,11,13,15,17,19,21,23,25},
                             {4,1,3,5,7,9},
@@ -126,9 +156,9 @@ char arrChar[28][100]={   {"SX3XTCXXHXCYYSUFEA2XGSCEQXBXM"},
         d[i]=d[i-1]+l;
         l=l-1;
     }
-    for(i=0;i<m;i++)
+    for(i=0;i<m;i++)///viena rinda saja masiva atbilst vienai rutinai algoritma
     {
-       marr[i]=new int [1288800];
+       marr[i]=new int [1000000];
        marr[i][0]=0;
     }
     for(j=0;j<n;j++)
@@ -154,6 +184,8 @@ char arrChar[28][100]={   {"SX3XTCXXHXCYYSUFEA2XGSCEQXBXM"},
                         c[1]=arrChar[marr[d[i-k-1]+j+k-1][y]][0];
                         c[2]=0;
                         searchString2(c,arrInt,arrChar,marr,r);
+                        Print(r,marr);
+
                     }
                 }
             }
