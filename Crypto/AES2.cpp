@@ -233,34 +233,31 @@ int main()
 char plain16[33]="3243f6a8885a308d313198a2e0370734";
 char key16 [33]="2b7e151628aed2a6abf7158809cf4f3c";
 int i,j,k;
+int s=128;///set size;
+int nk=s/32;
 char expkey[9][5];
-for(j=0;j<4;j++)
+char inputChar [9][5];
+for(j=0;j<nk;j++)
 {
     for(i=0;i<8;i++)
     {
         expkey[j][i]=key16[i+j*8];
-       cout<<expkey[j][i];
+        inputChar [j][i]=plain16[i+j*8];
+       cout<<inputChar[j][i];
     }
      expkey[j][i]=0;
+     inputChar [j][i]=0;
       cout<<endl;
 }
 
-int w0[32];
-int w1[32];
-int w2[32];
-int w3[32];
-int w4[32];
-int w5[32];
-int w6[32];
-int w7[32];
-int arr[128];
+int arrk[128];
 int arrp[128];
 
 char sbox16[513]={"637c777bf26b6fc53001672bfed7ab76ca82c97dfa5947f0add4a2af9ca472c0b7fd9326363ff7cc34a5e5f171d8311504c723c31896059a071280e2eb27b27509832c1a1b6e5aa0523bd6b329e32f8453d100ed20fcb15b6acbbe394a4c58cfd0efaafb434d338545f9027f503c9fa851a3408f929d38f5bcb6da2110fff3d2cd0c13ec5f974417c4a77e3d645d197360814fdc222a908846eeb814de5e0bdbe0323a0a4906245cc2d3ac629195e479e7c8376d8dd54ea96c56f4ea657aae08ba78252e1ca6b4c6e8dd741f4bbd8b8a703eb5664803f60e613557b986c11d9ee1f8981169d98e949b1e87e9ce5528df8ca1890dbfe6426841992d0fb054bb16"};
 int sbox2[4096];
 int sbox[16][128];
 hextobin(sbox16,513,sbox2);
-hextobin(key16,33,arr);
+hextobin(key16,33,arrk);
 hextobin(plain16,33,arrp);
 for(int i=0;i<16;i++)
 {
@@ -272,22 +269,22 @@ for(int i=0;i<16;i++)
 int input[32][4];
 int roundinput[32][4];
 int roundkey[32][4];
-for(int i=0;i<4;i++)
+for(int i=0;i<nk;i++)
 {
     for(int j=0;j<32;j++)
     {
-        roundkey[j][i]=arr[j+i*32];
+        roundkey[j][i]=arrk[j+i*32];
     }
 }
 
-for(int i=0;i<4;i++)
+for(int i=0;i<nk;i++)
 {
     for(int j=0;j<32;j++)
     {
         input[j][i]=arrp[j+i*32];
     }
 }
-for(int i=0;i<4;i++)
+for(int i=0;i<nk;i++)
 {
     for(int j=0;j<32;j++)
     {
