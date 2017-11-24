@@ -234,16 +234,17 @@ char plain16[33]="3243f6a8885a308d313198a2e0370734";
 char key16 [33]="2b7e151628aed2a6abf7158809cf4f3c";
 int i,j,k;
 char expkey[9][5];
-for(i=0;i<4;i++)
+for(j=0;j<4;j++)
 {
-    for(j=0;j<8;j++)
+    for(i=0;i<8;i++)
     {
-        expkey[j][i]=key16[i+j];
-        cout<<expkey[j][i];
+        expkey[j][i]=key16[i+j*8];
+       cout<<expkey[j][i];
     }
-    cout<<endl;
      expkey[j][i]=0;
+      cout<<endl;
 }
+
 int w0[32];
 int w1[32];
 int w2[32];
