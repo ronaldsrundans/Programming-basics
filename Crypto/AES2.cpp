@@ -230,8 +230,12 @@ void hextobin(char* hex,int hexcount, int *arr)
 
 int main()
 {
-char plain16[33]="3243f6a8885a308d313198a2e0370734";
-char key16 [33]="2b7e151628aed2a6abf7158809cf4f3c";
+//char plain16[33]="3243f6a8885a308d313198a2e0370734";
+//char key16 [33]="2b7e151628aed2a6abf7158809cf4f3c";
+///00112233445566778899aabbccddeeff
+///0001020304060708090a0b0c0d0e0f
+char plain16[33]="00112233445566778899aabbccddeeff";
+char key16 [33]="0001020304060708090a0b0c0d0e0f";
 int i,j,k;
 int s=128;///set size;
 int nk=s/32;
@@ -267,7 +271,7 @@ for(int i=0;i<16;i++)
     }
 }
 int input[32][4];
-int roundinput[32][4];
+int state[32][4];
 int roundkey[32][4];
 for(int i=0;i<nk;i++)
 {
@@ -284,14 +288,26 @@ for(int i=0;i<nk;i++)
         input[j][i]=arrp[j+i*32];
     }
 }
+///add roundkey(xor)
 for(int i=0;i<nk;i++)
 {
     for(int j=0;j<32;j++)
     {
-        xorfunc(input, roundkey,roundinput,32, i);
+        xorfunc(input, roundkey,state,32, i);
     }
     cout<<endl;
 }
+///round1
+for(i=0;i<9;i++)///pedeja round reize nav mix col
+{
+    ///sub bytes
+    ///shift rows
+    ///mix col
+    ///add roundkey(xor)
+}
+
+
+
 ///plain
 ///key
 
