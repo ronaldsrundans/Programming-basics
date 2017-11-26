@@ -294,7 +294,7 @@ for(int i=0;i<nk;i++)
         roundkey[j][i]=arrk[j+i*32];
     }
 }
-int state[32][4];
+//int state[32][4];
 
 for(int i=0;i<nk;i++)
 {
