@@ -73,8 +73,8 @@ void subbytes(int sbox[][16], int input[][4],int output[][4])
           for(k=0;k<4;k++)///x and y
         {
 
-            // output[][]=sbox[x][y];
-
+             output[k+i*8][j]=sbox[x+k][y];
+                output[k+4+i*8][j]=sbox[x+k+4][y];
         }
 
          cout<<x<<endl;
