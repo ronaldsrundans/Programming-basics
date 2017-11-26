@@ -43,7 +43,7 @@ void dectobin(int *arr)
 }
 void addroundkey()
 {}
-void subbytes(int sbox[][16], int input[][4],int output[][4])
+void subbytes(int sbox[][16], int input[][4])
 {
     int x,y,u,v,i,j,k,l;
     int arr1[4];
@@ -73,17 +73,9 @@ void subbytes(int sbox[][16], int input[][4],int output[][4])
           for(k=0;k<4;k++)///x and y
         {
 
-             output[k+i*8][j]=sbox[x+k][y];
-                output[k+4+i*8][j]=sbox[x+k+4][y];
+             input[k+i*8][j]=sbox[x+k][y];
+                input[k+4+i*8][j]=sbox[x+k+4][y];
         }
-
-         cout<<x<<endl;
-         cout<<y<<endl;
-           // bintodec(arr2);
-           /*
-             */
-//
-               //
     }
 }
 
@@ -334,7 +326,7 @@ for(int i=0;i<nk;i++)
 for(i=0;i<9;i++)///pedeja round reize nav mix col
 {
     ///sub bytes
-    subbytes(sbox,state,statesub);
+    subbytes(sbox,state);
     ///shift rows
     ///mix col
     ///add roundkey(xor)
