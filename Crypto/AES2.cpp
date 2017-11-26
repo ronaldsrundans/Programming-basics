@@ -21,17 +21,13 @@ void bintodec(int arr[])
 {
     int n=0;
     int b=1;
-     for(int j=3;j>=0;j++)
-    {
-        cout<<arr[j];
-    }
-    /*for(int i=3;i>=0;i++)
+    for(int i=3;i>=0;i--)
     {
         n=n+b*arr[i];
         b=b*2;
         arr[i]=0;
     }
-    arr[0]=n;*/
+    arr[0]=n;
 }
 void dectobin(int *arr)
 {
@@ -73,9 +69,12 @@ void subbytes(int sbox[][16], int input[][4],int output[][4])
         arr1[1]=0;
         arr1[2]=0;
         arr1[3]=0;
-        bintodec(arr1);
-         x=arr1[0];
-         cout<<x<<endl;
+        int arr3[2];
+        arr3[0]=0;
+        arr3[1]=0;
+        bintodec(arr3);
+        // x=arr1[0];
+        // cout<<x<<endl;
            // bintodec(arr2);
            /*
               y=arr2[0];*/
