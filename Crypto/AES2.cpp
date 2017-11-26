@@ -51,35 +51,39 @@ void subbytes(int sbox[][16], int input[][4],int output[][4])
    // cout<<"OK"<<endl;
 //    bintodec();
 
- for(j=0;j<16;j++)///col
+ for(j=0;j<4;j++)///col
 {
-    for(i=0;i<16;i++)///row
+    for(i=0;i<4;i++)///row
     {
         x=0;
         y=0;
 
          for(k=0;k<4;k++)///x and y
         {
-             arr1[k]=sbox[k+i*16][j];
+             arr1[k]=input[k+i*8][j];
             // cout<<arr1[k]<<endl;
-            arr2[k]=sbox[k+4+i*16][j];
+            arr2[k]=input[k+4+i*8][j];
              //cout<<arr2[k]<<endl;
         }
-        arr1[0]=0;
-        arr1[1]=0;
-        arr1[2]=0;
-        arr1[3]=0;
-        int arr3[2];
-        arr3[0]=0;
-        arr3[1]=0;
-        bintodec(arr3);
-        // x=arr1[0];
-        // cout<<x<<endl;
+
+        bintodec(arr1);
+        bintodec(arr2);
+         x=arr1[0];
+         y=arr2[0];
+          for(k=0;k<4;k++)///x and y
+        {
+
+            // output[][]=sbox[x][y];
+
+        }
+
+         cout<<x<<endl;
+         cout<<y<<endl;
            // bintodec(arr2);
            /*
-              y=arr2[0];*/
+             */
 //
-               //cout<<y<<endl;
+               //
     }
 }
 
