@@ -328,8 +328,28 @@ for(i=0;i<9;i++)///pedeja round reize nav mix col
     ///sub bytes
     subbytes(sbox,state);
     ///shift rows
+    shiftrows(state);
     ///mix col
+    mixcol();
     ///add roundkey(xor)
+}
+
+///test mix func
+char mix16[65]={"d4bf5d30e0b452aeb84111f11e2798e5"};
+char mix16a[65]={"046681e5e0cb199a48f8d37a2806264c"};
+int mix2[256];
+hextobin(mix16,65,mix2);
+int mix2a[256];
+hextobin(mix16a,65,mix2a);
+int mix[32][4];
+int mixa[32][4];
+for(int i=0;i<4;i++)
+{
+    for(int j=0;j<32;j++)
+    {
+        mix[j][i]=mix2[j+i*32];
+        mixa[j][i]=mix2a[j+i*32];
+    }
 }
 
 
