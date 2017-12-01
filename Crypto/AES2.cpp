@@ -17,6 +17,22 @@ void xorfunc(int arr1[][4], int arr2[][4], int arr3[][4], int n, int col)
             }
          }
 }
+
+void xorfunc8(int *arr1, int *arr2, int *arr3)
+{
+    for(int i=0;i<8;i++)
+        {
+            if(((arr1[i]==1) or (arr2[i]==1))&& (arr1[i]!= arr2[i]))
+            {
+                arr3[i]=1;
+            }
+            else
+            {
+                arr3[i]=0;
+            }
+         }
+}
+
 void bintodec(int arr[])
 {
     int n=0;
@@ -208,9 +224,161 @@ void shiftrows(int arr[][4])
         }
     }
 }
+void mult2(int *arr)
+{
+    if(arr[0]==1)
+    {
+        for(int i=0;i<7;i++)
+        {
+            arr[i]=arr[i+1];
+        }
+        arr[7]=0;
+        int arr2[8]={0,0,0,1,1,0,1,1};
+        int arr3[8];
+        xorfunc8(arr,arr2,arr3);
+        for(int i=0;i<8;i++)
+        {
+            arr[i]=arr3[i];
+        }
+
+    }
+
+}
 void mixcol()
 {
+    int arr1[8];
+    int arr2[8];
+    int arr3[8];
+    int arr4[8];
+    int s1[8];
+    int s2[8];
+    int s3[8];
+    int s4[8];
+    int y1[8];
+    int y2[8];
+    int y3[8];
+    int y4[8];
+    int x1[8];
+    int x2[8];
+    int x3[8];
+    int x4[8];
+    int arr12[8];
+    int arr34[8];
+    int arr23[8];
+    int arr41[8];
+    int tmp[8];
+    //int arr2[8];
+    for(int j=0;j<4;j++)
+    {
+        for(int i=0;i<8;i++)
+        {
+                arr1[i]=arr[i][j];
+                arr2[i]=arr[i+8][j];
+                arr3[i]=arr[i+16][j];
+                arr4[i]=arr[i+24][j];
+        }
+        xorfunc8(arr1,arr2,arr12);
+        xorfunc8(arr3,arr4,arr34);
+        xorfunc8(arr12,arr34,tmp);
+        xorfunc8(arr2,arr3,arr23);
+        xorfunc8(arr1,arr3,arr13);
+        xorfunc8(arr4,arr1,arr41);
+        mult2(arr12);
+        mult2(arr23);
+        mult2(arr34);
+        mult2(arr41);
+         mult2(arr13);
+        mult2(arr24);
+           mult2(arr13);
+        mult2(arr24);
 
+        xorfunc8(tmp,arr1,s1);
+         xorfunc8(tmp,arr2,s2);
+          xorfunc8(tmp,arr3,s3);
+           xorfunc8(tmp,arr4,s4);
+
+            xorfunc8(arr13,arr12,x1);
+         xorfunc8(arr24,arr23,x2);
+          xorfunc8(arr13,arr34,x3);
+           xorfunc8(arr24,arr41,x4);
+
+        xorfunc8(s1,x1,y);
+        xorfunc8(s2,x2,y2);
+        xorfunc8(s3,x3,y3);
+        xorfunc8(s4,x4,y4);
+for(int i=0;i<8;i++)
+        {
+                arr[i][j]=y1[i];
+                arr[i+8][j]=y2[i];
+                arr[i+16][j]=y3[i];
+                arr[i+24][j]=y4[i];
+        }
+
+    }
+}
+void invmixcol()
+{
+    int arr1[8];
+    int arr2[8];
+    int arr3[8];
+    int arr4[8];
+    int s1[8];
+    int s2[8];
+    int s3[8];
+    int s4[8];
+    int arr12[8];
+    int arr34[8];
+    int arr23[8];
+    int arr41[8];
+    int arr13[8];
+    int arr24[8];
+    int tmp[8];
+    //int arr2[8];
+    for(int j=0;j<4;j++)
+    {
+        for(int i=0;i<8;i++)
+        {
+                arr1[i]=arr[i][j];
+                arr2[i]=arr[i+8][j];
+                arr3[i]=arr[i+16][j];
+                arr4[i]=arr[i+24][j];
+        }
+        xorfunc8(arr1,arr2,arr12);
+        xorfunc8(arr3,arr4,arr34);
+        xorfunc8(arr12,arr34,s2);
+        xorfunc8(arr12,arr34,s1);
+        mult2(tmp);
+        mult2(tmp);
+        mult2(tmp);
+
+        xorfunc8(arr2,arr3,tmp);
+        xorfunc8(arr2,arr3,arr23);
+        xorfunc8(arr4,arr1,arr41);
+         xorfunc8(arr1,arr3,arr13);
+        xorfunc8(arr2,arr4,arr24);
+        mult2(arr12);
+        mult2(arr23);
+        mult2(arr34);
+        mult2(arr41);
+        mult2(arr13);
+        mult2(arr24);
+        xorfunc8(tmp,arr12,s1);
+         xorfunc8(tmp,arr23,s2);
+          xorfunc8(tmp,arr34,s3);
+           xorfunc8(tmp,arr41,s4);
+        xorfunc8(arr1,s1,arr12);
+         xorfunc8(arr2,s2,arr23);
+          xorfunc8(arr3,s3,arr34);
+           xorfunc8(arr3,s4,arr41);
+for(int i=0;i<8;i++)
+        {
+                arr[i][j]=arr12[i];
+                arr[i+8][j]=arr23[i];
+                arr[i+16][j]=arr34[i];
+                arr[i+24][j]=arr41[i];
+        }
+
+    }
 }
 void expandkey()
 {}
@@ -360,4 +528,3 @@ for(int i=0;i<4;i++)
     cout << 16*8<< endl;
     return 0;
 }
-
