@@ -244,7 +244,7 @@ void mult2(int *arr)
     }
 
 }
-void mixcol()
+void mixcol(int arr[][4])
 {
     int arr1[8];
     int arr2[8];
@@ -266,6 +266,8 @@ void mixcol()
     int arr34[8];
     int arr23[8];
     int arr41[8];
+    int arr13[8];
+    int arr24[8];
     int tmp[8];
     //int arr2[8];
     for(int j=0;j<4;j++)
@@ -302,7 +304,7 @@ void mixcol()
           xorfunc8(arr13,arr34,x3);
            xorfunc8(arr24,arr41,x4);
 
-        xorfunc8(s1,x1,y);
+        xorfunc8(s1,x1,y1);
         xorfunc8(s2,x2,y2);
         xorfunc8(s3,x3,y3);
         xorfunc8(s4,x4,y4);
@@ -316,7 +318,7 @@ for(int i=0;i<8;i++)
 
     }
 }
-void invmixcol()
+void invmixcol(int **arr)
 {
     int arr1[8];
     int arr2[8];
@@ -347,11 +349,11 @@ void invmixcol()
         xorfunc8(arr3,arr4,arr34);
         xorfunc8(arr12,arr34,s2);
         xorfunc8(arr12,arr34,s1);
-        mult2(tmp);
-        mult2(tmp);
-        mult2(tmp);
+        mult2(s1);
+        mult2(s1);
+        mult2(s1);
 
-        xorfunc8(arr2,arr3,tmp);
+        xorfunc8(s1,s2,tmp);
         xorfunc8(arr2,arr3,arr23);
         xorfunc8(arr4,arr1,arr41);
          xorfunc8(arr1,arr3,arr13);
@@ -498,7 +500,7 @@ for(i=0;i<9;i++)///pedeja round reize nav mix col
     ///shift rows
     shiftrows(state);
     ///mix col
-    mixcol();
+    mixcol(state);
     ///add roundkey(xor)
 }
 
