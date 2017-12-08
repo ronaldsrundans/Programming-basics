@@ -45,6 +45,10 @@ void bintodec(int arr[])
     }
     arr[0]=n;
 }
+void subWord()
+{
+
+}
 void dectobin(int *arr)
 {
     int n=0;
@@ -382,8 +386,78 @@ for(int i=0;i<8;i++)
 
     }
 }
-void expandkey()
-{}
+void rotWord(int *arr, int n)
+{
+    int *tmp=new int [n];
+    int i,j;
+    for(i=0;i<n;i++)
+    {
+        for(j=0;j<8;j++)
+        {
+            //cout<<arr[]
+            tmp[(n-i-1)*8+j]=arr[i*8+j];
+        }
+
+    }
+    for(i=0;i<n;i++)
+    {
+         for(j=0;j<8;j++)
+         {
+              arr[i*8+j]=tmp[i*8+j];
+         }
+
+    }
+
+}
+/*
+void expandkey(byte key[4*Nk], word w[Nb*(Nr+1)], Nk)
+{
+
+
+word temp
+
+int i = 0;
+
+while (i < Nk)
+{
+  w[i] = word(key[4*i], key[4*i+1], key[4*i+2], key[4*i+3]);
+
+    i = i+1;
+}
+
+
+i = Nk
+
+while (i < Nb * (Nr+1)]
+{
+
+
+temp = w[i-1]
+
+if (i mod Nk = 0)
+{
+    temp = SubWord(RotWord(temp)) xor Rcon[i/Nk]
+}
+
+
+else if (Nk > 6 and i mod Nk = 4)
+{
+    temp = SubWord(temp)
+}
+
+
+end if
+
+w[i] = w[i-Nk] xor temp
+
+i = i + 1
+
+}
+end
+
+
+
+}*/
 void dectobin(int dec,int* bin)
 {
     int tmp=dec;
@@ -526,7 +600,18 @@ for(int i=0;i<4;i++)
 
 ///plain
 ///key
-
-    cout << 16*8<< endl;
+int arrtest[16];
+for(i=0;i<16;i++)
+{
+    arrtest[i]=i;
+    cout<<i;
+}
+rotWord(arrtest,2);
+for(i=0;i<16;i++)
+{
+    cout<<arrtest[i];
+}
+  /// cout << 16*8<< endl;
     return 0;
 }
+
