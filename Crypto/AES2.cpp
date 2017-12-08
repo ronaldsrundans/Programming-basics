@@ -388,14 +388,16 @@ for(int i=0;i<8;i++)
 }
 void rotWord(int *arr, int n)
 {
-    int *tmp=new int [n];
-    int i,j;
-    for(i=0;i<n;i++)
+    //int *tmp=new int [n];
+    int i,j,k;
+    //cout<<n<<endl;
+    for(i=0;i<n/2;i++)
     {
         for(j=0;j<8;j++)
         {
-            //cout<<arr[]
-            tmp[(n-i-1)*8+j]=arr[i*8+j];
+         k=arr[i*8+j];
+         arr[i*8+j]=arr[(n-i-1)*8+j];
+         arr[(n-i-1)*8+j]=k;
         }
 
     }
@@ -403,7 +405,7 @@ void rotWord(int *arr, int n)
     {
          for(j=0;j<8;j++)
          {
-              arr[i*8+j]=tmp[i*8+j];
+              //arr[i*8+j]=tmp[i*8+j];
          }
 
     }
@@ -600,16 +602,17 @@ for(int i=0;i<4;i++)
 
 ///plain
 ///key
-int arrtest[16];
-for(i=0;i<16;i++)
+int arrtest[32];
+for(i=0;i<32;i++)
 {
     arrtest[i]=i;
-    cout<<i;
+   // cout<<i;
 }
-rotWord(arrtest,2);
-for(i=0;i<16;i++)
+rotWord(arrtest,4);
+for(i=0;i<32;i++)
 {
     cout<<arrtest[i];
+   // cout<<i;
 }
   /// cout << 16*8<< endl;
     return 0;
