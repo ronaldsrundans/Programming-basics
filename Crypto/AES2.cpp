@@ -2,6 +2,33 @@
 #include <iostream>
 
 using namespace std;
+void hextobin(char* hex,int hexcount, int *arr)
+{
+    int n;
+    int k;
+    int i;
+
+    for(k=0;k<hexcount;k++)
+    {
+    //cout<<hex[k]<<endl;
+    n=(int)hex[k];
+    //cout<<n<<endl;
+    if(n>='a')
+    {
+        n=n-'a'+10;
+    }
+        else
+        {
+            n=n-'0';
+        }
+//cout<<n<<endl;
+        for(i=3;i>=0;i--)
+        {
+            arr[i+k*4]=n%2;
+            n=n/2;
+        }
+    }
+}
 
 void xorfunc(int arr1[][4], int arr2[][4], int arr3[][4], int n, int col)
 {
@@ -45,10 +72,7 @@ void bintodec(int arr[])
     }
     arr[0]=n;
 }
-void subWord()
-{
 
-}
 void dectobin(int *arr)
 {
     int n=0;
@@ -386,35 +410,41 @@ for(int i=0;i<8;i++)
 
     }
 }
+void rcon(int round, int bit, int n,int *arr)
+{
+
+        char c16[]={"01020408102040801b36"};
+        char tmp[9];
+        tmp[0]=c16[n];
+        tmp[1]=c16[n+1];
+        for(int i=2;i<9;i++)
+        {
+            tmp[i]='0';
+        }
+        hextobin(tmp,8,arr);
+
+
+}
 void rotWord(int *arr, int n)
 {
-    //int *tmp=new int [n];
     int i,j,k;
-    //cout<<n<<endl;
     for(i=0;i<n/2;i++)
     {
         for(j=0;j<8;j++)
         {
          k=arr[i*8+j];
+         cout<<k<<endl;
          arr[i*8+j]=arr[(n-i-1)*8+j];
          arr[(n-i-1)*8+j]=k;
         }
-
     }
-    for(i=0;i<n;i++)
-    {
-         for(j=0;j<8;j++)
-         {
-              //arr[i*8+j]=tmp[i*8+j];
-         }
-
-    }
-
 }
-/*
-void expandkey(byte key[4*Nk], word w[Nb*(Nr+1)], Nk)
-{
 
+void expandkey()//(byte key[4*Nk], word w[Nb*(Nr+1)], Nk)
+{
+//    rotWord();
+//subbytes();
+/*
 
 word temp
 
@@ -455,11 +485,11 @@ w[i] = w[i-Nk] xor temp
 i = i + 1
 
 }
-end
+
+*/
 
 
-
-}*/
+}
 void dectobin(int dec,int* bin)
 {
     int tmp=dec;
@@ -467,33 +497,6 @@ void dectobin(int dec,int* bin)
     {
         bin[i]=tmp%2;
         tmp=tmp/2;
-    }
-}
-void hextobin(char* hex,int hexcount, int *arr)
-{
-    int n;
-    int k;
-    int i;
-
-    for(k=0;k<hexcount;k++)
-    {
-    //cout<<hex[k]<<endl;
-    n=(int)hex[k];
-    //cout<<n<<endl;
-    if(n>='a')
-    {
-        n=n-'a'+10;
-    }
-        else
-        {
-            n=n-'0';
-        }
-//cout<<n<<endl;
-        for(i=3;i>=0;i--)
-        {
-            arr[i+k*4]=n%2;
-            n=n/2;
-        }
     }
 }
 
