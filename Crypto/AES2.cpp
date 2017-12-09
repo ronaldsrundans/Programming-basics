@@ -410,17 +410,20 @@ for(int i=0;i<8;i++)
 
     }
 }
-void rcon(int round, int bit, int n,int *arr)
+void rcon(int n, int round, int bit, int *arr)
 {
 
         char c16[]={"01020408102040801b36"};
         char tmp[9];
+        int i;
         tmp[0]=c16[n];
         tmp[1]=c16[n+1];
-        for(int i=2;i<9;i++)
+        for(i=2;i<9;i++)
         {
             tmp[i]='0';
         }
+        tmp[i]=0;
+        cout<<tmp<<endl;
         hextobin(tmp,8,arr);
 
 
@@ -433,7 +436,7 @@ void rotWord(int *arr, int n)
         for(j=0;j<8;j++)
         {
          k=arr[i*8+j];
-         cout<<k<<endl;
+       //  cout<<k<<endl;
          arr[i*8+j]=arr[(n-i-1)*8+j];
          arr[(n-i-1)*8+j]=k;
         }
@@ -612,10 +615,11 @@ for(i=0;i<32;i++)
    // cout<<i;
 }
 rotWord(arrtest,4);
+rcon(0,2,3,arrtest);
 for(i=0;i<32;i++)
 {
     cout<<arrtest[i];
-   // cout<<i;
+   // i;]=i;
 }
   /// cout << 16*8<< endl;
     return 0;
