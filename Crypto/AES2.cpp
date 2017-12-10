@@ -2,6 +2,7 @@
 #include <iostream>
 
 using namespace std;
+
 void hextobin(char* hex,int hexcount, int *arr)
 {
     int n;
@@ -84,7 +85,22 @@ void xorfunc(int arr1[][4], int arr2[][4], int arr3[][4], int n, int col)
             }
          }
 }
-
+void printState(int state[][4], int nk)
+{
+    for(int i=0;i<nk;i++)
+{
+    int arrt[4];
+    for(int j=0;j<8;j++)
+    {
+         for(int k=0;k<4;k++)
+        {
+            arrt[k]=state[j*4+k][i];
+        }
+        bintohex(arrt,4);
+    }
+}
+ cout<<endl;
+}
 void xorfunc8(int *arr1, int *arr2, int *arr3)
 {
     for(int i=0;i<8;i++)
@@ -647,34 +663,12 @@ for(int i=0;i<nk;i++)
 
 ///plain izdruka
 cout<<"Check plain:"<<endl;
-for(int i=0;i<nk;i++)
-{
-    int arrt[4];
-    for(int j=0;j<8;j++)
-    {
-         for(int k=0;k<4;k++)
-        {
-            arrt[k]=plain2d[j*4+k][i];
-        }
-        bintohex(arrt,4);
-    }
-}
- cout<<endl;
+
+ printState(plain2d,nk);
  ///keyw izdruka
  cout<<"Check keyw:"<<endl;
-for(int i=0;i<nk;i++)
-{
-    int arrt[4];
-    for(int j=0;j<8;j++)
-    {
-         for(int k=0;k<4;k++)
-        {
-            arrt[k]=keyw[j*4+k][i];
-        }
-        bintohex(arrt,4);
-    }
-}
- cout<<endl;
+
+ printState(keyw,nk);
  ///keyw izdruka
 
 
@@ -691,19 +685,7 @@ for(int i=0;i<nk;i++)
 
  ///state izdruka
  cout<<"Check state:"<<endl;
-for(int i=0;i<nk;i++)
-{
-    int arrt[4];
-    for(int j=0;j<8;j++)
-    {
-         for(int k=0;k<4;k++)
-        {
-            arrt[k]=state[j*4+k][i];
-        }
-        bintohex(arrt,4);
-    }
-}
- cout<<endl;
+printState(state,nk);
  cout<<endl;
  ///keyw izdruka
 
@@ -716,21 +698,11 @@ for(i=0;i<1;i++)///pedeja round reize nav mix col
     ///sub bytes
     subbytes(sbox,state);
      cout<<"Check state:"<<endl;
-for(int i=0;i<nk;i++)
-{
-    int arrt[4];
-    for(int j=0;j<8;j++)
-    {
-         for(int k=0;k<4;k++)
-        {
-            arrt[k]=state[j*4+k][i];
-        }
-        bintohex(arrt,4);
-    }
-}
- cout<<endl;
+printState(state,nk);
     ///shift rows
     shiftrows(state);
+         cout<<"Check shift rows state:"<<endl;
+printState(state,nk);
     ///mix col
     mixcol(state);
     ///add roundkey(xor)
