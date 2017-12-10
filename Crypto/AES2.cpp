@@ -49,26 +49,7 @@ void bintohex(int *bin,int binsize)//,char* hex)
    // cout<<endl;
     cout<<c;
 
-/*    for(k=0;k<hexcount;k++)
-    {
-    //cout<<hex[k]<<endl;
-        n=(int)hex[k];
-    //cout<<n<<endl;
-    if(n>='a')
-    {
-        n=n-'a'+10;
-    }
-        else
-        {
-            n=n-'0';
-        }
 
-        for(i=3;i>=0;i--)
-        {
-            arr[i+k*4]=n%2;
-            n=n/2;
-        }
-    }*/
 }
 
 void xorfunc(int arr1[][4], int arr2[][4], int arr3[][4], int n, int col)
@@ -337,81 +318,53 @@ void mult2(int *arr)
     }
 
 }
-void mixcol(int arr[][4])
+void mixcol(int sbox[][16], int input[][4])
 {
-    int arr1[8];
-    int arr2[8];
-    int arr3[8];
-    int arr4[8];
-    int s1[8];
-    int s2[8];
-    int s3[8];
-    int s4[8];
-    int y1[8];
-    int y2[8];
-    int y3[8];
-    int y4[8];
-    int x1[8];
-    int x2[8];
-    int x3[8];
-    int x4[8];
-    int arr12[8];
-    int arr34[8];
-    int arr23[8];
-    int arr41[8];
-    int arr13[8];
-    int arr24[8];
-    int tmp[8];
-    //int arr2[8];
-    for(int j=0;j<4;j++)
+
+ int x,y,u,v,i,j,k,l;
+    int arr1[4];
+    int arr2[4];
+    for(j=0;j<4;j++)///col
     {
-        for(int i=0;i<8;i++)
+        for(i=0;i<4;i++)///row
         {
-                arr1[i]=arr[i][j];
-                arr2[i]=arr[i+8][j];
-                arr3[i]=arr[i+16][j];
-                arr4[i]=arr[i+24][j];
-        }
-        xorfunc8(arr1,arr2,arr12);
-        xorfunc8(arr3,arr4,arr34);
-        xorfunc8(arr12,arr34,tmp);
-        xorfunc8(arr2,arr3,arr23);
-        xorfunc8(arr1,arr3,arr13);
-        xorfunc8(arr4,arr1,arr41);
-        mult2(arr12);
-        mult2(arr23);
-        mult2(arr34);
-        mult2(arr41);
-         mult2(arr13);
-        mult2(arr24);
-           mult2(arr13);
-        mult2(arr24);
+        x=0;
+        y=0;
 
-        xorfunc8(tmp,arr1,s1);
-         xorfunc8(tmp,arr2,s2);
-          xorfunc8(tmp,arr3,s3);
-           xorfunc8(tmp,arr4,s4);
-
-            xorfunc8(arr13,arr12,x1);
-         xorfunc8(arr24,arr23,x2);
-          xorfunc8(arr13,arr34,x3);
-           xorfunc8(arr24,arr41,x4);
-
-        xorfunc8(s1,x1,y1);
-        xorfunc8(s2,x2,y2);
-        xorfunc8(s3,x3,y3);
-        xorfunc8(s4,x4,y4);
-for(int i=0;i<8;i++)
+         for(k=0;k<4;k++)///x and y
         {
-                arr[i][j]=y1[i];
-                arr[i+8][j]=y2[i];
-                arr[i+16][j]=y3[i];
-                arr[i+24][j]=y4[i];
+             arr1[k]=input[k+i*8][j];
+            // cout<<arr1[k]<<endl;
+            arr2[k]=input[k+4+i*8][j];
+             //cout<<arr2[k]<<endl;
         }
 
+        bintodec(arr1);
+        bintodec(arr2);
+         x=arr1[0];
+         y=arr2[0];
+         //cout<<"x="<<x<<endl;
+        // cout<<"y="<<y<<endl;
+          //  int arrt[4];
+          //  int arrr[4];
+                   //  cout<<"x="<<x<<endl;
+       //  cout<<"y="<<y<<endl;
+            for(k=0;k<4;k++)///x and y
+            {
+                arr1[k]=sbox[y*8+k][x];
+                arr2[k]=sbox[y*8+k+4][x];
+
+
+               // input[k+i*8][j]=sbox[y*8+k][x];
+              // input[k+4+i*8][j]=sbox[y*8+k+4][x];
+            }
+            bintohex(arr1,4);
+            bintohex(arr2,4);
+            cout<<endl;
+        }
     }
 }
-void invmixcol(int **arr)
+void invmixcol(int arr[][4])
 {
     int arr1[8];
     int arr2[8];
@@ -599,11 +552,17 @@ int arrk[128];
 int arrp[128];
 
 char sbox16[513]={"637c777bf26b6fc53001672bfed7ab76ca82c97dfa5947f0add4a2af9ca472c0b7fd9326363ff7cc34a5e5f171d8311504c723c31896059a071280e2eb27b27509832c1a1b6e5aa0523bd6b329e32f8453d100ed20fcb15b6acbbe394a4c58cfd0efaafb434d338545f9027f503c9fa851a3408f929d38f5bcb6da2110fff3d2cd0c13ec5f974417c4a77e3d645d197360814fdc222a908846eeb814de5e0bdbe0323a0a4906245cc2d3ac629195e479e7c8376d8dd54ea96c56f4ea657aae08ba78252e1ca6b4c6e8dd741f4bbd8b8a703eb5664803f60e613557b986c11d9ee1f8981169d98e949b1e87e9ce5528df8ca1890dbfe6426841992d0fb054bb16"};
-
-
+char tableE16[513]={"0103050F113355FF1A2E7296A1F813355FE13848D87395A4F702060A1E2266AAE5345CE43759EB266ABED97090ABE63153F5040C143C44CC4FD168B8D36EB2CD4CD467A9E03B4DD762A6F10818287888839EB9D06BBDDC7F8198B3CE49DB769AB5C457F9103050F00B1D2769BBD661A3FE192B7D8792ADEC2F7193AEE92060A0FB163A4ED26DB7C25DE73256FA153F41C35EE23D47C940C05BED2C749CBFDA759FBAD564ACEF2A7E829DBCDF7A8E89809BB6C158E82365AFEA256FB1C843C554FC1F2163A5F407091B2D7799B0CB46CA45CF4ADE798B8691A8E33E42C651F30E12365AEE297B8D8C8F8A8594A7F20D17394BDD7C8497A2FD1C246CB4C752F601"};
+char tableL16[513]={"0000190132021AC64BC71B6833EEDF036404E00E348D81EF4C7108C8F8691CC17DC21DB5F9B9276A4DE4A6729AC90978652F8A05210FE12412F082453593DA8E968FDBBD36D0CE94135CD2F14046833866DDFD30BF068B62B325E298228891107E6E48C3A3B61E423A6B2854FA853DBA2B790A159B9F5ECA4ED4ACE5F373A757AF58A850F4EAD6744FAEE9D5E7E6ADE82CD7757AEB160BF559CB5FB09CA951A07F0CF66F17C449ECD8431F2DA4767BB7CCBB3E5AFB60B1863B52A16CAA55299D97B2879061BEDCFCBC95CFCD373F5BD15339843C41A26D47142A9E5D56F2D3AB441192D923202E89B47CB8267799E3A5674AEDDEC531FE180D638C80C0F77007"};
+int tableE2[2048];
+int tableL2[2048];
 int sbox2[2048];
+int tableE[128][16];
+int tableL[128][16];
 int sbox[128][16];
 hextobin(sbox16,512,sbox2);
+hextobin(tableE16,512,tableE2);
+hextobin(tableL16,512,tableL2);
 hextobin(key16,33,arrk);
 hextobin(plain16,33,arrp);
  for(int j=0;j<16;j++)
@@ -611,6 +570,8 @@ hextobin(plain16,33,arrp);
     for(int i=0;i<128;i++)
     {
         sbox[i][j]=sbox2[i+j*128];
+        tableE[i][j]=tableE2[i+j*128];
+        tableL[i][j]=tableL2[i+j*128];
     }
 }
     ///sbox izdruka
@@ -697,14 +658,16 @@ for(i=0;i<1;i++)///pedeja round reize nav mix col
 {
     ///sub bytes
     subbytes(sbox,state);
-     cout<<"Check state:"<<endl;
+     cout<<"Check sub bytes state:"<<endl;
 printState(state,nk);
     ///shift rows
     shiftrows(state);
          cout<<"Check shift rows state:"<<endl;
 printState(state,nk);
     ///mix col
-    mixcol(state);
+    invmixcol(state);
+             cout<<"Check mix col state:"<<endl;
+printState(state,nk);
     ///add roundkey(xor)
 }
 
