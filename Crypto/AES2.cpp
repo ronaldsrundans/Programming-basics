@@ -45,8 +45,8 @@ void bintohex(int *bin,int binsize)//,char* hex)
     {
         c=c-'0'-10+'a';
     }
-    cout<<endl;
-    cout<<c<<endl;
+   // cout<<endl;
+    cout<<c;
 
 /*    for(k=0;k<hexcount;k++)
     {
@@ -550,7 +550,7 @@ int main()
 ///00112233445566778899aabbccddeeff
 ///0001020304060708090a0b0c0d0e0f
 char plain16[33]="00112233445566778899aabbccddeeff";
-char key16 [33]="0001020304060708090a0b0c0d0e0f";
+char key16 [33]="000102030405060708090a0b0c0d0e0f";
 int i,j,k;
 int s=128;///set key size;
 int nk=s/32;
@@ -574,18 +574,57 @@ int arrk[128];
 int arrp[128];
 
 char sbox16[513]={"637c777bf26b6fc53001672bfed7ab76ca82c97dfa5947f0add4a2af9ca472c0b7fd9326363ff7cc34a5e5f171d8311504c723c31896059a071280e2eb27b27509832c1a1b6e5aa0523bd6b329e32f8453d100ed20fcb15b6acbbe394a4c58cfd0efaafb434d338545f9027f503c9fa851a3408f929d38f5bcb6da2110fff3d2cd0c13ec5f974417c4a77e3d645d197360814fdc222a908846eeb814de5e0bdbe0323a0a4906245cc2d3ac629195e479e7c8376d8dd54ea96c56f4ea657aae08ba78252e1ca6b4c6e8dd741f4bbd8b8a703eb5664803f60e613557b986c11d9ee1f8981169d98e949b1e87e9ce5528df8ca1890dbfe6426841992d0fb054bb16"};
+
+
 int sbox2[4096];
 int sbox[128][16];
-hextobin(sbox16,513,sbox2);
+hextobin(sbox16,512,sbox2);
 hextobin(key16,33,arrk);
 hextobin(plain16,33,arrp);
+cout<<"Check sbox2:"<<endl;
+for(int i=0;j<16;j++)
+{
+//int arrt[4];
+     for(int j=0;j<32;j++)
+    {
+        cout<<sbox2[i+j];//<<endl;
+           //  arrt[j] =sbox2[i*4+j];
+    }
+    // bintohex(arrt,4);
+     cout<<endl;
+}
+cout<<endl;
+
+
  for(int j=0;j<16;j++)
 {
     for(int i=0;i<128;i++)
     {
         sbox[i][j]=sbox2[i+j*128];
+       // cout<<"Sbox="<<
     }
 }
+
+///sbox izdruka
+cout<<"Check sbox:"<<endl;
+for(int i=0;i<128;i++)
+{
+    int arrt[4];
+    for(int j=0;j<16;j++)
+    {
+         for(int k=0;k<4;k++)
+        {
+            arrt[k]=sbox2[j*4+k][i];
+        }
+
+        //bintohex(arrt,4);
+
+    }cout<<endl;
+}
+ cout<<endl;
+
+
+
 int plain2d[32][4];
 int state[32][4];
 int statesub[32][4];
@@ -606,15 +645,69 @@ for(int i=0;i<nk;i++)
         plain2d[j][i]=arrp[j+i*32];
     }
 }
-///add keyw(xor)
+
+///plain izdruka
+cout<<"Check plain:"<<endl;
+for(int i=0;i<nk;i++)
+{
+    int arrt[4];
+    for(int j=0;j<8;j++)
+    {
+         for(int k=0;k<4;k++)
+        {
+            arrt[k]=plain2d[j*4+k][i];
+        }
+        bintohex(arrt,4);
+    }
+}
+ cout<<endl;
+ ///keyw izdruka
+ cout<<"Check keyw:"<<endl;
+for(int i=0;i<nk;i++)
+{
+    int arrt[4];
+    for(int j=0;j<8;j++)
+    {
+         for(int k=0;k<4;k++)
+        {
+            arrt[k]=keyw[j*4+k][i];
+        }
+        bintohex(arrt,4);
+    }
+}
+ cout<<endl;
+ ///keyw izdruka
+///add (round)keyw(xor)
 for(int i=0;i<nk;i++)
 {
     for(int j=0;j<32;j++)
     {
         xorfunc(plain2d, keyw,state,32, i);
     }
-    cout<<endl;
+
 }
+
+ ///state izdruka
+ cout<<"Check state:"<<endl;
+for(int i=0;i<nk;i++)
+{
+    int arrt[4];
+    for(int j=0;j<8;j++)
+    {
+         for(int k=0;k<4;k++)
+        {
+            arrt[k]=state[j*4+k][i];
+        }
+        bintohex(arrt,4);
+    }
+}
+ cout<<endl;
+ cout<<endl;
+ ///keyw izdruka
+
+
+
+
 ///round1
 for(i=0;i<9;i++)///pedeja round reize nav mix col
 {
