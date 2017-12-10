@@ -588,6 +588,33 @@ hextobin(plain16,33,arrp);
         sbox[i][j]=sbox2[i+j*128];
     }
 }
+    ///sbox izdruka
+cout<<"Check sbox:"<<endl;
+for(int j=0;j<16;j++)///col
+{
+        int arrt[4];
+    for(int i=0;i<16;i++)///row
+    {
+      for(int k=0;k<4;k++)
+        {
+            arrt[k]=sbox[i*8+k][j];
+        }
+        bintohex(arrt,4);
+        for(int k=4;k<8;k++)
+        {
+           arrt[k-4] =sbox[i*8+k][j];
+        }
+       bintohex(arrt,4);
+        cout<<" ";
+    }
+     cout<<endl;
+}
+
+ cout<<endl;
+ ///sbox izdruka
+
+
+
 int plain2d[32][4];
 int state[32][4];
 int statesub[32][4];
