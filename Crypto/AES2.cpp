@@ -29,6 +29,46 @@ void hextobin(char* hex,int hexcount, int *arr)
         }
     }
 }
+void bintohex(int *bin,int binsize)//,char* hex)
+{
+    int n=0;
+    int k=1;
+    int i;
+    char c;
+    for(i=binsize-1;i>=0;i--)
+    {
+        n=n+bin[i]*k;
+        k=k*2;
+    }
+    c=n+'0';
+    if(c>'9')
+    {
+        c=c-'0'-10+'a';
+    }
+    cout<<endl;
+    cout<<c<<endl;
+
+/*    for(k=0;k<hexcount;k++)
+    {
+    //cout<<hex[k]<<endl;
+        n=(int)hex[k];
+    //cout<<n<<endl;
+    if(n>='a')
+    {
+        n=n-'a'+10;
+    }
+        else
+        {
+            n=n-'0';
+        }
+
+        for(i=3;i>=0;i--)
+        {
+            arr[i+k*4]=n%2;
+            n=n/2;
+        }
+    }*/
+}
 
 void xorfunc(int arr1[][4], int arr2[][4], int arr3[][4], int n, int col)
 {
@@ -587,7 +627,8 @@ for(i=0;i<9;i++)///pedeja round reize nav mix col
 }
 
 ///test mix func
-char mix16[65]={"d4bf5d30e0b452aeb84111f11e2798e5"};
+//char mix16[65]={"d4bf5d30e0b452aeb84111f11e2798e5"};
+char mix16[65]={"2b7e151628aed2a6abf7158809cf4f3c"};
 char mix16a[65]={"046681e5e0cb199a48f8d37a2806264c"};
 int mix2[256];
 hextobin(mix16,65,mix2);
@@ -621,6 +662,8 @@ for(i=0;i<32;i++)
     cout<<arrtest[i];
    // i;]=i;
 }
+int binaee[4]={1,1,1,1};
+bintohex(binaee,4);//,c)
   /// cout << 16*8<< endl;
     return 0;
 }
