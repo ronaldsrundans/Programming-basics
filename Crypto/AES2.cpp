@@ -132,13 +132,10 @@ void subbytes(int sbox[][16], int input[][4])
     int x,y,u,v,i,j,k,l;
     int arr1[4];
     int arr2[4];
-   // cout<<"OK"<<endl;
-//    bintodec();
-
- for(j=0;j<4;j++)///col
-{
-    for(i=0;i<4;i++)///row
+    for(j=0;j<4;j++)///col
     {
+        for(i=0;i<4;i++)///row
+        {
         x=0;
         y=0;
 
@@ -154,14 +151,26 @@ void subbytes(int sbox[][16], int input[][4])
         bintodec(arr2);
          x=arr1[0];
          y=arr2[0];
-          for(k=0;k<4;k++)///x and y
-        {
+         //cout<<"x="<<x<<endl;
+        // cout<<"y="<<y<<endl;
+          //  int arrt[4];
+          //  int arrr[4];
+                   //  cout<<"x="<<x<<endl;
+       //  cout<<"y="<<y<<endl;
+            for(k=0;k<4;k++)///x and y
+            {
+               // arrt[k]=sbox[y*8+k][x];
+              //  arrr[k]=sbox[y*8+k+4][x];
 
-             input[k+i*8][j]=sbox[x+k][y];
-                input[k+4+i*8][j]=sbox[x+k+4][y];
+
+                input[k+i*8][j]=sbox[y*8+k][x];
+               input[k+4+i*8][j]=sbox[y*8+k+4][x];
+            }
+           // bintohex(arrt,4);
+           // bintohex(arrr,4);
+           // cout<<endl;
         }
     }
-}
 
 }
 void invshiftrows(int arr[][4])
@@ -667,6 +676,9 @@ for(int i=0;i<nk;i++)
 }
  cout<<endl;
  ///keyw izdruka
+
+
+
 ///add (round)keyw(xor)
 for(int i=0;i<nk;i++)
 {
@@ -699,10 +711,24 @@ for(int i=0;i<nk;i++)
 
 
 ///round1
-for(i=0;i<9;i++)///pedeja round reize nav mix col
+for(i=0;i<1;i++)///pedeja round reize nav mix col
 {
     ///sub bytes
     subbytes(sbox,state);
+     cout<<"Check state:"<<endl;
+for(int i=0;i<nk;i++)
+{
+    int arrt[4];
+    for(int j=0;j<8;j++)
+    {
+         for(int k=0;k<4;k++)
+        {
+            arrt[k]=state[j*4+k][i];
+        }
+        bintohex(arrt,4);
+    }
+}
+ cout<<endl;
     ///shift rows
     shiftrows(state);
     ///mix col
