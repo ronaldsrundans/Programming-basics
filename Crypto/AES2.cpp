@@ -189,7 +189,7 @@ void subbytes(int sbox[][16], int input[][4])
     }
 
 }
-void invshiftrows(int arr[][4])
+void shiftrows(int arr[][4])
 {
     int tmp[48];
     int i,j;
@@ -253,7 +253,7 @@ void invshiftrows(int arr[][4])
         }
     }
 }
-void shiftrows(int arr[][4])
+void invshiftrows(int arr[][4])
 {
     int tmp[48];
     int i,j;
