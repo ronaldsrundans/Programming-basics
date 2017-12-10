@@ -552,11 +552,12 @@ int main()
 char plain16[33]="00112233445566778899aabbccddeeff";
 char key16 [33]="0001020304060708090a0b0c0d0e0f";
 int i,j,k;
-int s=128;///set size;
+int s=128;///set key size;
 int nk=s/32;
 char expkey[9][5];
 char inputChar [9][5];
-for(j=0;j<nk;j++)
+for(j=0;j<nk;j++)///key16 un plain16 tiek sakartoti 2d arr
+    ///sk ir izvietoti pa kolonnam
 {
     for(i=0;i<8;i++)
     {
@@ -585,15 +586,15 @@ hextobin(plain16,33,arrp);
         sbox[i][j]=sbox2[i+j*128];
     }
 }
-int input[32][4];
+int plain2d[32][4];
 int state[32][4];
 int statesub[32][4];
-int roundkey[32][4];
+int keyw[32][4];
 for(int i=0;i<nk;i++)
 {
     for(int j=0;j<32;j++)
     {
-        roundkey[j][i]=arrk[j+i*32];
+        keyw[j][i]=arrk[j+i*32];
     }
 }
 //int state[32][4];
@@ -602,15 +603,15 @@ for(int i=0;i<nk;i++)
 {
     for(int j=0;j<32;j++)
     {
-        input[j][i]=arrp[j+i*32];
+        plain2d[j][i]=arrp[j+i*32];
     }
 }
-///add roundkey(xor)
+///add keyw(xor)
 for(int i=0;i<nk;i++)
 {
     for(int j=0;j<32;j++)
     {
-        xorfunc(input, roundkey,state,32, i);
+        xorfunc(plain2d, keyw,state,32, i);
     }
     cout<<endl;
 }
