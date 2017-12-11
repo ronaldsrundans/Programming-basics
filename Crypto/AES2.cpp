@@ -97,11 +97,11 @@ void xorfunc8(int *arr1, int *arr2, int *arr3)
          }
 }
 
-void bintodec(int arr[])
+void bintodec(int arr[],int j)
 {
     int n=0;
     int b=1;
-    for(int i=3;i>=0;i--)
+    for(int i=j;i>=0;i--)
     {
         n=n+b*arr[i];
         b=b*2;
@@ -144,8 +144,8 @@ void subbytes(int sbox[][16], int input[][4])
              //cout<<arr2[k]<<endl;
         }
 
-        bintodec(arr1);
-        bintodec(arr2);
+        bintodec(arr1,3);
+        bintodec(arr2,3);
          x=arr1[0];
          y=arr2[0];
          //cout<<"x="<<x<<endl;
@@ -364,8 +364,8 @@ void mixcol(int sbox[][16], int input[][4])
              //cout<<arr2[k]<<endl;
         }
 
-        bintodec(arr1);
-        bintodec(arr2);
+        bintodec(arr1,3);
+        bintodec(arr2,3);
          x=arr1[0];
          y=arr2[0];
          //cout<<"x="<<x<<endl;
