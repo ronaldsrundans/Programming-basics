@@ -346,7 +346,8 @@ void mult2(int *arr)
 void mixcol(int tableL[][16], int tableE[][16],int input[][4])
 {
 
- int x,y,i,j,k,l;
+ int i,j,k,l,x1, y1,x2,y2, x3, y3,x4,y4;
+
     int arr1[4];
     int arr2[4];
     int arr3[4];
@@ -390,13 +391,13 @@ void mixcol(int tableL[][16], int tableE[][16],int input[][4])
         y3=arr6[0];
         x4=arr7[0];
         y4=arr8[0];
-         cout<<"x="<<x<<endl;
-         cout<<"y="<<y<<endl;
+         cout<<"x1="<<x1<<endl;
+         cout<<"y1="<<y1<<endl;
           //  int arrt[4];
           //  int arrr[4];
                    //  cout<<"x="<<x<<endl;
        //  cout<<"y="<<y<<endl;
-            for(k=0;k<4;k++)///x and y
+           /* for(k=0;k<4;k++)///x and y
             {
                 arr1[k]=tableL[y*8+k][x];
                 arr2[k]=tableL[y*8+k+4][x];
@@ -406,23 +407,14 @@ void mixcol(int tableL[][16], int tableE[][16],int input[][4])
               // input[k+4+i*8][j]=sbox[y*8+k+4][x];
             }
             bintohex(arr1,4);
-            bintohex(arr2,4);
+            bintohex(arr2,4);*/
             cout<<endl;
 
     }
 }
 void invmixcol(int arr[][4])
 {
-}
-for(int i=0;i<8;i++)
-        {
-                arr[i][j]=arr12[i];
-                arr[i+8][j]=arr23[i];
-                arr[i+16][j]=arr34[i];
-                arr[i+24][j]=arr41[i];
-        }
 
-    }
 }
 void rcon(int n, int round, int bit, int *arr)
 {
@@ -516,38 +508,11 @@ void dectobin(int dec,int* bin)
         tmp=tmp/2;
     }
 }
-
-void matrix(int state[][4])
-{
-    int b1[8];
-    int b2[8];
-    int b3[8];
-    int b4[8];
-    int m2b1[8];
-    int m3b2[8];
-    int m2b2[8];
-    int m3b3[8];
-    int m2b3[8];
-    int m3b4[8];
-    int m3b1[8];
-    int m2b4[8];
-
-
-    for(int j=0;j<4;j++)
-    {
-        for (int i=0;i<8;i++)
-        {
-            b1[i]=state[i][j];
-            b2[i]=state[i+8][j];
-            b3[i]=state[i+16][j];
-            b4[i]=state[i+24][j];
-        }
-    }
-
-}
-void tableLelem(int *arr11, int *arr12,int *arr21,int *arr22,int tableL[][16])
+void tableLelem(int *arr11, int *arr12,int *arr21,int *arr22,int tableL[][16],int *r1,int *r2)
 {
     int x1,x2,y1,y2;
+    int arr1[8];
+    int arr2[8];
     bintodec(arr11,3);
     bintodec(arr12,3);
     bintodec(arr21,3);
@@ -560,7 +525,67 @@ void tableLelem(int *arr11, int *arr12,int *arr21,int *arr22,int tableL[][16])
     cout<<x2<<endl;
     cout<<y1<<endl;
     cout<<y2<<endl;
+   // bintodec(arr1,7);
+   // bintodec(arr2,7);
 }
+void matrix(int state[][4])
+{
+    int b1[8];
+    int b2[8];
+    int b3[8];
+    int b4[8];
+    int b5[8];
+    int b6[8];
+    int b7[8];
+    int b8[8];
+    int m2b1[8];
+    int m3b2[8];
+    int m2b2[8];
+    int m3b3[8];
+    int m2b3[8];
+    int m3b4[8];
+    int m3b1[8];
+    int m2b4[8];
+    int m0[4]={0,0,0,0};
+    int m2[4]={0,0,1,0};
+    int m3[4]={0,0,1,1};
+
+    for(int j=0;j<4;j++)
+    {
+        for (int i=0;i<4;i++)
+        {
+            b1[i]=state[i][j];
+            b2[i]=state[i+4][j];
+            b3[i]=state[i+8][j];
+            b4[i]=state[i+12][j];
+            b5[i]=state[i+16][j];
+            b6[i]=state[i+20][j];
+            b7[i]=state[i+24][j];
+            b8[i]=state[i+28][j];
+        }
+        tableLelem(m0,m2,b1,b2);
+        m2b1[8];
+        tableLelem(m0,m3,b3,b4);
+        m3b2[8];
+        tableLelem(m0,m2,b3,b4);
+        m2b2[8];
+        tableLelem(m0,m3,b5,b6);
+        m3b3[8];
+        tableLelem(m0,m2,b5,b6);
+        m2b3[8];
+        tableLelem(m0,m3,b7,b8);
+        m3b4[8];
+        tableLelem(m0,m3,b1,b2);
+        m3b1[8];
+        tableLelem(m0,m2,b7,b8);
+        m2b4[8];
+
+
+
+    }
+
+}
+
 
 
 int main()
@@ -737,7 +762,7 @@ int a[4]={0,0,0,0};
 int c[4]={0,1,1,1};
 int b[4]={1,1,1,1};
 int d[4]={1,1,1,1};
-tableLelem(a,b,c,d,tableL);
+tableLelem(a,b,c,d,tableL,a,c);
 
 
   /// cout << 16*8<< endl;
