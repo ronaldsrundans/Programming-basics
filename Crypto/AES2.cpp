@@ -170,6 +170,31 @@ void subbytes(int sbox[][16], int input[][4])
     }
 
 }
+void printTable(int sbox[][16])
+{
+
+for(int j=0;j<16;j++)///col
+{
+        int arrt[4];
+    for(int i=0;i<16;i++)///row
+    {
+      for(int k=0;k<4;k++)
+        {
+            arrt[k]=sbox[i*8+k][j];
+        }
+        bintohex(arrt,4);
+        for(int k=4;k<8;k++)
+        {
+           arrt[k-4] =sbox[i*8+k][j];
+        }
+       bintohex(arrt,4);
+        cout<<" ";
+    }
+     cout<<endl;
+}
+ cout<<endl;
+
+}
 void shiftrows(int arr[][4])
 {
     int tmp[48];
@@ -595,9 +620,8 @@ for(int j=0;j<16;j++)///col
     }
      cout<<endl;
 }
-
  cout<<endl;
- ///sbox izdruka
+
 
 
 
@@ -665,7 +689,7 @@ printState(state,nk);
          cout<<"Check shift rows state:"<<endl;
 printState(state,nk);
     ///mix col
-    invmixcol(state);
+    mixcol(tableL,state);
              cout<<"Check mix col state:"<<endl;
 printState(state,nk);
     ///add roundkey(xor)
