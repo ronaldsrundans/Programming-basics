@@ -343,10 +343,10 @@ void mult2(int *arr)
     }
 
 }
-void mixcol(int sbox[][16], int input[][4])
+void mixcol(int tableL[][16], int tableE[][16],int input[][4])
 {
 
- int x,y,u,v,i,j,k,l;
+ int x,y,i,j,k,l;
     int arr1[4];
     int arr2[4];
     for(j=0;j<4;j++)///col
@@ -368,16 +368,16 @@ void mixcol(int sbox[][16], int input[][4])
         bintodec(arr2,3);
          x=arr1[0];
          y=arr2[0];
-         //cout<<"x="<<x<<endl;
-        // cout<<"y="<<y<<endl;
+         cout<<"x="<<x<<endl;
+         cout<<"y="<<y<<endl;
           //  int arrt[4];
           //  int arrr[4];
                    //  cout<<"x="<<x<<endl;
        //  cout<<"y="<<y<<endl;
             for(k=0;k<4;k++)///x and y
             {
-                arr1[k]=sbox[y*8+k][x];
-                arr2[k]=sbox[y*8+k+4][x];
+                arr1[k]=tableL[y*8+k][x];
+                arr2[k]=tableL[y*8+k+4][x];
 
 
                // input[k+i*8][j]=sbox[y*8+k][x];
@@ -546,6 +546,40 @@ void dectobin(int dec,int* bin)
     }
 }
 
+void matrix(int state[][4])
+{
+    int b1[8];
+    int b2[8];
+    int b3[8];
+    int b4[8];
+    int m2b1[8];
+    int m3b2[8];
+    int m2b2[8];
+    int m3b3[8];
+    int m2b3[8];
+    int m3b4[8];
+    int m3b1[8];
+    int m2b4[8];
+
+
+    for(int j=0;j<4;j++)
+    {
+        for (int i=0;i<8;i++)
+        {
+            b1[i]=state[i][j];
+            b2[i]=state[i+8][j];
+            b3[i]=state[i+16][j];
+            b4[i]=state[i+24][j];
+        }
+    }
+
+}
+void multiply(int *arr1, int *arr2)
+{
+
+}
+
+
 int main()
 {
 //char plain16[33]="3243f6a8885a308d313198a2e0370734";
@@ -672,7 +706,7 @@ printState(state,nk);
          cout<<"Check shift rows state:"<<endl;
 printState(state,nk);
     ///mix col
-    mixcol(tableL,state);
+    mixcol(tableL,tableE,state);
              cout<<"Check mix col state:"<<endl;
 printState(state,nk);
     ///add roundkey(xor)
