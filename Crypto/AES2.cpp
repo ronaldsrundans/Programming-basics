@@ -601,28 +601,11 @@ hextobin(plain16,33,arrp);
 }
     ///sbox izdruka
 cout<<"Check sbox:"<<endl;
-for(int j=0;j<16;j++)///col
-{
-        int arrt[4];
-    for(int i=0;i<16;i++)///row
-    {
-      for(int k=0;k<4;k++)
-        {
-            arrt[k]=sbox[i*8+k][j];
-        }
-        bintohex(arrt,4);
-        for(int k=4;k<8;k++)
-        {
-           arrt[k-4] =sbox[i*8+k][j];
-        }
-       bintohex(arrt,4);
-        cout<<" ";
-    }
-     cout<<endl;
-}
- cout<<endl;
-
-
+printTable(sbox);
+cout<<"Check TableE:"<<endl;
+printTable(tableE);
+cout<<"Check TableL:"<<endl;
+printTable(tableL);
 
 
 int plain2d[32][4];
