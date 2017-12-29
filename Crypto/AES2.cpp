@@ -361,11 +361,6 @@ void mult2(int *arr)
 void multiply(int tableL[][16], int tableE[][16], int *arr1,int *arr2, int*arr3)
 {
  int i,j,k,l,x1, y1,x2,y2, x3, y3,x4,y4;
-    int arr4[4];
-    int arr5[4];
-    int arr6[4];
-    int arr7[4];
-    int arr8[4];
     int arr10[4];
     int arr11[4];
     int arr20[4];
@@ -373,20 +368,6 @@ void multiply(int tableL[][16], int tableE[][16], int *arr1,int *arr2, int*arr3)
     int arr18[8];
     int arr28[8];
     int arrrez[8];
-         /*char hex1[4]="af";
-         char hex2[4]="08";
-         int arr161[8];
-          int arr610[4];
-           int arr611[4];
-         int arr162[8];
-            int arr620[4];
-           int arr621[4];
-            int arr630[4];
-           int arr631[4];
-
-
-         hextobin(hex1,2,arr161);
-        hextobin(hex2,2,arr162);*/
         for(int i=0;i<4;i++)
         {
             arr10[i]=arr1[i];
@@ -430,6 +411,7 @@ void multiply(int tableL[][16], int tableE[][16], int *arr1,int *arr2, int*arr3)
            ///cout<<tableL[8*y1+i][x1];///asis ir otradi
          ///  arr161[i]=tableE[8*y1+i][x1];///asis ir otradi
             cout<<tableE[8*y3+i][x3];
+            arr3[i]=tableE[8*y3+i][x3];
         }
         cout<<endl;
 }
@@ -441,11 +423,44 @@ void mixcol(int tableL[][16], int tableE[][16],int input[][4])
     int arr01[8];
     int arr02[8];
     int arr03[8];
-
     hextobin(hex1,2,arr01);
     hextobin(hex2,2,arr02);
     hextobin(hex3,2,arr03);
-    multiply(tableL, tableE,arr01, arr02,arr03);
+    int a1[8];
+    int a2[8];
+    int a3[8];
+    int a4[8];
+    int r1[8];
+    int r2[8];
+    int r3[8];
+    int r4[8];
+    int rx1[8];
+    int rx2[8];
+    int rx3[8];
+    int j=0;
+
+    for(int i=0;i<8;i++)
+    {
+        a1[i]=input[i][j];
+        a2[i]=input[i+8][j];
+        a3[i]=input[i+16][j];
+        a4[i]=input[i+24][j];
+    }
+///pirma rinda * pirma kolonna
+    multiply(tableL, tableE,arr02, a1,r1);
+     multiply(tableL, tableE,arr03, a2,r2);
+     multiply(tableL, tableE,arr01, a1,r3);
+     multiply(tableL, tableE,arr01, a2,r4);
+
+    cout<<"r1=";
+  for(int i=0;i<8;i++)
+    {
+        cout<<r1[i];
+    }
+    xorfunc8(r1,r2,rx1);
+    xorfunc8(r3,r4,rx2);
+    xorfunc8(rx1,rx2,rx3);
+
 
     /*
     b1 = (b1 * 2) XOR (b2*3) XOR (b3*1) XOR (b4*1)
@@ -457,78 +472,6 @@ void mixcol(int tableL[][16], int tableE[][16],int input[][4])
     b7 = (b5 * 1) XOR (b6*1) XOR (b7*2) XOR (b8*3)
     b8 = (b5 * 3) XOR (b6*1) XOR (b7*1) XOR (b8*2)*/
 
- int i,j,k,l,x1, y1,x2,y2, x3, y3,x4,y4;
-
-    int arr1[4];
-    int arr2[4];
-    int arr3[4];
-    int arr4[4];
-    int arr5[4];
-    int arr6[4];
-    int arr7[4];
-    int arr8[4];
-    int m0[4]={0,0,0,0};
-    int m2[4]={0,0,1,0};
-    int m3[4]={0,0,1,1};
-
-         int arr161[8];
-          int arr610[4];
-           int arr611[4];
-         int arr162[8];
-            int arr620[4];
-           int arr621[4];
-            int arr630[4];
-           int arr631[4];
-
-           int arrrez[8];
-         hextobin(hex1,2,arr161);
-        hextobin(hex2,2,arr162);
-        for(int i=0;i<4;i++)
-        {
-            arr610[i]=arr161[i];
-            arr611[i]=arr161[i+4];
-            arr620[i]=arr162[i];;
-            arr621[i]=arr162[i+4];;
-
-        }
-        bintodec(arr610,3);
-        bintodec(arr611,3);
-        bintodec(arr620,3);
-        bintodec(arr621,3);
-        x1=arr610[0];
-        y1=arr611[0];
-        x2=arr620[0];
-        y2=arr621[0];
-       // cout<<x1<<" "<<y1<<" "<<x2<<" "<<y2<<endl;
-        for(int i=0;i<8;i++)
-        {
-           ///cout<<tableL[8*y1+i][x1];///asis ir otradi
-           arr161[i]=tableL[8*y1+i][x1];///asis ir otradi
-           arr162[i]=tableL[8*y2+i][x2];
-        }
-       // cout<<endl;
-        binsumarr(arr161,arr162,arrrez);
-
-        for(int i=3;i>=0;i--)
-        {
-            arr630[i]=arrrez[i];
-            arr631[i]=arrrez[i+4];
-        }
-        bintodec(arr630,3);
-        bintodec(arr631,3);
-        x3=arr630[0];
-        y3=arr631[0];
-       // cout<<endl;
-      //  cout<<"x3="<<x3<<" y3="<<y3<<endl;
-      cout<<"rez="<<endl;
-    for(int i=0;i<8;i++)
-        {
-           ///cout<<tableL[8*y1+i][x1];///asis ir otradi
-         ///  arr161[i]=tableE[8*y1+i][x1];///asis ir otradi
-            cout<<tableE[8*y3+i][x3];
-
-        }
-        cout<<endl;
 
 
 
