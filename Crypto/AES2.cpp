@@ -405,15 +405,15 @@ void multiply(int tableL[][16], int tableE[][16], int *arr1,int *arr2, int*arr3)
         y3=arr11[0];
        // cout<<endl;
       //  cout<<"x3="<<x3<<" y3="<<y3<<endl;
-      cout<<"rez="<<endl;
+   //   cout<<"rez="<<endl;
     for(int i=0;i<8;i++)
         {
            ///cout<<tableL[8*y1+i][x1];///asis ir otradi
          ///  arr161[i]=tableE[8*y1+i][x1];///asis ir otradi
-            cout<<tableE[8*y3+i][x3];
+          //  cout<<tableE[8*y3+i][x3];
             arr3[i]=tableE[8*y3+i][x3];
         }
-        cout<<endl;
+      //  cout<<endl;
 }
 void mixcol(int tableL[][16], int tableE[][16],int input[][4])
 {
@@ -430,14 +430,38 @@ void mixcol(int tableL[][16], int tableE[][16],int input[][4])
     int a2[8];
     int a3[8];
     int a4[8];
-    int r1[8];
-    int r2[8];
-    int r3[8];
-    int r4[8];
-    int rx1[8];
-    int rx2[8];
-    int rx3[8];
-    int j=0;
+    int r11[8];
+    int r12[8];
+    int r13[8];
+    int r14[8];
+    int r21[8];
+    int r22[8];
+    int r23[8];
+    int r24[8];
+    int r31[8];
+    int r32[8];
+    int r33[8];
+    int r34[8];
+    int r41[8];
+    int r42[8];
+    int r43[8];
+    int r44[8];
+    int rx11[8];
+    int rx12[8];
+    int rx13[8];
+    int rx21[8];
+    int rx22[8];
+    int rx23[8];
+    int rx31[8];
+    int rx32[8];
+    int rx33[8];
+    int rx41[8];
+    int rx42[8];
+    int rx43[8];
+
+    for(int j=0;j<4;j++)
+    {
+
 
     for(int i=0;i<8;i++)
     {
@@ -447,20 +471,47 @@ void mixcol(int tableL[][16], int tableE[][16],int input[][4])
         a4[i]=input[i+24][j];
     }
 ///pirma rinda * pirma kolonna
-    multiply(tableL, tableE,arr02, a1,r1);
-     multiply(tableL, tableE,arr03, a2,r2);
-     multiply(tableL, tableE,arr01, a1,r3);
-     multiply(tableL, tableE,arr01, a2,r4);
+    multiply(tableL, tableE,arr02, a1,r11);
+     multiply(tableL, tableE,arr03, a2,r12);
+     multiply(tableL, tableE,arr01, a3,r13);
+     multiply(tableL, tableE,arr01, a4,r14);
+    xorfunc8(r11,r12,rx11);
+    xorfunc8(r13,r14,rx12);
+    xorfunc8(rx11,rx12,rx13);
+    ///otra rinda * pirma kolonna
+    multiply(tableL, tableE,arr01, a1,r21);
+     multiply(tableL, tableE,arr02, a2,r22);
+     multiply(tableL, tableE,arr03, a3,r23);
+     multiply(tableL, tableE,arr01, a4,r24);
+    xorfunc8(r21,r22,rx21);
+    xorfunc8(r23,r24,rx22);
+    xorfunc8(rx21,rx22,rx23);
+        ///tresa rinda * pirma kolonna
+    multiply(tableL, tableE,arr01, a1,r31);
+     multiply(tableL, tableE,arr01, a2,r32);
+     multiply(tableL, tableE,arr02, a3,r33);
+     multiply(tableL, tableE,arr03, a4,r34);
+    xorfunc8(r31,r32,rx31);
+    xorfunc8(r33,r34,rx32);
+    xorfunc8(rx31,rx32,rx33);
+        ///ceturta rinda * pirma kolonna
+    multiply(tableL, tableE,arr03, a1,r41);
+     multiply(tableL, tableE,arr01, a2,r42);
+     multiply(tableL, tableE,arr01, a3,r43);
+     multiply(tableL, tableE,arr02, a4,r44);
+    xorfunc8(r41,r42,rx41);
+    xorfunc8(r43,r44,rx42);
+    xorfunc8(rx41,rx42,rx43);
 
-    cout<<"r1=";
-  for(int i=0;i<8;i++)
+    for(int i=0;i<8;i++)
     {
-        cout<<r1[i];
+        input[i][j]=rx13[i];
+        input[i+8][j]=rx23[i];
+        input[i+16][j]=rx33[i];
+       input[i+24][j]=rx43[i];
     }
-    xorfunc8(r1,r2,rx1);
-    xorfunc8(r3,r4,rx2);
-    xorfunc8(rx1,rx2,rx3);
-
+}
+   // cout<<endl;
 
     /*
     b1 = (b1 * 2) XOR (b2*3) XOR (b3*1) XOR (b4*1)
