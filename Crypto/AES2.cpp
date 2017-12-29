@@ -563,7 +563,7 @@ void matrix(int state[][4])
             b7[i]=state[i+24][j];
             b8[i]=state[i+28][j];
         }
-        tableLelem(m0,m2,b1,b2);
+        /*tableLelem(m0,m2,b1,b2);
         m2b1[8];
         tableLelem(m0,m3,b3,b4);
         m3b2[8];
@@ -578,11 +578,34 @@ void matrix(int state[][4])
         tableLelem(m0,m3,b1,b2);
         m3b1[8];
         tableLelem(m0,m2,b7,b8);
-        m2b4[8];
+        m2b4[8];*/
 
 
 
     }
+
+}
+sumbinabc(int *a,int *b)
+{
+    int n1=0;
+    int n2=0;
+    int n3=0;
+    int k=1;
+    int i;
+    char c;
+    for(i=7;i>=0;i--)
+    {
+        n1=n1+a[i]*k;
+        n2=n2+b[i]*k;
+        k=k*2;
+    }
+    n3=n1+n2;
+    if(n3>255)
+    {
+        n3=n3-255;
+    }
+    cout<<n3<<endl;
+    //cout<<n2<<endl;
 
 }
 
@@ -762,7 +785,11 @@ int a[4]={0,0,0,0};
 int c[4]={0,1,1,1};
 int b[4]={1,1,1,1};
 int d[4]={1,1,1,1};
-tableLelem(a,b,c,d,tableL,a,c);
+cout<<"sum"<<endl;
+int arra[8]={0,0,0,0,0,1,1,1};
+int arrb[8]={1,1,1,1,1,1,1,1};
+//tableLelem(a,b,c,d,tableL,a,c);
+sumbinabc(arra,arrb);
 
 
   /// cout << 16*8<< endl;
