@@ -52,6 +52,7 @@ void bintohex(int *bin,int binsize)//,char* hex)
 
 }
 
+
 void xorfunc(int arr1[][4], int arr2[][4], int arr3[][4], int n, int col)
 {
     for(int i=0;i<n;i++)
@@ -110,17 +111,15 @@ void bintodec(int arr[],int j)
     arr[0]=n;
 }
 
-void dectobin(int *arr)
+void dectobin(int a,int *arr)
 {
-    int n=0;
-    int b=1;
-    for(int i=3;i>=0;i++)
+    int n=a;
+    for(int i=7;i>=0;i--)
     {
-        n=n+b*arr[i];
-        b=b*2;
-        arr[i]=0;
+        arr[i]=n%2;
+        //cout<<arr[i]<<endl;
+        n=n/2;
     }
-    arr[0]=n;
 }
 void addroundkey()
 {}
@@ -169,6 +168,21 @@ void subbytes(int sbox[][16], int input[][4])
         }
     }
 
+}
+void binsumarr(int *arr1, int *arr2, int *arr3)
+{
+    bintodec(arr1,7);
+    bintodec(arr2,7);
+    int n1=arr1[0];
+    int n2=arr2[0];
+    int n3;
+    n3=n1+n2;
+    if(n3>255)
+    {
+        n3=n3-255;
+    }
+    dectobin(n3,arr3);
+   // dectobin(n3,arr3);
 }
 void printTable(int sbox[][16])
 {
@@ -362,34 +376,66 @@ void mixcol(int tableL[][16], int tableE[][16],int input[][4])
          char hex1[4]="af";
          char hex2[4]="08";
          int arr161[8];
+          int arr610[4];
+           int arr611[4];
          int arr162[8];
+            int arr620[4];
+           int arr621[4];
+            int arr630[4];
+           int arr631[4];
+
+           int arrrez[8];
          hextobin(hex1,2,arr161);
         hextobin(hex2,2,arr162);
+        for(int i=0;i<4;i++)
+        {
+            arr610[i]=arr161[i];
+            arr611[i]=arr161[i+4];
+            arr620[i]=arr162[i];;
+            arr621[i]=arr162[i+4];;
+
+        }
+        bintodec(arr610,3);
+        bintodec(arr611,3);
+        bintodec(arr620,3);
+        bintodec(arr621,3);
+        x1=arr610[0];
+        y1=arr611[0];
+        x2=arr620[0];
+        y2=arr621[0];
+       // cout<<x1<<" "<<y1<<" "<<x2<<" "<<y2<<endl;
         for(int i=0;i<8;i++)
         {
-            cout<<"i"<<i<<"=";
-            cout<<arr161[i]<<endl;
+           ///cout<<tableL[8*y1+i][x1];///asis ir otradi
+           arr161[i]=tableL[8*y1+i][x1];///asis ir otradi
+           arr162[i]=tableL[8*y2+i][x2];
+        }
+       // cout<<endl;
+        binsumarr(arr161,arr162,arrrez);
+
+        for(int i=3;i>=0;i--)
+        {
+            arr630[i]=arrrez[i];
+            arr631[i]=arrrez[i+4];
+        }
+        bintodec(arr630,3);
+        bintodec(arr631,3);
+        x3=arr630[0];
+        y3=arr631[0];
+       // cout<<endl;
+      //  cout<<"x3="<<x3<<" y3="<<y3<<endl;
+      cout<<"rez="<<endl;
+    for(int i=0;i<8;i++)
+        {
+           ///cout<<tableL[8*y1+i][x1];///asis ir otradi
+         ///  arr161[i]=tableE[8*y1+i][x1];///asis ir otradi
+            cout<<tableE[8*y3+i][x3];
+
         }
 
 
-          //  int arrt[4];
-          //  int arrr[4];
-                   //  cout<<"x="<<x<<endl;
-       //  cout<<"y="<<y<<endl;
-           /* for(k=0;k<4;k++)///x and y
-            {
-                arr1[k]=tableL[y*8+k][x];
-                arr2[k]=tableL[y*8+k+4][x];
 
 
-               // input[k+i*8][j]=sbox[y*8+k][x];
-              // input[k+4+i*8][j]=sbox[y*8+k+4][x];
-            }
-            bintohex(arr1,4);
-            bintohex(arr2,4);
-            cout<<endl;
-
-    }*/
 }
 void invmixcol(int arr[][4])
 {
@@ -478,6 +524,7 @@ i = i + 1
 
 
 }
+/*
 void dectobin(int dec,int* bin)
 {
     int tmp=dec;
@@ -486,7 +533,7 @@ void dectobin(int dec,int* bin)
         bin[i]=tmp%2;
         tmp=tmp/2;
     }
-}
+}*/
 void tableLelem(int *arr11, int *arr12,int *arr21,int *arr22,int tableL[][16],int *r1,int *r2)
 {
     int x1,x2,y1,y2;
