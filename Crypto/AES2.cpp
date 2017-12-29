@@ -2,7 +2,7 @@
 #include <iostream>
 
 using namespace std;
-
+///lietot tikai mazos burtus!!!
 void hextobin(char* hex,int hexcount, int *arr)
 {
     int n;
@@ -359,40 +359,19 @@ void mixcol(int tableL[][16], int tableE[][16],int input[][4])
     int m0[4]={0,0,0,0};
     int m2[4]={0,0,1,0};
     int m3[4]={0,0,1,1};
-
-    for(j=0;j<4;j++)///col
-    {
-         for(k=0;k<4;k++)///all col elements
+         char hex1[4]="af";
+         char hex2[4]="08";
+         int arr161[8];
+         int arr162[8];
+         hextobin(hex1,2,arr161);
+        hextobin(hex2,2,arr162);
+        for(int i=0;i<8;i++)
         {
-            arr1[k]=input[k+i*8][j];
-            arr2[k]=input[k+4+i*8][j];
-            arr3[k]=input[k+8+i*8][j];
-            arr4[k]=input[k+12+i*8][j];
-            arr5[k]=input[k+16+i*8][j];
-            arr6[k]=input[k+20+i*8][j];
-            arr7[k]=input[k+24+i*8][j];
-            arr8[k]=input[k+28+i*8][j];
-             //cout<<arr2[k]<<endl;
+            cout<<"i"<<i<<"=";
+            cout<<arr161[i]<<endl;
         }
 
-        bintodec(arr1,3);
-        bintodec(arr2,3);
-        bintodec(arr3,3);
-        bintodec(arr4,3);
-        bintodec(arr5,3);
-        bintodec(arr6,3);
-        bintodec(arr7,3);
-        bintodec(arr8,3);
-        x1=arr1[0];
-        y1=arr2[0];
-        x2=arr3[0];
-        y2=arr4[0];
-        x3=arr5[0];
-        y3=arr6[0];
-        x4=arr7[0];
-        y4=arr8[0];
-         cout<<"x1="<<x1<<endl;
-         cout<<"y1="<<y1<<endl;
+
           //  int arrt[4];
           //  int arrr[4];
                    //  cout<<"x="<<x<<endl;
@@ -407,10 +386,10 @@ void mixcol(int tableL[][16], int tableE[][16],int input[][4])
               // input[k+4+i*8][j]=sbox[y*8+k+4][x];
             }
             bintohex(arr1,4);
-            bintohex(arr2,4);*/
+            bintohex(arr2,4);
             cout<<endl;
 
-    }
+    }*/
 }
 void invmixcol(int arr[][4])
 {
@@ -642,8 +621,8 @@ int arrk[128];
 int arrp[128];
 
 char sbox16[513]={"637c777bf26b6fc53001672bfed7ab76ca82c97dfa5947f0add4a2af9ca472c0b7fd9326363ff7cc34a5e5f171d8311504c723c31896059a071280e2eb27b27509832c1a1b6e5aa0523bd6b329e32f8453d100ed20fcb15b6acbbe394a4c58cfd0efaafb434d338545f9027f503c9fa851a3408f929d38f5bcb6da2110fff3d2cd0c13ec5f974417c4a77e3d645d197360814fdc222a908846eeb814de5e0bdbe0323a0a4906245cc2d3ac629195e479e7c8376d8dd54ea96c56f4ea657aae08ba78252e1ca6b4c6e8dd741f4bbd8b8a703eb5664803f60e613557b986c11d9ee1f8981169d98e949b1e87e9ce5528df8ca1890dbfe6426841992d0fb054bb16"};
-char tableE16[513]={"0103050F113355FF1A2E7296A1F813355FE13848D87395A4F702060A1E2266AAE5345CE43759EB266ABED97090ABE63153F5040C143C44CC4FD168B8D36EB2CD4CD467A9E03B4DD762A6F10818287888839EB9D06BBDDC7F8198B3CE49DB769AB5C457F9103050F00B1D2769BBD661A3FE192B7D8792ADEC2F7193AEE92060A0FB163A4ED26DB7C25DE73256FA153F41C35EE23D47C940C05BED2C749CBFDA759FBAD564ACEF2A7E829DBCDF7A8E89809BB6C158E82365AFEA256FB1C843C554FC1F2163A5F407091B2D7799B0CB46CA45CF4ADE798B8691A8E33E42C651F30E12365AEE297B8D8C8F8A8594A7F20D17394BDD7C8497A2FD1C246CB4C752F601"};
-char tableL16[513]={"0000190132021AC64BC71B6833EEDF036404E00E348D81EF4C7108C8F8691CC17DC21DB5F9B9276A4DE4A6729AC90978652F8A05210FE12412F082453593DA8E968FDBBD36D0CE94135CD2F14046833866DDFD30BF068B62B325E298228891107E6E48C3A3B61E423A6B2854FA853DBA2B790A159B9F5ECA4ED4ACE5F373A757AF58A850F4EAD6744FAEE9D5E7E6ADE82CD7757AEB160BF559CB5FB09CA951A07F0CF66F17C449ECD8431F2DA4767BB7CCBB3E5AFB60B1863B52A16CAA55299D97B2879061BEDCFCBC95CFCD373F5BD15339843C41A26D47142A9E5D56F2D3AB441192D923202E89B47CB8267799E3A5674AEDDEC531FE180D638C80C0F77007"};
+char tableE16[513]={"0103050f113355ff1a2e7296a1f813355fe13848d87395a4f702060a1e2266aae5345ce43759eb266abed97090abe63153f5040c143c44cc4fd168b8d36eb2cd4cd467a9e03b4dd762a6f10818287888839eb9d06bbddc7f8198b3ce49db769ab5c457f9103050f00b1d2769bbd661a3fe192b7d8792adec2f7193aee92060a0fb163a4ed26db7c25de73256fa153f41c35ee23d47c940c05bed2c749cbfda759fbad564acef2a7e829dbcdf7a8e89809bb6c158e82365afea256fb1c843c554fc1f2163a5f407091b2d7799b0cb46ca45cf4ade798b8691a8e33e42c651f30e12365aee297b8d8c8f8a8594a7f20d17394bdd7c8497a2fd1c246cb4c752f601"};
+char tableL16[513]={"0000190132021ac64bc71b6833eedf036404e00e348d81ef4c7108c8f8691cc17dc21db5f9b9276a4de4a6729ac90978652f8a05210fe12412f082453593da8e968fdbbd36d0ce94135cd2f14046833866ddfd30bf068b62b325e298228891107e6e48c3a3b61e423a6b2854fa853dba2b790a159b9f5eca4ed4ace5f373a757af58a850f4ead6744faee9d5e7e6ade82cd7757aeb160bf559cb5fb09ca951a07f0cf66f17c449ecd8431f2da4767bb7ccbb3e5afb60b1863b52a16caa55299d97b2879061bedcfcbc95cfcd373f5bd15339843c41a26d47142a9e5d56f2d3ab441192d923202e89b47cb8267799e3a5674aeddec531fe180d638c80c0f77007"};
 int tableE2[2048];
 int tableL2[2048];
 int sbox2[2048];
