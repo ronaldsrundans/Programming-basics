@@ -437,6 +437,82 @@ void mixcol(int tableL[][16], int tableE[][16],int input[][4])
 
 
 }
+void multiply(int tableL[][16], int tableE[][16],int input[][4], int *arr1,int *arr2, int*arr3)
+{
+
+ int i,j,k,l,x1, y1,x2,y2, x3, y3,x4,y4;
+    int arr4[4];
+    int arr5[4];
+    int arr6[4];
+    int arr7[4];
+    int arr8[4];
+    int arr10[4];
+    int arr11[4];
+    int arr20[4];
+    int arr21[4];
+    int arr18[8];
+    int arr28[8];
+    int arrrez[8];
+         /*char hex1[4]="af";
+         char hex2[4]="08";
+         int arr161[8];
+          int arr610[4];
+           int arr611[4];
+         int arr162[8];
+            int arr620[4];
+           int arr621[4];
+            int arr630[4];
+           int arr631[4];
+
+
+         hextobin(hex1,2,arr161);
+        hextobin(hex2,2,arr162);*/
+        for(int i=0;i<4;i++)
+        {
+            arr10[i]=arr1[i];
+            arr11[i]=arr1[i+4];
+            arr20[i]=arr2[i];
+            arr21[i]=arr2[i+4];
+
+        }
+        bintodec(arr10,3);
+        bintodec(arr11,3);
+        bintodec(arr20,3);
+        bintodec(arr21,3);
+        x1=arr10[0];
+        y1=arr11[0];
+        x2=arr20[0];
+        y2=arr21[0];
+       // cout<<x1<<" "<<y1<<" "<<x2<<" "<<y2<<endl;
+        for(int i=0;i<8;i++)
+        {
+           ///cout<<tableL[8*y1+i][x1];///asis ir otradi
+           arr18[i]=tableL[8*y1+i][x1];///asis ir otradi
+           arr28[i]=tableL[8*y2+i][x2];
+        }
+       // cout<<endl;
+        binsumarr(arr18,arr28,arrrez);
+
+        for(int i=3;i>=0;i--)
+        {
+            arr10[i]=arrrez[i];
+            arr11[i]=arrrez[i+4];
+        }
+        bintodec(arr10,3);
+        bintodec(arr11,3);
+        x3=arr10[0];
+        y3=arr11[0];
+       // cout<<endl;
+      //  cout<<"x3="<<x3<<" y3="<<y3<<endl;
+      cout<<"rez="<<endl;
+    for(int i=0;i<8;i++)
+        {
+           ///cout<<tableL[8*y1+i][x1];///asis ir otradi
+         ///  arr161[i]=tableE[8*y1+i][x1];///asis ir otradi
+            cout<<tableE[8*y3+i][x3];
+        }
+        cout<<endl;
+}
 void invmixcol(int arr[][4])
 {
 
