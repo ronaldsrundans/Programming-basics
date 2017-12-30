@@ -114,6 +114,21 @@ void xorfunc8(int *arr1, int *arr2, int *arr3)
             }
          }
 }
+void xorfuncN(int *arr1, int *arr2, int *arr3, int n)
+{
+    for(int i=0;i<n;i++)
+        {
+            if(((arr1[i]==1) or (arr2[i]==1))&& (arr1[i]!= arr2[i]))
+            {
+                arr3[i]=1;
+            }
+            else
+            {
+                arr3[i]=0;
+            }
+         }
+}
+
 
 void bintodec(int arr[],int j)
 {
@@ -187,6 +202,30 @@ void subbytes(int sbox[][16], int input[][4])
 }
 void subRow(int *arr,int sbox[][16])
 {
+    cout<<"subRow="<<endl;
+    int arrx[4];
+    int arry[4];
+    int i,j,x,y,k;
+    for(i=0;i<4;i++)
+    {
+        for(j=0;j<4;j++)
+        {
+            arrx[j]=arr[j+i*8];
+           // cout<<arrx[j];
+            arry[j]=arr[j+4+i*8];
+        }
+       // cout<<endl;
+        bintodec(arrx,3);
+        bintodec(arry,3);
+        x=arrx[0];
+        y=arry[0];
+       // cout<<x<<" "<<y<<endl;
+        for(k=0;k<4;k++)///x and y
+        {
+            arr[k+i*8]=sbox[y*8+k][x];
+            arr[k+4+i*8]=sbox[y*8+k+4][x];
+        }
+    }
 
 }
 
@@ -627,14 +666,14 @@ void invmixcol(int tableL[][16], int tableE[][16],int input[][4])
         }
     }
 }
-void rcon(int n, int round, int bit, int *arr)///for 128bit key only
+void rcon(int n, int *arr)///for 128bit key only
 {
 
         char c16[]={"01020408102040801b36"};
         char tmp[9];
         int i;
-        tmp[0]=c16[n];
-        tmp[1]=c16[n+1];
+        tmp[0]=c16[n*2];
+        tmp[1]=c16[n*2+1];
         for(i=2;i<8;i++)
         {
             tmp[i]='0';
@@ -642,7 +681,7 @@ void rcon(int n, int round, int bit, int *arr)///for 128bit key only
         tmp[i]=0;
         cout<<"rcon=";
         cout<<tmp<<endl;
-        //hextobin(tmp,8,arr);
+        hextobin(tmp,8,arr);
 
 
 }
@@ -957,26 +996,26 @@ cout<<"after rotWord=";
 printRow(arrtest);
 
 cout<<endl;
-rcon(0,2,3,arrtest);
- cout<<"rcontest=";
-for(i=0;i<32;i++)
-{
-    cout<<arrtest[i];
-   // i;]=i;
-}
+subRow(arrtest,sbox);
+cout<<"after subWord=";
+printRow(arrtest);
 cout<<endl;
-int a[4]={0,0,0,0};
-int c[4]={0,1,1,1};
-int b[4]={1,1,1,1};
-int d[4]={1,1,1,1};
-cout<<"sum"<<endl;
-int arra[8]={0,0,0,0,0,1,1,1};
-int arrb[8]={1,1,1,1,1,1,1,1};
-//tableLelem(a,b,c,d,tableL,a,c);
-sumbinabc(arra,arrb);
+int arrTafterXOR[32];
+int arrRcon[32];
+rcon(0,arrRcon);
+ cout<<"rcontest=";
+printRow(arrRcon);
+cout<<endl;
+    xorfuncN(arrRcon, arrtest,arrTafterXOR,32);
+     cout<<"afterXOR=";
+printRow(arrTafterXOR);
+cout<<endl;
 
 
-  /// cout << 16*8<< endl;
+
+
+
+
     return 0;
 }
 
