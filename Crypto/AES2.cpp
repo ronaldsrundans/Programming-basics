@@ -980,9 +980,17 @@ for(int i=0;i<4;i++)
 
 ///Testing key expantion here
 int arrtest[32];
-char cmat[]="09cf4f3c";
-hextobin(cmat,8,arrtest);
-
+int arrtest0[32];
+int arrtest1[32];
+int arrtest2[32];
+char w0[]="2b7e1516";
+char w1[]="28aed2a6";
+char w2[]="abf71588";
+char w3[]="09cf4f3c";
+hextobin(w3,8,arrtest);
+hextobin(w0,8,arrtest0);
+hextobin(w1,8,arrtest1);
+hextobin(w1,8,arrtest2);
 cout<<"arrtest Teest=";
 for(i=0;i<32;i++)
 {
@@ -1010,8 +1018,13 @@ cout<<endl;
      cout<<"afterXOR=";
 printRow(arrTafterXOR);
 cout<<endl;
-
-
+     cout<<"beforeXOR=";
+printRow(arrtest0);
+cout<<endl;
+cout<<endl;
+    xorfuncN(arrtest0, arrTafterXOR,arrtest,32);
+     cout<<"afterXOR=";
+printRow(arrtest);
 
 
 
