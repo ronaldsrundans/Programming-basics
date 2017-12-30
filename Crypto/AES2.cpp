@@ -816,8 +816,20 @@ sumbinabc(int *a,int *b)
     //cout<<n2<<endl;
 
 }
-void addroundkey()
-{}
+void addroundkey(int key[][4])
+{
+    int i,j;
+    int tmp[32][4];
+    for(i=0;i<4;i++)
+    {
+        for(j=0;j<32;j++)
+        {
+            tmp[j][i]=key[j][i];
+        }
+    }
+
+
+}
 
 
 int main()
