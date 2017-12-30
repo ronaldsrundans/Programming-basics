@@ -83,6 +83,23 @@ void printState(int state[][4], int nk)
 }
  cout<<endl;
 }
+void printRow(int *arr)
+{
+    cout<<"PrintRow=";
+       int arrt[4];
+    for(int j=0;j<8;j++)
+    {
+         for(int k=0;k<4;k++)
+        {
+            arrt[k]=arr[k+j*4];
+        }
+        bintohex(arrt,4);
+    }
+    cout<<endl;
+
+}
+
+
 void xorfunc8(int *arr1, int *arr2, int *arr3)
 {
     for(int i=0;i<8;i++)
@@ -168,6 +185,12 @@ void subbytes(int sbox[][16], int input[][4])
     }
 
 }
+void subRow(int *arr,int sbox[][16])
+{
+
+}
+
+
 void binsumarr(int *arr1, int *arr2, int *arr3)
 {
     bintodec(arr1,7);
@@ -856,12 +879,16 @@ cout<<"Check plain:"<<endl;
 ///add (round)keyw(xor)
 for(int i=0;i<nk;i++)
 {
-    for(int j=0;j<32;j++)
-    {
         xorfunc(plain2d, keyw,state,32, i);
+}
+int arrRoundKey[32];
+//cout<<"Roundkey=";
+for(int j=0;j<32;j++)
+    {
+        arrRoundKey[j]=keyw[j][nk-1];
+        //cout<<arrRoundKey[j]<<endl;
     }
 
-}
 
  ///state izdruka
  cout<<"Check state:"<<endl;
@@ -910,19 +937,25 @@ for(int i=0;i<4;i++)
 }
 ///plain
 ///key
+
+
+///Testing key expantion here
 int arrtest[32];
-for(i=0;i<32;i++)
-{
-    arrtest[i]=i;
-   // cout<<i;
-}
-rotWord(arrtest,4);
-cout<<"after rotWord=";
+char cmat[]="09cf4f3c";
+hextobin(cmat,8,arrtest);
+
+cout<<"arrtest Teest=";
 for(i=0;i<32;i++)
 {
     cout<<arrtest[i];
-   // i;]=i;
 }
+cout<<" test="<<endl;
+printRow(arrtest);
+
+rotWord(arrtest,4);
+cout<<"after rotWord=";
+printRow(arrtest);
+
 cout<<endl;
 rcon(0,2,3,arrtest);
  cout<<"rcontest=";
