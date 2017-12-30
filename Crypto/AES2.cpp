@@ -121,8 +121,7 @@ void dectobin(int a,int *arr)
         n=n/2;
     }
 }
-void addroundkey()
-{}
+
 void subbytes(int sbox[][16], int input[][4])
 {
     int x,y,u,v,i,j,k,l;
@@ -353,9 +352,7 @@ void mult2(int *arr)
         {
             arr[i]=arr3[i];
         }
-
     }
-
 }
 
 void multiply(int tableL[][16], int tableE[][16], int *arr1,int *arr2, int*arr3)
@@ -607,7 +604,7 @@ void invmixcol(int tableL[][16], int tableE[][16],int input[][4])
         }
     }
 }
-void rcon(int n, int round, int bit, int *arr)
+void rcon(int n, int round, int bit, int *arr)///for 128bit key only
 {
 
         char c16[]={"01020408102040801b36"};
@@ -615,13 +612,14 @@ void rcon(int n, int round, int bit, int *arr)
         int i;
         tmp[0]=c16[n];
         tmp[1]=c16[n+1];
-        for(i=2;i<9;i++)
+        for(i=2;i<8;i++)
         {
             tmp[i]='0';
         }
         tmp[i]=0;
+        cout<<"rcon=";
         cout<<tmp<<endl;
-        hextobin(tmp,8,arr);
+        //hextobin(tmp,8,arr);
 
 
 }
@@ -755,25 +753,6 @@ void matrix(int state[][4])
             b7[i]=state[i+24][j];
             b8[i]=state[i+28][j];
         }
-        /*tableLelem(m0,m2,b1,b2);
-        m2b1[8];
-        tableLelem(m0,m3,b3,b4);
-        m3b2[8];
-        tableLelem(m0,m2,b3,b4);
-        m2b2[8];
-        tableLelem(m0,m3,b5,b6);
-        m3b3[8];
-        tableLelem(m0,m2,b5,b6);
-        m2b3[8];
-        tableLelem(m0,m3,b7,b8);
-        m3b4[8];
-        tableLelem(m0,m3,b1,b2);
-        m3b1[8];
-        tableLelem(m0,m2,b7,b8);
-        m2b4[8];*/
-
-
-
     }
 
 }
@@ -800,7 +779,8 @@ sumbinabc(int *a,int *b)
     //cout<<n2<<endl;
 
 }
-
+void addroundkey()
+{}
 
 
 int main()
@@ -965,13 +945,20 @@ for(i=0;i<32;i++)
    // cout<<i;
 }
 rotWord(arrtest,4);
-rcon(0,2,3,arrtest);
+cout<<"after rotWord=";
 for(i=0;i<32;i++)
 {
     cout<<arrtest[i];
    // i;]=i;
 }
-
+cout<<endl;
+rcon(0,2,3,arrtest);
+ cout<<"rcontest=";
+for(i=0;i<32;i++)
+{
+    cout<<arrtest[i];
+   // i;]=i;
+}
 cout<<endl;
 int a[4]={0,0,0,0};
 int c[4]={0,1,1,1};
