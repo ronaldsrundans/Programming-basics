@@ -625,21 +625,42 @@ void rcon(int n, int round, int bit, int *arr)///for 128bit key only
 }
 void rotWord(int *arr, int n)
 {
-    int i,j,k;
-    for(i=0;i<n/2;i++)
-    {
+    int arrtmp[8];
+    int j;
         for(j=0;j<8;j++)
         {
-         k=arr[i*8+j];
-       //  cout<<k<<endl;
-         arr[i*8+j]=arr[(n-i-1)*8+j];
-         arr[(n-i-1)*8+j]=k;
+            arrtmp[j]=arr[j];
+          //  cout<<arr[j]<<endl;
         }
-    }
+        for(j=8;j<8*n;j++)
+        {
+            arr[j-8]=arr[j];
+        }
+        for(j=0;j<8;j++)
+        {
+            arr[8*(n-1)+j]=arrtmp[j];
+        }
+
+
 }
 
-void expandkey()//(byte key[4*Nk], word w[Nb*(Nr+1)], Nk)
+void expandkey(int key[][4])//(byte key[4*Nk], word w[Nb*(Nr+1)], Nk)
 {
+    int i,j;
+    int a1[8];
+    int a2[8];
+    int a3[8];
+    int a4[8];
+    for(int j=0;j<4;j++)
+    {
+        for(int i=0;i<8;i++)
+        {
+            a1[i]=key[i][j];
+            a2[i]=key[i+8][j];
+            a3[i]=key[i+16][j];
+            a4[i]=key[i+24][j];
+        }
+    }
 //    rotWord();
 //subbytes();
 /*
@@ -688,16 +709,7 @@ i = i + 1
 
 
 }
-/*
-void dectobin(int dec,int* bin)
-{
-    int tmp=dec;
-    for(int i=3;i>=0;i--)
-    {
-        bin[i]=tmp%2;
-        tmp=tmp/2;
-    }
-}*/
+
 void tableLelem(int *arr11, int *arr12,int *arr21,int *arr22,int tableL[][16],int *r1,int *r2)
 {
     int x1,x2,y1,y2;
@@ -718,44 +730,7 @@ void tableLelem(int *arr11, int *arr12,int *arr21,int *arr22,int tableL[][16],in
    // bintodec(arr1,7);
    // bintodec(arr2,7);
 }
-void matrix(int state[][4])
-{
-    int b1[8];
-    int b2[8];
-    int b3[8];
-    int b4[8];
-    int b5[8];
-    int b6[8];
-    int b7[8];
-    int b8[8];
-    int m2b1[8];
-    int m3b2[8];
-    int m2b2[8];
-    int m3b3[8];
-    int m2b3[8];
-    int m3b4[8];
-    int m3b1[8];
-    int m2b4[8];
-    int m0[4]={0,0,0,0};
-    int m2[4]={0,0,1,0};
-    int m3[4]={0,0,1,1};
 
-    for(int j=0;j<4;j++)
-    {
-        for (int i=0;i<4;i++)
-        {
-            b1[i]=state[i][j];
-            b2[i]=state[i+4][j];
-            b3[i]=state[i+8][j];
-            b4[i]=state[i+12][j];
-            b5[i]=state[i+16][j];
-            b6[i]=state[i+20][j];
-            b7[i]=state[i+24][j];
-            b8[i]=state[i+28][j];
-        }
-    }
-
-}
 sumbinabc(int *a,int *b)
 {
     int n1=0;
@@ -933,9 +908,6 @@ for(int i=0;i<4;i++)
         mixa[j][i]=mix2a[j+i*32];
     }
 }
-
-
-
 ///plain
 ///key
 int arrtest[32];
