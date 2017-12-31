@@ -53,7 +53,7 @@ void bintohex(int *bin,int binsize)//,char* hex)
 }
 
 
-void xorfunc(int arr1[][4], int arr2[][4], int arr3[][4], int n, int col)
+void xorfunc(int arr1[][4], int ** arr2, int arr3[][4], int n, int col)
 {
     for(int i=0;i<n;i++)
         {
@@ -773,7 +773,7 @@ sumbinabc(int *a,int *b)
     //cout<<n2<<endl;
 
 }
-void expandkey(int key[][4], int nk, int sbox[][16], int rconNr)///nk maina masivu izmerus
+void expandkey(int **key, int nk, int sbox[][16], int rconNr)///nk maina masivu izmerus
 {
     int i,j;
     int tmp[32];
@@ -1005,13 +1005,13 @@ printState(state,nk);
 
  cout<<"Check keyw:"<<endl;
 
- printState(keyw,nk);
+ printKey(keyw,nk);
  ///expand key
 int rconNr=k;
 expandkey(keyw,nk,sbox,rconNr);
  cout<<"Check keyw:"<<endl;
 
- printState(keyw,nk);
+ printKey(keyw,nk);
  for(int i=0;i<nk;i++)
 {
         xorfunc(state, keyw,state,32, i);
@@ -1061,7 +1061,7 @@ for(int k=0;k<w;k++)
     expandkey(keyw,nk,sbox,k);
 }
 cout<<"ik_sch:"<<endl;
-printState(keyw,nk);
+printKey(keyw,nk);
 cout<<endl;
  for(int i=0;i<nk;i++)
 {
