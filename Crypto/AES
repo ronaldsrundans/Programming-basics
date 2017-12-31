@@ -274,6 +274,7 @@ void shiftrows(int arr[][4])
 {
     int tmp[48];
     int i,j;
+
     for(i=0;i<8;i++)///row1 copy
     {
         tmp[i]=arr[i+8][0];
@@ -334,6 +335,7 @@ void shiftrows(int arr[][4])
         }
     }
 }
+
 void invshiftrows(int arr[][4])
 {
     int tmp[48];
@@ -398,24 +400,9 @@ void invshiftrows(int arr[][4])
         }
     }
 }
-void mult2(int *arr)
-{
-    if(arr[0]==1)
-    {
-        for(int i=0;i<7;i++)
-        {
-            arr[i]=arr[i+1];
-        }
-        arr[7]=0;
-        int arr2[8]={0,0,0,1,1,0,1,1};
-        int arr3[8];
-        xorfunc8(arr,arr2,arr3);
-        for(int i=0;i<8;i++)
-        {
-            arr[i]=arr3[i];
-        }
-    }
-}
+
+
+
 
 void multiply(int tableL[][16], int tableE[][16], int *arr1,int *arr2, int*arr3)
 {
@@ -992,11 +979,29 @@ expandkey(keyw,nk,sbox,rconNr);
  cout<<"Check state end of round nr:"<<k+1<<endl;
 printState(state,nk);
 cout<<endl;
-cout<<endl;
+
 }
+
  ///Round beigas
  ///Round beigas
 
+cout<<"Decrypt starts"<<endl;
+///Decrypt sakas
+ for(int i=0;i<nk;i++)
+{
+        xorfunc(state, keyw,state,32, i);
+}
+ cout<<"istart:"<<endl;
+printState(state,nk);
+cout<<endl;
+invshiftrows(state);
+ cout<<"is_row:"<<endl;
+printState(state,nk);
+cout<<endl;
+
+
+
+///Decrypt beidzas
 
     return 0;
 }
