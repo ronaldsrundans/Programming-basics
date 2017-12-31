@@ -706,71 +706,6 @@ void rotWord(int *arr, int n)
 
 }
 
-void expandkey(int key[][4])//(byte key[4*Nk], word w[Nb*(Nr+1)], Nk)
-{
-    int i,j;
-    int a1[8];
-    int a2[8];
-    int a3[8];
-    int a4[8];
-    for(int j=0;j<4;j++)
-    {
-        for(int i=0;i<8;i++)
-        {
-            a1[i]=key[i][j];
-            a2[i]=key[i+8][j];
-            a3[i]=key[i+16][j];
-            a4[i]=key[i+24][j];
-        }
-    }
-//    rotWord();
-//subbytes();
-/*
-
-word temp
-
-int i = 0;
-
-while (i < Nk)
-{
-  w[i] = word(key[4*i], key[4*i+1], key[4*i+2], key[4*i+3]);
-
-    i = i+1;
-}
-
-
-i = Nk
-
-while (i < Nb * (Nr+1)]
-{
-
-
-temp = w[i-1]
-
-if (i mod Nk = 0)
-{
-    temp = SubWord(RotWord(temp)) xor Rcon[i/Nk]
-}
-
-
-else if (Nk > 6 and i mod Nk = 4)
-{
-    temp = SubWord(temp)
-}
-
-
-end if
-
-w[i] = w[i-Nk] xor temp
-
-i = i + 1
-
-}
-
-*/
-
-
-}
 
 void tableLelem(int *arr11, int *arr12,int *arr21,int *arr22,int tableL[][16],int *r1,int *r2)
 {
@@ -845,7 +780,7 @@ subRow(tmp,sbox);
 //int arrTafterXOR[32];
 int arrRcon[32];
 rcon(rconNr,arrRcon);
- //cout<<"rcontest=";
+//cout<<"rcontest=";
 //printRow(arrRcon);
 //cout<<endl;
    xorfuncN(arrRcon, tmp,tmp2,32);
@@ -998,11 +933,19 @@ for(int j=0;j<32;j++)
         //cout<<arrRoundKey[j]<<endl;
     }
 
+    ///****************????????/////////
+
+
+
+///sakas round 1
+for(int k=0;k<10;k++)
+{
+
 
  ///state izdruka
- cout<<"Check state:"<<endl;
+ cout<<"Check state begin round:"<<endl;
 printState(state,nk);
- cout<<endl;
+
  ///keyw izdruka
 
 
@@ -1020,87 +963,37 @@ printState(state,nk);
          cout<<"Check shift rows state:"<<endl;
 printState(state,nk);
     ///mix col
-    mixcol(tableL,tableE,state);
+    if(k<9)///pedeja raunda nevajag
+    {
+        mixcol(tableL,tableE,state);
              cout<<"Check mix col state:"<<endl;
 printState(state,nk);
+
+    }
+
     ///add roundkey(xor)
 }
 
-///test mix func
-//char mix16[65]={"d4bf5d30e0b452aeb84111f11e2798e5"};
-char mix16[65]={"2b7e151628aed2a6abf7158809cf4f3c"};
-char mix16a[65]={"046681e5e0cb199a48f8d37a2806264c"};
-int mix2[256];
-hextobin(mix16,65,mix2);
-int mix2a[256];
-hextobin(mix16a,65,mix2a);
-int mix[32][4];
-int mixa[32][4];
-for(int i=0;i<4;i++)
-{
-    for(int j=0;j<32;j++)
-    {
-        mix[j][i]=mix2[j+i*32];
-        mixa[j][i]=mix2a[j+i*32];
-    }
-}
-///plain
-///key
 
 
-///Testing key expantion here
-/*
-int arrtest[32];
-int arrtest0[32];
-int arrtest1[32];
-int arrtest2[32];
-char w0[]="2b7e1516";
-char w1[]="28aed2a6";
-char w2[]="abf71588";
-char w3[]="09cf4f3c";
-hextobin(w3,8,arrtest);
-hextobin(w0,8,arrtest0);
-hextobin(w1,8,arrtest1);
-hextobin(w1,8,arrtest2);
-
-cout<<" test="<<endl;
-printRow(arrtest);
-
-rotWord(arrtest,4);
-cout<<"after rotWord=";
-printRow(arrtest);
-
-cout<<endl;
-subRow(arrtest,sbox);
-cout<<"after subWord=";
-printRow(arrtest);
-cout<<endl;
-int arrTafterXOR[32];
-int arrRcon[32];
-rcon(0,arrRcon);
- cout<<"rcontest=";
-printRow(arrRcon);
-cout<<endl;
-    xorfuncN(arrRcon, arrtest,arrTafterXOR,32);
-     cout<<"afterXOR=";
-printRow(arrTafterXOR);
-cout<<endl;
-     cout<<"beforeXOR=";
-printRow(arrtest0);
-cout<<endl;
-cout<<endl;
-    xorfuncN(arrtest0, arrTafterXOR,arrtest,32);
-     cout<<"afterXOR=";
-printRow(arrtest);*/
  cout<<"Check keyw:"<<endl;
 
  printState(keyw,nk);
  ///expand key
-int rconNr=0;
+int rconNr=k;
 expandkey(keyw,nk,sbox,rconNr);
  cout<<"Check keyw:"<<endl;
 
  printState(keyw,nk);
+ for(int i=0;i<nk;i++)
+{
+        xorfunc(state, keyw,state,32, i);
+}
+ cout<<"Check state end of round nr:"<<k+1<<endl;
+printState(state,nk);
+cout<<endl;
+cout<<endl;
+}
  ///Round beigas
  ///Round beigas
 
