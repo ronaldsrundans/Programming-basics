@@ -202,7 +202,7 @@ void subbytes(int sbox[][16], int input[][4])
 }
 void subRow(int *arr,int sbox[][16])
 {
-    cout<<"subRow="<<endl;
+   // cout<<"subRow="<<endl;
     int arrx[4];
     int arry[4];
     int i,j,x,y,k;
@@ -666,8 +666,8 @@ void rcon(int n, int *arr)///for 128bit key only
             tmp[i]='0';
         }
         tmp[i]=0;
-        cout<<"rcon=";
-        cout<<tmp<<endl;
+      //  cout<<"rcon=";
+     //   cout<<tmp<<endl;
         hextobin(tmp,8,arr);
 
 
@@ -999,18 +999,56 @@ cout<<"Decrypt starts"<<endl;
 {
         xorfunc(state, keyw,state,32, i);
 }
- cout<<"istart:"<<endl;
+
+
+ for(int w=9;w>3;w--)
+{
+
+
+ cout<<"istart roundNr:"<<10-w<<endl;
 printState(state,nk);
 cout<<endl;
 invshiftrows(state);
  cout<<"is_row:"<<endl;
 printState(state,nk);
 cout<<endl;
+ subbytes(invsbox,state);
  cout<<"is_box:"<<endl;
 printState(state,nk);
 cout<<endl;
+///reset key
+for(int i=0;i<nk;i++)
+{
+    for(int j=0;j<32;j++)
+    {
+        keyw[j][i]=arrk[j+i*32];
+    }
+}
+for(int k=0;k<w;k++)
+{
+    expandkey(keyw,nk,sbox,k);
+}
+cout<<"ik_sch:"<<endl;
+printState(keyw,nk);
+cout<<endl;
+ for(int i=0;i<nk;i++)
+{
+        xorfunc(state, keyw,state,32, i);
+}
+cout<<"ik_add:"<<endl;
+printState(state,nk);
+cout<<endl;
+   ///mix col
+  //  if(k<9)///pedeja raunda nevajag
+   // {
+       invmixcol(tableL,tableE,state);
 
 
+   // }
+cout<<"inv_mix:"<<endl;
+printState(state,nk);
+cout<<endl;
+}
 ///Decrypt beidzas
 
     return 0;
