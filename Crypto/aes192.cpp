@@ -857,6 +857,7 @@ int main()
 ///000102030405060708090a0b0c0d0e0f1011121314151617
 int s=192;///new key size
 int nk=s/32;
+int rows=32;
 char plain16[33]="00112233445566778899aabbccddeeff";
 char *key16= new char [nk*8+1];
 key16="000102030405060708090a0b0c0d0e0f1011121314151617";
@@ -901,18 +902,19 @@ int state[32][4];
 //int statesub[32][4];
 
 //int keyw[32][4];
-int **keyw=new int*[32];
-for(i=0;i<nk;i++)
+int **keyw=new int*[rows];
+for(i=0;i<rows;i++)
 {
     keyw[i]=new int[nk];
 }
 
-///fix this!!!
 for(int i=0;i<nk;i++)
 {
-    for(int j=0;j<32;j++)
+    for(int j=0;j<rows;j++)
     {
-        keyw[j][i]=arrk[j+i*32];
+        //keyw[j][i]=arrk[j+i*32];
+        keyw[j][i]=0;
+        //cout<<arrk[j+i*rows];
     }
 }
 
