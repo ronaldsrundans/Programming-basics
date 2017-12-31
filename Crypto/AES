@@ -1019,7 +1019,7 @@ cout<<"Decrypt starts"<<endl;
 }
 
 
- for(int w=9;w>1;w--)
+ for(int w=9;w>=0;w--)
 {
 
 
@@ -1057,16 +1057,20 @@ cout<<"ik_add:"<<endl;
 printState(state,nk);
 cout<<endl;
    ///mix col
-  //  if(k<9)///pedeja raunda nevajag
-   // {
+   if(w>0)///pedeja raunda nevajag
+    {
        invmixcol(tableL,tableE,state);
-
-
-   // }
 cout<<"inv_mix:"<<endl;
 printState(state,nk);
 cout<<endl;
+
+    }
+
 }
+
+ cout<<"Plain text:"<<endl;
+printState(state,nk);
+cout<<endl;
 ///Decrypt beidzas
 
     return 0;
