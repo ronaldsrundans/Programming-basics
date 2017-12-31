@@ -82,6 +82,23 @@ void printState(int state[][4], int nk)
     }
 }
  cout<<endl;
+
+}
+void printKey(int **state, int nk)
+{
+    for(int i=0;i<nk;i++)
+{
+    int arrt[4];
+    for(int j=0;j<8;j++)
+    {
+         for(int k=0;k<4;k++)
+        {
+            arrt[k]=state[j*4+k][i];
+        }
+        bintohex(arrt,4);
+    }
+}
+ cout<<endl;
 }
 void printRow(int *arr)
 {
@@ -878,6 +895,7 @@ hextobin(plain16,33,arrp);
     }
 }
     ///sbox izdruka
+    /*
 cout<<"Check sbox:"<<endl;
 printTable(sbox);
 cout<<"Check invsbox:"<<endl;
@@ -886,12 +904,20 @@ cout<<"Check TableE:"<<endl;
 printTable(tableE);
 cout<<"Check TableL:"<<endl;
 printTable(tableL);
-
+*/
 
 int plain2d[32][4];
 int state[32][4];
 int statesub[32][4];
-int keyw[32][4];
+
+//int keyw[32][4];
+int **keyw=new int*[32];
+for(i=0;i<nk;i++)
+{
+    keyw[i]=new int[nk];
+}
+
+
 for(int i=0;i<nk;i++)
 {
     for(int j=0;j<32;j++)
@@ -916,7 +942,7 @@ cout<<"Check plain:"<<endl;
  ///keyw izdruka
  cout<<"Check keyw:"<<endl;
 
- printState(keyw,nk);
+ printKey(keyw,nk);
  ///keyw izdruka
 
 
