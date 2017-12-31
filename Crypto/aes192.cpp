@@ -894,21 +894,11 @@ hextobin(plain16,33,arrp);
         tableL[i][j]=tableL2[i+j*128];
     }
 }
-    ///sbox izdruka
-    /*
-cout<<"Check sbox:"<<endl;
-printTable(sbox);
-cout<<"Check invsbox:"<<endl;
-printTable(invsbox);
-cout<<"Check TableE:"<<endl;
-printTable(tableE);
-cout<<"Check TableL:"<<endl;
-printTable(tableL);
-*/
+
 
 int plain2d[32][4];
 int state[32][4];
-int statesub[32][4];
+//int statesub[32][4];
 
 //int keyw[32][4];
 int **keyw=new int*[32];
@@ -917,7 +907,7 @@ for(i=0;i<nk;i++)
     keyw[i]=new int[nk];
 }
 
-
+///fix this!!!
 for(int i=0;i<nk;i++)
 {
     for(int j=0;j<32;j++)
@@ -925,6 +915,8 @@ for(int i=0;i<nk;i++)
         keyw[j][i]=arrk[j+i*32];
     }
 }
+
+/*
 //int state[32][4];
 
 for(int i=0;i<nk;i++)
@@ -938,11 +930,11 @@ for(int i=0;i<nk;i++)
 ///plain izdruka
 cout<<"Check plain:"<<endl;
 
- printState(plain2d,nk);
+// printState(plain2d,nk);
  ///keyw izdruka
  cout<<"Check keyw:"<<endl;
 
- printKey(keyw,nk);
+ //printKey(keyw,nk);
  ///keyw izdruka
 
 
@@ -1086,6 +1078,7 @@ cout<<endl;
 printState(state,nk);
 cout<<endl;
 ///Decrypt beidzas
+*/
 
     return 0;
 }
