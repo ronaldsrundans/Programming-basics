@@ -816,18 +816,50 @@ sumbinabc(int *a,int *b)
     //cout<<n2<<endl;
 
 }
-void addroundkey(int key[][4])
+void addroundkey(int key[][4], int nk, int sbox[][16], int rconNr)///nk maina masivu izmerus
 {
     int i,j;
-    int tmp[32][4];
-    for(i=0;i<4;i++)
-    {
+    int tmp[32];
+    int tmp0[32];
+    int tmp2[32];
+    int rez[32][4];
+
         for(j=0;j<32;j++)
         {
-            tmp[j][i]=key[j][i];
+            tmp[j]=key[j][nk-1];///ped col
+            tmp0[j]=key[j][0];
+           // cout<<tmp[j]<<endl;
         }
-    }
+printRow(tmp);
+printRow(tmp0);
 
+//xorfunc(int arr1[][4], int arr2[][4], int arr3[][4], 32, int col)
+rotWord(tmp,nk);
+cout<<"after rotWord=";
+printRow(tmp);
+cout<<endl;
+subRow(tmp,sbox);
+cout<<"after subWord=";
+printRow(tmp);
+cout<<endl;
+//int arrTafterXOR[32];
+int arrRcon[32];
+rcon(rconNr,arrRcon);
+ cout<<"rcontest=";
+printRow(arrRcon);
+cout<<endl;
+   xorfuncN(arrRcon, tmp,tmp2,32);
+     cout<<"afterXOR=";
+printRow(tmp2);
+cout<<endl;
+xorfuncN(tmp0, tmp2,tmp,32);
+     cout<<"afterXOR=";
+printRow(tmp);
+   /*   cout<<"beforeXOR=";
+printRow(arrtest0);
+cout<<endl;
+cout<<endl;
+    */
 
 }
 
@@ -991,6 +1023,7 @@ for(int i=0;i<4;i++)
 
 
 ///Testing key expantion here
+/*
 int arrtest[32];
 int arrtest0[32];
 int arrtest1[32];
@@ -1003,11 +1036,7 @@ hextobin(w3,8,arrtest);
 hextobin(w0,8,arrtest0);
 hextobin(w1,8,arrtest1);
 hextobin(w1,8,arrtest2);
-cout<<"arrtest Teest=";
-for(i=0;i<32;i++)
-{
-    cout<<arrtest[i];
-}
+
 cout<<" test="<<endl;
 printRow(arrtest);
 
@@ -1036,8 +1065,9 @@ cout<<endl;
 cout<<endl;
     xorfuncN(arrtest0, arrTafterXOR,arrtest,32);
      cout<<"afterXOR=";
-printRow(arrtest);
-
+printRow(arrtest);*/
+int rconNr=0;
+//addroundkey(keyw,nk,sbox,rconNr);
 
 
 
