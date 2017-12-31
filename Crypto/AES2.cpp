@@ -816,7 +816,7 @@ sumbinabc(int *a,int *b)
     //cout<<n2<<endl;
 
 }
-void addroundkey(int key[][4], int nk, int sbox[][16], int rconNr)///nk maina masivu izmerus
+void expandkey(int key[][4], int nk, int sbox[][16], int rconNr)///nk maina masivu izmerus
 {
     int i,j;
     int tmp[32];
@@ -830,31 +830,57 @@ void addroundkey(int key[][4], int nk, int sbox[][16], int rconNr)///nk maina ma
             tmp0[j]=key[j][0];
            // cout<<tmp[j]<<endl;
         }
-printRow(tmp);
-printRow(tmp0);
+//printRow(tmp);
+//printRow(tmp0);
 
 //xorfunc(int arr1[][4], int arr2[][4], int arr3[][4], 32, int col)
 rotWord(tmp,nk);
-cout<<"after rotWord=";
-printRow(tmp);
-cout<<endl;
+//cout<<"after rotWord=";
+//printRow(tmp);
+//cout<<endl;
 subRow(tmp,sbox);
-cout<<"after subWord=";
-printRow(tmp);
-cout<<endl;
+//cout<<"after subWord=";
+//printRow(tmp);
+//cout<<endl;
 //int arrTafterXOR[32];
 int arrRcon[32];
 rcon(rconNr,arrRcon);
- cout<<"rcontest=";
-printRow(arrRcon);
-cout<<endl;
+ //cout<<"rcontest=";
+//printRow(arrRcon);
+//cout<<endl;
    xorfuncN(arrRcon, tmp,tmp2,32);
-     cout<<"afterXOR=";
-printRow(tmp2);
-cout<<endl;
+   //  cout<<"afterXOR=";
+//printRow(tmp2);
+//cout<<endl;
 xorfuncN(tmp0, tmp2,tmp,32);
-     cout<<"afterXOR=";
-printRow(tmp);
+   //  cout<<"afterXOR=";
+//printRow(tmp);
+ for(j=0;j<32;j++)///jaunais w4
+        {
+           key[j][0]=tmp[j];
+           // tmp0[j]=key[j][0];
+           // cout<<tmp[j]<<endl;
+        }
+        ///parejie w5-w7
+        for(i=1;i<nk;i++)
+        {
+             for(j=0;j<32;j++)///jaunais w4
+                {
+                    tmp0[j]=key[j][i];
+                }
+                // printRow(tmp);
+                xorfuncN(tmp0, tmp,tmp,32);
+               // printRow(tmp0);
+                for(j=0;j<32;j++)///jaunais w4
+                {
+                key[j][i]=tmp[j];
+           // tmp0[j]=key[j][0];
+           // cout<<tmp[j]<<endl;
+                }
+
+
+        }
+
    /*   cout<<"beforeXOR=";
 printRow(arrtest0);
 cout<<endl;
@@ -1066,9 +1092,17 @@ cout<<endl;
     xorfuncN(arrtest0, arrTafterXOR,arrtest,32);
      cout<<"afterXOR=";
 printRow(arrtest);*/
-int rconNr=0;
-//addroundkey(keyw,nk,sbox,rconNr);
+ cout<<"Check keyw:"<<endl;
 
+ printState(keyw,nk);
+ ///expand key
+int rconNr=0;
+expandkey(keyw,nk,sbox,rconNr);
+ cout<<"Check keyw:"<<endl;
+
+ printState(keyw,nk);
+ ///Round beigas
+ ///Round beigas
 
 
     return 0;
