@@ -838,14 +838,16 @@ int main()
 ///0001020304060708090a0b0c0d0e0f
 ///00112233445566778899aabbccddeeff
 ///000102030405060708090a0b0c0d0e0f1011121314151617
-
+int s=192;///new key size
+int nk=s/32;
 char plain16[33]="00112233445566778899aabbccddeeff";
-char key16 [33]="000102030405060708090a0b0c0d0e0f1011121314151617";
+char *key16= new char [nk*8+1];
+key16="000102030405060708090a0b0c0d0e0f1011121314151617";
+
 int i,j,k;
 
 //int s=128;///set key size;
-int s=192;///new key size
-int nk=s/32;
+
 char expkey[9][5];
 char inputChar [9][5];
 for(j=0;j<nk;j++)///key16 un plain16 tiek sakartoti 2d arr
