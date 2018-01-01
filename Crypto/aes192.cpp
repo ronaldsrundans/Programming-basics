@@ -920,86 +920,81 @@ cout<<"Check plain:"<<endl;
  printState(plain2d,nb);
  ///keyw izdruka
  cout<<"Check keyw:"<<endl;
- //printKey(keyw,nk);
+ printKey(keyw,nb);
  ///keyw izdruka
 ///add (round)keyw(xor)
-/*for(int i=0;i<nk;i++)
+for(int i=0;i<nb;i++)
 {
-        xorfunc(plain2d, keyw,state,32, i);
+        xorfunc(plain2d, keyw,state,rows, i);
 }
-int arrRoundKey[32];
-//cout<<"Roundkey=";
-for(int j=0;j<32;j++)
-    {
-        arrRoundKey[j]=keyw[j][nk-1];
-        //cout<<arrRoundKey[j]<<endl;
-    }
+
     ///****************????????/////////
 ///sakas round 1
-for(int k=0;k<10;k++)
-{
+//for(int k=0;k<10;k++)
+//{
+k=0;
  ///state izdruka
  cout<<"Check state begin round:"<<endl;
-printState(state,nk);
+printState(state,nb);
  ///keyw izdruka
 ///round1
-for(i=0;i<1;i++)///pedeja round reize nav mix col
+/*for(i=0;i<1;i++)///pedeja round reize nav mix col
 {
     ///sub bytes
     subbytes(sbox,state);
      cout<<"Check sub bytes state:"<<endl;
-printState(state,nk);
+printState(state,nb);
     ///shift rows
     shiftrows(state);
          cout<<"Check shift rows state:"<<endl;
-printState(state,nk);
+printState(state,nb);
     ///mix col
     if(k<9)///pedeja raunda nevajag
     {
         mixcol(tableL,tableE,state);
              cout<<"Check mix col state:"<<endl;
-printState(state,nk);
+printState(state,nb);
     }
     ///add roundkey(xor)
 }
  cout<<"Check keyw:"<<endl;
- printKey(keyw,nk);
+ printKey(keyw,nb);
  ///expand key
 int rconNr=k;
-expandkey(keyw,nk,sbox,rconNr);
+expandkey(keyw,nb,sbox,rconNr);
  cout<<"Check keyw:"<<endl;
- printKey(keyw,nk);
- for(int i=0;i<nk;i++)
+ printKey(keyw,nb);
+ for(int i=0;i<nb;i++)
 {
         xorfunc(state, keyw,state,32, i);
 }
  cout<<"Check state end of round nr:"<<k+1<<endl;
-printState(state,nk);
+printState(state,nb);
 cout<<endl;
 }
  ///Round beigas
  ///Round beigas
 cout<<"Decrypt starts"<<endl;
 ///Decrypt sakas
- for(int i=0;i<nk;i++)
+ for(int i=0;i<nb;i++)
 {
         xorfunc(state, keyw,state,32, i);
 }
  for(int w=9;w>=0;w--)
 {
  cout<<"istart roundNr:"<<10-w<<endl;
-printState(state,nk);
+printState(state,nb);
 cout<<endl;
 invshiftrows(state);
  cout<<"is_row:"<<endl;
-printState(state,nk);
+printState(state,nb);
 cout<<endl;
  subbytes(invsbox,state);
  cout<<"is_box:"<<endl;
-printState(state,nk);
+printState(state,nb);
 cout<<endl;
 ///reset key
-for(int i=0;i<nk;i++)
+for(int i=0;i<nb;i++)
 {
     for(int j=0;j<32;j++)
     {
@@ -1008,29 +1003,29 @@ for(int i=0;i<nk;i++)
 }
 for(int k=0;k<w;k++)
 {
-    expandkey(keyw,nk,sbox,k);
+    expandkey(keyw,nb,sbox,k);
 }
 cout<<"ik_sch:"<<endl;
-printKey(keyw,nk);
+printKey(keyw,nb);
 cout<<endl;
- for(int i=0;i<nk;i++)
+ for(int i=0;i<nb;i++)
 {
         xorfunc(state, keyw,state,32, i);
 }
 cout<<"ik_add:"<<endl;
-printState(state,nk);
+printState(state,nb);
 cout<<endl;
    ///mix col
    if(w>0)///pedeja raunda nevajag
     {
        invmixcol(tableL,tableE,state);
 cout<<"inv_mix:"<<endl;
-printState(state,nk);
+printState(state,nb);
 cout<<endl;
     }
 }
  cout<<"Plain text:"<<endl;
-printState(state,nk);
+printState(state,nb);
 cout<<endl;
 ///Decrypt beidzas
 */
