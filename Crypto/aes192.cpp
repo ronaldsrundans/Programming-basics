@@ -761,19 +761,18 @@ xorfuncN(tmp0, tmp2,tmp,rows);
 
 int main()
 {
-///00112233445566778899aabbccddeeff
-///0001020304060708090a0b0c0d0e0f
-///00112233445566778899aabbccddeeff
-///000102030405060708090a0b0c0d0e0f1011121314151617
 int i,j,k;
-int s=192;///new key size
+int s=128;///new key size
 int nk=s/32;
 int nb=4;
+int nr=nk+6;///number of rounds
 int rows=32;
 char plain16[33]="00112233445566778899aabbccddeeff";
 char *key16= new char [nk*8+1];
 //key16="000102030405060708090a0b0c0d0e0f1011121314151617";
-key16="8e73b0f7da0e6452c810f32b809079e562f8ead2522c6b7b";
+key16="000102030405060708090a0b0c0d0e0f";
+
+//key16="8e73b0f7da0e6452c810f32b809079e562f8ead2522c6b7b";
 int *arrk=new int[s];
 int *arrp=new int[nb*rows];
 
@@ -902,7 +901,7 @@ cout<<endl;
 printState(state,nb);
 cout<<endl;
 ///reset key
-for(int i=0;i<nb;i++)
+for(int i=0;i<nk;i++)
 {
     for(int j=0;j<rows;j++)
     {
@@ -920,7 +919,7 @@ printKey(keyw,nb);
 cout<<endl;
  for(int i=0;i<nb;i++)
 {
-        xorfunc(state, keyw,state,32, i);
+        xorfunc(state, keyw,state,rows, i);
 }
 cout<<"ik_add:"<<endl;
 printState(state,nb);
