@@ -1,4 +1,5 @@
 
+
 #include <iostream>
 
 using namespace std;
@@ -67,9 +68,9 @@ void xorfunc(int arr1[][4], int ** arr2, int arr3[][4], int n, int col)
             }
          }
 }
-void printState(int state[][4], int nb)
+void printState(int state[][4], int nk)
 {
-    for(int i=0;i<nb;i++)
+    for(int i=0;i<nk;i++)
 {
     int arrt[4];
     for(int j=0;j<8;j++)
@@ -864,14 +865,13 @@ char *key16= new char [nk*8+1];
 key16="000102030405060708090a0b0c0d0e0f1011121314151617";
 int i,j,k;
 int *arrk=new int[s];
-int *arrp=new int[s];
-//int arrk[128];
-//int arrp[128];
+int *arrp=new int[nb*rows];
+
 char sbox16[513]={"637c777bf26b6fc53001672bfed7ab76ca82c97dfa5947f0add4a2af9ca472c0b7fd9326363ff7cc34a5e5f171d8311504c723c31896059a071280e2eb27b27509832c1a1b6e5aa0523bd6b329e32f8453d100ed20fcb15b6acbbe394a4c58cfd0efaafb434d338545f9027f503c9fa851a3408f929d38f5bcb6da2110fff3d2cd0c13ec5f974417c4a77e3d645d197360814fdc222a908846eeb814de5e0bdbe0323a0a4906245cc2d3ac629195e479e7c8376d8dd54ea96c56f4ea657aae08ba78252e1ca6b4c6e8dd741f4bbd8b8a703eb5664803f60e613557b986c11d9ee1f8981169d98e949b1e87e9ce5528df8ca1890dbfe6426841992d0fb054bb16"};
 char tableE16[513]={"0103050f113355ff1a2e7296a1f813355fe13848d87395a4f702060a1e2266aae5345ce43759eb266abed97090abe63153f5040c143c44cc4fd168b8d36eb2cd4cd467a9e03b4dd762a6f10818287888839eb9d06bbddc7f8198b3ce49db769ab5c457f9103050f00b1d2769bbd661a3fe192b7d8792adec2f7193aee92060a0fb163a4ed26db7c25de73256fa153f41c35ee23d47c940c05bed2c749cbfda759fbad564acef2a7e829dbcdf7a8e89809bb6c158e82365afea256fb1c843c554fc1f2163a5f407091b2d7799b0cb46ca45cf4ade798b8691a8e33e42c651f30e12365aee297b8d8c8f8a8594a7f20d17394bdd7c8497a2fd1c246cb4c752f601"};
 char tableL16[513]={"0000190132021ac64bc71b6833eedf036404e00e348d81ef4c7108c8f8691cc17dc21db5f9b9276a4de4a6729ac90978652f8a05210fe12412f082453593da8e968fdbbd36d0ce94135cd2f14046833866ddfd30bf068b62b325e298228891107e6e48c3a3b61e423a6b2854fa853dba2b790a159b9f5eca4ed4ace5f373a757af58a850f4ead6744faee9d5e7e6ade82cd7757aeb160bf559cb5fb09ca951a07f0cf66f17c449ecd8431f2da4767bb7ccbb3e5afb60b1863b52a16caa55299d97b2879061bedcfcbc95cfcd373f5bd15339843c41a26d47142a9e5d56f2d3ab441192d923202e89b47cb8267799e3a5674aeddec531fe180d638c80c0f77007"};
 char invsbox16[513]={"52096ad53036a538bf40a39e81f3d7fb7ce339829b2fff87348e4344c4dee9cb547b9432a6c2233dee4c950b42fac34e082ea16628d924b2765ba2496d8bd12572f8f66486689816d4a45ccc5d65b6926c704850fdedb9da5e154657a78d9d8490d8ab008cbcd30af7e45805b8b34506d02c1e8fca3f0f02c1afbd0301138a6b3a9111414f67dcea97f2cfcef0b4e67396ac7422e7ad3585e2f937e81c75df6e47f11a711d29c5896fb7620eaa18be1bfc563e4bc6d279209adbc0fe78cd5af41fdda8338807c731b11210592780ec5f60517fa919b54a0d2de57a9f93c99cefa0e03b4dae2af5b0c8ebbb3c83539961172b047eba77d626e169146355210c7d"};
-int tableE2[2048];
+/*int tableE2[2048];
 int tableL2[2048];
 int sbox2[2048];
 int invsbox2[2048];
@@ -886,7 +886,6 @@ hextobin(tableL16,512,tableL2);
 
 hextobin(key16,nk*8+1,arrk);
 hextobin(plain16,33,arrp);
-delete [] key16;
  for(int j=0;j<16;j++)
 {
     for(int i=0;i<128;i++)
@@ -900,91 +899,63 @@ delete [] key16;
 
 
 int plain2d[32][4];
-
 int state[32][4];
+*/
 //int statesub[32][4];
 
 //int keyw[32][4];
 int **keyw=new int*[rows];
 for(i=0;i<rows;i++)
 {
-    keyw[i]=new int[nk];
+   keyw[i]=new int[nk];
 }
-
-
-
-
+/*
 for(int i=0;i<nk;i++)
 {
     for(int j=0;j<rows;j++)
     {
-        keyw[j][i]=arrk[j+i*rows];
-       // keyw[j][i]=0;
+        //keyw[j][i]=arrk[j+i*32];
+        keyw[j][i]=0;
         //cout<<arrk[j+i*rows];
     }
 }
-delete [] arrk;
-
 
 
 //int state[32][4];
-
-for(int i=0;i<nb;i++)
+for(int i=0;i<nk;i++)
 {
-    for(int j=0;j<rows;j++)
+    for(int j=0;j<32;j++)
     {
-        plain2d[j][i]=arrp[j+i*rows];
+        plain2d[j][i]=arrp[j+i*32];
     }
 }
-delete [] arrp;
 ///plain izdruka
 cout<<"Check plain:"<<endl;
-
- printState(plain2d,nb);
+// printState(plain2d,nk);
  ///keyw izdruka
  cout<<"Check keyw:"<<endl;
-
- printKey(keyw,nk);
+ //printKey(keyw,nk);
  ///keyw izdruka
-
-
-
 ///add (round)keyw(xor)
-for(int i=0;i<nb;i++)
+for(int i=0;i<nk;i++)
 {
-        xorfunc(plain2d, keyw,state,rows, i);
+        xorfunc(plain2d, keyw,state,32, i);
 }
-
-printState(state,nb);
-
-/*int *arrRoundKey=new int[rows];
+int arrRoundKey[32];
 //cout<<"Roundkey=";
-
-for(int j=0;j<rows;j++)
+for(int j=0;j<32;j++)
     {
         arrRoundKey[j]=keyw[j][nk-1];
         //cout<<arrRoundKey[j]<<endl;
     }
-*/
     ///****************????????/////////
-
-
-
 ///sakas round 1
-//for(int k=0;k<10;k++)
-//{
-k=0;
-
-
+for(int k=0;k<10;k++)
+{
  ///state izdruka
  cout<<"Check state begin round:"<<endl;
-//printState(state,nb);
-
+printState(state,nk);
  ///keyw izdruka
-
-
-/*
-
 ///round1
 for(i=0;i<1;i++)///pedeja round reize nav mix col
 {
@@ -1002,22 +973,15 @@ printState(state,nk);
         mixcol(tableL,tableE,state);
              cout<<"Check mix col state:"<<endl;
 printState(state,nk);
-
     }
-
     ///add roundkey(xor)
 }
-
-
-
  cout<<"Check keyw:"<<endl;
-
  printKey(keyw,nk);
  ///expand key
 int rconNr=k;
 expandkey(keyw,nk,sbox,rconNr);
  cout<<"Check keyw:"<<endl;
-
  printKey(keyw,nk);
  for(int i=0;i<nk;i++)
 {
@@ -1026,24 +990,17 @@ expandkey(keyw,nk,sbox,rconNr);
  cout<<"Check state end of round nr:"<<k+1<<endl;
 printState(state,nk);
 cout<<endl;
-
 }
-
  ///Round beigas
  ///Round beigas
-
 cout<<"Decrypt starts"<<endl;
 ///Decrypt sakas
  for(int i=0;i<nk;i++)
 {
         xorfunc(state, keyw,state,32, i);
 }
-
-
  for(int w=9;w>=0;w--)
 {
-
-
  cout<<"istart roundNr:"<<10-w<<endl;
 printState(state,nk);
 cout<<endl;
@@ -1084,24 +1041,20 @@ cout<<endl;
 cout<<"inv_mix:"<<endl;
 printState(state,nk);
 cout<<endl;
-
     }
-
 }
-
  cout<<"Plain text:"<<endl;
 printState(state,nk);
 cout<<endl;
 ///Decrypt beidzas
 */
-//delete [] key16;
+//delete []arrp;
 //delete [] arrk;
-//delete [] arrp;
 for(i=0;i<rows;i++)
 {
     delete []keyw[i];
 }
 delete []keyw;
+
     return 0;
 }
-
