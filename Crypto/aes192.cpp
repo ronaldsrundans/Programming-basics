@@ -1,5 +1,3 @@
-
-
 #include <iostream>
 
 using namespace std;
@@ -10,7 +8,6 @@ void hextobin(char* hex,int hexcount, int *arr)
     for(k=0;k<hexcount;k++)
     {
         n=(int)hex[k];
-    //cout<<n<<endl;
         if(n>='a')
         {
             n=n-'a'+10;
@@ -19,14 +16,12 @@ void hextobin(char* hex,int hexcount, int *arr)
         {
             n=n-'0';
         }
-//cout<<n;
         for(i=3;i>=0;i--)
         {
             arr[i+k*4]=n%2;
             n=n/2;
         }
     }
-    //cout<<endl;
 }
 void bintohex(int *bin,int binsize)//,char* hex)
 {
@@ -44,10 +39,7 @@ void bintohex(int *bin,int binsize)//,char* hex)
     {
         c=c-'0'-10+'a';
     }
-   // cout<<endl;
-    cout<<c;
-
-
+     cout<<c;
 }
 
 
@@ -80,7 +72,6 @@ void printState(int state[][4], int nk)
     }
 }
  cout<<endl;
-
 }
 void printKey(int **state, int nk)
 {
@@ -111,10 +102,7 @@ void printRow(int *arr)
         bintohex(arrt,4);
     }
     cout<<endl;
-
 }
-
-
 void xorfunc8(int *arr1, int *arr2, int *arr3)
 {
     for(int i=0;i<8;i++)
@@ -132,19 +120,17 @@ void xorfunc8(int *arr1, int *arr2, int *arr3)
 void xorfuncN(int *arr1, int *arr2, int *arr3, int n)
 {
     for(int i=0;i<n;i++)
+    {
+        if(((arr1[i]==1) or (arr2[i]==1))&& (arr1[i]!= arr2[i]))
         {
-            if(((arr1[i]==1) or (arr2[i]==1))&& (arr1[i]!= arr2[i]))
-            {
-                arr3[i]=1;
-            }
-            else
-            {
+            arr3[i]=1;
+        }
+        else
+        {
                 arr3[i]=0;
-            }
-         }
+        }
+    }
 }
-
-
 void bintodec(int arr[],int j)
 {
     int n=0;
@@ -157,7 +143,6 @@ void bintodec(int arr[],int j)
     }
     arr[0]=n;
 }
-
 void dectobin(int a,int *arr)
 {
     int n=a;
@@ -168,7 +153,6 @@ void dectobin(int a,int *arr)
         n=n/2;
     }
 }
-
 void subbytes(int sbox[][16], int input[][4])
 {
     int x,y,u,v,i,j,k,l;
@@ -180,40 +164,22 @@ void subbytes(int sbox[][16], int input[][4])
         {
         x=0;
         y=0;
-
          for(k=0;k<4;k++)///x and y
         {
              arr1[k]=input[k+i*8][j];
-            // cout<<arr1[k]<<endl;
             arr2[k]=input[k+4+i*8][j];
-             //cout<<arr2[k]<<endl;
         }
-
         bintodec(arr1,3);
         bintodec(arr2,3);
          x=arr1[0];
          y=arr2[0];
-         //cout<<"x="<<x<<endl;
-        // cout<<"y="<<y<<endl;
-          //  int arrt[4];
-          //  int arrr[4];
-                   //  cout<<"x="<<x<<endl;
-       //  cout<<"y="<<y<<endl;
             for(k=0;k<4;k++)///x and y
             {
-               // arrt[k]=sbox[y*8+k][x];
-              //  arrr[k]=sbox[y*8+k+4][x];
-
-
                 input[k+i*8][j]=sbox[y*8+k][x];
                input[k+4+i*8][j]=sbox[y*8+k+4][x];
             }
-           // bintohex(arrt,4);
-           // bintohex(arrr,4);
-           // cout<<endl;
         }
     }
-
 }
 void subRow(int *arr,int sbox[][16])
 {
@@ -241,10 +207,7 @@ void subRow(int *arr,int sbox[][16])
             arr[k+4+i*8]=sbox[y*8+k+4][x];
         }
     }
-
 }
-
-
 void binsumarr(int *arr1, int *arr2, int *arr3)
 {
     bintodec(arr1,7);
@@ -447,50 +410,36 @@ void multiply(int tableL[][16], int tableE[][16], int *arr1,int *arr2, int*arr3)
         y2=arr21[0];
         if(x2==0 && y2==0)
         {
-            cout<<"Found me="<<x1<<" y="<<y1<<endl;
                 for(int i=0;i<8;i++)
             {
-           ///cout<<tableL[8*y1+i][x1];///asis ir otradi
-         ///  arr161[i]=tableE[8*y1+i][x1];///asis ir otradi
-          //  cout<<tableE[8*y3+i][x3];
                 arr3[i]=0;
             }
-            //char[]="018df6cb527bd1e84f29c0b0"
         }
         else
         {
 
-
-
-       // cout<<x1<<" "<<y1<<" "<<x2<<" "<<y2<<endl;
-        for(int i=0;i<8;i++)
-        {
+            for(int i=0;i<8;i++)
+            {
            ///cout<<tableL[8*y1+i][x1];///asis ir otradi
            arr18[i]=tableL[8*y1+i][x1];///asis ir otradi
            arr28[i]=tableL[8*y2+i][x2];
-        }
+            }
        // cout<<endl;
-        binsumarr(arr18,arr28,arrrez);
+            binsumarr(arr18,arr28,arrrez);
 
-        for(int i=3;i>=0;i--)
-        {
+            for(int i=3;i>=0;i--)
+            {
             arr10[i]=arrrez[i];
             arr11[i]=arrrez[i+4];
-        }
-        bintodec(arr10,3);
-        bintodec(arr11,3);
-        x3=arr10[0];
-        y3=arr11[0];
-       // cout<<endl;
-      //  cout<<"x3="<<x3<<" y3="<<y3<<endl;
-   //   cout<<"rez="<<endl;
-    for(int i=0;i<8;i++)
-        {
-           ///cout<<tableL[8*y1+i][x1];///asis ir otradi
-         ///  arr161[i]=tableE[8*y1+i][x1];///asis ir otradi
-          //  cout<<tableE[8*y3+i][x3];
-            arr3[i]=tableE[8*y3+i][x3];
-        }
+            }
+            bintodec(arr10,3);
+            bintodec(arr11,3);
+            x3=arr10[0];
+            y3=arr11[0];
+            for(int i=0;i<8;i++)
+            {
+                arr3[i]=tableE[8*y3+i][x3];
+            }
         }
       //  cout<<endl;
 }
@@ -635,7 +584,6 @@ void invmixcol(int tableL[][16], int tableE[][16],int input[][4])
     int rx41[8];
     int rx42[8];
     int rx43[8];
-
     for(int j=0;j<4;j++)
     {
         for(int i=0;i<8;i++)
@@ -747,43 +695,16 @@ void tableLelem(int *arr11, int *arr12,int *arr21,int *arr22,int tableL[][16],in
    // bintodec(arr1,7);
    // bintodec(arr2,7);
 }
-
-sumbinabc(int *a,int *b)
-{
-    int n1=0;
-    int n2=0;
-    int n3=0;
-    int k=1;
-    int i;
-    char c;
-    for(i=7;i>=0;i--)
-    {
-        n1=n1+a[i]*k;
-        n2=n2+b[i]*k;
-        k=k*2;
-    }
-    n3=n1+n2;
-    if(n3>255)
-    {
-        n3=n3-255;
-    }
-    cout<<n3<<endl;
-    //cout<<n2<<endl;
-
-}
 void expandkey(int **key, int nk, int sbox[][16], int rconNr)///nk maina masivu izmerus
 {
     int i,j;
     int tmp[32];
     int tmp0[32];
     int tmp2[32];
-    int rez[32][4];
-
         for(j=0;j<32;j++)
         {
             tmp[j]=key[j][nk-1];///ped col
             tmp0[j]=key[j][0];
-           // cout<<tmp[j]<<endl;
         }
 //printRow(tmp);
 //printRow(tmp0);
@@ -835,13 +756,6 @@ xorfuncN(tmp0, tmp2,tmp,32);
 
 
         }
-
-   /*   cout<<"beforeXOR=";
-printRow(arrtest0);
-cout<<endl;
-cout<<endl;
-    */
-
 }
 
 
@@ -936,18 +850,12 @@ k=0;
  ///state izdruka
  cout<<"Check state begin round:"<<endl;
 printState(state,nb);
- ///keyw izdruka
-///round1
-
-    ///sub bytes
     subbytes(sbox,state);
      cout<<"Check sub bytes state:"<<endl;
 printState(state,nb);
-    ///shift rows
     shiftrows(state);
          cout<<"Check shift rows state:"<<endl;
 printState(state,nb);
-    ///mix col
     if(k<9)///pedeja raunda nevajag
     {
         mixcol(tableL,tableE,state);
