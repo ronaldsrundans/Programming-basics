@@ -911,6 +911,9 @@ for(i=0;i<rows;i++)
     keyw[i]=new int[nk];
 }
 
+
+
+
 for(int i=0;i<nk;i++)
 {
     for(int j=0;j<rows;j++)
@@ -951,31 +954,36 @@ for(int i=0;i<nb;i++)
 {
         xorfunc(plain2d, keyw,state,rows, i);
 }
-int *arrRoundKey=new int[rows];
+
+printState(state,nb);
+
+/*int *arrRoundKey=new int[rows];
 //cout<<"Roundkey=";
+
 for(int j=0;j<rows;j++)
     {
         arrRoundKey[j]=keyw[j][nk-1];
         //cout<<arrRoundKey[j]<<endl;
     }
-
+*/
     ///****************????????/////////
 
 
-/*
+
 ///sakas round 1
-for(int k=0;k<10;k++)
-{
+//for(int k=0;k<10;k++)
+//{
+k=0;
 
 
  ///state izdruka
  cout<<"Check state begin round:"<<endl;
-printState(state,nk);
+//printState(state,nb);
 
  ///keyw izdruka
 
 
-
+/*
 
 ///round1
 for(i=0;i<1;i++)///pedeja round reize nav mix col
@@ -1089,6 +1097,11 @@ cout<<endl;
 //delete [] key16;
 //delete [] arrk;
 //delete [] arrp;
+for(i=0;i<rows;i++)
+{
+    delete []keyw[i];
+}
+delete []keyw;
     return 0;
 }
 
