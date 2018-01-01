@@ -880,11 +880,9 @@ hextobin(sbox16,512,sbox2);
 hextobin(invsbox16,512,invsbox2);
 hextobin(tableE16,512,tableE2);
 hextobin(tableL16,512,tableL2);
-///fix it!!!
-
 hextobin(key16,nk*8,arrk);
 hextobin(plain16,rows,arrp);
- for(int j=0;j<16;j++)
+for(int j=0;j<16;j++)
 {
     for(int i=0;i<128;i++)
     {
@@ -894,30 +892,20 @@ hextobin(plain16,rows,arrp);
         tableL[i][j]=tableL2[i+j*128];
     }
 }
-
-
 int plain2d[32][4];
 int state[32][4];
-
-//int statesub[32][4];
-
-//int keyw[32][4];
 int **keyw=new int*[rows];
 for(i=0;i<rows;i++)
 {
    keyw[i]=new int[nk];
 }
-/*
 for(int i=0;i<nk;i++)
 {
     for(int j=0;j<rows;j++)
     {
-        //keyw[j][i]=arrk[j+i*32];
-        keyw[j][i]=0;
-        //cout<<arrk[j+i*rows];
+        keyw[j][i]=arrk[j+i*rows];
     }
 }
-
 
 //int state[32][4];
 for(int i=0;i<nk;i++)
@@ -927,7 +915,7 @@ for(int i=0;i<nk;i++)
         plain2d[j][i]=arrp[j+i*32];
     }
 }
-///plain izdruka
+/*///plain izdruka
 cout<<"Check plain:"<<endl;
 // printState(plain2d,nk);
  ///keyw izdruka
