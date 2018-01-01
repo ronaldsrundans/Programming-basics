@@ -6,30 +6,27 @@ using namespace std;
 ///lietot tikai mazos burtus!!!
 void hextobin(char* hex,int hexcount, int *arr)
 {
-    int n;
-    int k;
-    int i;
-
+    int n,k,i;
     for(k=0;k<hexcount;k++)
     {
-    //cout<<hex[k]<<endl;
-    n=(int)hex[k];
+        n=(int)hex[k];
     //cout<<n<<endl;
-    if(n>='a')
-    {
-        n=n-'a'+10;
-    }
+        if(n>='a')
+        {
+            n=n-'a'+10;
+        }
         else
         {
             n=n-'0';
         }
-//cout<<n<<endl;
+//cout<<n;
         for(i=3;i>=0;i--)
         {
             arr[i+k*4]=n%2;
             n=n/2;
         }
     }
+    //cout<<endl;
 }
 void bintohex(int *bin,int binsize)//,char* hex)
 {
@@ -856,6 +853,7 @@ int main()
 ///0001020304060708090a0b0c0d0e0f
 ///00112233445566778899aabbccddeeff
 ///000102030405060708090a0b0c0d0e0f1011121314151617
+int i,j,k;
 int s=192;///new key size
 int nk=s/32;
 int nb=4;
@@ -863,7 +861,6 @@ int rows=32;
 char plain16[33]="00112233445566778899aabbccddeeff";
 char *key16= new char [nk*8+1];
 key16="000102030405060708090a0b0c0d0e0f1011121314151617";
-int i,j,k;
 int *arrk=new int[s];
 int *arrp=new int[nb*rows];
 
@@ -871,7 +868,7 @@ char sbox16[513]={"637c777bf26b6fc53001672bfed7ab76ca82c97dfa5947f0add4a2af9ca47
 char tableE16[513]={"0103050f113355ff1a2e7296a1f813355fe13848d87395a4f702060a1e2266aae5345ce43759eb266abed97090abe63153f5040c143c44cc4fd168b8d36eb2cd4cd467a9e03b4dd762a6f10818287888839eb9d06bbddc7f8198b3ce49db769ab5c457f9103050f00b1d2769bbd661a3fe192b7d8792adec2f7193aee92060a0fb163a4ed26db7c25de73256fa153f41c35ee23d47c940c05bed2c749cbfda759fbad564acef2a7e829dbcdf7a8e89809bb6c158e82365afea256fb1c843c554fc1f2163a5f407091b2d7799b0cb46ca45cf4ade798b8691a8e33e42c651f30e12365aee297b8d8c8f8a8594a7f20d17394bdd7c8497a2fd1c246cb4c752f601"};
 char tableL16[513]={"0000190132021ac64bc71b6833eedf036404e00e348d81ef4c7108c8f8691cc17dc21db5f9b9276a4de4a6729ac90978652f8a05210fe12412f082453593da8e968fdbbd36d0ce94135cd2f14046833866ddfd30bf068b62b325e298228891107e6e48c3a3b61e423a6b2854fa853dba2b790a159b9f5eca4ed4ace5f373a757af58a850f4ead6744faee9d5e7e6ade82cd7757aeb160bf559cb5fb09ca951a07f0cf66f17c449ecd8431f2da4767bb7ccbb3e5afb60b1863b52a16caa55299d97b2879061bedcfcbc95cfcd373f5bd15339843c41a26d47142a9e5d56f2d3ab441192d923202e89b47cb8267799e3a5674aeddec531fe180d638c80c0f77007"};
 char invsbox16[513]={"52096ad53036a538bf40a39e81f3d7fb7ce339829b2fff87348e4344c4dee9cb547b9432a6c2233dee4c950b42fac34e082ea16628d924b2765ba2496d8bd12572f8f66486689816d4a45ccc5d65b6926c704850fdedb9da5e154657a78d9d8490d8ab008cbcd30af7e45805b8b34506d02c1e8fca3f0f02c1afbd0301138a6b3a9111414f67dcea97f2cfcef0b4e67396ac7422e7ad3585e2f937e81c75df6e47f11a711d29c5896fb7620eaa18be1bfc563e4bc6d279209adbc0fe78cd5af41fdda8338807c731b11210592780ec5f60517fa919b54a0d2de57a9f93c99cefa0e03b4dae2af5b0c8ebbb3c83539961172b047eba77d626e169146355210c7d"};
-/*int tableE2[2048];
+int tableE2[2048];
 int tableL2[2048];
 int sbox2[2048];
 int invsbox2[2048];
@@ -883,9 +880,10 @@ hextobin(sbox16,512,sbox2);
 hextobin(invsbox16,512,invsbox2);
 hextobin(tableE16,512,tableE2);
 hextobin(tableL16,512,tableL2);
+///fix it!!!
 
-hextobin(key16,nk*8+1,arrk);
-hextobin(plain16,33,arrp);
+hextobin(key16,nk*8,arrk);
+hextobin(plain16,rows,arrp);
  for(int j=0;j<16;j++)
 {
     for(int i=0;i<128;i++)
@@ -900,7 +898,7 @@ hextobin(plain16,33,arrp);
 
 int plain2d[32][4];
 int state[32][4];
-*/
+
 //int statesub[32][4];
 
 //int keyw[32][4];
