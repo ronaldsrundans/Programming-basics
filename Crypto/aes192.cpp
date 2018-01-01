@@ -938,8 +938,7 @@ k=0;
 printState(state,nb);
  ///keyw izdruka
 ///round1
-/*for(i=0;i<1;i++)///pedeja round reize nav mix col
-{
+
     ///sub bytes
     subbytes(sbox,state);
      cout<<"Check sub bytes state:"<<endl;
@@ -956,15 +955,17 @@ printState(state,nb);
 printState(state,nb);
     }
     ///add roundkey(xor)
-}
+
+
  cout<<"Check keyw:"<<endl;
  printKey(keyw,nb);
  ///expand key
 int rconNr=k;
-expandkey(keyw,nb,sbox,rconNr);
+///Fix this!!!
+expandkey(keyw,nk,sbox,rconNr);
  cout<<"Check keyw:"<<endl;
  printKey(keyw,nb);
- for(int i=0;i<nb;i++)
+/* for(int i=0;i<nb;i++)
 {
         xorfunc(state, keyw,state,32, i);
 }
@@ -975,6 +976,8 @@ cout<<endl;
  ///Round beigas
  ///Round beigas
 cout<<"Decrypt starts"<<endl;
+
+
 ///Decrypt sakas
  for(int i=0;i<nb;i++)
 {
