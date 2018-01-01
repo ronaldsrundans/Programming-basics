@@ -695,7 +695,7 @@ void tableLelem(int *arr11, int *arr12,int *arr21,int *arr22,int tableL[][16],in
    // bintodec(arr1,7);
    // bintodec(arr2,7);
 }
-void expandkey(int **key, int nk, int sbox[][16], int rconNr)///nk maina masivu izmerus
+void expandkey(int **key, int nk, int sbox[][16], int rconNr, int nb, int rows)///nk maina masivu izmerus
 {
     int i,j;
     int tmp[32];
@@ -706,11 +706,11 @@ void expandkey(int **key, int nk, int sbox[][16], int rconNr)///nk maina masivu 
             tmp[j]=key[j][nk-1];///ped col
             tmp0[j]=key[j][0];
         }
-//printRow(tmp);
+printRow(tmp);
 //printRow(tmp0);
 
 //xorfunc(int arr1[][4], int arr2[][4], int arr3[][4], 32, int col)
-rotWord(tmp,nk);
+rotWord(tmp,nb);
 //cout<<"after rotWord=";
 //printRow(tmp);
 //cout<<endl;
@@ -724,20 +724,21 @@ rcon(rconNr,arrRcon);
 //cout<<"rcontest=";
 //printRow(arrRcon);
 //cout<<endl;
-   xorfuncN(arrRcon, tmp,tmp2,32);
+   xorfuncN(arrRcon, tmp,tmp2,rows);
    //  cout<<"afterXOR=";
 //printRow(tmp2);
 //cout<<endl;
-xorfuncN(tmp0, tmp2,tmp,32);
+xorfuncN(tmp0, tmp2,tmp,rows);
    //  cout<<"afterXOR=";
 //printRow(tmp);
- for(j=0;j<32;j++)///jaunais w4
+        for(j=0;j<rows;j++)///jaunais w4
         {
            key[j][0]=tmp[j];
            // tmp0[j]=key[j][0];
            // cout<<tmp[j]<<endl;
         }
         ///parejie w5-w7
+       // cout<<"nk"<<nk<<endl;
         for(i=1;i<nk;i++)
         {
              for(j=0;j<32;j++)///jaunais w4
@@ -745,9 +746,9 @@ xorfuncN(tmp0, tmp2,tmp,32);
                     tmp0[j]=key[j][i];
                 }
                 // printRow(tmp);
-                xorfuncN(tmp0, tmp,tmp,32);
+                xorfuncN(tmp0, tmp,tmp,rows);
                // printRow(tmp0);
-                for(j=0;j<32;j++)///jaunais w4
+                for(j=0;j<rows;j++)///jaunais w4
                 {
                 key[j][i]=tmp[j];
            // tmp0[j]=key[j][0];
@@ -774,7 +775,8 @@ int nb=4;
 int rows=32;
 char plain16[33]="00112233445566778899aabbccddeeff";
 char *key16= new char [nk*8+1];
-key16="000102030405060708090a0b0c0d0e0f1011121314151617";
+//key16="000102030405060708090a0b0c0d0e0f1011121314151617";
+key16="8e73b0f7da0e6452c810f32b809079e562f8ead2522c6b7b";
 int *arrk=new int[s];
 int *arrp=new int[nb*rows];
 
@@ -870,7 +872,7 @@ printState(state,nb);
  ///expand key
 int rconNr=k;
 ///Fix this!!!
-expandkey(keyw,nk,sbox,rconNr);
+expandkey(keyw,nk,sbox,rconNr, nb, rows);
  cout<<"Check keyw:"<<endl;
  printKey(keyw,nb);
 /* for(int i=0;i<nb;i++)
