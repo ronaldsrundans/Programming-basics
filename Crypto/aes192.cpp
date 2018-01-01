@@ -67,9 +67,9 @@ void xorfunc(int arr1[][4], int ** arr2, int arr3[][4], int n, int col)
             }
          }
 }
-void printState(int state[][4], int nk)
+void printState(int state[][4], int nb)
 {
-    for(int i=0;i<nk;i++)
+    for(int i=0;i<nb;i++)
 {
     int arrt[4];
     for(int j=0;j<8;j++)
@@ -857,6 +857,7 @@ int main()
 ///000102030405060708090a0b0c0d0e0f1011121314151617
 int s=192;///new key size
 int nk=s/32;
+int nb=4;
 int rows=32;
 char plain16[33]="00112233445566778899aabbccddeeff";
 char *key16= new char [nk*8+1];
@@ -885,6 +886,7 @@ hextobin(tableL16,512,tableL2);
 
 hextobin(key16,nk*8+1,arrk);
 hextobin(plain16,33,arrp);
+delete [] key16;
  for(int j=0;j<16;j++)
 {
     for(int i=0;i<128;i++)
@@ -898,6 +900,7 @@ hextobin(plain16,33,arrp);
 
 
 int plain2d[32][4];
+
 int state[32][4];
 //int statesub[32][4];
 
@@ -912,43 +915,45 @@ for(int i=0;i<nk;i++)
 {
     for(int j=0;j<rows;j++)
     {
-        //keyw[j][i]=arrk[j+i*32];
-        keyw[j][i]=0;
+        keyw[j][i]=arrk[j+i*rows];
+       // keyw[j][i]=0;
         //cout<<arrk[j+i*rows];
     }
 }
+delete [] arrk;
 
-/*
+
+
 //int state[32][4];
 
-for(int i=0;i<nk;i++)
+for(int i=0;i<nb;i++)
 {
-    for(int j=0;j<32;j++)
+    for(int j=0;j<rows;j++)
     {
-        plain2d[j][i]=arrp[j+i*32];
+        plain2d[j][i]=arrp[j+i*rows];
     }
 }
-
+delete [] arrp;
 ///plain izdruka
 cout<<"Check plain:"<<endl;
 
-// printState(plain2d,nk);
+ printState(plain2d,nb);
  ///keyw izdruka
  cout<<"Check keyw:"<<endl;
 
- //printKey(keyw,nk);
+ printKey(keyw,nk);
  ///keyw izdruka
 
 
 
 ///add (round)keyw(xor)
-for(int i=0;i<nk;i++)
+for(int i=0;i<nb;i++)
 {
-        xorfunc(plain2d, keyw,state,32, i);
+        xorfunc(plain2d, keyw,state,rows, i);
 }
-int arrRoundKey[32];
+int *arrRoundKey=new int[rows];
 //cout<<"Roundkey=";
-for(int j=0;j<32;j++)
+for(int j=0;j<rows;j++)
     {
         arrRoundKey[j]=keyw[j][nk-1];
         //cout<<arrRoundKey[j]<<endl;
@@ -957,7 +962,7 @@ for(int j=0;j<32;j++)
     ///****************????????/////////
 
 
-
+/*
 ///sakas round 1
 for(int k=0;k<10;k++)
 {
@@ -1081,7 +1086,9 @@ printState(state,nk);
 cout<<endl;
 ///Decrypt beidzas
 */
-
+//delete [] key16;
+//delete [] arrk;
+//delete [] arrp;
     return 0;
 }
 
