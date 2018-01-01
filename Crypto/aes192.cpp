@@ -906,24 +906,24 @@ for(int i=0;i<nk;i++)
         keyw[j][i]=arrk[j+i*rows];
     }
 }
-
-//int state[32][4];
-for(int i=0;i<nk;i++)
+delete []arrk;
+for(int i=0;i<nb;i++)
 {
-    for(int j=0;j<32;j++)
+    for(int j=0;j<rows;j++)
     {
-        plain2d[j][i]=arrp[j+i*32];
+        plain2d[j][i]=arrp[j+i*rows];
     }
 }
-/*///plain izdruka
+delete []arrp;
+///plain izdruka
 cout<<"Check plain:"<<endl;
-// printState(plain2d,nk);
+ printState(plain2d,nb);
  ///keyw izdruka
  cout<<"Check keyw:"<<endl;
  //printKey(keyw,nk);
  ///keyw izdruka
 ///add (round)keyw(xor)
-for(int i=0;i<nk;i++)
+/*for(int i=0;i<nk;i++)
 {
         xorfunc(plain2d, keyw,state,32, i);
 }
