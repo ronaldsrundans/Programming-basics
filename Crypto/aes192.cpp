@@ -872,7 +872,7 @@ key16="8e73b0f7da0e6452c810f32b809079e562f8ead2522c6b7b";
         cout<<"start=";
     printState(state,nb);
     rcon(0,arrRcon);
-for(k=0;k<idec;k++)
+for(k=0;k<5;k++)
 {
     if(k>nb-1)
     {
@@ -893,17 +893,17 @@ for(k=0;k<idec;k++)
            if(k%nk==0 && k>0)
            {
                //cout<<"rCon="<<k<<endl;
-                   rcon(k/nk,arrRcon);
-        printRow(arrRcon);
+                rcon(k/nk,arrRcon);
+                //printRow(arrRcon);
            }
 
     if(k%nb==0 && k>0)///visi key gadijumi
     {
         cout<<"keylast="<<k<<endl;
 printRow(keylast);
-    }
+
   //  printRow(keylast);
-      /*  cout<<"idec="<<k<<endl;
+        cout<<"idec="<<k<<endl;
        // cout<<"izpilda pilno key exp"<<endl;
       // cout<<"check="<<endl;
       //  cout<<k/nb-1<<endl;
@@ -917,21 +917,14 @@ printRow(keylast);
           //cout<<"lastKeyafterSubWord=";
    // printRow(keylast);
         xorfuncN(arrRcon, keylast,keylast,rows);
-      //      cout<<"lastKeyafterXor=";
-   // printRow(keylast);
-      //  xorfuncN(keyfirst, keylast,keylast,rows);
-        //xorfuncN(arrRcon, keylast,keyfirst,);
-
-
-    }
-    if(nk==8 && k%4==0 && k>7 && k%8!=0)///tikai 256 key gadijuma
-    {
-        cout<<"idec2="<<k<<endl;
-      //   cout<<"izpilda papildus sub word"<<endl;
-          subRow(keylast,sbox);
+          //  cout<<"lastKeyafterXor=";
+   //printRow(keylast);
+        xorfuncN(keyfirst, keylast,keylast,rows);
+            cout<<"lastKeyafterfirstXor=";
+   printRow(keylast);
 
     }
-    */
+
    /*if(k%nb==0 && k>0)///ja nav pirmie roundi
     {
 
