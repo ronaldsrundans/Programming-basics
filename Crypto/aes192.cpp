@@ -754,6 +754,17 @@ xorfuncN(tmp0, tmp2,tmp,rows);
 
         }
 }
+void shiftKey(int **arr, int nk, int rows)
+{
+    for(int i=0;i<nk-1;i++)
+    {
+        for(int j=0;j<rows;j++)
+        {
+            arr[j][i]=arr[j][i+1];
+        }
+    }
+
+}
 
 
 int main()
@@ -843,7 +854,63 @@ key16="000102030405060708090a0b0c0d0e0f1011121314151617";
  ///keyw izdruka
     cout<<"Check keyw:"<<endl;
     printKey(keyw,nb);
+    int col=0;
+    int keytmp[32];
+    int statetmp[32];
+    int keylast[32];
+    cout<<"nk"<<nk<<endl;
 
+for(k=0;k<idec;k++)
+{
+    for(i=0;i<rows;i++)
+    {
+        statetmp[i]=state[i][col];
+        keytmp[i]=keyw[i][0];
+        keylast[i]=keyw[i][nk-1];
+    }
+
+    cout<<"col="<<col<<endl;
+    cout<<"tmpState=";
+    printRow(statetmp);
+    cout<<"tmpKey=";
+    printRow(keytmp);
+        cout<<"lastKey=";
+    printRow(keylast);
+
+    if(k%nk==0 && k>0)///visi key gadijumi
+    {
+        cout<<"idec="<<k<<endl;
+        cout<<"izpilda pilno key exp"<<endl;
+    }
+    if(nk==8 && k%4==0 && k>7 && k%8!=0)///tikai 256 key gadijuma
+    {
+        cout<<"idec2="<<k<<endl;
+         cout<<"izpilda papildus sub word"<<endl;
+    }
+    shiftKey(keyw, nk, rows);
+    ///xor-s
+    if(col==0)
+    {
+        col=1;
+        continue;
+    }
+    if(col==1)
+    {
+        col=2;
+        continue;
+    }
+    if(col==2)
+    {
+        col=3;
+        continue;
+    }
+    if(col==3)
+    {
+        col=0;
+        continue;
+    }
+
+}
 
 
 
