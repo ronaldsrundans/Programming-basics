@@ -872,11 +872,11 @@ key16="8e73b0f7da0e6452c810f32b809079e562f8ead2522c6b7b";
         cout<<"start=";
     printState(state,nb);
     rcon(0,arrRcon);
-for(k=0;k<5;k++)
+for(k=0;k<idec;k++)
 {
     if(k>nb-1)
     {
-        cout<<"copy"<<k<<endl;
+      //  cout<<"copy"<<k<<endl;
          for(i=0;i<rows;i++)
         {
             keyfirst[i]=keyw[i][0];
@@ -897,10 +897,10 @@ for(k=0;k<5;k++)
                 //printRow(arrRcon);
            }
 
-    if(k%nb==0 && k>0)///visi key gadijumi
+    if(k%nk==0 && k>0)///visi key gadijumi
     {
-        cout<<"keylast="<<k<<endl;
-printRow(keylast);
+       // cout<<"keylast="<<k<<endl;
+//printRow(keylast);
 
   //  printRow(keylast);
         cout<<"idec="<<k<<endl;
@@ -919,12 +919,22 @@ printRow(keylast);
         xorfuncN(arrRcon, keylast,keylast,rows);
           //  cout<<"lastKeyafterXor=";
    //printRow(keylast);
-        xorfuncN(keyfirst, keylast,keylast,rows);
-            cout<<"lastKeyafterfirstXor=";
-   printRow(keylast);
+     //   xorfuncN(keyfirst, keylast,keylast,rows);
+        //    cout<<"lastKeyafterfirstXor=";
+  // printRow(keylast);
 
     }
-
+if(k>nk-1)
+{
+               xorfuncN(keyfirst, keylast,keylast,rows);
+            cout<<"lastKeyafterfirstXor=";
+   printRow(keylast);
+   shiftKey(keyw, nk, rows);
+        for(i=0;i<rows;i++)
+        {
+            keyw[i][nk-1]=keylast[i];
+        }
+}
    /*if(k%nb==0 && k>0)///ja nav pirmie roundi
     {
 
@@ -941,6 +951,9 @@ printRow(keylast);
     ///xor-s
     if(col==0)
     {
+         //  xorfuncN(keyfirst, keylast,keylast,rows);
+        //    cout<<"lastKeyafterfirstXor=";
+  // printRow(keylast);
         col=1;
         continue;
     }
