@@ -770,7 +770,7 @@ void shiftKey(int **arr, int nk, int rows)
 int main()
 {
     int i,j,k;
-    int s=256;///new key size
+    int s=192;///new key size
     int nk=s/32;
     int nb=4;
     int nr=nk+6;///number of rounds
@@ -790,10 +790,10 @@ int main()
     int rows=32;
     char plain16[33]="00112233445566778899aabbccddeeff";
     char *key16= new char [nk*8+1];
-key16="000102030405060708090a0b0c0d0e0f1011121314151617";
+//key16="000102030405060708090a0b0c0d0e0f1011121314151617";
    // key16="000102030405060708090a0b0c0d0e0f";
 
-//key16="8e73b0f7da0e6452c810f32b809079e562f8ead2522c6b7b";
+key16="8e73b0f7da0e6452c810f32b809079e562f8ead2522c6b7b";
     int *arrk=new int[s];
     int *arrp=new int[nb*rows];
     char sbox16[513]={"637c777bf26b6fc53001672bfed7ab76ca82c97dfa5947f0add4a2af9ca472c0b7fd9326363ff7cc34a5e5f171d8311504c723c31896059a071280e2eb27b27509832c1a1b6e5aa0523bd6b329e32f8453d100ed20fcb15b6acbbe394a4c58cfd0efaafb434d338545f9027f503c9fa851a3408f929d38f5bcb6da2110fff3d2cd0c13ec5f974417c4a77e3d645d197360814fdc222a908846eeb814de5e0bdbe0323a0a4906245cc2d3ac629195e479e7c8376d8dd54ea96c56f4ea657aae08ba78252e1ca6b4c6e8dd741f4bbd8b8a703eb5664803f60e613557b986c11d9ee1f8981169d98e949b1e87e9ce5528df8ca1890dbfe6426841992d0fb054bb16"};
@@ -855,7 +855,7 @@ key16="000102030405060708090a0b0c0d0e0f1011121314151617";
     cout<<"Check keyw:"<<endl;
     printKey(keyw,nb);
     int col=0;
-    int keytmp[32];
+    int keyfirst[32];
     int statetmp[32];
     int keylast[32];
     cout<<"nk"<<nk<<endl;
@@ -863,54 +863,113 @@ int arrRcon[32];
 
 for(k=0;k<idec;k++)
 {
-    for(i=0;i<rows;i++)
+    if(k<nk)///ja pirmie roundi
     {
-        statetmp[i]=state[i][col];
-        keytmp[i]=keyw[i][0];
-        keylast[i]=keyw[i][nk-1];
+        for(i=0;i<rows;i++)
+        {
+            statetmp[i]=state[i][col];
+            keyfirst[i]=keyw[i][k];
+            //keylast[i]=keyw[i][nk-1];
+        }
+
     }
+    else
+    {
+         for(i=0;i<rows;i++)
+        {
+            statetmp[i]=state[i][col];
+            keyfirst[i]=keyw[i][0];
+            keylast[i]=keyw[i][nk-1];
+        }
+    }
+
 
     cout<<"col="<<col<<endl;
     cout<<"tmpState=";
     printRow(statetmp);
     cout<<"tmpKey=";
-    printRow(keytmp);
-        cout<<"lastKey=";
+    printRow(keyfirst);
+    cout<<"lastKey=";
     printRow(keylast);
 
     if(k%nk==0 && k>0)///visi key gadijumi
     {
         cout<<"idec="<<k<<endl;
-        cout<<"izpilda pilno key exp"<<endl;
+       // cout<<"izpilda pilno key exp"<<endl;
       //  cout<<k/nk<<endl;
         rcon(k/nk-1,arrRcon);
-        printRow(arrRcon);
+       // printRow(arrRcon);
+       rotWord(keylast,nb);
+       cout<<"lastKeyafterRotWord=";
+    printRow(keylast);
+       subRow(keylast,sbox);
+           cout<<"lastKeyafterSubWord=";
+    printRow(keylast);
+        xorfuncN(arrRcon, keylast,keylast,rows);
+            cout<<"lastKeyafterXor=";
+    printRow(keylast);
+      //   xorfuncN(keyfirst, keylast,keylast,rows);
+        //xorfuncN(arrRcon, keylast,keyfirst,);
+
 
     }
     if(nk==8 && k%4==0 && k>7 && k%8!=0)///tikai 256 key gadijuma
     {
         cout<<"idec2="<<k<<endl;
-         cout<<"izpilda papildus sub word"<<endl;
+      //   cout<<"izpilda papildus sub word"<<endl;
+          subRow(keylast,sbox);
+
     }
-    shiftKey(keyw, nk, rows);
+
+    if(k>nk-1)///ja nav pirmie roundi
+    {
+        xorfuncN(keyfirst, keylast,keylast,rows);
+        cout<<"result key=";
+        printRow(keylast);
+        shiftKey(keyw, nk, rows);
+        for(i=0;i<rows;i++)
+        {
+            keyw[i][nk-1]=keylast[i];
+        }
+    }
     ///xor-s
     if(col==0)
     {
+        xorfuncN(keyfirst, statetmp,statetmp,rows);
+        for(i=0;i<rows;i++)
+        {
+            state[i][col]=statetmp[i];
+        }
         col=1;
         continue;
     }
     if(col==1)
     {
+         xorfuncN(keyfirst, statetmp,statetmp,rows);
+        for(i=0;i<rows;i++)
+        {
+            state[i][col]=statetmp[i];
+        }
         col=2;
         continue;
     }
     if(col==2)
     {
+         xorfuncN(keyfirst, statetmp,statetmp,rows);
+        for(i=0;i<rows;i++)
+        {
+            state[i][col]=statetmp[i];
+        }
         col=3;
         continue;
     }
     if(col==3)
     {
+         xorfuncN(keyfirst, statetmp,statetmp,rows);
+        for(i=0;i<rows;i++)
+        {
+            state[i][col]=statetmp[i];
+        }
         col=0;
         continue;
     }
