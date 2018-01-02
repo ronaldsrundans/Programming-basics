@@ -901,14 +901,14 @@ for(k=0;k<idec;k++)
           //cout<<"lastKeyafterSubWord=";
    // printRow(keylast);
         xorfuncN(arrRcon, keylast,keylast,rows);
-                cout<<"rCon="<<k<<endl;
-        printRow(arrRcon);
+//cout<<"rCon="<<k<<endl;
+//printRow(arrRcon);
     }
      ///set Rcon
            // rcon(k/nb-1,arrRcon);
     if(k%(nk-1)==0 && k>0)
         {
-cout<<k<<endl;
+//cout<<k<<endl;
             rcon((k-1)/nk,arrRcon);
 //cout<<""
      //   cout<<"rCon="<<k<<endl;
@@ -928,10 +928,16 @@ cout<<k<<endl;
         }
         //if(k%nk==0)///fix it un iemet parveid solus state-am
        // {
-             cout<<"kkk="<<k<<endl;
-             ///nav pareiza vertiba
-       cout<<"Check k_sch:"<<endl;
- printKey(keyw,nk);
+             ///if nav pareiza vertiba
+
+ if((k-1)%nb==0)
+ {
+     cout<<"kkk="<<k<<endl;
+
+            cout<<"Check k_sch:"<<endl;
+ printKey(keyw,nb);
+ }
+
        // }
 
 /*subbytes(sbox,state);
