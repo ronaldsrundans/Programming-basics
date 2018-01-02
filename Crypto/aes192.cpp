@@ -770,7 +770,7 @@ void shiftKey(int **arr, int nk, int rows)
 int main()
 {
     int i,j,k;
-    int s=192;///new key size
+    int s=256;///new key size
     int nk=s/32;
     int nb=4;
     int nr=nk+6;///number of rounds
@@ -859,6 +859,7 @@ key16="000102030405060708090a0b0c0d0e0f1011121314151617";
     int statetmp[32];
     int keylast[32];
     cout<<"nk"<<nk<<endl;
+int arrRcon[32];
 
 for(k=0;k<idec;k++)
 {
@@ -881,6 +882,10 @@ for(k=0;k<idec;k++)
     {
         cout<<"idec="<<k<<endl;
         cout<<"izpilda pilno key exp"<<endl;
+      //  cout<<k/nk<<endl;
+        rcon(k/nk-1,arrRcon);
+        printRow(arrRcon);
+
     }
     if(nk==8 && k%4==0 && k>7 && k%8!=0)///tikai 256 key gadijuma
     {
