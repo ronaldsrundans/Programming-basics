@@ -777,15 +777,15 @@ int main()
     int idec=0;
     if(nk==4)
     {
-        idec=44;
+        idec=48;
     }
     else if(nk==6)
     {
-        idec=52;
+        idec=56;
     }
     else
     {
-        idec=60;
+        idec=64;
     }
     int rows=32;
     char plain16[33]="00112233445566778899aabbccddeeff";
@@ -932,29 +932,30 @@ for(k=0;k<idec;k++)
 
  if((k-1)%nb==0)
  {
-     cout<<"kkk="<<k<<endl;
+    // cout<<"kkk="<<k<<endl;
 
-            cout<<"Check k_sch:"<<endl;
- printKey(keyw,nb);
+            //cout<<"Check k_sch:"<<endl;
+ //printKey(keyw,nb);
  subbytes(sbox,state);
-       cout<<"Check sub bytes state:"<<endl;
-       printState(state,nb);
+     //  cout<<"Check sub bytes state:"<<endl;
+      // printState(state,nb);
                  shiftrows(state);
-         cout<<"Check shift rows state:"<<endl;
-        printState(state,nb);
-        
-        
+        // cout<<"Check shift rows state:"<<endl;
+       // printState(state,nb);
+
+
         ///nav perfekti (pietrukst viens rounds?
-        if(k<(idec-nk+1))///pedeja raunda nevajag
+        if(k<idec-nb)///pedeja raunda nevajag
         {
+            //cout<<"mix"<<k<<endl;
             mixcol(tableL,tableE,state);
         }
     for(int i=0;i<nb;i++)
         {
             xorfunc(state, keyw,state,rows, i);
         }
-        cout<<"Check state end of round nr:"<<k/nb<<endl;
-        printState(state,nb);
+        //cout<<"Check state end of round nr:"<<k/nb<<endl;
+       // printState(state,nb);
  }
 
        // }
