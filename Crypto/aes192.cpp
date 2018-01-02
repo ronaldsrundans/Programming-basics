@@ -888,14 +888,7 @@ for(k=0;k<idec;k++)
                  subRow(keylast,sbox);
         }
     }
-    ///set Rcon
-           // rcon(k/nb-1,arrRcon);
-           if(k%nk==0 && k>0)
-           {
-               //cout<<"rCon="<<k<<endl;
-                rcon(k/nk,arrRcon);
-                //printRow(arrRcon);
-           }
+
 
     if(k%nk==0 && k>0)///visi key gadijumi
     {
@@ -904,12 +897,6 @@ for(k=0;k<idec;k++)
 
   //  printRow(keylast);
         cout<<"idec="<<k<<endl;
-       // cout<<"izpilda pilno key exp"<<endl;
-      // cout<<"check="<<endl;
-      //  cout<<k/nb-1<<endl;
-        rcon(k/nb-1,arrRcon);
-      //  cout<<"rCon="<<endl;
-       // printRow(arrRcon);
        rotWord(keylast,nb);
      //  cout<<"lastKeyafterRotWord=";
    // printRow(keylast);
@@ -924,11 +911,22 @@ for(k=0;k<idec;k++)
   // printRow(keylast);
 
     }
+     ///set Rcon
+           // rcon(k/nb-1,arrRcon);
+           if(k%nk==0 && k>0)
+           {
+                rcon(k/nk,arrRcon);
+
+               //cout<<"rCon="<<k<<endl;
+                //printRow(arrRcon);
+           }
 if(k>nk-1)
 {
                xorfuncN(keyfirst, keylast,keylast,rows);
             cout<<"lastKeyafterfirstXor=";
    printRow(keylast);
+                  cout<<"rCon="<<k<<endl;
+                printRow(arrRcon);
    shiftKey(keyw, nk, rows);
         for(i=0;i<rows;i++)
         {
