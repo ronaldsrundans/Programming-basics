@@ -936,6 +936,25 @@ for(k=0;k<idec;k++)
 
             cout<<"Check k_sch:"<<endl;
  printKey(keyw,nb);
+ subbytes(sbox,state);
+       cout<<"Check sub bytes state:"<<endl;
+       printState(state,nb);
+                 shiftrows(state);
+         cout<<"Check shift rows state:"<<endl;
+        printState(state,nb);
+        
+        
+        ///nav perfekti (pietrukst viens rounds?
+        if(k<(idec-nk+1))///pedeja raunda nevajag
+        {
+            mixcol(tableL,tableE,state);
+        }
+    for(int i=0;i<nb;i++)
+        {
+            xorfunc(state, keyw,state,rows, i);
+        }
+        cout<<"Check state end of round nr:"<<k/nb<<endl;
+        printState(state,nb);
  }
 
        // }
