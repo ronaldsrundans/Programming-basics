@@ -901,18 +901,21 @@ for(k=0;k<idec;k++)
           //cout<<"lastKeyafterSubWord=";
    // printRow(keylast);
         xorfuncN(arrRcon, keylast,keylast,rows);
+                cout<<"rCon="<<k<<endl;
+        printRow(arrRcon);
     }
      ///set Rcon
            // rcon(k/nb-1,arrRcon);
-           if(k%nk==0 && k>0)
-           {
-                rcon(k/nk,arrRcon);
-
-               //cout<<"rCon="<<k<<endl;
-                //printRow(arrRcon);
-           }
-if(k>nk-1)
-{
+    if(k%(nk-1)==0 && k>0)
+        {
+cout<<k<<endl;
+            rcon((k-1)/nk,arrRcon);
+//cout<<""
+     //   cout<<"rCon="<<k<<endl;
+        //printRow(arrRcon);
+        }
+    if(k>nk-1)
+    {
                xorfuncN(keyfirst, keylast,keylast,rows);
            // cout<<"lastKeyafterfirstXor=";
    //printRow(keylast);
