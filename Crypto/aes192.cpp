@@ -863,18 +863,24 @@ int main()
     printKey(keyw,nb);
     int col=0;
     int keyfirst[32];
-    int statetmp[32];
+   // int statetmp[32];
     int keylast[32];
   //  cout<<"nk"<<nk<<endl;
 int arrRcon[32];
-
+        for(int i=0;i<nb;i++)
+        {
+            xorfunc(state, keyw,state,rows, i);
+        }
+        cout<<"start=";
+    printState(state,nk);
 for(k=0;k<idec;k++)
 {
+
     if(k<nk)///ja pirmie roundi
     {
         for(i=0;i<rows;i++)
         {
-            statetmp[i]=state[i][col];
+           // statetmp[i]=state[i][col];
             keyfirst[i]=keyw[i][k];
             //keylast[i]=keyw[i][nk-1];
         }
@@ -882,22 +888,28 @@ for(k=0;k<idec;k++)
     }
     else
     {
-                   for(int i=0;i<nb;i++)
+
+ /*   expandkey(keyexp,nk,sbox,k/nb, nb, rows);
+         cout<<"Check keyw after exp:"<<endl;
+printKey(keyexp,nb);
+        for(int i=0;i<nb;i++)
         {
-            xorfunc(state, keyw,state,rows, i);
+            xorfunc(state, keyexp,state,rows, i);
         }
+            cout<<"State=";
+    printState(state,nk);*/
          for(i=0;i<rows;i++)
         {
-            statetmp[i]=state[i][col];
+         //   statetmp[i]=state[i][col];
             keyfirst[i]=keyw[i][0];
             keylast[i]=keyw[i][nk-1];
         }
     }
 
 
-    cout<<"col="<<col<<endl;
-    cout<<"tmpState=";
-    printRow(statetmp);
+   // cout<<"col="<<col<<endl;
+   // cout<<"tmpState=";
+  //  printRow(statetmp);
    // cout<<"tmpKey=";
    // printRow(keyfirst);
 
@@ -947,78 +959,82 @@ for(k=0;k<idec;k++)
     ///xor-s
     if(col==0)
     {
-        xorfuncN(keyfirst, statetmp,statetmp,rows);
-            cout<<"tmpStateafterXOR=";
-    printRow(statetmp);
+     //   xorfuncN(keyfirst, statetmp,statetmp,rows);
+          //  cout<<"tmpStateafterXOR=";
+   // printRow(statetmp);
         for(i=0;i<rows;i++)
         {
-            state[i][col]=statetmp[i];
+//            state[i][col]=statetmp[i];
         }
         col=1;
         continue;
     }
     if(col==1)
     {
-         xorfuncN(keyfirst, statetmp,statetmp,rows);
-                     cout<<"tmpStateafterXOR=";
-    printRow(statetmp);
+//         xorfuncN(keyfirst, statetmp,statetmp,rows);
+                   //  cout<<"tmpStateafterXOR=";
+//    printRow(statetmp);
         for(i=0;i<rows;i++)
         {
-            state[i][col]=statetmp[i];
+      //      state[i][col]=statetmp[i];
         }
         col=2;
         continue;
     }
     if(col==2)
     {
-         xorfuncN(keyfirst, statetmp,statetmp,rows);
-                     cout<<"tmpStateafterXOR=";
-    printRow(statetmp);
+//         xorfuncN(keyfirst, statetmp,statetmp,rows);
+                   //  cout<<"tmpStateafterXOR=";
+//    printRow(statetmp);
         for(i=0;i<rows;i++)
         {
-            state[i][col]=statetmp[i];
+//            state[i][col]=statetmp[i];
         }
         col=3;
         continue;
     }
     if(col==3)
     {
-         xorfuncN(keyfirst, statetmp,statetmp,rows);
-                     cout<<"tmpStateafterXOR=";
-    printRow(statetmp);
+//         xorfuncN(keyfirst, statetmp,statetmp,rows);
+                  //   cout<<"tmpStateafterXOR=";
+//    printRow(statetmp);
         for(i=0;i<rows;i++)
         {
-            state[i][col]=statetmp[i];
+//            state[i][col]=statetmp[i];
         }
-        cout<<"beforeSub=";
-        printState(state,nb);
+      //  cout<<"beforeSub=";
+       // printState(state,nb);
         subbytes(sbox,state);
-        cout<<"Check sub bytes state:"<<endl;
-        printState(state,nb);
+       // cout<<"Check sub bytes state:"<<endl;
+       // printState(state,nb);
         shiftrows(state);
-         cout<<"Check shift rows state:"<<endl;
-        printState(state,nb);
+       //  cout<<"Check shift rows state:"<<endl;
+       // printState(state,nb);
         if(k<idec-nb)///pedeja raunda nevajag
         {
             mixcol(tableL,tableE,state);
-             cout<<"Check mix col state:"<<endl;
-            printState(state,nb);
+        //     cout<<"Check mix col state:"<<endl;
+         //   printState(state,nb);
         //cout<<"mix="<<k<<" "<<idec-nb<<endl;
         }
         expandkey(keyexp,nk,sbox,k/nb, nb, rows);
-         cout<<"Check keyw after exp:"<<endl;
+         //cout<<"Check keyw after exp:"<<endl;
 //printKey(keyexp,nb);
            for(int i=0;i<nb;i++)
         {
            // xorfunc(state, keyexp,state,rows, i);
         }
         cout<<"Check state end of round nr:"<<k/nb<<endl;
-      //  printState(state,nb);
+        printState(state,nb);
 
         /*
         if(k<)///pedeja raunda nevajag
         {
 
+        }
+        for(int i=0;i<nb;i++)
+        {
+            xorfunc(state, keyexp,state,rows, i);
         }*/
         col=0;
         continue;
