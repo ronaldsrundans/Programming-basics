@@ -770,7 +770,7 @@ void shiftKey(int **arr, int nk, int rows)
 int main()
 {
     int i,j,k;
-    int s=256;///new key size
+    int s=192;///new key size
     int nk=s/32;
     int nb=4;
     int nr=nk+6;///number of rounds
@@ -871,6 +871,7 @@ key16="8e73b0f7da0e6452c810f32b809079e562f8ead2522c6b7b";
         }
         cout<<"start=";
     printState(state,nb);
+    rcon(0,arrRcon);
 for(k=0;k<idec;k++)
 {
     if(k>nb-1)
@@ -884,21 +885,25 @@ for(k=0;k<idec;k++)
         ///if key 256
         if(nk==8 && k>7 && k%8==0)///tikai 256 key gadijuma
         {
-        cout<<"idec2="<<k<<endl;
-      //   cout<<"izpilda papildus sub word"<<endl;
-          subRow(keylast,sbox);
-
+                 subRow(keylast,sbox);
         }
-
-        //cout<<"lastKey=";
-       // printRow(keylast);
-
     }
-   /* if(k%nb==0 && k>0)///visi key gadijumi
+    ///set Rcon
+           // rcon(k/nb-1,arrRcon);
+           if(k%nk==0 && k>0)
+           {
+               //cout<<"rCon="<<k<<endl;
+                   rcon(k/nk,arrRcon);
+        printRow(arrRcon);
+           }
+
+    if(k%nb==0 && k>0)///visi key gadijumi
     {
-      //  cout<<"lastKey=";
+        cout<<"keylast="<<k<<endl;
+printRow(keylast);
+    }
   //  printRow(keylast);
-        cout<<"idec="<<k<<endl;
+      /*  cout<<"idec="<<k<<endl;
        // cout<<"izpilda pilno key exp"<<endl;
       // cout<<"check="<<endl;
       //  cout<<k/nb-1<<endl;
