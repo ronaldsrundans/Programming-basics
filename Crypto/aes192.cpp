@@ -770,7 +770,7 @@ void shiftKey(int **arr, int nk, int rows)
 int main()
 {
     int i,j,k;
-    int s=128;///new key size
+    int s=192;///new key size
     int nk=s/32;
     int nb=4;
     int nr=nk+6;///number of rounds
@@ -793,9 +793,9 @@ int main()
 //key16="2b7e151628aed2a6abf7158809cf4f3c";///test key 128
 //key16="603deb1015ca71be2b73aef0857d77811f352c073b6108d72d9810a30914dff4";///test key 256
 //key16="000102030405060708090a0b0c0d0e0f1011121314151617";
-    key16="000102030405060708090a0b0c0d0e0f";
+   // key16="000102030405060708090a0b0c0d0e0f";
 
-//key16="8e73b0f7da0e6452c810f32b809079e562f8ead2522c6b7b";
+key16="8e73b0f7da0e6452c810f32b809079e562f8ead2522c6b7b";
     int *arrk=new int[s];
     int *arrp=new int[nb*rows];
     char sbox16[513]={"637c777bf26b6fc53001672bfed7ab76ca82c97dfa5947f0add4a2af9ca472c0b7fd9326363ff7cc34a5e5f171d8311504c723c31896059a071280e2eb27b27509832c1a1b6e5aa0523bd6b329e32f8453d100ed20fcb15b6acbbe394a4c58cfd0efaafb434d338545f9027f503c9fa851a3408f929d38f5bcb6da2110fff3d2cd0c13ec5f974417c4a77e3d645d197360814fdc222a908846eeb814de5e0bdbe0323a0a4906245cc2d3ac629195e479e7c8376d8dd54ea96c56f4ea657aae08ba78252e1ca6b4c6e8dd741f4bbd8b8a703eb5664803f60e613557b986c11d9ee1f8981169d98e949b1e87e9ce5528df8ca1890dbfe6426841992d0fb054bb16"};
@@ -863,7 +863,7 @@ int main()
     printKey(keyw,nb);
     int col=0;
     int keyfirst[32];
-   // int statetmp[32];
+    //int statetmp[32];
     int keylast[32];
   //  cout<<"nk"<<nk<<endl;
 int arrRcon[32];
@@ -872,35 +872,13 @@ int arrRcon[32];
             xorfunc(state, keyw,state,rows, i);
         }
         cout<<"start=";
-    printState(state,nk);
-for(k=0;k<idec;k++)
+    printState(state,nb);
+for(k=0;k<8;k++)
 {
-
-    if(k<nk)///ja pirmie roundi
+    if(k>nb-1)
     {
-        for(i=0;i<rows;i++)
-        {
-           // statetmp[i]=state[i][col];
-            keyfirst[i]=keyw[i][k];
-            //keylast[i]=keyw[i][nk-1];
-        }
-
-    }
-    else
-    {
-
- /*   expandkey(keyexp,nk,sbox,k/nb, nb, rows);
-         cout<<"Check keyw after exp:"<<endl;
-printKey(keyexp,nb);
-        for(int i=0;i<nb;i++)
-        {
-            xorfunc(state, keyexp,state,rows, i);
-        }
-            cout<<"State=";
-    printState(state,nk);*/
          for(i=0;i<rows;i++)
         {
-         //   statetmp[i]=state[i][col];
             keyfirst[i]=keyw[i][0];
             keylast[i]=keyw[i][nk-1];
         }
@@ -914,7 +892,7 @@ printKey(keyexp,nb);
    // printRow(keyfirst);
 
 
-    if(k%nk==0 && k>0)///visi key gadijumi
+    if(k%nb==0 && k>0)///visi key gadijumi
     {
       //  cout<<"lastKey=";
   //  printRow(keylast);
@@ -927,12 +905,12 @@ printKey(keyexp,nb);
      //  cout<<"lastKeyafterRotWord=";
    // printRow(keylast);
        subRow(keylast,sbox);
-      //     cout<<"lastKeyafterSubWord=";
-   // printRow(keylast);
+          cout<<"lastKeyafterSubWord=";
+    printRow(keylast);
         xorfuncN(arrRcon, keylast,keylast,rows);
       //      cout<<"lastKeyafterXor=";
    // printRow(keylast);
-      //   xorfuncN(keyfirst, keylast,keylast,rows);
+      //  xorfuncN(keyfirst, keylast,keylast,rows);
         //xorfuncN(arrRcon, keylast,keyfirst,);
 
 
@@ -945,7 +923,7 @@ printKey(keyexp,nb);
 
     }
 
-    if(k>nk-1)///ja nav pirmie roundi
+    if(k>nb-1)///ja nav pirmie roundi
     {
         xorfuncN(keyfirst, keylast,keylast,rows);
         //cout<<"result key=";
@@ -959,51 +937,24 @@ printKey(keyexp,nb);
     ///xor-s
     if(col==0)
     {
-     //   xorfuncN(keyfirst, statetmp,statetmp,rows);
-          //  cout<<"tmpStateafterXOR=";
-   // printRow(statetmp);
-        for(i=0;i<rows;i++)
-        {
-//            state[i][col]=statetmp[i];
-        }
         col=1;
         continue;
     }
     if(col==1)
     {
-//         xorfuncN(keyfirst, statetmp,statetmp,rows);
-                   //  cout<<"tmpStateafterXOR=";
-//    printRow(statetmp);
-        for(i=0;i<rows;i++)
-        {
-      //      state[i][col]=statetmp[i];
-        }
+//
         col=2;
         continue;
     }
     if(col==2)
     {
-//         xorfuncN(keyfirst, statetmp,statetmp,rows);
-                   //  cout<<"tmpStateafterXOR=";
-//    printRow(statetmp);
-        for(i=0;i<rows;i++)
-        {
-//            state[i][col]=statetmp[i];
-        }
+//
         col=3;
         continue;
     }
     if(col==3)
     {
-//         xorfuncN(keyfirst, statetmp,statetmp,rows);
-                  //   cout<<"tmpStateafterXOR=";
-//    printRow(statetmp);
-        for(i=0;i<rows;i++)
-        {
-//            state[i][col]=statetmp[i];
-        }
-      //  cout<<"beforeSub=";
-       // printState(state,nb);
+//
         subbytes(sbox,state);
        // cout<<"Check sub bytes state:"<<endl;
        // printState(state,nb);
@@ -1013,29 +964,15 @@ printKey(keyexp,nb);
         if(k<idec-nb)///pedeja raunda nevajag
         {
             mixcol(tableL,tableE,state);
-        //     cout<<"Check mix col state:"<<endl;
-         //   printState(state,nb);
-        //cout<<"mix="<<k<<" "<<idec-nb<<endl;
         }
-        expandkey(keyexp,nk,sbox,k/nb, nb, rows);
-         //cout<<"Check keyw after exp:"<<endl;
-//printKey(keyexp,nb);
-           for(int i=0;i<nb;i++)
+     for(int i=0;i<nb;i++)
         {
-           // xorfunc(state, keyexp,state,rows, i);
+            xorfunc(state, keyw,state,rows, i);
         }
         cout<<"Check state end of round nr:"<<k/nb<<endl;
         printState(state,nb);
-
-        /*
-        if(k<)///pedeja raunda nevajag
-        {
-
-        }
-        for(int i=0;i<nb;i++)
-        {
-            xorfunc(state, keyexp,state,rows, i);
-        }*/
+         cout<<"Check key:"<<k/nb<<endl;
+        printKey(keyw,nb);
         col=0;
         continue;
     }
