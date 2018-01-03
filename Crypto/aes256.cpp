@@ -869,7 +869,7 @@ key16="000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f";
     int tmpstate[32];
         cout<<"start=";
     printState(state,nb);
-    for(k=0;k<idec;k++)
+    for(k=0;k<1;k++)
     {
         ///state manip
         if(k>0 &&k%nb==0)
@@ -881,6 +881,12 @@ key16="000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f";
             {
                   mixcol(tableL,tableE,state);
             }
+    cout<<"state after mix:"<<k/nb<<endl;
+    printState(state,nb);
+
+    cout<<"keyw"<<endl;
+    printKey(keyw,nk);
+    cout<<col<<endl;
         }
 
         ///copy
@@ -913,13 +919,19 @@ key16="000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f";
 
 
         ///make new state elem
-        xorfuncN(keyfirst, tmpstate,tmpstate,rows);
+
+             xorfuncN(keyfirst, tmpstate,tmpstate,rows);
+
+
         ///save new key elem
         for(i=0;i<rows;i++)
         {
             state[i][col]=tmpstate[i];
             keyw[i][nk-1]=keylast[i];
         }
+        cout<<"keyw"<<k/nb<<endl;
+    printKey(keyw,nk);
+    cout<<col<<endl;
     ///xor-s
     if(col==0)
     {
@@ -944,6 +956,7 @@ key16="000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f";
 
 }
         cout<<"Cypher text:"<<endl;
+
         printState(state,nb);
 
 
