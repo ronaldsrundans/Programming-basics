@@ -777,15 +777,15 @@ int main()
     int idec=0;
     if(nk==4)
     {
-        idec=44;
+        idec=42;
     }
     else if(nk==6)
     {
-        idec=52;
+        idec=50;
     }
     else
     {
-        idec=60;
+        idec=56;
     }
     int rows=32;
     char plain16[33]="00112233445566778899aabbccddeeff";
@@ -909,16 +909,21 @@ key16="603deb1015ca71be2b73aef0857d77811f352c073b6108d72d9810a30914dff4";///test
            // printRow(keylast);ok
         }
 ///for 256 key only
-        if((k%nb==0 && k%nk!=0) && (nk==8)&&k>4)
-        {
-            cout<<"only"<<k<<endl;
-            printRow(keylast);
-            subRow(keylast,sbox);
-                        printRow(keylast);
-                               //     printRow(keyfirst);
+        //if((k%nb==0 && k%nk!=0) && (nk==8)&&k>4
+        if(k<idec-nb)
+{
+            if(k%8!=0)//&& k%8!=0)
+            {
+                if(k%4==0)
+                {
+                    cout<<"only"<<k<<endl;
+                    printRow(keylast);
+                    subRow(keylast,sbox);
+                }                       // printRow(keylast);
+                               //     printRow(keyfirst)
+            }
+}
 
-
-        }
         ///make new last key elem
         xorfuncN(keyfirst, keylast,keylast,rows);
        // printRow(keylast);
@@ -938,36 +943,39 @@ key16="603deb1015ca71be2b73aef0857d77811f352c073b6108d72d9810a30914dff4";///test
             state[i][col]=tmpstate[i];
             keyw[i][nk-1]=keylast[i];
         }
-        cout<<"keyw"<<k/nb<<endl;
-    printKey(keyw,nk);
+        cout<<"keyw"<<k<<endl;
+       // printRow(arrRcon);
+    printKey(keyw,nb);
     cout<<col<<endl;
     ///xor-s
     if(col==0)
     {
         col=1;
-        continue;
+       // continue;
     }
-    if(col==1)
+    else if(col==1)
     {
         col=2;
-        continue;
     }
-    if(col==2)
+    else if(col==2)
     {
         col=3;
-        continue;
+       // continue;
     }
-    if(col==3)
+    else if(col==3)
     {
         col=0;
-        continue;
+       // continue;
     }
 
 }
         cout<<"Cypher text:"<<endl;
 
         printState(state,nb);
-
+        cout<<"keyw"<<k<<endl;
+       // printRow(arrRcon);
+    printKey(keyw,nb);
+    cout<<col<<endl;
 
 
 ///Decrypt sakas
