@@ -869,7 +869,7 @@ key16="603deb1015ca71be2b73aef0857d77811f352c073b6108d72d9810a30914dff4";///test
     int tmpstate[32];
         cout<<"start=";
     printState(state,nb);
-    for(k=0;k<1;k++)
+    for(k=0;k<idec;k++)
     {
         ///state manip
         if(k>0 &&k%nb==0)
@@ -909,13 +909,20 @@ key16="603deb1015ca71be2b73aef0857d77811f352c073b6108d72d9810a30914dff4";///test
            // printRow(keylast);ok
         }
 ///for 256 key only
-        if(k%nb==0 && k%nk!=0 && nk==8)
+        if((k%nb==0 && k%nk!=0) && nk==8)
         {
+            cout<<"only"<<k<<endl;
+            //printRow(keylast);
             subRow(keylast,sbox);
+                      //  printRow(keylast);
+                               //     printRow(keyfirst);
+
+
         }
         ///make new last key elem
         xorfuncN(keyfirst, keylast,keylast,rows);
-        printRow(keylast);
+       // printRow(keylast);
+        //printRow(keylast);
         ///keyshift
         shiftKey(keyw, nk, rows);
 
