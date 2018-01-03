@@ -777,15 +777,15 @@ int main()
     int idec=0;
     if(nk==4)
     {
-        idec=42;
+        idec=46;
     }
     else if(nk==6)
     {
-        idec=50;
+        idec=54;
     }
     else
     {
-        idec=56;
+        idec=60;
     }
     int rows=32;
     char plain16[33]="00112233445566778899aabbccddeeff";
@@ -973,9 +973,10 @@ key16="603deb1015ca71be2b73aef0857d77811f352c073b6108d72d9810a30914dff4";///test
 
         printState(state,nb);
         cout<<"keyw"<<k<<endl;
+        printRow(keyfirst);
        // printRow(arrRcon);
-    printKey(keyw,nb);
-    cout<<col<<endl;
+  //  printKey(keyw,nb);
+//cout<<col<<endl;
 
 
 ///Decrypt sakas
