@@ -777,23 +777,23 @@ int main()
     int idec=0;
     if(nk==4)
     {
-        idec=48;
+        idec=44;
     }
     else if(nk==6)
     {
-        idec=56;
+        idec=52;
     }
     else
     {
-        idec=64;
+        idec=60;
     }
     int rows=32;
     char plain16[33]="00112233445566778899aabbccddeeff";
     char *key16= new char [nk*8+1];
 //key16="2b7e151628aed2a6abf7158809cf4f3c";///test key 128
-//key16="603deb1015ca71be2b73aef0857d77811f352c073b6108d72d9810a30914dff4";///test key 256
+key16="603deb1015ca71be2b73aef0857d77811f352c073b6108d72d9810a30914dff4";///test key 256
 //key16="000102030405060708090a0b0c0d0e0f1011121314151617";
-key16="000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f";
+//key16="000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f";
    // key16="000102030405060708090a0b0c0d0e0f";
 
 //key16="8e73b0f7da0e6452c810f32b809079e562f8ead2522c6b7b";
@@ -884,14 +884,15 @@ for(k=0;k<idec;k++)
             keylast[i]=keyw[i][nk-1];
         }
         ///if key 256
-        if(nk==8 && k>7 && k%8==0)///tikai 256 key gadijuma
+        if(nk==8 && k>7 && k%(nk+1)==0)///tikai 256 key gadijuma
         {
+            cout<<"yes"<<k<<endl;
                  subRow(keylast,sbox);
         }
     }
 
 
-    if(k%nk==0 && k>0)///visi key gadijumi
+   /* if(k%nk==0 && k>0)///visi key gadijumi
     {
 
         cout<<"idec="<<k<<endl;
@@ -904,18 +905,18 @@ for(k=0;k<idec;k++)
         xorfuncN(arrRcon, keylast,keylast,rows);
 //cout<<"rCon="<<k<<endl;
 //printRow(arrRcon);
-    }
+    */
      ///set Rcon
            // rcon(k/nb-1,arrRcon);
-    if(k%(nk-1)==0 && k>0)
+/*if(k%(nk-1)==0 && k>0)
         {
 //cout<<k<<endl;
             rcon((k-1)/nk,arrRcon);
 //cout<<""
-     //   cout<<"rCon="<<k<<endl;
+       // cout<<"rCon="<<k<<endl;
         //printRow(arrRcon);
-        }
-    if(k>nk-1)
+        }*/
+   /* if(k>nk-1)
     {
                xorfuncN(keyfirst, keylast,keylast,rows);
            // cout<<"lastKeyafterfirstXor=";
@@ -931,57 +932,38 @@ for(k=0;k<idec;k++)
        // {
              ///if nav pareiza vertiba
 
- if((k-1)%nb==0)
- {
-    // cout<<"kkk="<<k<<endl;
+    if((k-1)%nb==0)
+    {
+     cout<<"kkk="<<k<<endl;
 
-            //cout<<"Check k_sch:"<<endl;
- //printKey(keyw,nb);
- subbytes(sbox,state);
+            cout<<"Check k_sch:"<<k<<endl;
+ printKey(keyw,nk);
+ /*subbytes(sbox,state);
      //  cout<<"Check sub bytes state:"<<endl;
       // printState(state,nb);
-                 shiftrows(state);
+                 shiftrows(state);*/
         // cout<<"Check shift rows state:"<<endl;
        // printState(state,nb);
 
 
         ///nav perfekti (pietrukst viens rounds?
-        if(k<idec-nb)///pedeja raunda nevajag
+     /*   if(k<idec-nb)///pedeja raunda nevajag
         {
             //cout<<"mix"<<k<<endl;
-            mixcol(tableL,tableE,state);
+          //  mixcol(tableL,tableE,state);
         }
-    for(int i=0;i<nb;i++)
-        {
-            xorfunc(state, keyw,state,rows, i);
+            for(int i=0;i<nb;i++)
+            {
+           // xorfunc(state, keyw,state,rows, i);
+            }
+           // cout<<"Check state end of round nr:"<<k/nb<<endl;
+          //  printState(state,nb);
         }
-        //cout<<"Check state end of round nr:"<<k/nb<<endl;
-       // printState(state,nb);
- }
-
-       // }
-
-/*subbytes(sbox,state);
-       cout<<"Check sub bytes state:"<<endl;
-       printState(state,nb);
-                 shiftrows(state);
-         cout<<"Check shift rows state:"<<endl;
-        printState(state,nb);
-        if(k<idec-nk)///pedeja raunda nevajag
-        {
-            mixcol(tableL,tableE,state);
-        }
-    for(int i=0;i<nb;i++)
-        {
-          //  xorfunc(state, keyw,state,rows, i);
-        }
-        cout<<"Check state end of round nr:"<<k/nb<<endl;
-        printState(state,nb);*/
-        /*  cout<<"Check key end:"<<k/nb<<endl;
-        printKey(keyw,nk);*/
 
 
-}
+
+
+    }*/
 
     ///xor-s
     if(col==0)
@@ -1004,32 +986,13 @@ for(k=0;k<idec;k++)
     }
     if(col==3)
     {
-        //fi()
-        /*subbytes(sbox,state);
-       // cout<<"Check sub bytes state:"<<endl;
-       // printState(state,nb);
-        shiftrows(state);
-       //  cout<<"Check shift rows state:"<<endl;
-       // printState(state,nb);
-        if(k<idec-nb)///pedeja raunda nevajag
-        {
-            mixcol(tableL,tableE,state);
-        }
-     for(int i=0;i<nb;i++)
-        {
-          //  xorfunc(state, keyw,state,rows, i);
-        }
-        cout<<"Check state end of round nr:"<<k/nb<<endl;
-        printState(state,nb);**
-         cout<<"Check key end:"<<k/nb<<endl;
-        printKey(keyw,nk);*/
         col=0;
         continue;
     }
 
 }
-        cout<<"Cypher text:"<<endl;
-        printState(state,nb);
+       // cout<<"Cypher text:"<<endl;
+       // printState(state,nb);
 
 
     /*
