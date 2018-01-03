@@ -909,12 +909,12 @@ key16="603deb1015ca71be2b73aef0857d77811f352c073b6108d72d9810a30914dff4";///test
            // printRow(keylast);ok
         }
 ///for 256 key only
-        if((k%nb==0 && k%nk!=0) && nk==8)
+        if((k%nb==0 && k%nk!=0) && (nk==8)&&k>4)
         {
             cout<<"only"<<k<<endl;
-            //printRow(keylast);
+            printRow(keylast);
             subRow(keylast,sbox);
-                      //  printRow(keylast);
+                        printRow(keylast);
                                //     printRow(keyfirst);
 
 
