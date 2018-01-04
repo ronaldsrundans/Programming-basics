@@ -945,8 +945,8 @@ key16="000102030405060708090a0b0c0d0e0f1011121314151617";
 cout<<"Start:"<<endl;
 
         printState(state,nb);
-
 ///Decrypt sakas
+
 ///reset key
   for(int i=0;i<nk;i++)
     {
@@ -955,81 +955,112 @@ cout<<"Start:"<<endl;
             keyw[j][i]=arrk[j+i*rows];
         }
     }
-printKey(keyw,nb);
-///set new key
-    rcon(0,arrRcon);
+    //cout<<"ik_sch:"<<endl;
+       // printKey(keyw,nb);
 
-for(k=0;k<idec-nb;k++)
-{
-    if(k>nb-1)
+int last;
+last=idec-nb;
+        ///get key
+    for(k=0;k<last;k++)
     {
+        ///copy
          for(i=0;i<rows;i++)
         {
             keyfirst[i]=keyw[i][0];
             keylast[i]=keyw[i][nk-1];
         }
-    }
-    if(k%nk==0 && k>0)///visi key gadijumi
-    {
-      rotWord(keylast,nb);
-       subRow(keylast,sbox);
-        xorfuncN(arrRcon, keylast,keylast,rows);
-    }
-     ///set Rcon
-    if(k%(nk-1)==0 && k>0)
+///update rcon
+    rcon(k/nk,arrRcon);
+///key manip
+        if(k%nk==0)
         {
-            rcon((k-1)/nk,arrRcon);
+            rotWord(keylast,nb);
+            subRow(keylast,sbox);
+            xorfuncN(arrRcon, keylast,keylast,rows);
         }
-    if(k>nk-1)
-    {
-               xorfuncN(keyfirst, keylast,keylast,rows);
-              shiftKey(keyw, nk, rows);
+///for 256 key only
+
+        ///make new last key elem
+        xorfuncN(keyfirst, keylast,keylast,rows);
+        ///keyshift
+        shiftKey(keyw, nk, rows);
+        ///save new key elem
         for(i=0;i<rows;i++)
         {
             keyw[i][nk-1]=keylast[i];
         }
+    }
 
- if((k-1)%nb==0)
- {
- subbytes(sbox,state);
-                 shiftrows(state);
+//cout<<"ik_sch:"<<endl;
+       // printKey(keyw,nb);
+        for(int i=0;i<nb;i++)
+{
+        xorfunc(state, keyw,state,rows, i);
+}
+//cout<<"Start:"<<endl;
 
-        ///nav perfekti (pietrukst viens rounds?
-        if(k<idec-nb)///pedeja raunda nevajag
+       // printState(state,nb);
+for(int w=0;w<idec/nb-1;w++)
+{
+invshiftrows(state);
+subbytes(invsbox,state);
+///reset key
+for(int i=0;i<nk;i++)
+    {
+        for(int j=0;j<rows;j++)
         {
-            //cout<<"mix"<<k<<endl;
-            mixcol(tableL,tableE,state);
+            keyw[j][i]=arrk[j+i*rows];
         }
-    for(int i=0;i<nb;i++)
+    }
+last=last-nb;
+///new key
+        ///get key
+    for(k=0;k<last;k++)
+    {
+        ///copy
+         for(i=0;i<rows;i++)
         {
-            xorfunc(state, keyw,state,rows, i);
+            keyfirst[i]=keyw[i][0];
+            keylast[i]=keyw[i][nk-1];
         }
- }
+///update rcon
+    rcon(k/nk,arrRcon);
+///key manip
+        if(k%nk==0)
+        {
+            rotWord(keylast,nb);
+            subRow(keylast,sbox);
+            xorfuncN(arrRcon, keylast,keylast,rows);
+        }
+//
+        ///make new last key elem
+        xorfuncN(keyfirst, keylast,keylast,rows);
+        ///keyshift
+        shiftKey(keyw, nk, rows);
+        ///save new key elem
+        for(i=0;i<rows;i++)
+        {
+            keyw[i][nk-1]=keylast[i];
+        }
+    }
 
+//cout<<"key:"<<endl;
+     //   printKey(keyw,nb);
+        for(int i=0;i<nb;i++)
+{
+        xorfunc(state, keyw,state,rows, i);
+}
+///invMIX
+if(w<idec/nb-2)
+{
+    invmixcol(tableL,tableE,state);
 }
 
-    ///xor-s
-    if(col==0)
-    {
-        col=1;
-    }
-    if(col==1)
-    {
-        col=2;
-
-    }
-    if(col==2)
-    {
-        col=3;
-    }
-    if(col==3)
-    {
-        col=0;
-    }
 }
+cout<<"State:"<<endl;
 
-printKey(keyw,nb);
-
+        printState(state,nb);
+       // cout<<"idec/nb"<<idec/nb<<endl;
 
 ///Decrypt beidzas
     for(i=0;i<rows;i++)
