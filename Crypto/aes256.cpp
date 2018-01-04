@@ -791,9 +791,9 @@ int main()
     char plain16[33]="00112233445566778899aabbccddeeff";
     char *key16= new char [nk*8+1];
 //key16="2b7e151628aed2a6abf7158809cf4f3c";///test key 128
-key16="603deb1015ca71be2b73aef0857d77811f352c073b6108d72d9810a30914dff4";///test key 256
+//key16="603deb1015ca71be2b73aef0857d77811f352c073b6108d72d9810a30914dff4";///test key 256
 //key16="000102030405060708090a0b0c0d0e0f1011121314151617";
-//key16="000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f";
+key16="000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f";
    // key16="000102030405060708090a0b0c0d0e0f";
 
 //key16="8e73b0f7da0e6452c810f32b809079e562f8ead2522c6b7b";
@@ -881,12 +881,12 @@ key16="603deb1015ca71be2b73aef0857d77811f352c073b6108d72d9810a30914dff4";///test
             {
                   mixcol(tableL,tableE,state);
             }
-    cout<<"state after mix:"<<k/nb<<endl;
-    printState(state,nb);
+   // cout<<"state after mix:"<<k/nb<<endl;
+    //printState(state,nb);
 
-    cout<<"keyw"<<endl;
-    printKey(keyw,nk);
-    cout<<col<<endl;
+    //cout<<"keyw"<<endl;
+   // printKey(keyw,nk);
+   // cout<<col<<endl;
         }
 
         ///copy
@@ -916,8 +916,8 @@ key16="603deb1015ca71be2b73aef0857d77811f352c073b6108d72d9810a30914dff4";///test
             {
                 if(k%4==0)
                 {
-                    cout<<"only"<<k<<endl;
-                    printRow(keylast);
+                   // cout<<"only"<<k<<endl;
+                   // printRow(keylast);
                     subRow(keylast,sbox);
                 }                       // printRow(keylast);
                                //     printRow(keyfirst)
@@ -943,10 +943,10 @@ key16="603deb1015ca71be2b73aef0857d77811f352c073b6108d72d9810a30914dff4";///test
             state[i][col]=tmpstate[i];
             keyw[i][nk-1]=keylast[i];
         }
-        cout<<"keyw"<<k<<endl;
+        //cout<<"keyw"<<k<<endl;
        // printRow(arrRcon);
-    printKey(keyw,nb);
-    cout<<col<<endl;
+    //printKey(keyw,nb);
+   // cout<<col<<endl;
     ///xor-s
     if(col==0)
     {
@@ -972,8 +972,8 @@ key16="603deb1015ca71be2b73aef0857d77811f352c073b6108d72d9810a30914dff4";///test
         cout<<"Cypher text:"<<endl;
 
         printState(state,nb);
-        cout<<"keyw"<<k<<endl;
-        printRow(keyfirst);
+        //cout<<"keyw"<<k<<endl;
+      //  printRow(keyfirst);
        // printRow(arrRcon);
   //  printKey(keyw,nb);
 //cout<<col<<endl;
