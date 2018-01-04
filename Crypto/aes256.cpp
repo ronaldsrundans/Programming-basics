@@ -692,51 +692,6 @@ void tableLelem(int *arr11, int *arr12,int *arr21,int *arr22,int tableL[][16],in
    // bintodec(arr1,7);
    // bintodec(arr2,7);
 }
-/*void expandkey(int **key, int nk, int sbox[][16], int k, int nb, int rows, int idec)///nk maina masivu izmerus
-{
-    int arrRcon[32];
-        int arrRcon[32];
-    int arrRcon[32];
-
-    for(k=0;k<idec-nb;k++)
-    {
-        ///copy
-         for(int i=0;i<rows;i++)
-        {
-            keyfirst[i]=keyw[i][0];
-            keylast[i]=keyw[i][nk-1];
-        }
-///update rcon
-    rcon(k/nk,arrRcon);
-///key manip
-        if(k%nk==0)
-        {
-            rotWord(keylast,nb);
-            subRow(keylast,sbox);
-            xorfuncN(arrRcon, keylast,keylast,rows);
-        }
-///for 256 key only
-        if(k<idec-nb)
-{
-            if(k%8!=0)
-            {
-                if(k%4==0)
-                {
-                    subRow(keylast,sbox);
-                }
-            }
-        }
-        ///make new last key elem
-        xorfuncN(keyfirst, keylast,keylast,rows);
-        ///keyshift
-        shiftKey(keyw, nk, rows);
-        ///save new key elem
-        for(i=0;i<rows;i++)
-        {
-            keyw[i][nk-1]=keylast[i];
-        }
-    }
-}*/
 void shiftKey(int **arr, int nk, int rows)
 {
     for(int i=0;i<nk-1;i++)
@@ -777,7 +732,7 @@ int main()
 //key16="603deb1015ca71be2b73aef0857d77811f352c073b6108d72d9810a30914dff4";///test key 256
 //key16="000102030405060708090a0b0c0d0e0f1011121314151617";
 key16="000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f";
-   // key16="000102030405060708090a0b0c0d0e0f";
+  //  key16="000102030405060708090a0b0c0d0e0f";
 
 //key16="8e73b0f7da0e6452c810f32b809079e562f8ead2522c6b7b";
     int *arrk=new int[s];
@@ -850,8 +805,8 @@ key16="000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f";
     int keylast[32];
     int arrRcon[32];
     int tmpstate[32];
-        cout<<"start=";
-    printState(state,nb);
+   //     cout<<"start=";
+   // printState(state,nb);
     for(k=0;k<idec;k++)
     {
         ///state manip
@@ -940,8 +895,8 @@ key16="000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f";
             keyw[j][i]=arrk[j+i*rows];
         }
     }
-    cout<<"ik_sch:"<<endl;
-        printKey(keyw,nb);
+    //cout<<"ik_sch:"<<endl;
+       // printKey(keyw,nb);
 
 int last;
 last=idec-nb;
@@ -985,15 +940,15 @@ last=idec-nb;
         }
     }
 
-cout<<"ik_sch:"<<endl;
-        printKey(keyw,nb);
+//cout<<"ik_sch:"<<endl;
+       // printKey(keyw,nb);
         for(int i=0;i<nb;i++)
 {
         xorfunc(state, keyw,state,rows, i);
 }
-cout<<"Start:"<<endl;
+//cout<<"Start:"<<endl;
 
-        printState(state,nb);
+       // printState(state,nb);
 for(int w=0;w<idec/nb-1;w++)
 {
 invshiftrows(state);
@@ -1048,8 +1003,8 @@ last=last-nb;
         }
     }
 
-cout<<"key:"<<endl;
-        printKey(keyw,nb);
+//cout<<"key:"<<endl;
+     //   printKey(keyw,nb);
         for(int i=0;i<nb;i++)
 {
         xorfunc(state, keyw,state,rows, i);
