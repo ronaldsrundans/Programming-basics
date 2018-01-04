@@ -778,15 +778,15 @@ int main()
     int idec=0;
     if(nk==4)
     {
-        idec=48;
+        idec=44;
     }
     else if(nk==6)
     {
-        idec=56;
+        idec=52;
     }
     else
     {
-        idec=64;
+        idec=60;
     }
     int rows=32;
     char plain16[33]="00112233445566778899aabbccddeeff";
@@ -860,97 +860,83 @@ key16="000102030405060708090a0b0c0d0e0f1011121314151617";
     cout<<"Check state:"<<endl;
     printState(state,nb);
  ///keyw izdruka
+   ///keyw izdruka
     cout<<"Check keyw:"<<endl;
     printKey(keyw,nb);
     int col=0;
     int keyfirst[32];
     int keylast[32];
     int arrRcon[32];
-        for(int i=0;i<nb;i++)
-        {
-            xorfunc(state, keyw,state,rows, i);
-        }
-        cout<<"start=";
-    printState(state,nb);
-    rcon(0,arrRcon);
-for(k=0;k<idec;k++)
-{
-    if(k>nb-1)
+    int tmpstate[32];
+   //     cout<<"start=";
+   // printState(state,nb);
+    for(k=0;k<idec;k++)
     {
-      //  cout<<"copy"<<k<<endl;
+        ///state manip
+        if(k>0 &&k%nb==0)
+        {
+            subbytes(sbox,state);
+            shiftrows(state);
+            ///dont mix last manip
+            if(k!=idec-nb)
+            {
+                  mixcol(tableL,tableE,state);
+            }
+        }
+
+        ///copy
          for(i=0;i<rows;i++)
         {
             keyfirst[i]=keyw[i][0];
             keylast[i]=keyw[i][nk-1];
+            tmpstate[i]=state[i][col];
         }
-        ///if key 256
-        if(nk==8 && k>7 && k%8==0)///tikai 256 key gadijuma
+//printRow(keylast);
+///update rcon
+    rcon(k/nk,arrRcon);
+    cout<<"rcon"<<k/nk<<endl;
+///key manip
+        if(k%nk==0)
         {
-                 subRow(keylast,sbox);
+            rotWord(keylast,nb);
+            subRow(keylast,sbox);
+            xorfuncN(arrRcon, keylast,keylast,rows);
         }
-    }
-    if(k%nk==0 && k>0)///visi key gadijumi
-    {
-      rotWord(keylast,nb);
-       subRow(keylast,sbox);
-        xorfuncN(arrRcon, keylast,keylast,rows);
-    }
-     ///set Rcon
-           // rcon(k/nb-1,arrRcon);
-    if(k%(nk-1)==0 && k>0)
-        {
-//cout<<k<<endl;
-            rcon((k-1)/nk,arrRcon);
-//cout<<""
-     //   cout<<"rCon="<<k<<endl;
-        //printRow(arrRcon);
-        }
-    if(k>nk-1)
-    {
-               xorfuncN(keyfirst, keylast,keylast,rows);
-              shiftKey(keyw, nk, rows);
+        ///make new last key elem
+        xorfuncN(keyfirst, keylast,keylast,rows);
+        ///keyshift
+      //  printRow(keylast);
+        shiftKey(keyw, nk, rows);
+        ///make new state elem
+             xorfuncN(keyfirst, tmpstate,tmpstate,rows);
+             printRow(tmpstate);
+        ///save new key elem
         for(i=0;i<rows;i++)
         {
+            state[i][col]=tmpstate[i];
             keyw[i][nk-1]=keylast[i];
         }
-
- if((k-1)%nb==0)
- {
- subbytes(sbox,state);
-                 shiftrows(state);
-
-        ///nav perfekti (pietrukst viens rounds?
-        if(k<idec-nb)///pedeja raunda nevajag
-        {
-            //cout<<"mix"<<k<<endl;
-            mixcol(tableL,tableE,state);
-        }
-    for(int i=0;i<nb;i++)
-        {
-            xorfunc(state, keyw,state,rows, i);
-        }
- }
-
-}
-
     ///xor-s
     if(col==0)
     {
         col=1;
     }
-    if(col==1)
+    else if(col==1)
     {
         col=2;
-
     }
-    if(col==2)
+    else if(col==2)
     {
         col=3;
     }
-    if(col==3)
+    else if(col==3)
     {
+        cout<<"r="<<k<<endl;
+        printState(state,nb);
         col=0;
+       // printKey(keyw,nk);
     }
+
 }
         cout<<"Cypher text:"<<endl;
         printState(state,nb);
