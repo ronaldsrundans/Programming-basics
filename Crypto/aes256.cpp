@@ -994,7 +994,7 @@ cout<<"ik_sch:"<<endl;
 cout<<"Start:"<<endl;
 
         printState(state,nb);
-for(int w=0;w<14;w++)
+for(int w=0;w<idec/nb-1;w++)
 {
 invshiftrows(state);
 subbytes(invsbox,state);
@@ -1055,7 +1055,7 @@ cout<<"key:"<<endl;
         xorfunc(state, keyw,state,rows, i);
 }
 ///invMIX
-if(w<13)
+if(w<idec/nb-2)
 {
     invmixcol(tableL,tableE,state);
 }
@@ -1064,63 +1064,8 @@ if(w<13)
 cout<<"State:"<<endl;
 
         printState(state,nb);
+       // cout<<"idec/nb"<<idec/nb<<endl;
 
-
-
-
-/*for(int i=0;i<nb;i++)
-{
-        xorfunc(state, keyw,state,rows, i);
-}
-for(int w=7;w>=0;w--)
-{
-    cout<<"istart roundNr:"<<8-w<<endl;
-    printState(state,nb);
-    cout<<endl;
-    invshiftrows(state);
-    cout<<"is_row:"<<endl;
-    printState(state,nb);
-    cout<<endl;
-    subbytes(invsbox,state);
-    cout<<"is_box:"<<endl;
-    printState(state,nb);
-    cout<<endl;
-///reset key
-    for(int i=0;i<nk;i++)
-    {
-        for(int j=0;j<rows;j++)
-        {
-            keyw[j][i]=arrk[j+i*rows];
-        }
-    }
-    delete []arrk;
-    for(int k=0;k<w;k++)
-    {
-   // key, int nk, int sbox[][16], int rconNr, int nb, int rows
-        expandkey(keyw,nk,sbox,k, nb, rows);
-    }
-    cout<<"ik_sch:"<<endl;
-        printKey(keyw,nb);
-        cout<<endl;
-        for(int i=0;i<nb;i++)
-        {
-            xorfunc(state, keyw,state,rows, i);
-        }
-        cout<<"ik_add:"<<endl;
-        printState(state,nb);
-        cout<<endl;
-   ///mix col
-        if(w>0)///pedeja raunda nevajag
-        {
-            invmixcol(tableL,tableE,state);
-            cout<<"inv_mix:"<<endl;
-            printState(state,nb);
-            cout<<endl;
-        }
-    }
-    cout<<"Plain text:"<<endl;
-    printState(state,nb);
-    cout<<endl;*/
 ///Decrypt beidzas
     for(i=0;i<rows;i++)
     {
