@@ -2,7 +2,6 @@
 #include <iostream>
 
 using namespace std;
-///lietot tikai mazos burtus!!!
 void hextobin(char* hex,int hexcount, int *arr)
 {
     int n,k,i;
@@ -191,15 +190,12 @@ void subRow(int *arr,int sbox[][16])
         for(j=0;j<4;j++)
         {
             arrx[j]=arr[j+i*8];
-           // cout<<arrx[j];
             arry[j]=arr[j+4+i*8];
         }
-       // cout<<endl;
         bintodec(arrx,3);
         bintodec(arry,3);
         x=arrx[0];
         y=arry[0];
-       // cout<<x<<" "<<y<<endl;
         for(k=0;k<4;k++)///x and y
         {
             arr[k+i*8]=sbox[y*8+k][x];
@@ -220,7 +216,6 @@ void binsumarr(int *arr1, int *arr2, int *arr3)
         n3=n3-255;
     }
     dectobin(n3,arr3);
-   // dectobin(n3,arr3);
 }
 void printTable(int sbox[][16])
 {
@@ -367,7 +362,6 @@ void invshiftrows(int arr[][4])
         {
             arr[i+24][3]=arr[i+24][0];
         }
-
     for(j=0;j<3;j++)///row 3 paste
     {
         for(i=0;i<8;i++)
@@ -376,10 +370,6 @@ void invshiftrows(int arr[][4])
         }
     }
 }
-
-
-
-
 void multiply(int tableL[][16], int tableE[][16], int *arr1,int *arr2, int*arr3)
 {
  int i,j,k,l,x1, y1,x2,y2, x3, y3,x4,y4;
@@ -396,7 +386,6 @@ void multiply(int tableL[][16], int tableE[][16], int *arr1,int *arr2, int*arr3)
             arr11[i]=arr1[i+4];
             arr20[i]=arr2[i];
             arr21[i]=arr2[i+4];
-
         }
         bintodec(arr10,3);
         bintodec(arr11,3);
@@ -415,20 +404,16 @@ void multiply(int tableL[][16], int tableE[][16], int *arr1,int *arr2, int*arr3)
         }
         else
         {
-
             for(int i=0;i<8;i++)
             {
-           ///cout<<tableL[8*y1+i][x1];///asis ir otradi
-           arr18[i]=tableL[8*y1+i][x1];///asis ir otradi
-           arr28[i]=tableL[8*y2+i][x2];
+                arr18[i]=tableL[8*y1+i][x1];///asis ir otradi
+                arr28[i]=tableL[8*y2+i][x2];
             }
-       // cout<<endl;
             binsumarr(arr18,arr28,arrrez);
-
             for(int i=3;i>=0;i--)
             {
-            arr10[i]=arrrez[i];
-            arr11[i]=arrrez[i+4];
+                arr10[i]=arrrez[i];
+                arr11[i]=arrrez[i+4];
             }
             bintodec(arr10,3);
             bintodec(arr11,3);
@@ -439,7 +424,6 @@ void multiply(int tableL[][16], int tableE[][16], int *arr1,int *arr2, int*arr3)
                 arr3[i]=tableE[8*y3+i][x3];
             }
         }
-      //  cout<<endl;
 }
 void mixcol(int tableL[][16], int tableE[][16],int input[][4])
 {
@@ -634,7 +618,6 @@ void invmixcol(int tableL[][16], int tableE[][16],int input[][4])
 }
 void rcon(int n, int *arr)///for 128bit key only
 {
-
         char c16[]={"01020408102040801b36"};
         char tmp[9];
         int i;
@@ -645,11 +628,7 @@ void rcon(int n, int *arr)///for 128bit key only
             tmp[i]='0';
         }
         tmp[i]=0;
-      //  cout<<"rcon=";
-     //   cout<<tmp<<endl;
         hextobin(tmp,8,arr);
-
-
 }
 void rotWord(int *arr, int n)
 {
@@ -658,7 +637,6 @@ void rotWord(int *arr, int n)
         for(j=0;j<8;j++)
         {
             arrtmp[j]=arr[j];
-          //  cout<<arr[j]<<endl;
         }
         for(j=8;j<8*n;j++)
         {
@@ -668,10 +646,7 @@ void rotWord(int *arr, int n)
         {
             arr[8*(n-1)+j]=arrtmp[j];
         }
-
-
 }
-
 
 void tableLelem(int *arr11, int *arr12,int *arr21,int *arr22,int tableL[][16],int *r1,int *r2)
 {
@@ -690,8 +665,6 @@ void tableLelem(int *arr11, int *arr12,int *arr21,int *arr22,int tableL[][16],in
     cout<<x2<<endl;
     cout<<y1<<endl;
     cout<<y2<<endl;
-   // bintodec(arr1,7);
-   // bintodec(arr2,7);
 }
 void shiftKey(int **arr, int nk, int rows)
 {
@@ -725,8 +698,6 @@ void cript(char *key16, int keysize, char *plain16)
         idec=60;
     }
     int rows=32;
-   // char *key16= new char [nk*8+1];
-    //key16="000102030405060708090a0b0c0d0e0f";
     int *arrk=new int[s];
     int *arrp=new int[nb*rows];
     char sbox16[513]={"637c777bf26b6fc53001672bfed7ab76ca82c97dfa5947f0add4a2af9ca472c0b7fd9326363ff7cc34a5e5f171d8311504c723c31896059a071280e2eb27b27509832c1a1b6e5aa0523bd6b329e32f8453d100ed20fcb15b6acbbe394a4c58cfd0efaafb434d338545f9027f503c9fa851a3408f929d38f5bcb6da2110fff3d2cd0c13ec5f974417c4a77e3d645d197360814fdc222a908846eeb814de5e0bdbe0323a0a4906245cc2d3ac629195e479e7c8376d8dd54ea96c56f4ea657aae08ba78252e1ca6b4c6e8dd741f4bbd8b8a703eb5664803f60e613557b986c11d9ee1f8981169d98e949b1e87e9ce5528df8ca1890dbfe6426841992d0fb054bb16"};
@@ -869,7 +840,7 @@ void cript(char *key16, int keysize, char *plain16)
         printState(state,nb);
 }
 ///Decrypt sakas
-void decript(char *plain16, int keysize,char *key16)
+void decript(char *key16, int keysize, char *plain16)
 {
  int i,j,k;
     int s=keysize;///new key size
@@ -889,8 +860,6 @@ void decript(char *plain16, int keysize,char *key16)
         idec=60;
     }
       int rows=32;
-   // char *key16= new char [nk*8+1];
-    //key16="000102030405060708090a0b0c0d0e0f";
     int *arrk=new int[s];
     int *arrp=new int[nb*rows];
     char sbox16[513]={"637c777bf26b6fc53001672bfed7ab76ca82c97dfa5947f0add4a2af9ca472c0b7fd9326363ff7cc34a5e5f171d8311504c723c31896059a071280e2eb27b27509832c1a1b6e5aa0523bd6b329e32f8453d100ed20fcb15b6acbbe394a4c58cfd0efaafb434d338545f9027f503c9fa851a3408f929d38f5bcb6da2110fff3d2cd0c13ec5f974417c4a77e3d645d197360814fdc222a908846eeb814de5e0bdbe0323a0a4906245cc2d3ac629195e479e7c8376d8dd54ea96c56f4ea657aae08ba78252e1ca6b4c6e8dd741f4bbd8b8a703eb5664803f60e613557b986c11d9ee1f8981169d98e949b1e87e9ce5528df8ca1890dbfe6426841992d0fb054bb16"};
@@ -1083,27 +1052,21 @@ cout<<"Decript Plain:"<<endl;
         delete []keyw[i];
     }
     delete []keyw;
-        delete []arrk;
-
-//    return 0;
+    delete []arrk;
 }
 
 int main()
 {
     int i,j,k;
     int s=128;///new key size
-
-
     int rows=32;
     char plain16[33]="00112233445566778899aabbccddeeff";
 
     char *key16= new char [s+1];
     key16="000102030405060708090a0b0c0d0e0f";
     cript(key16,s,plain16);
-
-
-//    decript();
-delete []key16;
+    decript(key16,s,plain16);
+    delete []key16;
 
     return 0;
 }
