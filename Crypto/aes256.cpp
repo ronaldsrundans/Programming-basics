@@ -770,11 +770,11 @@ int main()
     int state[32][4];
       int state2[32][4];
     int **keyw=new int*[rows];
-    int **keyexp=new int*[rows];
+   // int **keyexp=new int*[rows];
     for(i=0;i<rows;i++)
     {
         keyw[i]=new int[nk];
-        keyexp[i]=new int[nk];
+        //keyexp[i]=new int[nk];
 
     }
     for(int i=0;i<nk;i++)
@@ -782,7 +782,7 @@ int main()
         for(int j=0;j<rows;j++)
         {
             keyw[j][i]=arrk[j+i*rows];
-            keyexp[j][i]=arrk[j+i*rows];
+//            keyexp[j][i]=arrk[j+i*rows];
 
         }
     }
@@ -1040,10 +1040,10 @@ cout<<"State:"<<endl;
     for(i=0;i<rows;i++)
     {
         delete []keyw[i];
- delete []keyexp[i];
+// delete []keyexp[i];
     }
     delete []keyw;
-        delete []keyexp;
+     //   delete []keyexp;
         delete []arrk;
 
     return 0;
