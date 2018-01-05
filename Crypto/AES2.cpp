@@ -705,7 +705,7 @@ void shiftKey(int **arr, int nk, int rows)
 
 }
 ///
-void cript(char *key, int keysize, char *plain16)
+void cript(char *key16, int keysize, char *plain16)
 {
     int i,j,k;
     int s=keysize;///new key size
@@ -725,8 +725,8 @@ void cript(char *key, int keysize, char *plain16)
         idec=60;
     }
     int rows=32;
-    char *key16= new char [nk*8+1];
-    key16="000102030405060708090a0b0c0d0e0f";
+   // char *key16= new char [nk*8+1];
+    //key16="000102030405060708090a0b0c0d0e0f";
     int *arrk=new int[s];
     int *arrp=new int[nb*rows];
     char sbox16[513]={"637c777bf26b6fc53001672bfed7ab76ca82c97dfa5947f0add4a2af9ca472c0b7fd9326363ff7cc34a5e5f171d8311504c723c31896059a071280e2eb27b27509832c1a1b6e5aa0523bd6b329e32f8453d100ed20fcb15b6acbbe394a4c58cfd0efaafb434d338545f9027f503c9fa851a3408f929d38f5bcb6da2110fff3d2cd0c13ec5f974417c4a77e3d645d197360814fdc222a908846eeb814de5e0bdbe0323a0a4906245cc2d3ac629195e479e7c8376d8dd54ea96c56f4ea657aae08ba78252e1ca6b4c6e8dd741f4bbd8b8a703eb5664803f60e613557b986c11d9ee1f8981169d98e949b1e87e9ce5528df8ca1890dbfe6426841992d0fb054bb16"};
@@ -869,7 +869,7 @@ void cript(char *key, int keysize, char *plain16)
         printState(state,nb);
 }
 ///Decrypt sakas
-void decript(char *plain16, int keysize,char *key)
+void decript(char *plain16, int keysize,char *key16)
 {
  int i,j,k;
     int s=keysize;///new key size
@@ -889,8 +889,8 @@ void decript(char *plain16, int keysize,char *key)
         idec=60;
     }
       int rows=32;
-    char *key16= new char [nk*8+1];
-    key16="000102030405060708090a0b0c0d0e0f";
+   // char *key16= new char [nk*8+1];
+    //key16="000102030405060708090a0b0c0d0e0f";
     int *arrk=new int[s];
     int *arrp=new int[nb*rows];
     char sbox16[513]={"637c777bf26b6fc53001672bfed7ab76ca82c97dfa5947f0add4a2af9ca472c0b7fd9326363ff7cc34a5e5f171d8311504c723c31896059a071280e2eb27b27509832c1a1b6e5aa0523bd6b329e32f8453d100ed20fcb15b6acbbe394a4c58cfd0efaafb434d338545f9027f503c9fa851a3408f929d38f5bcb6da2110fff3d2cd0c13ec5f974417c4a77e3d645d197360814fdc222a908846eeb814de5e0bdbe0323a0a4906245cc2d3ac629195e479e7c8376d8dd54ea96c56f4ea657aae08ba78252e1ca6b4c6e8dd741f4bbd8b8a703eb5664803f60e613557b986c11d9ee1f8981169d98e949b1e87e9ce5528df8ca1890dbfe6426841992d0fb054bb16"};
@@ -1096,9 +1096,12 @@ int main()
 
     int rows=32;
     char plain16[33]="00112233445566778899aabbccddeeff";
+
     char *key16= new char [s+1];
-    cript(key16,s,plain16);
     key16="000102030405060708090a0b0c0d0e0f";
+    cript(key16,s,plain16);
+
+
 //    decript();
 delete []key16;
 
