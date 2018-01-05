@@ -922,6 +922,8 @@ void decript(char *key16, int keysize, char *plain16)
             keyw[j][i]=arrk[j+i*rows];
         }
     }
+        cout<<"Check Cyphertext:"<<endl;
+    printState(state,nb);
     int col=0;
     int keyfirst[32];
     int keylast[32];
@@ -1061,12 +1063,10 @@ int main()
     int s=128;///new key size
     int rows=32;
     char plain16[33]="00112233445566778899aabbccddeeff";
-
     char *key16= new char [s+1];
     key16="000102030405060708090a0b0c0d0e0f";
     cript(key16,s,plain16);
     decript(key16,s,plain16);
     delete []key16;
-
     return 0;
 }
