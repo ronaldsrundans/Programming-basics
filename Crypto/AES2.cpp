@@ -1,6 +1,6 @@
 
 #include <iostream>
-
+#include <fstream>
 using namespace std;
 void hextobin(char* hex,int hexcount, int *arr)
 {
@@ -1059,6 +1059,8 @@ cout<<"Decript Plain:"<<endl;
 
 int main()
 {
+    fstream fin("in.txt",ios::in);
+    fstream fout("out.txt",ios::out);
     int i,j,k;
     int s=128;///new key size
     int rows=32;
@@ -1068,5 +1070,23 @@ int main()
     cript(key16,s,plain16);
     decript(key16,s,plain16);
     delete []key16;
+
+    char c;
+    fin.get(c);
+    while(fin.good())
+    {
+        while(c!='\n')
+        {
+           // cout<<c;
+            fin.get(c);
+        }
+        if(c=='\n')break;
+       fin.get(c);
+    }
+    fin.close();
+    fout.close();
+
     return 0;
 }
+
+
