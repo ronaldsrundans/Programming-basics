@@ -1,3 +1,4 @@
+
 #include <iostream>
 
 using namespace std;
@@ -708,7 +709,7 @@ void shiftKey(int **arr, int nk, int rows)
 int main()
 {
     int i,j,k;
-    int s=256;///new key size
+    int s=192;///new key size
     int nk=s/32;
     int nb=4;
     int nr=nk+6;///number of rounds
@@ -719,7 +720,7 @@ int main()
     }
     else if(nk==6)
     {
-        idec=54;
+        idec=52;
     }
     else
     {
@@ -730,8 +731,8 @@ int main()
     char *key16= new char [nk*8+1];
 //key16="2b7e151628aed2a6abf7158809cf4f3c";///test key 128
 //key16="603deb1015ca71be2b73aef0857d77811f352c073b6108d72d9810a30914dff4";///test key 256
-//key16="000102030405060708090a0b0c0d0e0f1011121314151617";
-key16="000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f";
+key16="000102030405060708090a0b0c0d0e0f1011121314151617";
+//key16="000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f";
   //  key16="000102030405060708090a0b0c0d0e0f";
 
 //key16="8e73b0f7da0e6452c810f32b809079e562f8ead2522c6b7b";
@@ -839,8 +840,11 @@ key16="000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f";
             xorfuncN(arrRcon, keylast,keylast,rows);
         }
 ///for 256 key only
+       if(nk==8)
+       {
+
         if(k<idec-nb)
-{
+        {
             if(k%8!=0)
             {
                 if(k%4==0)
@@ -849,6 +853,7 @@ key16="000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f";
                 }
             }
         }
+       }
         ///make new last key elem
         xorfuncN(keyfirst, keylast,keylast,rows);
         ///keyshift
@@ -919,6 +924,10 @@ last=idec-nb;
             xorfuncN(arrRcon, keylast,keylast,rows);
         }
 ///for 256 key only
+if(nk==8)
+{
+
+
         if(k<idec-nb)
 {
             if(k%8!=0)
@@ -929,6 +938,7 @@ last=idec-nb;
                 }
             }
         }
+}
         ///make new last key elem
         xorfuncN(keyfirst, keylast,keylast,rows);
         ///keyshift
@@ -982,8 +992,12 @@ last=last-nb;
             xorfuncN(arrRcon, keylast,keylast,rows);
         }
 ///for 256 key only
-        if(k<idec-nb)
+if(nk==8)
 {
+
+
+        if(k<idec-nb)
+        {
             if(k%8!=0)
             {
                 if(k%4==0)
@@ -992,6 +1006,7 @@ last=last-nb;
                 }
             }
         }
+}
         ///make new last key elem
         xorfuncN(keyfirst, keylast,keylast,rows);
         ///keyshift
