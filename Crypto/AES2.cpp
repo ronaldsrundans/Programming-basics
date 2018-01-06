@@ -791,11 +791,11 @@ void cript(char *key16, int keysize, char *plain16)
     }
     delete []arrp;
 ///plain izdruka
-    cout<<"Check Plain:"<<endl;
-    printState(state,nb);
+  //  cout<<"Check Plain:"<<endl;
+ //   printState(state,nb);
  ///keyw izdruka
-    cout<<"Check keyw:"<<endl;
-    printKey(keyw,nb);
+   // cout<<"Check keyw:"<<endl;
+ //   printKey(keyw,nb);
     int col=0;
     int keyfirst[32];
     int keylast[32];
@@ -875,8 +875,8 @@ void cript(char *key16, int keysize, char *plain16)
     }
 
 }
-        cout<<"Cypher text:"<<endl;
-        printState(state,nb);
+      //  cout<<"Cypher text:"<<endl;
+       // printState(state,nb);
         copyState(state,nb,plain16);
 
 }
@@ -1085,9 +1085,11 @@ void decript(char *key16, int keysize, char *plain16)
         }
 
     }
-cout<<"Decript Plain:"<<endl;
+//cout<<"Decript Plain:"<<endl;
 
-        printState(state,nb);
+        //printState(state,nb);
+                copyState(state,nb,plain16);
+
 
 ///Decrypt beidzas
     for(i=0;i<rows;i++)
@@ -1097,44 +1099,13 @@ cout<<"Decript Plain:"<<endl;
     delete []keyw;
     delete []arrk;
 }
-/*copyState(int state[][4], int nk, char* plain)
-{
-    for(int i=0;i<nk;i++)
-{
-    int arrt[4];
-    for(int j=0;j<8;j++)
-    {
-         for(int k=0;k<4;k++)
-        {
-            arrt[k]=state[j*4+k][i];
-        }
-       // bintohex(arrt,4);
-           int n=0;
-            int k=1;
-        int l;
-        char c;
-        for(l=4-1;l>=0;l--)
-        {
-        n=n+arrt[l]*k;
-        k=k*2;
-        }
-        c=n+'0';
-        if(c>'9')
-        {
-        c=c-'0'-10+'a';
-        }
-     cout<<c;
-    }
-    plain[i]
-}
- cout<<endl;
-*/
+
 int main()
 {
     fstream fin("in3.txt",ios::in);
     fstream fout("out3.txt",ios::out);
     int i,j,k;
-    int s=256;///new key size
+    int s;//=256;///new key size
     int rows=32;
     char plain16[33];//"00112233445566778899aabbccddeeff";
     char *key16;
@@ -1142,7 +1113,7 @@ int main()
     //key16="000102030405060708090a0b0c0d0e0f";
     //cript(key16,s,plain16);
    // decript(key16,s,plain16);
-    delete []key16;
+    //delete []key16;
 
     char c;
     fin.get(c);
@@ -1199,7 +1170,7 @@ int main()
                 }
                 fout<<endl;
 
-                cout<<"cript"<<endl;
+               // cout<<"cript"<<endl;
                 cript(key16,s,plain16);
                 i=0;
                 fout<<"Cypher=";
@@ -1212,7 +1183,7 @@ int main()
             }
              if(c=='D')
             {
-                cout<<"decript"<<endl;
+               // cout<<"decript"<<endl;
                 decript(key16,s,plain16);
             }
        //     fin.get(c);
@@ -1222,7 +1193,7 @@ int main()
     }
     fin.close();
     fout.close();
-cout<<plain16<<endl;
+//cout<<plain16<<endl;
 delete []key16;
     return 0;
 }
