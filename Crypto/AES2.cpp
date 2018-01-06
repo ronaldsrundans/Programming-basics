@@ -1190,8 +1190,25 @@ int main()
             }
             if(c=='C')
             {
+                fout<<"Plain=";
+                            i=0;
+                while(plain16[i]!=0)
+                {
+                    fout<<plain16[i];
+                    i++;
+                }
+                fout<<endl;
+
                 cout<<"cript"<<endl;
                 cript(key16,s,plain16);
+                i=0;
+                fout<<"Cypher=";
+                while(plain16[i]!=0)
+                {
+                    fout<<plain16[i];
+                    i++;
+                }
+                fout<<endl;
             }
              if(c=='D')
             {
