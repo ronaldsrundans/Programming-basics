@@ -1062,30 +1062,73 @@ int main()
     fstream fin("in.txt",ios::in);
     fstream fout("out.txt",ios::out);
     int i,j,k;
-    int s=128;///new key size
+    int s=256;///new key size
     int rows=32;
-    char plain16[33]="00112233445566778899aabbccddeeff";
-    char *key16= new char [s+1];
-    key16="000102030405060708090a0b0c0d0e0f";
-    cript(key16,s,plain16);
-    decript(key16,s,plain16);
+    char plain16[33];//"00112233445566778899aabbccddeeff";
+    char *key16;
+   // = new char [s+1];
+    //key16="000102030405060708090a0b0c0d0e0f";
+    //cript(key16,s,plain16);
+   // decript(key16,s,plain16);
     delete []key16;
 
     char c;
     fin.get(c);
     while(fin.good())
     {
-        while(c!='\n')
-        {
-           // cout<<c;
-            fin.get(c);
-        }
-        if(c=='\n')break;
+      //  while(c!='\n')
+       // {
+//cout<<c;
+            if(c=='P')
+            {
+                i=0;
+                 fin.get(c);
+                 fin.get(c);
+                 while(c!='\n')
+                {
+                    ///store plain
+                   // cout<<c;
+                    plain16[i]=c;
+                    fin.get(c);
+                    i++;
+                }
+                  plain16[i]=0;
+            }
+            if(c=='S')
+            {
+                                 fin.get(c);
+                 fin>>s;
+cout<<"size="<<s<<endl;
+                   key16 = new char [s+1];
+            }
+            if(c=='K')
+            {
+                j=0;
+                 fin.get(c);
+                 fin.get(c);
+                 while(c!='\n')
+                {
+                    ///store plain
+                   // cout<<c<<j<<endl;
+                    key16[j]=c;
+                    fin.get(c);
+                    j++;
+                }
+                  //plain16[i]=0;
+            }
+            if(c=='C')
+            {
+                cout<<"cript"<<endl;
+            }
+       //     fin.get(c);
+       // }
+       // if(c=='\n')break;
        fin.get(c);
     }
     fin.close();
     fout.close();
-
+cout<<plain16<<endl;
+delete []key16;
     return 0;
 }
 
