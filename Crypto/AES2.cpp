@@ -1131,8 +1131,8 @@ cout<<"Decript Plain:"<<endl;
 */
 int main()
 {
-    fstream fin("in.txt",ios::in);
-    fstream fout("out.txt",ios::out);
+    fstream fin("in3.txt",ios::in);
+    fstream fout("out3.txt",ios::out);
     int i,j,k;
     int s=256;///new key size
     int rows=32;
