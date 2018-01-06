@@ -1102,8 +1102,8 @@ void decript(char *key16, int keysize, char *plain16)
 
 int main()
 {
-    fstream fin("in3.txt",ios::in);
-    fstream fout("out3.txt",ios::out);
+    fstream fin("ind3.txt",ios::in);
+    fstream fout("out3d.txt",ios::out);
     int i,j,k;
     int s;//=256;///new key size
     int rows=32;
