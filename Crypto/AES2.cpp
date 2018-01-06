@@ -963,8 +963,8 @@ void decript(char *key16, int keysize, char *plain16)
             keyw[j][i]=arrk[j+i*rows];
         }
     }
-        cout<<"Check Cyphertext:"<<endl;
-    printState(state,nb);
+//cout<<"Check Cyphertext:"<<endl;
+//printState(state,nb);
     int col=0;
     int keyfirst[32];
     int keylast[32];
