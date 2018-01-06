@@ -1184,7 +1184,26 @@ int main()
              if(c=='D')
             {
                // cout<<"decript"<<endl;
+               // decript(key16,s,plain16);
+                fout<<"Cypher=";
+                            i=0;
+                while(plain16[i]!=0)
+                {
+                    fout<<plain16[i];
+                    i++;
+                }
+                fout<<endl;
+
+               // cout<<"cript"<<endl;
                 decript(key16,s,plain16);
+                i=0;
+                fout<<"Plain=";
+                while(plain16[i]!=0)
+                {
+                    fout<<plain16[i];
+                    i++;
+                }
+                fout<<endl;
             }
        //     fin.get(c);
        // }
