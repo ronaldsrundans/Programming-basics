@@ -55,6 +55,45 @@ void xorfunc(int arr1[][4], int ** arr2, int arr3[][4], int n, int col)
             }
          }
 }
+copyState(int state[][4], int nk, char* plain)
+{
+    int arrt[4];
+               int n;//=0;
+            int k,i,j;//=1;
+        int l;
+        char c;
+    for(i=0;i<nk;i++)
+{
+
+    for(j=0;j<8;j++)
+    {
+         for(int k=0;k<4;k++)
+        {
+            arrt[k]=state[j*4+k][i];
+        }
+       // bintohex(arrt,4);
+           n=0;
+            k=1;
+       // int l;
+       // char c;
+        for(l=4-1;l>=0;l--)
+        {
+            n=n+arrt[l]*k;
+            k=k*2;
+        }
+        c=n+'0';
+        if(c>'9')
+        {
+        c=c-'0'-10+'a';
+        }
+    // cout<<c;
+        plain[i*8+j]=c;
+
+    }
+//cout<<i*8+j<<endl;
+}
+
+}
 void printState(int state[][4], int nk)
 {
     for(int i=0;i<nk;i++)
@@ -755,8 +794,8 @@ void cript(char *key16, int keysize, char *plain16)
     cout<<"Check Plain:"<<endl;
     printState(state,nb);
  ///keyw izdruka
-  //  cout<<"Check keyw:"<<endl;
-  //  printKey(keyw,nb);
+    cout<<"Check keyw:"<<endl;
+    printKey(keyw,nb);
     int col=0;
     int keyfirst[32];
     int keylast[32];
@@ -838,6 +877,8 @@ void cript(char *key16, int keysize, char *plain16)
 }
         cout<<"Cypher text:"<<endl;
         printState(state,nb);
+        copyState(state,nb,plain16);
+
 }
 ///Decrypt sakas
 void decript(char *key16, int keysize, char *plain16)
@@ -1056,7 +1097,38 @@ cout<<"Decript Plain:"<<endl;
     delete []keyw;
     delete []arrk;
 }
-
+/*copyState(int state[][4], int nk, char* plain)
+{
+    for(int i=0;i<nk;i++)
+{
+    int arrt[4];
+    for(int j=0;j<8;j++)
+    {
+         for(int k=0;k<4;k++)
+        {
+            arrt[k]=state[j*4+k][i];
+        }
+       // bintohex(arrt,4);
+           int n=0;
+            int k=1;
+        int l;
+        char c;
+        for(l=4-1;l>=0;l--)
+        {
+        n=n+arrt[l]*k;
+        k=k*2;
+        }
+        c=n+'0';
+        if(c>'9')
+        {
+        c=c-'0'-10+'a';
+        }
+     cout<<c;
+    }
+    plain[i]
+}
+ cout<<endl;
+*/
 int main()
 {
     fstream fin("in.txt",ios::in);
@@ -1098,7 +1170,7 @@ int main()
             {
                                  fin.get(c);
                  fin>>s;
-cout<<"size="<<s<<endl;
+//cout<<"size="<<s<<endl;
                    key16 = new char [s+1];
             }
             if(c=='K')
@@ -1119,6 +1191,12 @@ cout<<"size="<<s<<endl;
             if(c=='C')
             {
                 cout<<"cript"<<endl;
+                cript(key16,s,plain16);
+            }
+             if(c=='D')
+            {
+                cout<<"decript"<<endl;
+                decript(key16,s,plain16);
             }
        //     fin.get(c);
        // }
