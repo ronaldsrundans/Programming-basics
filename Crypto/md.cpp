@@ -1239,7 +1239,7 @@ void decript(char *key16, int keysize, char *plain16)
     delete []arrk;
 }
 
-int des(char *key16, char* plain16)//(int *keyfsh)
+void descript(char *key16 ,char* plain16)//(int *keyfsh)
 {
    // fstream fout;
   //  fstream fin ("in.txt", ios::in);
@@ -1275,13 +1275,13 @@ int des(char *key16, char* plain16)//(int *keyfsh)
 
     int m=0;
 
-    cout << "plain="<<endl;
+   /* cout << "plain="<<endl;
     for(int i=0;i<64;i++)
     {
         cout<<plain[i];
     }
     cout<<endl;
-    cout<<endl;
+    cout<<endl;*/
     int ipplain[64];
     int cypher[64];
     int exp[48];
@@ -1371,20 +1371,62 @@ int des(char *key16, char* plain16)//(int *keyfsh)
         ///Final permutation
         permutation(64, ipplain,cypher , fp);
          permutation(64, test1,test2 , fp);
-    cout<<"key="<<endl;
+    /*cout<<"key="<<endl;
     for(i=0;i<64;i++)
     {
         cout<<key[i];
     }
     cout<<endl;
     cout<<endl;
-    cout<<"cypher text="<<endl;
+    cout<<"cypher text="<<endl;*/
     for(i=0;i<64;i++)
     {
         cout<<cypher[i];
-        plain[i]=cypher[i];///decryp
-        dekey[i]=key[i];
+       // plain[i]=cypher[i];///decryp
+        //dekey[i]=key[i];
     }
+
+}
+
+void desdecript(char *key16, char* plain16)
+{
+          int keyfsh[56];
+    int kpkeyl[28];
+    int kpkeyr[28];
+     int test1[64];
+      int test2[48];
+    int kpkey[56];
+    int fkey[56];
+    int cpkey[48];
+    int rnexp[48];
+    int bintmp[4];
+    int sbox[32];
+    int xbox[32];
+    int   dekey[64];
+    int   key[64];
+    int plain[64];
+       int ipplain[64];
+    int cypher[64];
+    int exp[48];
+    int rn[32];
+    int ln[32];
+    int rn1[32];
+    int ln1[32];
+    int tmp;
+    int row;
+    int col;
+    int stmp;
+    int ctmp;
+    int i=0,j=0;
+///fill key and plain
+   /* for(int i=0;i<64;i++)
+    {
+        key[i]=1;
+        plain[i]=1;
+       // test1[i]=i+1;
+    } */
+     hextobin(key16,16,key );
+   hextobin(plain16,16, plain);
     ///Decryption
           ///Initial permutation
     permutation(64, plain, ipplain, ip);
@@ -1469,23 +1511,24 @@ int des(char *key16, char* plain16)//(int *keyfsh)
     }
          ///Final permutation
     permutation(64, ipplain,cypher , fp);
-    cout<<endl;
-    cout<<endl;
-    cout<<"decryp plain="<<endl;
+  //  cout<<endl;
+   // cout<<endl;
+   // cout<<"Plain text"<<endl;
+
     for(i=0;i<64;i++)
     {
         cout<<cypher[i];
     }
     cout<<endl;
 //    fout.close();
-    return 0;
+//    return 0;
 }
 
 int main()
 {
-    fstream fin("ind3.txt",ios::in);
-    fstream fout("out3d.txt",ios::out);
-    int i,j,k,s;
+   // fstream fin("ind3.txt",ios::in);
+   // fstream fout("out3d.txt",ios::out);
+    int i,j,k,s,p;
   //  int s;//=256;///new key size
     int rows=32;
     char plain16[33];//"00112233445566778899aabbccddeeff";
@@ -1494,7 +1537,7 @@ int main()
     do
     {
         int const size=100;
-        int a1,b1;
+        int a1,b1,c1;
         char a[size]={0};
         char b[size]={0};
         cout<<"Please select method:"<<endl;
@@ -1507,19 +1550,11 @@ int main()
             cout<<"DES"<<endl;
             s=16;
             key16 = new char [s+1];
-             cout << "Enter Plaintext :" << endl;
+          /*   cout << "Enter Plaintext :" << endl;
       cin.clear();
        cin.ignore (256,'\n');
-       //cin.system("PAUSE");
-//cin.system("PAUSE");
-        cin.getline(a,size);///pirma masiva vertibas ielasa
-     //    cin.clear();
-     //break;
-     // cin.ignore (256,'\n');
-       cout<<"Continue"<<endl;
-         cin.clear();
-       cin.ignore (256,'\n');
-        cin>>a1;
+        cin.getline(plain16,size);///pirma masiva vertibas ielasa
+  cin.ignore (256,'\n');  */
         }
          if(a1==2)
         {
@@ -1529,22 +1564,107 @@ int main()
               cout<<"192 bit = 2"<<endl;
                cout<<"256 bit = 3"<<endl;
                cin>>b1;
-                if(b1==1)s=128;
-                if(b1==2)s=192;
-                 if(b1==3)s=256;
-            key16 = new char [s+1];
-             cout << "Enter Plaintext :" << endl;
-               cin.clear();
-       cin.ignore (256,'\n');
+                if(b1==1)
+                {
+                    s=128;
+ cout<<"Selected key size = 128"<<endl;
+                }
+                if(b1==2)
+                {
+                    s=192;
+                     cout<<"Selected key size = 192"<<endl;
 
-        cin.getline(a,size);///pirma masiva vertibas ielasa
+                }
+
+                 if(b1==3)
+                 {
+                     s=256;
+                      cout<<"Selected key size = 256"<<endl;
+
+
+                 }
+            key16 = new char [s+1];
+
+
         }
+
+        cout<<"Please select:"<<endl;
+        cout<<"to cript = enter 1"<<endl;
+        cout<<"to decript = enter 2"<<endl;
+        cin.ignore (256,'\n');
+        cin>>c1;
+       // cin.getline(c1,size);
+        cout << "Enter Plaintext :" << endl;
+    //  cin.clear();
+       cin.ignore (256,'\n');
+        cin.getline(plain16,size);///pirma masiva vertibas ielasa
+ // cin.ignore (256,'\n');
        /* cout << "Enter Plaintext :" << endl;
-        cin.getline(a,size);///pirma masiva vertibas ielasa
+        cin.getline(a,size);///pirma masiva vertibas ielasa*/
+        //cout<<strlen(plain16);
         cout << "Enter Key:" << endl;
-        cin.getline(b,size);///otra masiva vertibas ielasa*/
+        cin.getline(key16,size);///otra masiva vertibas ielasa
+        if(strlen(plain16)!=32)///padding
+        {
+            p=strlen(plain16);
+            while(p<33)
+            {
+                plain16[p]='0';
+                p++;
+            }
+            plain16[p]=0;
+        }
+        if(strlen(key16)!=s)///padding
+        {
+            p=strlen(key16);
+            while(p<s)
+            {
+                key16[p]='0';
+                p++;
+            }
+            key16[p]=0;
+        }
+
+        if (a1==1)///des
+        {
+                 if(c1==1)
+            {
+                descript(key16,plain16);///cript
+            }
+
+            ///decript
+            else
+            {
+                desdecript(key16,plain16);///cript
+            }
+
+        }
+        else ///aes
+        {
+            if(c1==1)
+            {
+                cript(key16,s,plain16);///cript
+            }
+
+            ///decript
+            else
+            {
+                decript(key16,s,plain16);///cript
+            }
+
+        }
+
+
+       //  cin.ignore (256,'\n');
         cout << "Results:" << endl;
-        cout << "a=" <<a<< endl;
+        i=0;
+              while(plain16[i]!=0)
+                {
+                    cout<<plain16[i];
+                    i++;
+                }
+                cout<<endl;
+        //cout << "a=" <<a<< endl;
 
       //  summa(a,b);///abi masivi tiek padoti funkcijai
         cout <<endl;
