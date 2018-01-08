@@ -1489,6 +1489,41 @@ int main()
     int rows=32;
     char plain16[33];//"00112233445566778899aabbccddeeff";
     char *key16;
+         int ok=1;
+    do
+    {
+        int const size=100;
+        int a1;
+        char a[size]={0};
+        char b[size]={0};
+        cout<<"Please select method:"<<endl;
+        cout<<"DES = 1"<<endl;
+        cout<<"AES = 2"<<endl;
+        cin>>a1; ///aritmetiskas progresijas pirmais loceklis
+        while(!cin.good())
+            {
+                cin.clear();
+                cin.ignore (256,'\n');
+                cout<<"ERROR! Try again:  "<<endl;
+                cin>>a;
+            };
+        cout<<"Success:   "<<a1<<endl;
+        cout << "Enter Plaintext :" << endl;
+        cin.getline(a,size);///pirma masiva vertibas ielasa
+        cout << "Enter Key:" << endl;
+        cin.getline(b,size);///otra masiva vertibas ielasa
+        cout << "Results:" << endl;
+        cout << "a=" <<a<< endl;
+        cout << "b=" <<b<< endl;
+      //  summa(a,b);///abi masivi tiek padoti funkcijai
+        cout <<endl;
+        cout << "Enter:1 to repeat, or :0 to exit"<< endl;
+        cin>>ok;
+        cin.clear();
+        cin.ignore (256,'\n');
+    }
+    while(ok==1);
+    /*
     char c;
     fin.get(c);
     while(fin.good())
@@ -1579,7 +1614,7 @@ int main()
        fin.get(c);
     }
     fin.close();
-    fout.close();
+    fout.close();*/
 //cout<<plain16<<endl;
 delete []key16;
     return 0;
