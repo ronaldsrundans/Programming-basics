@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <cstring>
+
 using namespace std;
 int ip[64]={58,50,42,34,26,18,10,2,60,52,44,36,28,20,12,4,
                 62,54,46,38,30,22,14,6,64,56,48,40,32,24,16,8,
@@ -1493,28 +1494,58 @@ int main()
     do
     {
         int const size=100;
-        int a1;
+        int a1,b1;
         char a[size]={0};
         char b[size]={0};
         cout<<"Please select method:"<<endl;
         cout<<"DES = 1"<<endl;
         cout<<"AES = 2"<<endl;
-        cin>>a1; ///aritmetiskas progresijas pirmais loceklis
-        while(!cin.good())
-            {
-                cin.clear();
-                cin.ignore (256,'\n');
-                cout<<"ERROR! Try again:  "<<endl;
-                cin>>a;
-            };
-        cout<<"Success:   "<<a1<<endl;
-        cout << "Enter Plaintext :" << endl;
+        cin>>a1;
+        cout<<"Selected:   ";
+        if(a1==1)
+        {
+            cout<<"DES"<<endl;
+            s=16;
+            key16 = new char [s+1];
+             cout << "Enter Plaintext :" << endl;
+      cin.clear();
+       cin.ignore (256,'\n');
+       //cin.system("PAUSE");
+//cin.system("PAUSE");
+        cin.getline(a,size);///pirma masiva vertibas ielasa
+     //    cin.clear();
+     //break;
+     // cin.ignore (256,'\n');
+       cout<<"Continue"<<endl;
+         cin.clear();
+       cin.ignore (256,'\n');
+        cin>>a1;
+        }
+         if(a1==2)
+        {
+            cout<<"AES"<<endl;
+             cout<<"Please select key size:"<<endl;
+             cout<<"128 bit = 1"<<endl;
+              cout<<"192 bit = 2"<<endl;
+               cout<<"256 bit = 3"<<endl;
+               cin>>b1;
+                if(b1==1)s=128;
+                if(b1==2)s=192;
+                 if(b1==3)s=256;
+            key16 = new char [s+1];
+             cout << "Enter Plaintext :" << endl;
+               cin.clear();
+       cin.ignore (256,'\n');
+
+        cin.getline(a,size);///pirma masiva vertibas ielasa
+        }
+       /* cout << "Enter Plaintext :" << endl;
         cin.getline(a,size);///pirma masiva vertibas ielasa
         cout << "Enter Key:" << endl;
-        cin.getline(b,size);///otra masiva vertibas ielasa
+        cin.getline(b,size);///otra masiva vertibas ielasa*/
         cout << "Results:" << endl;
         cout << "a=" <<a<< endl;
-        cout << "b=" <<b<< endl;
+
       //  summa(a,b);///abi masivi tiek padoti funkcijai
         cout <<endl;
         cout << "Enter:1 to repeat, or :0 to exit"<< endl;
@@ -1523,8 +1554,8 @@ int main()
         cin.ignore (256,'\n');
     }
     while(ok==1);
-    /*
-    char c;
+
+    /*char c;
     fin.get(c);
     while(fin.good())
     {
