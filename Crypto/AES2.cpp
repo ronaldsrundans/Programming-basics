@@ -1531,9 +1531,9 @@ int main()
 {
    // fstream fin("ind3.txt",ios::in);
    // fstream fout("out3d.txt",ios::out);
-    int i,j,k,s,p;
-     fstream fin("ind3.txt",ios::in);
-    fstream fout("out3d.txt",ios::out);
+    int i,j,k,s,p,m;
+     fstream fin("in2.txt",ios::in);
+    fstream fout("out1.txt",ios::out);
   //  int s;//=256;///new key size
     int rows=32;
     char plain16[33];//"00112233445566778899aabbccddeeff";
@@ -1544,7 +1544,23 @@ int main()
     fin.get(c);
     while(fin.good())
     {
-            if(c=='P')
+
+    switch(c)
+    {
+        case 'P':
+        {
+            cout<<"p"<<endl;
+            break;
+        }
+        default:
+            {
+                fin.get(c);
+                break;
+            }
+
+    }
+
+         /*   if(c=='P')
             {
                 i=0;
                  fin.get(c);
@@ -1581,6 +1597,13 @@ int main()
                 }
                   //plain16[i]=0;
             }
+            if(c=='M')
+            {
+
+                fin>>m;
+                 fin.get(c);
+                cout<<"m="<<m<<endl;break;
+            }
             if(c=='C')
             {
                 fout<<"Plain=";
@@ -1593,7 +1616,15 @@ int main()
                 fout<<endl;
 
                // cout<<"cript"<<endl;
-                cript(key16,s,plain16);
+//if(m==1)
+               // {
+                     cript(key16,s,plain16);
+               // }
+              //  else
+            //    {
+
+            //    }
+
                 i=0;
                 fout<<"Cypher=";
                 while(plain16[i]!=0)
@@ -1627,7 +1658,7 @@ int main()
                 }
                 fout<<endl;
             }
-       fin.get(c);
+       fin.get(c);*/
     }
     fin.close();
     fout.close();
