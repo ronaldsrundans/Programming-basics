@@ -1,3 +1,5 @@
+
+
 #include <iostream>
 #include <fstream>
 #include <cstring>
@@ -1373,20 +1375,7 @@ void descript(char *key16 ,char* plain16)//(int *keyfsh)
         ///Final permutation
         permutation(64, ipplain,cypher , fp);
          permutation(64, test1,test2 , fp);
-    /*cout<<"key="<<endl;
-    for(i=0;i<64;i++)
-    {
-        cout<<key[i];
-    }
-    cout<<endl;
-    cout<<endl;
-    cout<<"cypher text="<<endl;*/
-    for(i=0;i<64;i++)
-    {
-        cout<<cypher[i];
-       // plain[i]=cypher[i];///decryp
-        //dekey[i]=key[i];
-    }
+
 
 }
 
@@ -1513,16 +1502,7 @@ void desdecript(char *key16, char* plain16)
     }
          ///Final permutation
     permutation(64, ipplain,cypher , fp);
-  //  cout<<endl;
-   // cout<<endl;
-   // cout<<"Plain text"<<endl;
-
-    for(i=0;i<64;i++)
-    {
-        cout<<cypher[i];
-        //plain
-    }
-    cout<<endl;
+  //
 //    fout.close();
 //    return 0;
 }
@@ -1545,7 +1525,7 @@ int main()
     while(fin.good())
     {
 
-    switch(c)
+  /*  switch(c)
     {
         case 'P':
         {
@@ -1558,9 +1538,9 @@ int main()
                 break;
             }
 
-    }
+    }*/
 
-         /*   if(c=='P')
+            if(c=='P')
             {
                 i=0;
                  fin.get(c);
@@ -1599,10 +1579,9 @@ int main()
             }
             if(c=='M')
             {
-
                 fin>>m;
                  fin.get(c);
-                cout<<"m="<<m<<endl;break;
+                cout<<"m="<<m<<endl;//break;
             }
             if(c=='C')
             {
@@ -1614,17 +1593,15 @@ int main()
                     i++;
                 }
                 fout<<endl;
-
                // cout<<"cript"<<endl;
-//if(m==1)
-               // {
+if(m==1)
+                {
                      cript(key16,s,plain16);
-               // }
-              //  else
-            //    {
-
-            //    }
-
+                }
+                else
+                {
+                                 descript(key16,plain16);
+                }
                 i=0;
                 fout<<"Cypher=";
                 while(plain16[i]!=0)
@@ -1646,7 +1623,6 @@ int main()
                     i++;
                 }
                 fout<<endl;
-
                // cout<<"cript"<<endl;
                 decript(key16,s,plain16);
                 i=0;
@@ -1658,7 +1634,7 @@ int main()
                 }
                 fout<<endl;
             }
-       fin.get(c);*/
+       fin.get(c);
     }
     fin.close();
     fout.close();
@@ -1666,5 +1642,3 @@ int main()
 delete []key16;
     return 0;
 }
-
-
