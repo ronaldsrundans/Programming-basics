@@ -1405,7 +1405,7 @@ void descript(char *key16 ,char* plain16)//(int *keyfsh)
         ///Final permutation
         permutation(64, ipplain,cypher , fp);
         // permutation(64, test1,test2 , fp);
-    //copyDES(plain16,cypher);
+    copyDES(plain16,cypher);
 
 
 }
@@ -1533,6 +1533,7 @@ void desdecript(char *key16, char* plain16)
     }
          ///Final permutation
     permutation(64, ipplain,cypher , fp);
+     copyDES(plain16,cypher);
 //bintohex(cypher
   //
 //    fout.close();
@@ -1613,7 +1614,7 @@ int main()
             {
                 fin>>m;
                  fin.get(c);
-                cout<<"m="<<m<<endl;//break;
+                //cout<<"m="<<m<<endl;//break;
             }
             if(c=='C')
             {
@@ -1626,7 +1627,7 @@ int main()
                 }
                 fout<<endl;
                // cout<<"cript"<<endl;
-if(m==1)
+            if(m==1)
                 {
                      cript(key16,s,plain16);
                 }
@@ -1656,7 +1657,15 @@ if(m==1)
                 }
                 fout<<endl;
                // cout<<"cript"<<endl;
-                decript(key16,s,plain16);
+               // decript(key16,s,plain16);
+                            if(m==1)
+                {
+                     decript(key16,s,plain16);
+                }
+                else
+                {
+                                 desdecript(key16,plain16);
+                }
                 i=0;
                 fout<<"Plain=";
                 while(plain16[i]!=0)
