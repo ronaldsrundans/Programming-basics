@@ -190,17 +190,28 @@ void xorfuncN(int *arr1, int *arr2, int *arr3, int n)
         }
     }
 }
+
 void bintodec(int arr[],int j)
 {
-    int n=0;
-    int b=1;
-    for(int i=j;i>=0;i--)
+    int tmp[2]={0,1};
+    for(int i=3;i>=0;i--)
     {
-        n=n+b*arr[i];
-        b=b*2;
+        tmp[0]=tmp[0]+tmp[1]*arr[i];
+        tmp[1]=tmp[1]*2;
         arr[i]=0;
     }
-    arr[0]=n;
+    arr[0]=tmp[0];
+}
+void bintodec2(int arr[],int j)
+{
+    int tmp[2]={0,1};
+    for(int i=3+j;i>=j;i--)
+    {
+        tmp[0]=tmp[0]+tmp[1]*arr[i];
+        tmp[1]=tmp[1]*2;
+        arr[i]=0;
+    }
+    arr[j]=tmp[0];
 }
 void dectobin(int a,int *arr)
 {
@@ -214,8 +225,7 @@ void dectobin(int a,int *arr)
 void subbytes(int sbox[][16], int input[][4])
 {
     int x,y,i,j,k;
-    int arr1[4];
-    int arr2[4];
+    int arr[8];
     for(j=0;j<4;j++)///col
     {
         for(i=0;i<4;i++)///row
@@ -224,13 +234,13 @@ void subbytes(int sbox[][16], int input[][4])
             y=0;
             for(k=0;k<4;k++)///x and y
             {
-                arr1[k]=input[k+i*8][j];
-                arr2[k]=input[k+4+i*8][j];
+                arr[k]=input[k+i*8][j];
+                arr[k+4]=input[k+4+i*8][j];
             }
-            bintodec(arr1,3);
-            bintodec(arr2,3);
-            x=arr1[0];
-            y=arr2[0];
+            bintodec2(arr,0);
+            bintodec2(arr,4);
+            x=arr[0];
+            y=arr[4];
             for(k=0;k<4;k++)///x and y
             {
                 input[k+i*8][j]=sbox[y*8+k][x];
