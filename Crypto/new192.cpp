@@ -94,6 +94,7 @@ void deshift(int* arr,int n)
         arr[0]=tmp3;
     }
 }
+/*
 void xorfunc(int *arr1, int *arr2, int* arr3, int n)
 {
     for(int i=0;i<n;i++)
@@ -107,7 +108,7 @@ void xorfunc(int *arr1, int *arr2, int* arr3, int n)
                 arr3[i]=0;
             }
          }
-}
+}*/
 
 void permutation(int n, int* arr1, int *arr2, int *arrp)
 {
@@ -157,25 +158,7 @@ void hextobin(char* hex,int hexcount, int *arr)
         }
     }
 }
-/*
-void bintohex(int *bin,int binsize)//,char* hex)
-{
-    int n=0;
-    int k=1;
-    int i;
-    char c;
-    for(i=binsize-1;i>=0;i--)
-    {
-        n=n+bin[i]*k;
-        k=k*2;
-    }
-    c=n+'0';
-    if(c>'9')
-    {
-        c=c-'0'-10+'a';
-    }
-     cout<<c;
-}*/
+
 void xorfunc(int arr1[][4], int ** arr2, int arr3[][4], int n, int col)
 {
     for(int i=0;i<n;i++)
@@ -752,24 +735,6 @@ void rotWord(int *arr, int n)
         }
 }
 
-void tableLelem(int *arr11, int *arr12,int *arr21,int *arr22,int tableL[][16],int *r1,int *r2)
-{
-    int x1,x2,y1,y2;
-    int arr1[8];
-    int arr2[8];
-    bintodec(arr11,3);
-    bintodec(arr12,3);
-    bintodec(arr21,3);
-    bintodec(arr22,3);
-    x1=arr11[0];
-    y1=arr12[0];
-    x2=arr21[0];
-    y2=arr22[0];
-    cout<<x1<<endl;
-    cout<<x2<<endl;
-    cout<<y1<<endl;
-    cout<<y2<<endl;
-}
 void shiftKey(int **arr, int nk, int rows)
 {
     int i,j;
@@ -1153,9 +1118,6 @@ void decript(char *key16, int keysize, char *plain16)
         }
 
     }
-//cout<<"Decript Plain:"<<endl;
-
-        //printState(state,nb);
                 copyState(state,nb,plain16);
 
 
@@ -1170,15 +1132,9 @@ void decript(char *key16, int keysize, char *plain16)
 
 void descript(char *key16 ,char* plain16)//(int *keyfsh)
 {
-   // fstream fout;
-  //  fstream fin ("in.txt", ios::in);
-   // fout.open ("out.txt", ios::out);
-
     int keyfsh[56];
     int kpkeyl[28];
     int kpkeyr[28];
-   //  int test1[64];
-    //  int test2[48];
     int kpkey[56];
     int fkey[56];
     int cpkey[48];
@@ -1189,28 +1145,10 @@ void descript(char *key16 ,char* plain16)//(int *keyfsh)
     int   dekey[64];
     int   key[64];
     int plain[64];
-///fill key and plain
-   /* for(int i=0;i<64;i++)
-    {
-        key[i]=1;
-        plain[i]=1;
-       // test1[i]=i+1;
-    } */
      hextobin(key16,16,key );
    hextobin(plain16,16, plain);
-    // int plain[64]={0,0,0,0,0,0,0,1,0,0,1,0,0,0,1,1,0,1,0,0,0,1,0,1,0,1,1,0,0,1,1,1,1,0,0,0,1,0,0,1,1,0,1,0,1,0,1,1,1,1,0,0,1,1,0,1,1,1,1,0,1,1,1,1};
-   // int   key[64]={0,0,0,1,0,0,1,1,0,0,1,1,0,1,0,0,0,1,0,1,0,1,1,1,0,1,1,1,1,0,0,1,1,0,0,1,1,0,1,1,1,0,1,1,1,1,0,0,1,1,0,1,1,1,1,1,1,1,1,1,0,0,0,1};
     int c;
-
     int m=0;
-
-   /* cout << "plain="<<endl;
-    for(int i=0;i<64;i++)
-    {
-        cout<<plain[i];
-    }
-    cout<<endl;
-    cout<<endl;*/
     int ipplain[64];
     int cypher[64];
     int exp[48];
@@ -1253,7 +1191,7 @@ void descript(char *key16 ,char* plain16)//(int *keyfsh)
 ///Expantion Permutation
  permutation(48, rn, rnexp, ep);
  /// XOR (RNEXP,CPKEY)
- xorfunc(rnexp,cpkey,exp,48);
+ xorfuncN(rnexp,cpkey,exp,48);
      ///Sbox substitution
          ctmp=0;
         for(j=0;j<48;j=j+6)
@@ -1283,7 +1221,7 @@ void descript(char *key16 ,char* plain16)//(int *keyfsh)
 
 
         /// XOR(xbox,ln)
-        xorfunc(xbox,ln,rn1,32);
+        xorfuncN(xbox,ln,rn1,32);
 
         ///new ipplain
         for(j=0;j<32;j++)
@@ -1335,13 +1273,6 @@ void desdecript(char *key16, char* plain16)
     int stmp;
     int ctmp;
     int i=0,j=0;
-///fill key and plain
-   /* for(int i=0;i<64;i++)
-    {
-        key[i]=1;
-        plain[i]=1;
-       // test1[i]=i+1;
-    } */
      hextobin(key16,16,key );
    hextobin(plain16,16, plain);
     ///Decryption
@@ -1383,7 +1314,7 @@ void desdecript(char *key16, char* plain16)
 ///Expantion Permutation
  permutation(48, rn, rnexp, ep);
  /// XOR (RNEXP,CPKEY)
- xorfunc(rnexp,cpkey,exp,48);
+ xorfuncN(rnexp,cpkey,exp,48);
      ///Sbox substitution
          ctmp=0;
         for(j=0;j<48;j=j+6)
@@ -1412,7 +1343,7 @@ void desdecript(char *key16, char* plain16)
 
         /// XOR(xbox,ln)
 
-        xorfunc(xbox,ln,rn1,32);
+        xorfuncN(xbox,ln,rn1,32);
 
 ///new ipplain
         for(j=0;j<32;j++)
@@ -1433,12 +1364,9 @@ void desdecript(char *key16, char* plain16)
 
 int main()
 {
-   // fstream fin("ind3.txt",ios::in);
-   // fstream fout("out3d.txt",ios::out);
-    int i,j,k,s,p,m;
+       int i,j,k,s,p,m;
      fstream fin("inm21.txt",ios::in);
     fstream fout("out21.txt",ios::out);
-  //  int s;//=256;///new key size
     int rows=32;
     char plain16[33];//"00112233445566778899aabbccddeeff";
     char *key16;
