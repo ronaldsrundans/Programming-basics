@@ -1534,10 +1534,6 @@ void desdecript(char *key16, char* plain16)
          ///Final permutation
     permutation(64, ipplain,cypher , fp);
      copyDES(plain16,cypher);
-//bintohex(cypher
-  //
-//    fout.close();
-//    return 0;
 }
 
 int main()
@@ -1557,21 +1553,6 @@ int main()
     fin.get(c);
     while(fin.good())
     {
-
-  /*  switch(c)
-    {
-        case 'P':
-        {
-            cout<<"p"<<endl;
-            break;
-        }
-        default:
-            {
-                fin.get(c);
-                break;
-            }
-
-    }*/
 
             if(c=='P')
             {
