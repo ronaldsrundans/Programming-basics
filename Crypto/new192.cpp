@@ -1,43 +1,22 @@
-
-
 #include <iostream>
 #include <fstream>
 #include <cstring>
 
 using namespace std;
-int ip[64]={58,50,42,34,26,18,10,2,60,52,44,36,28,20,12,4,
-                62,54,46,38,30,22,14,6,64,56,48,40,32,24,16,8,
-                57,49,41,33,25,17,9,1,59,51,43,35,27,19,11,3,
-                61,53,45,37,29,21,13,5,63,55,47,39,31,23,15,7};
- int kp[64]={57,49,41,33,25,17,9,1,58,50,42,34,26,18,
-            10,2,59,51,43,35,27,19,11,3,60,52,44,36,
-            63,55,47,39,31,23,15,7,62,54,46,38,30,22,
-            14,6,61,53,45,37,29,21,13,5,28,20,12,4};
+int ip[64]={58,50,42,34,26,18,10,2,60,52,44,36,28,20,12,4,62,54,46,38,30,22,14,6,64,56,48,40,32,24,16,8,
+                57,49,41,33,25,17,9,1,59,51,43,35,27,19,11,3,61,53,45,37,29,21,13,5,63,55,47,39,31,23,15,7};
+ int kp[64]={57,49,41,33,25,17,9,1,58,50,42,34,26,18,10,2,59,51,43,35,27,19,11,3,60,52,44,36,
+            63,55,47,39,31,23,15,7,62,54,46,38,30,22,14,6,61,53,45,37,29,21,13,5,28,20,12,4};
     int bsh[16]={1,1,2,2,2,2,2,2,1,2,2,2,2,2,2,1};
      int debsh[16]={0,1,2,2,2,2,2,2,1,2,2,2,2,2,2,1};
-    int cp[48]={14,17,11,24,1,5,3,28,15,6,21,10,
-            23,19,12,4,26,8,16,7,27,20,13,2,
-            41,52,31,37,47,55,30,40,51,45,33,48,
-            44,49,39,56,34,53,46,42,50,36,29,32};
-    int ep[48]={32,1,2,3,4,5,4,5,6,7,8,9,
-    8,9,10,11,12,13,12,13,14,15,16,17,
-    16,17,18,19,20,21,20,21,22,23,24,25,
-    24,25,26,27,28,29,28,29,30,31,32,1};
+    int cp[48]={14,17,11,24,1,5,3,28,15,6,21,10,23,19,12,4,26,8,16,7,27,20,13,2,41,52,31,37,47,55,30,40,51,45,33,48,44,49,39,56,34,53,46,42,50,36,29,32};
+    int ep[48]={32,1,2,3,4,5,4,5,6,7,8,9,8,9,10,11,12,13,12,13,14,15,16,17,16,17,18,19,20,21,20,21,22,23,24,25,24,25,26,27,28,29,28,29,30,31,32,1};
 
-    int fp[64]={40,8,48,16,56,24,64,32,39,7,47,15,55,23,63,31,
-             38,6,46,14,54,22,62,30,37,5,45,13,53,21,61,29,
-             36,4,44,12,52,20,60,28,35,3,43,11,51,19,59,27,
-             34,2,42,10,50,18,58,26,33,1,41,9,49,17,57,25};
+    int fp[64]={40,8,48,16,56,24,64,32,39,7,47,15,55,23,63,31,38,6,46,14,54,22,62,30,37,5,45,13,53,21,61,29,36,4,44,12,52,20,60,28,35,3,43,11,51,19,59,27,34,2,42,10,50,18,58,26,33,1,41,9,49,17,57,25};
 
-    int sbox1[4][16]={{14,4,13,1,2,15,11,8,3,10,6,12,5,9,0,7},
-                        {0,15,7,4,14,2,13,1,10,6,12,11,9,5,3,8},
-                        {4,1,14,8,13,6,2,11,15,12,9,7,3,10,5,0},
-                        {15,12,8,2,4,9,1,7,5,11,3,14,10,0,6,13}};
+    int sbox1[4][16]={{14,4,13,1,2,15,11,8,3,10,6,12,5,9,0,7},{0,15,7,4,14,2,13,1,10,6,12,11,9,5,3,8},{4,1,14,8,13,6,2,11,15,12,9,7,3,10,5,0},{15,12,8,2,4,9,1,7,5,11,3,14,10,0,6,13}};
 
-    int sbox2[4][16]={{15,1,8,14,6,11,3,4,9,7,2,13,12,0,5,10},
-                   { 3,13,4,7,15,2,8,14,12,0,1,10,6,9,11,5},
-                    {0,14,7,11,10,4,13,1,5,8,12,6,9,3,2,15},
-                    {13,8,10,1,3,15,4,2,11,6,7,12,0,5,14,9}};
+    int sbox2[4][16]={{15,1,8,14,6,11,3,4,9,7,2,13,12,0,5,10}, { 3,13,4,7,15,2,8,14,12,0,1,10,6,9,11,5},{0,14,7,11,10,4,13,1,5,8,12,6,9,3,2,15}, {13,8,10,1,3,15,4,2,11,6,7,12,0,5,14,9}};
 
     int sbox3[4][16]={{10,0,9,14,6,3,15,5,1,13,12,7,11,4,2,8},
                     {13,7,0,9,3,4,6,10,2,8,5,14,12,11,15,1},
@@ -178,6 +157,7 @@ void hextobin(char* hex,int hexcount, int *arr)
         }
     }
 }
+/*
 void bintohex(int *bin,int binsize)//,char* hex)
 {
     int n=0;
@@ -195,7 +175,7 @@ void bintohex(int *bin,int binsize)//,char* hex)
         c=c-'0'-10+'a';
     }
      cout<<c;
-}
+}*/
 void xorfunc(int arr1[][4], int ** arr2, int arr3[][4], int n, int col)
 {
     for(int i=0;i<n;i++)
@@ -268,68 +248,6 @@ void copyDES(char* plain, int *des)
         }
    // }
 
-}
-void printState(int state[][4], int nk)
-{
-    for(int i=0;i<nk;i++)
-    {
-        int arrt[4];
-        for(int j=0;j<8;j++)
-        {
-            for(int k=0;k<4;k++)
-            {
-                arrt[k]=state[j*4+k][i];
-            }
-            bintohex(arrt,4);
-        }
-    }
-    cout<<endl;
-}
-void printKey(int **state, int nk)
-{
-    int i,j,k;
-    for(i=0;i<nk;i++)
-    {
-        int arrt[4];
-        for(j=0;j<8;j++)
-        {
-            for(k=0;k<4;k++)
-            {
-                arrt[k]=state[j*4+k][i];
-            }
-            bintohex(arrt,4);
-        }
-    }
-    cout<<endl;
-}
-void printRow(int *arr)
-{
-    cout<<"PrintRow=";
-    int arrt[4];
-    int k,j;
-    for(j=0;j<8;j++)
-    {
-         for(k=0;k<4;k++)
-        {
-            arrt[k]=arr[k+j*4];
-        }
-        bintohex(arrt,4);
-    }
-    cout<<endl;
-}
-void xorfunc8(int *arr1, int *arr2, int *arr3)
-{
-    for(int i=0;i<8;i++)
-        {
-            if(((arr1[i]==1) or (arr2[i]==1))&& (arr1[i]!= arr2[i]))
-            {
-                arr3[i]=1;
-            }
-            else
-            {
-                arr3[i]=0;
-            }
-         }
 }
 void xorfuncN(int *arr1, int *arr2, int *arr3, int n)
 {
@@ -431,30 +349,7 @@ void binsumarr(int *arr1, int *arr2, int *arr3)
     }
     dectobin(n3,arr3);
 }
-void printTable(int sbox[][16])
-{
-    int i,j,k;
-    for(j=0;j<16;j++)///col
-    {
-        int arrt[4];
-        for(i=0;i<16;i++)///row
-        {
-            for(k=0;k<4;k++)
-            {
-                arrt[k]=sbox[i*8+k][j];
-            }
-            bintohex(arrt,4);
-            for(k=4;k<8;k++)
-            {
-                arrt[k-4] =sbox[i*8+k][j];
-            }
-            bintohex(arrt,4);
-            cout<<" ";
-        }
-        cout<<endl;
-    }
-    cout<<endl;
-}
+
 void shiftrows(int arr[][4])
 {
     int tmp[48];
@@ -692,33 +587,33 @@ void mixcol(int tableL[][16], int tableE[][16],int input[][4])
         multiply(tableL, tableE,arr03, a2,r12);
         multiply(tableL, tableE,arr01, a3,r13);
         multiply(tableL, tableE,arr01, a4,r14);
-        xorfunc8(r11,r12,rx11);
-        xorfunc8(r13,r14,rx12);
-        xorfunc8(rx11,rx12,rx13);
+        xorfuncN(r11,r12,rx11,8);
+        xorfuncN(r13,r14,rx12,8);
+        xorfuncN(rx11,rx12,rx13,8);
     ///otra rinda * pirma kolonna
         multiply(tableL, tableE,arr01, a1,r21);
         multiply(tableL, tableE,arr02, a2,r22);
         multiply(tableL, tableE,arr03, a3,r23);
         multiply(tableL, tableE,arr01, a4,r24);
-        xorfunc8(r21,r22,rx21);
-        xorfunc8(r23,r24,rx22);
-        xorfunc8(rx21,rx22,rx23);
+        xorfuncN(r21,r22,rx21,8);
+        xorfuncN(r23,r24,rx22,8);
+        xorfuncN(rx21,rx22,rx23,8);
         ///tresa rinda * pirma kolonna
         multiply(tableL, tableE,arr01, a1,r31);
         multiply(tableL, tableE,arr01, a2,r32);
         multiply(tableL, tableE,arr02, a3,r33);
         multiply(tableL, tableE,arr03, a4,r34);
-        xorfunc8(r31,r32,rx31);
-        xorfunc8(r33,r34,rx32);
-        xorfunc8(rx31,rx32,rx33);
+        xorfuncN(r31,r32,rx31,8);
+        xorfuncN(r33,r34,rx32,8);
+        xorfuncN(rx31,rx32,rx33,8);
         ///ceturta rinda * pirma kolonna
         multiply(tableL, tableE,arr03, a1,r41);
         multiply(tableL, tableE,arr01, a2,r42);
         multiply(tableL, tableE,arr01, a3,r43);
         multiply(tableL, tableE,arr02, a4,r44);
-        xorfunc8(r41,r42,rx41);
-        xorfunc8(r43,r44,rx42);
-        xorfunc8(rx41,rx42,rx43);
+        xorfuncN(r41,r42,rx41,8);
+        xorfuncN(r43,r44,rx42,8);
+        xorfuncN(rx41,rx42,rx43,8);
         for(i=0;i<8;i++)
         {
             input[i][j]=rx13[i];
@@ -789,33 +684,33 @@ void invmixcol(int tableL[][16], int tableE[][16],int input[][4])
         multiply(tableL, tableE,arr0b, a2,r12);
         multiply(tableL, tableE,arr0d, a3,r13);
         multiply(tableL, tableE,arr09, a4,r14);
-        xorfunc8(r11,r12,rx11);
-        xorfunc8(r13,r14,rx12);
-        xorfunc8(rx11,rx12,rx13);
+        xorfuncN(r11,r12,rx11,8);
+        xorfuncN(r13,r14,rx12,8);
+        xorfuncN(rx11,rx12,rx13,8);
     ///otra rinda * pirma kolonna
         multiply(tableL, tableE,arr09, a1,r21);
         multiply(tableL, tableE,arr0e, a2,r22);
         multiply(tableL, tableE,arr0b, a3,r23);
         multiply(tableL, tableE,arr0d, a4,r24);
-        xorfunc8(r21,r22,rx21);
-        xorfunc8(r23,r24,rx22);
-        xorfunc8(rx21,rx22,rx23);
+        xorfuncN(r21,r22,rx21,8);
+        xorfuncN(r23,r24,rx22,8);
+        xorfuncN(rx21,rx22,rx23,8);
         ///tresa rinda * pirma kolonna
         multiply(tableL, tableE,arr0d, a1,r31);
         multiply(tableL, tableE,arr09, a2,r32);
         multiply(tableL, tableE,arr0e, a3,r33);
         multiply(tableL, tableE,arr0b, a4,r34);
-        xorfunc8(r31,r32,rx31);
-        xorfunc8(r33,r34,rx32);
-        xorfunc8(rx31,rx32,rx33);
+        xorfuncN(r31,r32,rx31,8);
+        xorfuncN(r33,r34,rx32,8);
+        xorfuncN(rx31,rx32,rx33,8);
         ///ceturta rinda * pirma kolonna
         multiply(tableL, tableE,arr0b, a1,r41);
         multiply(tableL, tableE,arr0d, a2,r42);
         multiply(tableL, tableE,arr09, a3,r43);
         multiply(tableL, tableE,arr0e, a4,r44);
-        xorfunc8(r41,r42,rx41);
-        xorfunc8(r43,r44,rx42);
-        xorfunc8(rx41,rx42,rx43);
+        xorfuncN(r41,r42,rx41,8);
+        xorfuncN(r43,r44,rx42,8);
+        xorfuncN(rx41,rx42,rx43,8);
         for(i=0;i<8;i++)
         {
             input[i][j]=rx13[i];
