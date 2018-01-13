@@ -22,44 +22,45 @@ int ip[64]={58,50,42,34,26,18,10,2,60,52,44,36,28,20,12,4,62,54,46,38,30,22,14,6
 
 void shift(int* arr,int n)
 {
-    int tmp1,tmp2,tmp3;
-    tmp1=arr[0];
-    tmp2=arr[1];
-    tmp3=arr[27];
+    int tmp[3];
+    tmp[0]=arr[0];
+    tmp[1]=arr[1];
+    tmp[2]=arr[27];
     for(int k=0;k<26;k++)
     {
         arr[k]=arr[k+n];
     }
     if(n==2)
     {
-        arr[26]=tmp1;
-        arr[27]=tmp2;
+        arr[26]=tmp[0];
+        arr[27]=tmp[1];
     }
     else if(n==1)
     {
-          arr[27]=tmp1;
-        arr[26]=tmp3;
+          arr[27]=tmp[0];
+        arr[26]=tmp[2];
     }
 }
 void deshift(int* arr,int n)
 {
-    int tmp1,tmp2,tmp3;
-    tmp1=arr[0];
-    tmp2=arr[26];
-    tmp3=arr[27];
+//int tmp1,tmp2,tmp3;
+int tmp[3];
+    tmp[0]=arr[0];
+    tmp[1]=arr[26];
+    tmp[2]=arr[27];
     for(int k=25;k>=0;k--)
     {
         arr[k+n]=arr[k];
     }
     if(n==2)
     {
-        arr[0]=tmp2;
-        arr[1]=tmp3;
+        arr[0]=tmp[1];
+        arr[1]=tmp[2];
     }
     else if(n==1)
     {
-          arr[27]=tmp2;
-        arr[0]=tmp3;
+          arr[27]=tmp[1];
+        arr[0]=tmp[2];
     }
 }
 void permutation(int n, int* arr1, int *arr2, int *arrp)
@@ -841,7 +842,7 @@ void decript(char *key16, int keysize, char *plain16)
     int s=keysize;
     int nk=s/32;
     int nb=4;
-      int col=0;
+    int col=0;
     int keyfirst[32];
     int keylast[32];
     int arrRcon[32];
@@ -1012,7 +1013,6 @@ void decript(char *key16, int keysize, char *plain16)
         {
             invmixcol(tableL,tableE,state);
         }
-
     }
     copyState(state,nb,plain16);
     for(i=0;i<rows;i++)
