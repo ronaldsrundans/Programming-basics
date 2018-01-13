@@ -1018,6 +1018,8 @@ void cript(char *key16, int keysize, char *plain16)
       //  cout<<"Cypher text:"<<endl;
        // printState(state,nb);
         copyState(state,nb,plain16);
+        ///
+       // for()
 
 }
 ///Decrypt sakas
@@ -1518,6 +1520,7 @@ void desdecript(char *key16, char* plain16)
     for(i=0;i<64;i++)
     {
         cout<<cypher[i];
+        //plain
     }
     cout<<endl;
 //    fout.close();
@@ -1624,6 +1627,13 @@ int main()
             }
             key16[p]=0;
         }
+        ///
+        cout<<"Entered Plain:"<<endl;
+        cout<<plain16<<endl;
+         cout<<"Entered Key:"<<endl;
+        cout<<key16<<endl;
+     //   cout<<
+
 
         if (a1==1)///des
         {
@@ -1653,7 +1663,7 @@ int main()
             }
 
         }
-
+        cout<<endl;
 
        //  cin.ignore (256,'\n');
         cout << "Results:" << endl;
