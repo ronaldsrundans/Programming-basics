@@ -210,7 +210,7 @@ void xorfunc(int arr1[][4], int ** arr2, int arr3[][4], int n, int col)
             }
          }
 }
-copyState(int state[][4], int nk, char* plain)
+void copyState(int state[][4], int nk, char* plain)
 {
     int arrt[4];
     int k,i,j,n,l;//=1;
@@ -238,6 +238,36 @@ copyState(int state[][4], int nk, char* plain)
             plain[i*8+j]=c;
         }
     }
+}
+void copyDES(char* plain, int *des)
+{
+    int arrt[4];
+    int k,i,n,l;//=1;
+    char c;
+    for(i=0;i<16;i++)
+    {
+       // for(j=0;j<8;j++)
+//{
+            for(k=0;k<4;k++)
+            {
+                arrt[k]=des[i*4+k];
+            }
+            n=0;
+            k=1;
+            for(l=3;l>=0;l--)
+            {
+                n=n+arrt[l]*k;
+                k=k*2;
+            }
+            c=n+'0';
+            if(c>'9')
+            {
+                c=c-'0'-10+'a';
+            }
+            plain[i]=c;
+        }
+   // }
+
 }
 void printState(int state[][4], int nk)
 {
@@ -1252,8 +1282,8 @@ void descript(char *key16 ,char* plain16)//(int *keyfsh)
     int keyfsh[56];
     int kpkeyl[28];
     int kpkeyr[28];
-     int test1[64];
-      int test2[48];
+   //  int test1[64];
+    //  int test2[48];
     int kpkey[56];
     int fkey[56];
     int cpkey[48];
@@ -1374,7 +1404,8 @@ void descript(char *key16 ,char* plain16)//(int *keyfsh)
         }
         ///Final permutation
         permutation(64, ipplain,cypher , fp);
-         permutation(64, test1,test2 , fp);
+        // permutation(64, test1,test2 , fp);
+    //copyDES(plain16,cypher);
 
 
 }
@@ -1502,6 +1533,7 @@ void desdecript(char *key16, char* plain16)
     }
          ///Final permutation
     permutation(64, ipplain,cypher , fp);
+//bintohex(cypher
   //
 //    fout.close();
 //    return 0;
