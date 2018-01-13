@@ -37,14 +37,13 @@ void shift(int* arr,int n)
     }
     else if(n==1)
     {
-          arr[27]=tmp[0];
+        arr[27]=tmp[0];
         arr[26]=tmp[2];
     }
 }
 void deshift(int* arr,int n)
 {
-//int tmp1,tmp2,tmp3;
-int tmp[3];
+    int tmp[3];
     tmp[0]=arr[0];
     tmp[1]=arr[26];
     tmp[2]=arr[27];
@@ -65,7 +64,6 @@ int tmp[3];
 }
 void permutation(int n, int* arr1, int *arr2, int *arrp)
 {
-    int tmp;
     for(int i=0;i<n;i++)
     {
             arr2[i]=arr1[arrp[i]-1];
@@ -126,7 +124,7 @@ void xorfunc(int arr1[][4], int ** arr2, int arr3[][4], int n, int col)
 void copyState(int state[][4], int nk, char* plain)
 {
     int arrt[4];
-    int k,i,j,n,l;//=1;
+    int k,i,j,n,l;
     char c;
     for(i=0;i<nk;i++)
     {
@@ -155,7 +153,7 @@ void copyState(int state[][4], int nk, char* plain)
 void copyDES(char* plain, int *des)
 {
     int arrt[4];
-    int k,i,n,l;//=1;
+    int k,i,n,l;
     char c;
     for(i=0;i<16;i++)
     {
@@ -268,15 +266,13 @@ void binsumarr(int *arr1, int *arr2, int *arr3)
 {
     bintodec(arr1,7);
     bintodec(arr2,7);
-    int n1=arr1[0];
-    int n2=arr2[0];
-    int n3;
-    n3=n1+n2;
-    if(n3>255)
+    int n;
+    n=arr1[0]+arr2[0];
+    if(n>255)
     {
-        n3=n3-255;
+        n=n-255;
     }
-    dectobin(n3,arr3);
+    dectobin(n,arr3);
 }
 
 void shiftrows(int arr[][4])
@@ -439,7 +435,7 @@ void multiply(int tableL[][16], int tableE[][16], int *arr1,int *arr2, int*arr3)
         {
             for(i=0;i<8;i++)
             {
-                arr18[i]=tableL[8*y1+i][x1];///asis ir otradi
+                arr18[i]=tableL[8*y1+i][x1];
                 arr28[i]=tableL[8*y2+i][x2];
             }
             binsumarr(arr18,arr28,arrrez);
@@ -691,7 +687,6 @@ void shiftKey(int **arr, int nk, int rows)
             arr[j][i]=arr[j][i+1];
         }
     }
-
 }
 void cript(char *key16, int keysize, char *plain16)
 {
