@@ -1541,8 +1541,8 @@ int main()
    // fstream fin("ind3.txt",ios::in);
    // fstream fout("out3d.txt",ios::out);
     int i,j,k,s,p,m;
-     fstream fin("in2.txt",ios::in);
-    fstream fout("out1.txt",ios::out);
+     fstream fin("inm21.txt",ios::in);
+    fstream fout("out21.txt",ios::out);
   //  int s;//=256;///new key size
     int rows=32;
     char plain16[33];//"00112233445566778899aabbccddeeff";
@@ -1645,7 +1645,7 @@ int main()
                 }
                 else
                 {
-                                 desdecript(key16,plain16);
+                    desdecript(key16,plain16);
                 }
                 i=0;
                 fout<<"Plain=";
