@@ -272,12 +272,12 @@ void subRow(int *arr,int sbox[][16])
         }
     }
 }
-void binsumarr(int *arr1, int *arr2, int *arr3)
+void binsumarr(int *arr, int i, int j, int k)
 {
-    bintodec(arr1,7);
-    bintodec(arr2,7);
+    bintodec2(arr1,i);
+    bintodec2(arr2,j);
     int n;
-    n=arr1[0]+arr2[0];
+    n=arr[i]+arr[j];
     if(n>255)
     {
         n=n-255;
@@ -411,30 +411,20 @@ void invshiftrows(int arr[][4])
 }
 void multiply(int tableL[][16], int tableE[][16], int *arr1,int *arr2, int*arr3)
 {
-    int i,x1,y1,x2,y2,x3,y3;
-    int arr10[4];
-    int arr11[4];
-    int arr20[4];
-    int arr21[4];
-    int arr18[8];
-    int arr28[8];
-    int arrrez[8];
+    int i;
+    int arr[40];
         for(i=0;i<4;i++)
         {
-            arr10[i]=arr1[i];
-            arr11[i]=arr1[i+4];
-            arr20[i]=arr2[i];
-            arr21[i]=arr2[i+4];
+            arr[i]=arr1[i];
+            arr[i+4]=arr1[i+4];
+            arr[i+8]=arr2[i];
+            arr[i+12]=arr2[i+4];
         }
-        bintodec(arr10,3);
-        bintodec(arr11,3);
-        bintodec(arr20,3);
-        bintodec(arr21,3);
-        x1=arr10[0];
-        y1=arr11[0];
-        x2=arr20[0];
-        y2=arr21[0];
-        if(x2==0 && y2==0)
+        bintodec(arr,0);
+        bintodec(arr,4);
+        bintodec(arr,8);
+        bintodec(arr,12);
+        if(arr[8]==0 && arr[12]==0)
         {
             for(i=0;i<8;i++)
             {
@@ -445,22 +435,20 @@ void multiply(int tableL[][16], int tableE[][16], int *arr1,int *arr2, int*arr3)
         {
             for(i=0;i<8;i++)
             {
-                arr18[i]=tableL[8*y1+i][x1];
-                arr28[i]=tableL[8*y2+i][x2];
+                arr[i+16]=tableL[8*arr[4]+i][arr[0]];
+                arr[i+24]=tableL[8*arr[12]+i][arr[8]];
             }
-            binsumarr(arr18,arr28,arrrez);
-            for(i=3;i>=0;i--)
+            binsumarr(arr,16,24,32);
+          /*  for(i=3;i>=0;i--)
             {
-                arr10[i]=arrrez[i];
-                arr11[i]=arrrez[i+4];
-            }
-            bintodec(arr10,3);
-            bintodec(arr11,3);
-            x3=arr10[0];
-            y3=arr11[0];
-            for(i=0;i<8;i++)
+                arr[i]=arrrez[i];
+                arr[i+4]=arrrez[i+4];
+            }*/
+            bintodec(arr,32);
+            bintodec(arr,36);
+             for(i=0;i<8;i++)
             {
-                arr3[i]=tableE[8*y3+i][x3];
+                arr3[i]=tableE[8*arr[32]+i][arr[36]];
             }
     }
 }
