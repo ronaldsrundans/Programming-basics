@@ -201,7 +201,7 @@ void bintodec(int arr[],int j)
         b=b*2;
         arr[i]=0;
     }
-    arr[0]=n;
+    arr[j]=n;
 }
 void bintodec7(int arr[])
 {
@@ -226,52 +226,44 @@ void dectobin(int a,int *arr)
 }
 void subbytes(int sbox[][16], int input[][4])
 {
-    int x,y,i,j,k;
-    int arr1[4];
-    int arr2[4];
+    int i,j,k;
+    int arr[8];
     for(j=0;j<4;j++)///col
     {
         for(i=0;i<4;i++)///row
         {
-            x=0;
-            y=0;
             for(k=0;k<4;k++)///x and y
             {
-                arr1[k]=input[k+i*8][j];
-                arr2[k]=input[k+4+i*8][j];
+                arr[k]=input[k+i*8][j];
+                arr[k+4]=input[k+4+i*8][j];
             }
-            bintodec(arr1,0);
-            bintodec(arr2,0);
-            x=arr1[0];
-            y=arr2[0];
+            bintodec(arr,0);
+            bintodec(arr,4);
             for(k=0;k<4;k++)///x and y
             {
-                input[k+i*8][j]=sbox[y*8+k][x];
-               input[k+4+i*8][j]=sbox[y*8+k+4][x];
+                input[k+i*8][j]=sbox[arr[4]*8+k][arr[0]];
+               input[k+4+i*8][j]=sbox[arr[4]*8+k+4][arr[0]];
             }
         }
     }
 }
 void subRow(int *arr,int sbox[][16])
 {
-    int arrx[4];
-    int arry[4];
-    int i,j,x,y,k;
+    int arrx[8];
+    int i,j,k;
     for(i=0;i<4;i++)
     {
         for(j=0;j<4;j++)
         {
             arrx[j]=arr[j+i*8];
-            arry[j]=arr[j+4+i*8];
+            arrx[j+4]=arr[j+4+i*8];
         }
         bintodec(arrx,0);
-        bintodec(arry,0);
-        x=arrx[0];
-        y=arry[0];
+        bintodec(arrx,4);
         for(k=0;k<4;k++)///x and y
         {
-            arr[k+i*8]=sbox[y*8+k][x];
-            arr[k+4+i*8]=sbox[y*8+k+4][x];
+            arr[k+i*8]=sbox[arrx[4]*8+k][arrx[0]];
+            arr[k+4+i*8]=sbox[arrx[4]*8+k+4][arrx[0]];
         }
     }
 }
@@ -415,28 +407,25 @@ void invshiftrows(int arr[][4])
 void multiply(int tableL[][16], int tableE[][16], int *arr1,int *arr2, int*arr3)
 {
     int i,x1,y1,x2,y2,x3,y3;
-    int arr10[4];
-    int arr11[4];
-    int arr20[4];
-    int arr21[4];
+    int arr[16];
     int arr18[8];
     int arr28[8];
     int arrrez[8];
         for(i=0;i<4;i++)
         {
-            arr10[i]=arr1[i];
-            arr11[i]=arr1[i+4];
-            arr20[i]=arr2[i];
-            arr21[i]=arr2[i+4];
+            arr[i]=arr1[i];
+            arr[i+4]=arr1[i+4];
+            arr[i+8]=arr2[i];
+            arr[i+12]=arr2[i+4];
         }
-        bintodec(arr10,0);
-        bintodec(arr11,0);
-        bintodec(arr20,0);
-        bintodec(arr21,0);
-        x1=arr10[0];
-        y1=arr11[0];
-        x2=arr20[0];
-        y2=arr21[0];
+        bintodec(arr,0);
+        bintodec(arr,4);
+        bintodec(arr,8);
+        bintodec(arr,12);
+        x1=arr[0];
+        y1=arr[4];
+        x2=arr[8];
+        y2=arr[12];
         if(x2==0 && y2==0)
         {
             for(i=0;i<8;i++)
@@ -448,19 +437,19 @@ void multiply(int tableL[][16], int tableE[][16], int *arr1,int *arr2, int*arr3)
         {
             for(i=0;i<8;i++)
             {
-                arr18[i]=tableL[8*y1+i][x1];
-                arr28[i]=tableL[8*y2+i][x2];
+                arr18[i]=tableL[8*arr[4]+i][arr[0]];
+                arr28[i]=tableL[8*arr[12]+i][arr[8]];
             }
             binsumarr(arr18,arr28,arrrez);
             for(i=3;i>=0;i--)
             {
-                arr10[i]=arrrez[i];
-                arr11[i]=arrrez[i+4];
+                arr[i]=arrrez[i];
+                arr[i+4]=arrrez[i+4];
             }
-            bintodec(arr10,0);
-            bintodec(arr11,0);
-            x3=arr10[0];
-            y3=arr11[0];
+            bintodec(arr,0);
+            bintodec(arr,4);
+            x3=arr[0];
+            y3=arr[4];
             for(i=0;i<8;i++)
             {
                 arr3[i]=tableE[8*y3+i][x3];
