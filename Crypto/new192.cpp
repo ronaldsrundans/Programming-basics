@@ -58,7 +58,7 @@ void deshift(int* arr,int n)
     }
     else if(n==1)
     {
-          arr[27]=tmp[1];
+        arr[27]=tmp[1];
         arr[0]=tmp[2];
     }
 }
@@ -190,18 +190,6 @@ void xorfuncN(int *arr1, int *arr2, int *arr3, int n)
         }
     }
 }
-
-void bintodec(int arr[],int j)
-{
-    int tmp[2]={0,1};
-    for(int i=3;i>=0;i--)
-    {
-        tmp[0]=tmp[0]+tmp[1]*arr[i];
-        tmp[1]=tmp[1]*2;
-        arr[i]=0;
-    }
-    arr[0]=tmp[0];
-}
 void bintodec2(int arr[],int j)
 {
     int tmp[2]={0,1};
@@ -251,24 +239,21 @@ void subbytes(int sbox[][16], int input[][4])
 }
 void subRow(int *arr,int sbox[][16])
 {
-    int arrx[4];
-    int arry[4];
-    int i,j,x,y,k;
+    int arr2[8];
+    int i,j,k;//,x,y,k;
     for(i=0;i<4;i++)
     {
         for(j=0;j<4;j++)
         {
-            arrx[j]=arr[j+i*8];
-            arry[j]=arr[j+4+i*8];
+            arr2[j]=arr[j+i*8];
+            arr2[j+4]=arr[j+4+i*8];
         }
-        bintodec(arrx,3);
-        bintodec(arry,3);
-        x=arrx[0];
-        y=arry[0];
-        for(k=0;k<4;k++)///x and y
+        bintodec2(arr2,0);
+        bintodec2(arr2,4);
+            for(k=0;k<4;k++)///x and y
         {
-            arr[k+i*8]=sbox[y*8+k][x];
-            arr[k+4+i*8]=sbox[y*8+k+4][x];
+            arr[k+i*8]=sbox[arr2[4]*8+k][arr2[0]];
+            arr[k+4+i*8]=sbox[arr2[4]*8+k+4][arr2[0]];
         }
     }
 }
@@ -420,10 +405,10 @@ void multiply(int tableL[][16], int tableE[][16], int *arr1,int *arr2, int*arr3)
             arr[i+8]=arr2[i];
             arr[i+12]=arr2[i+4];
         }
-        bintodec(arr,0);
-        bintodec(arr,4);
-        bintodec(arr,8);
-        bintodec(arr,12);
+        bintodec2(arr,0);
+        bintodec2(arr,4);
+        bintodec2(arr,8);
+        bintodec2(arr,12);
         if(arr[8]==0 && arr[12]==0)
         {
             for(i=0;i<8;i++)
@@ -439,13 +424,8 @@ void multiply(int tableL[][16], int tableE[][16], int *arr1,int *arr2, int*arr3)
                 arr[i+24]=tableL[8*arr[12]+i][arr[8]];
             }
             binsumarr(arr,16,24,32);
-          /*  for(i=3;i>=0;i--)
-            {
-                arr[i]=arrrez[i];
-                arr[i+4]=arrrez[i+4];
-            }*/
-            bintodec(arr,32);
-            bintodec(arr,36);
+            bintodec2(arr,32);
+            bintodec2(arr,36);
              for(i=0;i<8;i++)
             {
                 arr3[i]=tableE[8*arr[32]+i][arr[36]];
@@ -1090,7 +1070,7 @@ void descript(char *key16 ,char* plain16)//(int *keyfsh)
             }
             ctmp=ctmp+4;
         }
-           permutation(32, sbox, xbox, pbox);
+        permutation(32, sbox, xbox, pbox);
         xorfuncN(xbox,ln,rn1,32);
         for(j=0;j<32;j++)
         {
