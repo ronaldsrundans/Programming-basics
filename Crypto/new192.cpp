@@ -203,22 +203,22 @@ void bintodec(int arr[],int j)
     }
     arr[j]=n;
 }
-void bintodec7(int arr[])
+void bintodec7(int arr[], int p)
 {
     int n=0;
     int b=1;
-    for(int i=7;i>=0;i--)
+    for(int i=7+p;i>=p;i--)
     {
         n=n+b*arr[i];
         b=b*2;
         arr[i]=0;
     }
-    arr[0]=n;
+    arr[p]=n;
 }
-void dectobin(int a,int *arr)
+void dectobin(int a,int *arr, int k)
 {
     int n=a;
-    for(int i=7;i>=0;i--)
+    for(int i=7+k;i>=k;i--)
     {
         arr[i]=n%2;
         n=n/2;
@@ -267,17 +267,17 @@ void subRow(int *arr,int sbox[][16])
         }
     }
 }
-void binsumarr(int *arr1, int *arr2, int *arr3)
+void binsumarr(int *arr, int i, int j, int k)
 {
-    bintodec7(arr1);
-    bintodec7(arr2);
+    bintodec7(arr,i);
+    bintodec7(arr,j);
     int n;
-    n=arr1[0]+arr2[0];
+    n=arr[i]+arr[j];
     if(n>255)
     {
         n=n-255;
     }
-    dectobin(n,arr3);
+    dectobin(n,arr, k);
 }
 
 void shiftrows(int arr[][4])
@@ -407,10 +407,8 @@ void invshiftrows(int arr[][4])
 void multiply(int tableL[][16], int tableE[][16], int *arr1,int *arr2, int*arr3)
 {
     int i;
-    int arr[16];
-    int arr18[8];
-    int arr28[8];
-    int arrrez[8];
+    int arr[40];
+
         for(i=0;i<4;i++)
         {
             arr[i]=arr1[i];
@@ -434,20 +432,15 @@ void multiply(int tableL[][16], int tableE[][16], int *arr1,int *arr2, int*arr3)
         {
             for(i=0;i<8;i++)
             {
-                arr18[i]=tableL[8*arr[4]+i][arr[0]];
-                arr28[i]=tableL[8*arr[12]+i][arr[8]];
+                arr[i+16]=tableL[8*arr[4]+i][arr[0]];
+                arr[i+24]=tableL[8*arr[12]+i][arr[8]];
             }
-            binsumarr(arr18,arr28,arrrez);
-            for(i=3;i>=0;i--)
-            {
-                arr[i]=arrrez[i];
-                arr[i+4]=arrrez[i+4];
-            }
-            bintodec(arr,0);
-            bintodec(arr,4);
+            binsumarr(arr,16,24,32);
+            bintodec(arr,32);
+            bintodec(arr,36);
             for(i=0;i<8;i++)
             {
-                arr3[i]=tableE[8*arr[4]+i][arr[0]];
+                arr3[i]=tableE[8*arr[36]+i][arr[32]];
             }
     }
 }
