@@ -406,7 +406,7 @@ void invshiftrows(int arr[][4])
 }
 void multiply(int tableL[][16], int tableE[][16], int *arr1,int *arr2, int*arr3)
 {
-    int i,x1,y1,x2,y2,x3,y3;
+    int i;
     int arr[16];
     int arr18[8];
     int arr28[8];
@@ -422,11 +422,8 @@ void multiply(int tableL[][16], int tableE[][16], int *arr1,int *arr2, int*arr3)
         bintodec(arr,4);
         bintodec(arr,8);
         bintodec(arr,12);
-        x1=arr[0];
-        y1=arr[4];
-        x2=arr[8];
-        y2=arr[12];
-        if(x2==0 && y2==0)
+
+        if(arr[8]==0 && arr[12]==0)
         {
             for(i=0;i<8;i++)
             {
@@ -448,11 +445,9 @@ void multiply(int tableL[][16], int tableE[][16], int *arr1,int *arr2, int*arr3)
             }
             bintodec(arr,0);
             bintodec(arr,4);
-            x3=arr[0];
-            y3=arr[4];
             for(i=0;i<8;i++)
             {
-                arr3[i]=tableE[8*y3+i][x3];
+                arr3[i]=tableE[8*arr[4]+i][arr[0]];
             }
     }
 }
