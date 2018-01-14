@@ -1,136 +1,69 @@
 
-
-
 #include <iostream>
 #include <fstream>
 #include <cstring>
 
 using namespace std;
-int ip[64]={58,50,42,34,26,18,10,2,60,52,44,36,28,20,12,4,
-                62,54,46,38,30,22,14,6,64,56,48,40,32,24,16,8,
-                57,49,41,33,25,17,9,1,59,51,43,35,27,19,11,3,
-                61,53,45,37,29,21,13,5,63,55,47,39,31,23,15,7};
- int kp[64]={57,49,41,33,25,17,9,1,58,50,42,34,26,18,
-            10,2,59,51,43,35,27,19,11,3,60,52,44,36,
-            63,55,47,39,31,23,15,7,62,54,46,38,30,22,
-            14,6,61,53,45,37,29,21,13,5,28,20,12,4};
+int ip[64]={58,50,42,34,26,18,10,2,60,52,44,36,28,20,12,4,62,54,46,38,30,22,14,6,64,56,48,40,32,24,16,8,57,49,41,33,25,17,9,1,59,51,43,35,27,19,11,3,61,53,45,37,29,21,13,5,63,55,47,39,31,23,15,7};
+ int kp[64]={57,49,41,33,25,17,9,1,58,50,42,34,26,18,10,2,59,51,43,35,27,19,11,3,60,52,44,36,63,55,47,39,31,23,15,7,62,54,46,38,30,22,14,6,61,53,45,37,29,21,13,5,28,20,12,4};
     int bsh[16]={1,1,2,2,2,2,2,2,1,2,2,2,2,2,2,1};
      int debsh[16]={0,1,2,2,2,2,2,2,1,2,2,2,2,2,2,1};
-    int cp[48]={14,17,11,24,1,5,3,28,15,6,21,10,
-            23,19,12,4,26,8,16,7,27,20,13,2,
-            41,52,31,37,47,55,30,40,51,45,33,48,
-            44,49,39,56,34,53,46,42,50,36,29,32};
-    int ep[48]={32,1,2,3,4,5,4,5,6,7,8,9,
-    8,9,10,11,12,13,12,13,14,15,16,17,
-    16,17,18,19,20,21,20,21,22,23,24,25,
-    24,25,26,27,28,29,28,29,30,31,32,1};
-
-    int fp[64]={40,8,48,16,56,24,64,32,39,7,47,15,55,23,63,31,
-             38,6,46,14,54,22,62,30,37,5,45,13,53,21,61,29,
-             36,4,44,12,52,20,60,28,35,3,43,11,51,19,59,27,
-             34,2,42,10,50,18,58,26,33,1,41,9,49,17,57,25};
-
-    int sbox1[4][16]={{14,4,13,1,2,15,11,8,3,10,6,12,5,9,0,7},
-                        {0,15,7,4,14,2,13,1,10,6,12,11,9,5,3,8},
-                        {4,1,14,8,13,6,2,11,15,12,9,7,3,10,5,0},
-                        {15,12,8,2,4,9,1,7,5,11,3,14,10,0,6,13}};
-
-    int sbox2[4][16]={{15,1,8,14,6,11,3,4,9,7,2,13,12,0,5,10},
-                   { 3,13,4,7,15,2,8,14,12,0,1,10,6,9,11,5},
-                    {0,14,7,11,10,4,13,1,5,8,12,6,9,3,2,15},
-                    {13,8,10,1,3,15,4,2,11,6,7,12,0,5,14,9}};
-
-    int sbox3[4][16]={{10,0,9,14,6,3,15,5,1,13,12,7,11,4,2,8},
-                    {13,7,0,9,3,4,6,10,2,8,5,14,12,11,15,1},
-                    {13,6,4,9,8,15,3,0,11,1,2,12,5,10,14,7},
-                    {1,10,13,0,6,9,8,7,4,15,14,3,11,5,2,12}};
-
-    int sbox4[4][16]={{7,13,14,3,0,6,9,10,1,2,8,5,11,12,4,15},
-                {13,8,11,5,6,15,0,3,4,7,2,12,1,10,14,9},
-                {10,6,9,0,12,11,7,13,15,1,3,14,5,2,8,4},
-                {3,15,0,6,10,1,13,8,9,4,5,11,12,7,2,14}};
-
-    int sbox5[4][16]={{2,12,4,1,7,10,11,6,8,5,3,15,13,0,14,9},
-                    {14,11,2,12,4,7,13,1,5,0,15,10,3,9,8,6},
-                    {4,2,1,11,10,13,7,8,15,9,12,5,6,3,0,14},
-                    {11,8,12,7,1,14,2,13,6,15,0,9,10,4,5,3}};
-
-    int sbox6[4][16]={{12,1,10,15,9,2,6,8,0,13,3,4,14,7,5,11},
-                    {10,15,4,2,7,12,9,5,6,1,13,14,0,11,3,8},
-                    {9,14,15,5,2,8,12,3,7,0,4,10,1,13,11,6},
-                    {4,3,2,12,9,5,15,10,11,14,1,7,6,0,8,13}};
-
-    int sbox7[4][16]={{4,11,2,14,15,0,8,13,3,12,9,7,5,10,6,1},
-                    {13,0,11,7,4,9,1,10,14,3,5,12,2,15,8,6},
-                    {1,4,11,13,12,3,7,14,10,15,6,8,0,5,9,2},
-                    {6,11,13,8,1,4,10,7,9,5,0,15,14,2,3,12}};
-
-    int sbox8[4][16]={{13,2,8,4,6,15,11,1,10,9,3,14,5,0,12,7},
-                    {1,15,13,8,10,3,7,4,12,5,6,11,0,14,9,2},
-                    {7,11,4,1,9,12,14,2,0,6,10,13,15,3,5,8},
-                    {2,1,14,7,4,10,8,13,15,12,9,0,3,5,6,11}};
-
-    int pbox[32]={16,7,20,21,29,12,28,17,1,15,23,26,5,18,31,10,
-                    2,8,24,14,32,27,3,9,19,13,30,6,22,11,4,25};
+    int cp[48]={14,17,11,24,1,5,3,28,15,6,21,10,23,19,12,4,26,8,16,7,27,20,13,2,41,52,31,37,47,55,30,40,51,45,33,48,44,49,39,56,34,53,46,42,50,36,29,32};
+    int ep[48]={32,1,2,3,4,5,4,5,6,7,8,9,8,9,10,11,12,13,12,13,14,15,16,17,16,17,18,19,20,21,20,21,22,23,24,25,24,25,26,27,28,29,28,29,30,31,32,1};
+    int fp[64]={40,8,48,16,56,24,64,32,39,7,47,15,55,23,63,31,38,6,46,14,54,22,62,30,37,5,45,13,53,21,61,29,36,4,44,12,52,20,60,28,35,3,43,11,51,19,59,27,34,2,42,10,50,18,58,26,33,1,41,9,49,17,57,25};
+    int sbox1[4][16]={{14,4,13,1,2,15,11,8,3,10,6,12,5,9,0,7},{0,15,7,4,14,2,13,1,10,6,12,11,9,5,3,8},{4,1,14,8,13,6,2,11,15,12,9,7,3,10,5,0},{15,12,8,2,4,9,1,7,5,11,3,14,10,0,6,13}};
+    int sbox2[4][16]={{15,1,8,14,6,11,3,4,9,7,2,13,12,0,5,10}, { 3,13,4,7,15,2,8,14,12,0,1,10,6,9,11,5},{0,14,7,11,10,4,13,1,5,8,12,6,9,3,2,15}, {13,8,10,1,3,15,4,2,11,6,7,12,0,5,14,9}};
+    int sbox3[4][16]={{10,0,9,14,6,3,15,5,1,13,12,7,11,4,2,8},{13,7,0,9,3,4,6,10,2,8,5,14,12,11,15,1},{13,6,4,9,8,15,3,0,11,1,2,12,5,10,14,7},{1,10,13,0,6,9,8,7,4,15,14,3,11,5,2,12}};
+    int sbox4[4][16]={{7,13,14,3,0,6,9,10,1,2,8,5,11,12,4,15},{13,8,11,5,6,15,0,3,4,7,2,12,1,10,14,9},{10,6,9,0,12,11,7,13,15,1,3,14,5,2,8,4},{3,15,0,6,10,1,13,8,9,4,5,11,12,7,2,14}};
+    int sbox5[4][16]={{2,12,4,1,7,10,11,6,8,5,3,15,13,0,14,9},{14,11,2,12,4,7,13,1,5,0,15,10,3,9,8,6},{4,2,1,11,10,13,7,8,15,9,12,5,6,3,0,14},{11,8,12,7,1,14,2,13,6,15,0,9,10,4,5,3}};
+    int sbox6[4][16]={{12,1,10,15,9,2,6,8,0,13,3,4,14,7,5,11},{10,15,4,2,7,12,9,5,6,1,13,14,0,11,3,8},{9,14,15,5,2,8,12,3,7,0,4,10,1,13,11,6},{4,3,2,12,9,5,15,10,11,14,1,7,6,0,8,13}};
+    int sbox7[4][16]={{4,11,2,14,15,0,8,13,3,12,9,7,5,10,6,1},{13,0,11,7,4,9,1,10,14,3,5,12,2,15,8,6},{1,4,11,13,12,3,7,14,10,15,6,8,0,5,9,2},{6,11,13,8,1,4,10,7,9,5,0,15,14,2,3,12}};
+    int sbox8[4][16]={{13,2,8,4,6,15,11,1,10,9,3,14,5,0,12,7},{1,15,13,8,10,3,7,4,12,5,6,11,0,14,9,2},{7,11,4,1,9,12,14,2,0,6,10,13,15,3,5,8},{2,1,14,7,4,10,8,13,15,12,9,0,3,5,6,11}};
+    int pbox[32]={16,7,20,21,29,12,28,17,1,15,23,26,5,18,31,10,2,8,24,14,32,27,3,9,19,13,30,6,22,11,4,25};
 
 void shift(int* arr,int n)
 {
-    int tmp1,tmp2,tmp3;
-    tmp1=arr[0];
-    tmp2=arr[1];
-    tmp3=arr[27];
+    int tmp[3];
+    tmp[0]=arr[0];
+    tmp[1]=arr[1];
+    tmp[2]=arr[27];
     for(int k=0;k<26;k++)
     {
         arr[k]=arr[k+n];
     }
     if(n==2)
     {
-        arr[26]=tmp1;
-        arr[27]=tmp2;
+        arr[26]=tmp[0];
+        arr[27]=tmp[1];
     }
     else if(n==1)
     {
-          arr[27]=tmp1;
-        arr[26]=tmp3;
+          arr[27]=tmp[0];
+        arr[26]=tmp[2];
     }
 }
 void deshift(int* arr,int n)
 {
-    int tmp1,tmp2,tmp3;
-    tmp1=arr[0];
-    tmp2=arr[26];
-    tmp3=arr[27];
-    //tmp4=arr[1];
+//int tmp1,tmp2,tmp3;
+int tmp[3];
+    tmp[0]=arr[0];
+    tmp[1]=arr[26];
+    tmp[2]=arr[27];
     for(int k=25;k>=0;k--)
     {
         arr[k+n]=arr[k];
     }
     if(n==2)
     {
-        arr[0]=tmp2;
-        arr[1]=tmp3;
+        arr[0]=tmp[1];
+        arr[1]=tmp[2];
     }
     else if(n==1)
     {
-          arr[27]=tmp2;
-        arr[0]=tmp3;
+          arr[27]=tmp[1];
+        arr[0]=tmp[2];
     }
 }
-void xorfunc(int *arr1, int *arr2, int* arr3, int n)
-{
-    for(int i=0;i<n;i++)
-        {
-            if(((arr1[i]==1) or (arr2[i]==1))&& (arr1[i]!= arr2[i]))
-            {
-                arr3[i]=1;
-            }
-            else
-            {
-                arr3[i]=0;
-            }
-         }
-}
-
 void permutation(int n, int* arr1, int *arr2, int *arrp)
 {
     int tmp;
@@ -156,8 +89,6 @@ void split(int *arr, int* arr1, int *arr2, int n)
         arr2[i]=arr[i+n];
     }
 }
-
-
 void hextobin(char* hex,int hexcount, int *arr)
 {
     int n,k,i;
@@ -178,24 +109,6 @@ void hextobin(char* hex,int hexcount, int *arr)
             n=n/2;
         }
     }
-}
-void bintohex(int *bin,int binsize)//,char* hex)
-{
-    int n=0;
-    int k=1;
-    int i;
-    char c;
-    for(i=binsize-1;i>=0;i--)
-    {
-        n=n+bin[i]*k;
-        k=k*2;
-    }
-    c=n+'0';
-    if(c>'9')
-    {
-        c=c-'0'-10+'a';
-    }
-     cout<<c;
 }
 void xorfunc(int arr1[][4], int ** arr2, int arr3[][4], int n, int col)
 {
@@ -247,8 +160,6 @@ void copyDES(char* plain, int *des)
     char c;
     for(i=0;i<16;i++)
     {
-       // for(j=0;j<8;j++)
-//{
             for(k=0;k<4;k++)
             {
                 arrt[k]=des[i*4+k];
@@ -267,70 +178,6 @@ void copyDES(char* plain, int *des)
             }
             plain[i]=c;
         }
-   // }
-
-}
-void printState(int state[][4], int nk)
-{
-    for(int i=0;i<nk;i++)
-    {
-        int arrt[4];
-        for(int j=0;j<8;j++)
-        {
-            for(int k=0;k<4;k++)
-            {
-                arrt[k]=state[j*4+k][i];
-            }
-            bintohex(arrt,4);
-        }
-    }
-    cout<<endl;
-}
-void printKey(int **state, int nk)
-{
-    int i,j,k;
-    for(i=0;i<nk;i++)
-    {
-        int arrt[4];
-        for(j=0;j<8;j++)
-        {
-            for(k=0;k<4;k++)
-            {
-                arrt[k]=state[j*4+k][i];
-            }
-            bintohex(arrt,4);
-        }
-    }
-    cout<<endl;
-}
-void printRow(int *arr)
-{
-    cout<<"PrintRow=";
-    int arrt[4];
-    int k,j;
-    for(j=0;j<8;j++)
-    {
-         for(k=0;k<4;k++)
-        {
-            arrt[k]=arr[k+j*4];
-        }
-        bintohex(arrt,4);
-    }
-    cout<<endl;
-}
-void xorfunc8(int *arr1, int *arr2, int *arr3)
-{
-    for(int i=0;i<8;i++)
-        {
-            if(((arr1[i]==1) or (arr2[i]==1))&& (arr1[i]!= arr2[i]))
-            {
-                arr3[i]=1;
-            }
-            else
-            {
-                arr3[i]=0;
-            }
-         }
 }
 void xorfuncN(int *arr1, int *arr2, int *arr3, int n)
 {
@@ -432,30 +279,7 @@ void binsumarr(int *arr1, int *arr2, int *arr3)
     }
     dectobin(n3,arr3);
 }
-void printTable(int sbox[][16])
-{
-    int i,j,k;
-    for(j=0;j<16;j++)///col
-    {
-        int arrt[4];
-        for(i=0;i<16;i++)///row
-        {
-            for(k=0;k<4;k++)
-            {
-                arrt[k]=sbox[i*8+k][j];
-            }
-            bintohex(arrt,4);
-            for(k=4;k<8;k++)
-            {
-                arrt[k-4] =sbox[i*8+k][j];
-            }
-            bintohex(arrt,4);
-            cout<<" ";
-        }
-        cout<<endl;
-    }
-    cout<<endl;
-}
+
 void shiftrows(int arr[][4])
 {
     int tmp[48];
@@ -693,33 +517,33 @@ void mixcol(int tableL[][16], int tableE[][16],int input[][4])
         multiply(tableL, tableE,arr03, a2,r12);
         multiply(tableL, tableE,arr01, a3,r13);
         multiply(tableL, tableE,arr01, a4,r14);
-        xorfunc8(r11,r12,rx11);
-        xorfunc8(r13,r14,rx12);
-        xorfunc8(rx11,rx12,rx13);
+        xorfuncN(r11,r12,rx11,8);
+        xorfuncN(r13,r14,rx12,8);
+        xorfuncN(rx11,rx12,rx13,8);
     ///otra rinda * pirma kolonna
         multiply(tableL, tableE,arr01, a1,r21);
         multiply(tableL, tableE,arr02, a2,r22);
         multiply(tableL, tableE,arr03, a3,r23);
         multiply(tableL, tableE,arr01, a4,r24);
-        xorfunc8(r21,r22,rx21);
-        xorfunc8(r23,r24,rx22);
-        xorfunc8(rx21,rx22,rx23);
+        xorfuncN(r21,r22,rx21,8);
+        xorfuncN(r23,r24,rx22,8);
+        xorfuncN(rx21,rx22,rx23,8);
         ///tresa rinda * pirma kolonna
         multiply(tableL, tableE,arr01, a1,r31);
         multiply(tableL, tableE,arr01, a2,r32);
         multiply(tableL, tableE,arr02, a3,r33);
         multiply(tableL, tableE,arr03, a4,r34);
-        xorfunc8(r31,r32,rx31);
-        xorfunc8(r33,r34,rx32);
-        xorfunc8(rx31,rx32,rx33);
+        xorfuncN(r31,r32,rx31,8);
+        xorfuncN(r33,r34,rx32,8);
+        xorfuncN(rx31,rx32,rx33,8);
         ///ceturta rinda * pirma kolonna
         multiply(tableL, tableE,arr03, a1,r41);
         multiply(tableL, tableE,arr01, a2,r42);
         multiply(tableL, tableE,arr01, a3,r43);
         multiply(tableL, tableE,arr02, a4,r44);
-        xorfunc8(r41,r42,rx41);
-        xorfunc8(r43,r44,rx42);
-        xorfunc8(rx41,rx42,rx43);
+        xorfuncN(r41,r42,rx41,8);
+        xorfuncN(r43,r44,rx42,8);
+        xorfuncN(rx41,rx42,rx43,8);
         for(i=0;i<8;i++)
         {
             input[i][j]=rx13[i];
@@ -790,33 +614,33 @@ void invmixcol(int tableL[][16], int tableE[][16],int input[][4])
         multiply(tableL, tableE,arr0b, a2,r12);
         multiply(tableL, tableE,arr0d, a3,r13);
         multiply(tableL, tableE,arr09, a4,r14);
-        xorfunc8(r11,r12,rx11);
-        xorfunc8(r13,r14,rx12);
-        xorfunc8(rx11,rx12,rx13);
+        xorfuncN(r11,r12,rx11,8);
+        xorfuncN(r13,r14,rx12,8);
+        xorfuncN(rx11,rx12,rx13,8);
     ///otra rinda * pirma kolonna
         multiply(tableL, tableE,arr09, a1,r21);
         multiply(tableL, tableE,arr0e, a2,r22);
         multiply(tableL, tableE,arr0b, a3,r23);
         multiply(tableL, tableE,arr0d, a4,r24);
-        xorfunc8(r21,r22,rx21);
-        xorfunc8(r23,r24,rx22);
-        xorfunc8(rx21,rx22,rx23);
+        xorfuncN(r21,r22,rx21,8);
+        xorfuncN(r23,r24,rx22,8);
+        xorfuncN(rx21,rx22,rx23,8);
         ///tresa rinda * pirma kolonna
         multiply(tableL, tableE,arr0d, a1,r31);
         multiply(tableL, tableE,arr09, a2,r32);
         multiply(tableL, tableE,arr0e, a3,r33);
         multiply(tableL, tableE,arr0b, a4,r34);
-        xorfunc8(r31,r32,rx31);
-        xorfunc8(r33,r34,rx32);
-        xorfunc8(rx31,rx32,rx33);
+        xorfuncN(r31,r32,rx31,8);
+        xorfuncN(r33,r34,rx32,8);
+        xorfuncN(rx31,rx32,rx33,8);
         ///ceturta rinda * pirma kolonna
         multiply(tableL, tableE,arr0b, a1,r41);
         multiply(tableL, tableE,arr0d, a2,r42);
         multiply(tableL, tableE,arr09, a3,r43);
         multiply(tableL, tableE,arr0e, a4,r44);
-        xorfunc8(r41,r42,rx41);
-        xorfunc8(r43,r44,rx42);
-        xorfunc8(rx41,rx42,rx43);
+        xorfuncN(r41,r42,rx41,8);
+        xorfuncN(r43,r44,rx42,8);
+        xorfuncN(rx41,rx42,rx43,8);
         for(i=0;i<8;i++)
         {
             input[i][j]=rx13[i];
@@ -858,24 +682,6 @@ void rotWord(int *arr, int n)
         }
 }
 
-void tableLelem(int *arr11, int *arr12,int *arr21,int *arr22,int tableL[][16],int *r1,int *r2)
-{
-    int x1,x2,y1,y2;
-    int arr1[8];
-    int arr2[8];
-    bintodec(arr11,3);
-    bintodec(arr12,3);
-    bintodec(arr21,3);
-    bintodec(arr22,3);
-    x1=arr11[0];
-    y1=arr12[0];
-    x2=arr21[0];
-    y2=arr22[0];
-    cout<<x1<<endl;
-    cout<<x2<<endl;
-    cout<<y1<<endl;
-    cout<<y2<<endl;
-}
 void shiftKey(int **arr, int nk, int rows)
 {
     int i,j;
@@ -888,7 +694,6 @@ void shiftKey(int **arr, int nk, int rows)
     }
 
 }
-///
 void cript(char *key16, int keysize, char *plain16)
 {
     int i,j,k;
@@ -967,43 +772,30 @@ void cript(char *key16, int keysize, char *plain16)
         }
     }
     delete []arrp;
-///plain izdruka
-  //  cout<<"Check Plain:"<<endl;
- //   printState(state,nb);
- ///keyw izdruka
-   // cout<<"Check keyw:"<<endl;
- //   printKey(keyw,nb);
-
      for(k=0;k<idec;k++)
     {
-        ///state manip
         if(k>0 &&k%nb==0)
         {
             subbytes(sbox,state);
             shiftrows(state);
-            ///dont mix last manip
             if(k!=idec-nb)
             {
                   mixcol(tableL,tableE,state);
             }
         }
-        ///copy
          for(i=0;i<rows;i++)
         {
             keyfirst[i]=keyw[i][0];
             keylast[i]=keyw[i][nk-1];
             tmpstate[i]=state[i][col];
         }
-///update rcon
         rcon(k/nk,arrRcon);
-///key manip
         if(k%nk==0)
         {
             rotWord(keylast,nb);
             subRow(keylast,sbox);
             xorfuncN(arrRcon, keylast,keylast,rows);
         }
-///for 256 key only
        if(nk==8)
        {
             if(k<idec-nb)
@@ -1017,52 +809,41 @@ void cript(char *key16, int keysize, char *plain16)
                 }
             }
        }
-        ///make new last key elem
         xorfuncN(keyfirst, keylast,keylast,rows);
-        ///keyshift
         shiftKey(keyw, nk, rows);
-        ///make new state elem
              xorfuncN(keyfirst, tmpstate,tmpstate,rows);
-        ///save new key elem
         for(i=0;i<rows;i++)
         {
             state[i][col]=tmpstate[i];
             keyw[i][nk-1]=keylast[i];
         }
-    ///xor-s
-    if(col==0)
-    {
+        if(col==0)
+        {
         col=1;
-    }
-    else if(col==1)
-    {
+        }
+        else if(col==1)
+        {
         col=2;
-    }
-    else if(col==2)
-    {
-        col=3;
-    }
-    else if(col==3)
-    {
+        }
+        else if(col==2)
+        {
+            col=3;
+        }
+        else if(col==3)
+        {
         col=0;
+        }
+
     }
-
-}
-      //  cout<<"Cypher text:"<<endl;
-       // printState(state,nb);
         copyState(state,nb,plain16);
-        ///
-       // for()
-
 }
-///Decrypt sakas
 void decript(char *key16, int keysize, char *plain16)
 {
     int i,j,k,w,idec,last;
     int s=keysize;
     int nk=s/32;
     int nb=4;
-      int col=0;
+    int col=0;
     int keyfirst[32];
     int keylast[32];
     int arrRcon[32];
@@ -1133,8 +914,6 @@ void decript(char *key16, int keysize, char *plain16)
         }
     }
     delete []arrp;
-
-///reset key
   for(i=0;i<nk;i++)
     {
         for(j=0;j<rows;j++)
@@ -1142,29 +921,21 @@ void decript(char *key16, int keysize, char *plain16)
             keyw[j][i]=arrk[j+i*rows];
         }
     }
-//cout<<"Check Cyphertext:"<<endl;
-//printState(state,nb);
-
     last=idec-nb;
-        ///get key
     for(k=0;k<last;k++)
     {
-        ///copy
          for(i=0;i<rows;i++)
         {
             keyfirst[i]=keyw[i][0];
             keylast[i]=keyw[i][nk-1];
         }
-///update rcon
         rcon(k/nk,arrRcon);
-///key manip
         if(k%nk==0)
         {
             rotWord(keylast,nb);
             subRow(keylast,sbox);
             xorfuncN(arrRcon, keylast,keylast,rows);
         }
-///for 256 key only
         if(nk==8)
         {
             if(k<idec-nb)
@@ -1178,11 +949,8 @@ void decript(char *key16, int keysize, char *plain16)
                 }
             }
         }
-        ///make new last key elem
         xorfuncN(keyfirst, keylast,keylast,rows);
-        ///keyshift
         shiftKey(keyw, nk, rows);
-        ///save new key elem
         for(i=0;i<rows;i++)
         {
             keyw[i][nk-1]=keylast[i];
@@ -1196,7 +964,6 @@ void decript(char *key16, int keysize, char *plain16)
     {
         invshiftrows(state);
         subbytes(invsbox,state);
-///reset key
         for(i=0;i<nk;i++)
         {
             for(j=0;j<rows;j++)
@@ -1205,26 +972,20 @@ void decript(char *key16, int keysize, char *plain16)
             }
         }
         last=last-nb;
-///new key
-        ///get key
         for(k=0;k<last;k++)
         {
-        ///copy
             for(i=0;i<rows;i++)
             {
                 keyfirst[i]=keyw[i][0];
                 keylast[i]=keyw[i][nk-1];
             }
-///update rcon
             rcon(k/nk,arrRcon);
-///key manip
             if(k%nk==0)
             {
                 rotWord(keylast,nb);
                 subRow(keylast,sbox);
                 xorfuncN(arrRcon, keylast,keylast,rows);
             }
-///for 256 key only
             if(nk==8)
             {
                 if(k<idec-nb)
@@ -1238,11 +999,8 @@ void decript(char *key16, int keysize, char *plain16)
                     }
                 }
             }
-        ///make new last key elem
             xorfuncN(keyfirst, keylast,keylast,rows);
-        ///keyshift
             shiftKey(keyw, nk, rows);
-        ///save new key elem
             for(i=0;i<rows;i++)
             {
                 keyw[i][nk-1]=keylast[i];
@@ -1252,20 +1010,12 @@ void decript(char *key16, int keysize, char *plain16)
         {
             xorfunc(state, keyw,state,rows, i);
         }
-///invMIX
         if(w<idec/nb-2)
         {
             invmixcol(tableL,tableE,state);
         }
-
     }
-//cout<<"Decript Plain:"<<endl;
-
-        //printState(state,nb);
-                copyState(state,nb,plain16);
-
-
-///Decrypt beidzas
+    copyState(state,nb,plain16);
     for(i=0;i<rows;i++)
     {
         delete []keyw[i];
@@ -1276,15 +1026,9 @@ void decript(char *key16, int keysize, char *plain16)
 
 void descript(char *key16 ,char* plain16)//(int *keyfsh)
 {
-   // fstream fout;
-  //  fstream fin ("in.txt", ios::in);
-   // fout.open ("out.txt", ios::out);
-
     int keyfsh[56];
     int kpkeyl[28];
     int kpkeyr[28];
-   //  int test1[64];
-    //  int test2[48];
     int kpkey[56];
     int fkey[56];
     int cpkey[48];
@@ -1295,28 +1039,10 @@ void descript(char *key16 ,char* plain16)//(int *keyfsh)
     int   dekey[64];
     int   key[64];
     int plain[64];
-///fill key and plain
-   /* for(int i=0;i<64;i++)
-    {
-        key[i]=1;
-        plain[i]=1;
-       // test1[i]=i+1;
-    } */
      hextobin(key16,16,key );
    hextobin(plain16,16, plain);
-    // int plain[64]={0,0,0,0,0,0,0,1,0,0,1,0,0,0,1,1,0,1,0,0,0,1,0,1,0,1,1,0,0,1,1,1,1,0,0,0,1,0,0,1,1,0,1,0,1,0,1,1,1,1,0,0,1,1,0,1,1,1,1,0,1,1,1,1};
-   // int   key[64]={0,0,0,1,0,0,1,1,0,0,1,1,0,1,0,0,0,1,0,1,0,1,1,1,0,1,1,1,1,0,0,1,1,0,0,1,1,0,1,1,1,0,1,1,1,1,0,0,1,1,0,1,1,1,1,1,1,1,1,1,0,0,0,1};
     int c;
-
     int m=0;
-
-   /* cout << "plain="<<endl;
-    for(int i=0;i<64;i++)
-    {
-        cout<<plain[i];
-    }
-    cout<<endl;
-    cout<<endl;*/
     int ipplain[64];
     int cypher[64];
     int exp[48];
@@ -1330,23 +1056,16 @@ void descript(char *key16 ,char* plain16)//(int *keyfsh)
     int stmp;
     int ctmp;
     int i=0,j=0;
-        ///Initial permutation
     permutation(64, plain, ipplain, ip);
-   ///key permutationS
     permutation(56, key, kpkey, kp);
-    ///split key
     split(kpkey,kpkeyl,kpkeyr,28);
-    ///function F
      for(i=0;i<16;i++)
     {
-        ///split into L and R
         split(ipplain,ln,rn,32);
-        ///l(n+1)
         for(j=0;j<32;j++)
         {
             ln1[j]=rn[j];
         }
-        ///bit shift
         shift(kpkeyl,bsh[i]);
         shift(kpkeyr,bsh[i]);
         for(j=0;j<28;j++)
@@ -1354,13 +1073,9 @@ void descript(char *key16 ,char* plain16)//(int *keyfsh)
             fkey[j]=kpkeyl[j];
             fkey[j+28]=kpkeyr[j];
         }
-///fkey compression permutation
  permutation(48, fkey, cpkey, cp);
-///Expantion Permutation
  permutation(48, rn, rnexp, ep);
- /// XOR (RNEXP,CPKEY)
- xorfunc(rnexp,cpkey,exp,48);
-     ///Sbox substitution
+ xorfuncN(rnexp,cpkey,exp,48);
          ctmp=0;
         for(j=0;j<48;j=j+6)
         {
@@ -1382,35 +1097,23 @@ void descript(char *key16 ,char* plain16)//(int *keyfsh)
                 sbox[ctmp+k]=bintmp[k];
             }
             ctmp=ctmp+4;
-        }///Sbox substitution END
-
-        ///Pbox permutation
-        permutation(32, sbox, xbox, pbox);
-
-
-        /// XOR(xbox,ln)
-        xorfunc(xbox,ln,rn1,32);
-
-        ///new ipplain
+        }
+           permutation(32, sbox, xbox, pbox);
+        xorfuncN(xbox,ln,rn1,32);
         for(j=0;j<32;j++)
         {
             ipplain[j]=ln1[j];
             ipplain[j+32]=rn1[j];
         }
-    }///function F end
+    }
      for(j=0;j<32;j++)
         {
             ipplain[j]=rn1[j];
             ipplain[j+32]=ln1[j];
         }
-        ///Final permutation
         permutation(64, ipplain,cypher , fp);
-        // permutation(64, test1,test2 , fp);
     copyDES(plain16,cypher);
-
-
 }
-
 void desdecript(char *key16, char* plain16)
 {
           int keyfsh[56];
@@ -1441,41 +1144,21 @@ void desdecript(char *key16, char* plain16)
     int stmp;
     int ctmp;
     int i=0,j=0;
-///fill key and plain
-   /* for(int i=0;i<64;i++)
-    {
-        key[i]=1;
-        plain[i]=1;
-       // test1[i]=i+1;
-    } */
      hextobin(key16,16,key );
    hextobin(plain16,16, plain);
-    ///Decryption
-          ///Initial permutation
     permutation(64, plain, ipplain, ip);
-   ///key permutationS
-
-
-    ///reverse keys
-
        for(i=0;i<56;i++)
     {
         key[i]=fkey[i];
     }
-///split key
-
     split(key,kpkeyl,kpkeyr,28);
-
-    ///function F
      for(i=0;i<16;i++)
     {
-        ///split into L and R
         split(ipplain,ln,rn,32);
         for(j=0;j<32;j++)
         {
             ln1[j]=rn[j];
         }
-        ///bit shift
         deshift(kpkeyl,debsh[i]);
         deshift(kpkeyr,debsh[i]);
         for(j=0;j<28;j++)
@@ -1483,14 +1166,9 @@ void desdecript(char *key16, char* plain16)
             fkey[j]=kpkeyl[j];
             fkey[j+28]=kpkeyr[j];
         }
-///fkey compression permutation
  permutation(48, fkey, cpkey, cp);
-
-///Expantion Permutation
  permutation(48, rn, rnexp, ep);
- /// XOR (RNEXP,CPKEY)
- xorfunc(rnexp,cpkey,exp,48);
-     ///Sbox substitution
+ xorfuncN(rnexp,cpkey,exp,48);
          ctmp=0;
         for(j=0;j<48;j=j+6)
         {
@@ -1511,50 +1189,36 @@ void desdecript(char *key16, char* plain16)
                 sbox[ctmp+k]=bintmp[k];
             }
             ctmp=ctmp+4;
-        }///Sbox substitution END
-
-        ///Pbox permutation
+        }
         permutation(32, sbox, xbox, pbox);
-
-        /// XOR(xbox,ln)
-
-        xorfunc(xbox,ln,rn1,32);
-
-///new ipplain
+        xorfuncN(xbox,ln,rn1,32);
         for(j=0;j<32;j++)
         {
             ipplain[j]=ln1[j];
             ipplain[j+32]=rn1[j];
         }
-    }///function F end
+    }
     for(j=0;j<32;j++)
     {
             ipplain[j]=rn1[j];
             ipplain[j+32]=ln1[j];
     }
-         ///Final permutation
     permutation(64, ipplain,cypher , fp);
      copyDES(plain16,cypher);
 }
 
 int main()
 {
-   // fstream fin("ind3.txt",ios::in);
-   // fstream fout("out3d.txt",ios::out);
-    int i,j,k,s,p,m;
+       int i,j,k,s,p,m;
      fstream fin("in.txt",ios::in);
     fstream fout("out.txt",ios::out);
-  //  int s;//=256;///new key size
     int rows=32;
-    char plain16[33];//"00112233445566778899aabbccddeeff";
+    char plain16[33];
     char *key16;
-
-
     char c;
     fin.get(c);
     while(fin.good())
     {
-
             if(c=='P')
             {
                 i=0;
@@ -1562,8 +1226,6 @@ int main()
                  fin.get(c);
                  while(c!='\n')
                 {
-                    ///store plain
-                   // cout<<c;
                     plain16[i]=c;
                     fin.get(c);
                     i++;
@@ -1574,7 +1236,6 @@ int main()
             {
                                  fin.get(c);
                  fin>>s;
-//cout<<"size="<<s<<endl;
                    key16 = new char [s+1];
             }
             if(c=='K')
@@ -1584,19 +1245,15 @@ int main()
                  fin.get(c);
                  while(c!='\n')
                 {
-                    ///store plain
-                   // cout<<c<<j<<endl;
                     key16[j]=c;
                     fin.get(c);
                     j++;
                 }
-                  //plain16[i]=0;
             }
             if(c=='M')
             {
                 fin>>m;
                  fin.get(c);
-                //cout<<"m="<<m<<endl;//break;
             }
             if(c=='C')
             {
@@ -1608,7 +1265,6 @@ int main()
                     i++;
                 }
                 fout<<endl;
-               // cout<<"cript"<<endl;
             if(m==1)
                 {
                      cript(key16,s,plain16);
@@ -1628,8 +1284,6 @@ int main()
             }
              if(c=='D')
             {
-               // cout<<"decript"<<endl;
-               // decript(key16,s,plain16);
                 fout<<"Cypher=";
                             i=0;
                 while(plain16[i]!=0)
@@ -1638,9 +1292,7 @@ int main()
                     i++;
                 }
                 fout<<endl;
-               // cout<<"cript"<<endl;
-               // decript(key16,s,plain16);
-                            if(m==1)
+                if(m==1)
                 {
                      decript(key16,s,plain16);
                 }
@@ -1661,7 +1313,6 @@ int main()
     }
     fin.close();
     fout.close();
-//cout<<plain16<<endl;
 delete []key16;
     return 0;
 }
