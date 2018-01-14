@@ -203,6 +203,18 @@ void bintodec(int arr[],int j)
     }
     arr[0]=n;
 }
+void bintodec7(int arr[])
+{
+    int n=0;
+    int b=1;
+    for(int i=7;i>=0;i--)
+    {
+        n=n+b*arr[i];
+        b=b*2;
+        arr[i]=0;
+    }
+    arr[0]=n;
+}
 void dectobin(int a,int *arr)
 {
     int n=a;
@@ -265,8 +277,8 @@ void subRow(int *arr,int sbox[][16])
 }
 void binsumarr(int *arr1, int *arr2, int *arr3)
 {
-    bintodec(arr1,7);
-    bintodec(arr2,7);
+    bintodec7(arr1);
+    bintodec7(arr2);
     int n;
     n=arr1[0]+arr2[0];
     if(n>255)
