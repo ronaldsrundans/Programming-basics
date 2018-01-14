@@ -408,7 +408,6 @@ void multiply(int tableL[][16], int tableE[][16], int *arr1,int *arr2, int*arr3)
 {
     int i;
     int arr[40];
-
         for(i=0;i<4;i++)
         {
             arr[i]=arr1[i];
@@ -420,7 +419,6 @@ void multiply(int tableL[][16], int tableE[][16], int *arr1,int *arr2, int*arr3)
         bintodec(arr,4);
         bintodec(arr,8);
         bintodec(arr,12);
-
         if(arr[8]==0 && arr[12]==0)
         {
             for(i=0;i<8;i++)
@@ -455,6 +453,7 @@ void mixcol(int tableL[][16], int tableE[][16],int input[][4])
     hextobin(hex1,2,arr01);
     hextobin(hex2,2,arr02);
     hextobin(hex3,2,arr03);
+    int a[32];
     int a1[8];
     int a2[8];
     int a3[8];
