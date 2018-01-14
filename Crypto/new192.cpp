@@ -195,7 +195,7 @@ void bintodec(int arr[],int j)
 {
     int n=0;
     int b=1;
-    for(int i=j;i>=0;i--)
+    for(int i=3+j;i>=j;i--)
     {
         n=n+b*arr[i];
         b=b*2;
@@ -240,8 +240,8 @@ void subbytes(int sbox[][16], int input[][4])
                 arr1[k]=input[k+i*8][j];
                 arr2[k]=input[k+4+i*8][j];
             }
-            bintodec(arr1,3);
-            bintodec(arr2,3);
+            bintodec(arr1,0);
+            bintodec(arr2,0);
             x=arr1[0];
             y=arr2[0];
             for(k=0;k<4;k++)///x and y
@@ -264,8 +264,8 @@ void subRow(int *arr,int sbox[][16])
             arrx[j]=arr[j+i*8];
             arry[j]=arr[j+4+i*8];
         }
-        bintodec(arrx,3);
-        bintodec(arry,3);
+        bintodec(arrx,0);
+        bintodec(arry,0);
         x=arrx[0];
         y=arry[0];
         for(k=0;k<4;k++)///x and y
@@ -429,10 +429,10 @@ void multiply(int tableL[][16], int tableE[][16], int *arr1,int *arr2, int*arr3)
             arr20[i]=arr2[i];
             arr21[i]=arr2[i+4];
         }
-        bintodec(arr10,3);
-        bintodec(arr11,3);
-        bintodec(arr20,3);
-        bintodec(arr21,3);
+        bintodec(arr10,0);
+        bintodec(arr11,0);
+        bintodec(arr20,0);
+        bintodec(arr21,0);
         x1=arr10[0];
         y1=arr11[0];
         x2=arr20[0];
@@ -1323,3 +1323,4 @@ int main()
 delete []key16;
     return 0;
 }
+
