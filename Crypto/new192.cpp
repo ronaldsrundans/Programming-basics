@@ -213,10 +213,10 @@ void bintodec2(int arr[],int j)
     }
     arr[j]=tmp[0];
 }
-void dectobin(int a,int *arr)
+void dectobin(int a,int *arr, int k)
 {
     int n=a;
-    for(int i=7;i>=0;i--)
+    for(int i=7+k;i>=k;i--)
     {
         arr[i]=n%2;
         n=n/2;
@@ -274,15 +274,15 @@ void subRow(int *arr,int sbox[][16])
 }
 void binsumarr(int *arr, int i, int j, int k)
 {
-    bintodec2(arr1,i);
-    bintodec2(arr2,j);
+    bintodec2(arr,i);
+    bintodec2(arr,j);
     int n;
     n=arr[i]+arr[j];
     if(n>255)
     {
         n=n-255;
     }
-    dectobin(n,arr3);
+    dectobin(n,arr,k);
 }
 
 void shiftrows(int arr[][4])
@@ -1202,8 +1202,8 @@ void desdecript(char *key16, char* plain16)
 int main()
 {
        int i,j,k,s,p,m;
-     fstream fin("inm21.txt",ios::in);
-    fstream fout("out21.txt",ios::out);
+     fstream fin("in.txt",ios::in);
+    fstream fout("out.txt",ios::out);
     int rows=32;
     char plain16[33];
     char *key16;
