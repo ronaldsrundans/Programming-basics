@@ -457,8 +457,8 @@ void multiply(int tableL[][16], int tableE[][16], int *arr1,int *arr2, int*arr3)
                 arr10[i]=arrrez[i];
                 arr11[i]=arrrez[i+4];
             }
-            bintodec(arr10,3);
-            bintodec(arr11,3);
+            bintodec(arr10,0);
+            bintodec(arr11,0);
             x3=arr10[0];
             y3=arr11[0];
             for(i=0;i<8;i++)
