@@ -537,14 +537,6 @@ void invmixcol(int tableL[][16], int tableE[][16],int input[][4])
     char hex3[]="0d";
     char hex4[]="09";
      int r[120];
-    int arr0e[8];
-    int arr0b[8];
-    int arr0d[8];
-    int arr09[8];
-    hextobin(hex1,2,arr0e);
-    hextobin(hex2,2,arr0b);
-    hextobin(hex3,2,arr0d);
-    hextobin(hex4,2,arr09);
      hextobin2(hex1,2,r,88);
     hextobin2(hex2,2,r,96);
     hextobin2(hex3,2,r,104);
