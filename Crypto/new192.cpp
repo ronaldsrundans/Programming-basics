@@ -88,28 +88,7 @@ void split(int *arr, int* arr1, int *arr2, int n)
         arr2[i]=arr[i+n];
     }
 }
-void hextobin(char* hex,int hexcount, int *arr)
-{
-    int n,k,i;
-    for(k=0;k<hexcount;k++)
-    {
-        n=(int)hex[k];
-        if(n>='a')
-        {
-            n=n-'a'+10;
-        }
-        else
-        {
-            n=n-'0';
-        }
-        for(i=3;i>=0;i--)
-        {
-            arr[i+k*4]=n%2;
-            n=n/2;
-        }
-    }
-}
-void hextobin2(char* hex,int hexcount, int *arr,int p)
+void hextobin(char* hex,int hexcount, int *arr,int p)
 {
     int n,k,i;
     for(k=0;k<hexcount;k++)
@@ -478,13 +457,13 @@ void multiply(int tableL[][16], int tableE[][16], int p1,int *arr2,int p2, int p
 }
 void mixcol(int tableL[][16], int tableE[][16],int input[][4])
 {
-    char hex1[]="01";
-    char hex2[]="02";
-    char hex3[]="03";
+    char hex1[3]="01";
+    char hex2[3]="02";
+    char hex3[3]="03";
     int r[112];
-    hextobin2(hex1,2,r,88);
-    hextobin2(hex2,2,r,96);
-    hextobin2(hex3,2,r,104);
+    hextobin(hex1,2,r,88);
+    hextobin(hex2,2,r,96);
+    hextobin(hex3,2,r,104);
     int j,i;
     for(j=0;j<4;j++)
     {
@@ -521,7 +500,7 @@ void mixcol(int tableL[][16], int tableE[][16],int input[][4])
         multiply(tableL, tableE,88, r,64,32);
         multiply(tableL, tableE,88, r,72,40);
         multiply(tableL, tableE,96, r,80,48);
-         xorfuncN2(24,32,24,r,8);
+        xorfuncN2(24,32,24,r,8);
         xorfuncN2(40,48,40,r,8);
         xorfuncN2(24,40,24,r,8);
         for(i=0;i<32;i++)
@@ -532,16 +511,15 @@ void mixcol(int tableL[][16], int tableE[][16],int input[][4])
 }
 void invmixcol(int tableL[][16], int tableE[][16],int input[][4])
 {
-    char hex1[]="0e";
-    char hex2[]="0b";
-    char hex3[]="0d";
-    char hex4[]="09";
+    char hex1[3]="0e";
+    char hex2[3]="0b";
+    char hex3[3]="0d";
+    char hex4[3]="09";
      int r[120];
-     hextobin2(hex1,2,r,88);
-    hextobin2(hex2,2,r,96);
-    hextobin2(hex3,2,r,104);
-    hextobin2(hex3,2,r,112);
-
+     hextobin(hex1,2,r,88);
+    hextobin(hex2,2,r,96);
+    hextobin(hex3,2,r,104);
+    hextobin(hex3,2,r,112);
     int i,j;
     for(j=0;j<4;j++)
     {
@@ -599,7 +577,7 @@ void rcon(int n, int *arr)///for 128bit key only
             tmp[i]='0';
         }
         tmp[i]=0;
-        hextobin(tmp,8,arr);
+        hextobin(tmp,8,arr,0);
 }
 void rotWord(int *arr, int n)
 {
@@ -669,12 +647,12 @@ void cript(char *key16, int keysize, char *plain16)
     int keylast[32];
     int arrRcon[32];
     int tmpstate[32];
-    hextobin(sbox16,512,sbox2);
-    hextobin(invsbox16,512,invsbox2);
-    hextobin(tableE16,512,tableE2);
-    hextobin(tableL16,512,tableL2);
-    hextobin(key16,nk*8,arrk);
-    hextobin(plain16,rows,arrp);
+    hextobin(sbox16,512,sbox2,0);
+    hextobin(invsbox16,512,invsbox2,0);
+    hextobin(tableE16,512,tableE2,0);
+    hextobin(tableL16,512,tableL2,0);
+    hextobin(key16,nk*8,arrk,0);
+    hextobin(plain16,rows,arrp,0);
     for(j=0;j<16;j++)
     {
         for(i=0;i<128;i++)
@@ -811,12 +789,12 @@ void decript(char *key16, int keysize, char *plain16)
     int tableL[128][16];
     int sbox[128][16];
     int invsbox[128][16];
-    hextobin(sbox16,512,sbox2);
-    hextobin(invsbox16,512,invsbox2);
-    hextobin(tableE16,512,tableE2);
-    hextobin(tableL16,512,tableL2);
-    hextobin(key16,nk*8,arrk);
-    hextobin(plain16,rows,arrp);
+    hextobin(sbox16,512,sbox2,0);
+    hextobin(invsbox16,512,invsbox2,0);
+    hextobin(tableE16,512,tableE2,0);
+    hextobin(tableL16,512,tableL2,0);
+    hextobin(key16,nk*8,arrk,0);
+    hextobin(plain16,rows,arrp,0);
     for(j=0;j<16;j++)
     {
         for(i=0;i<128;i++)
@@ -975,8 +953,8 @@ void descript(char *key16 ,char* plain16)//(int *keyfsh)
     int   dekey[64];
     int   key[64];
     int plain[64];
-     hextobin(key16,16,key );
-   hextobin(plain16,16, plain);
+     hextobin(key16,16,key,0 );
+   hextobin(plain16,16, plain,0);
     int c;
     int m=0;
     int ipplain[64];
@@ -1080,8 +1058,8 @@ void desdecript(char *key16, char* plain16)
     int stmp;
     int ctmp;
     int i=0,j=0;
-     hextobin(key16,16,key );
-   hextobin(plain16,16, plain);
+     hextobin(key16,16,key,0 );
+   hextobin(plain16,16, plain,0);
     permutation(64, plain, ipplain, ip);
        for(i=0;i<56;i++)
     {
