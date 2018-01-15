@@ -584,24 +584,18 @@ void rotWord(int *arr, int n)
 {
     int arrtmp[8];
     int j;
-    for(j=0;j<8*n;j++)
+    for(j=0;j<8;j++)
     {
-        if(j<8)
-        {
             arrtmp[j]=arr[j];
             arr[j]=arr[j+8];
-        }
-        else
-        {
-            if(j<8*(n-1))
-            {
-                arr[j]=arr[j+8];
-            }
-            else
-            {
-                arr[j]=arrtmp[j-(8*(n-1))];
-            }
-        }
+    }
+    for(j=8;j<8*(n-1);j++)
+    {
+         arr[j]=arr[j+8];
+    }
+    for(j=8*(n-1);j<8*n;j++)
+    {
+        arr[j]=arrtmp[j-(8*(n-1))];
     }
 }
 
@@ -673,7 +667,7 @@ void cript(char *key16, int keysize, char *plain16)
     }
     int plain2d[32][4];
     int state[32][4];
-      int state2[32][4];
+    int state2[32][4];
     int **keyw=new int*[rows];
     for(i=0;i<rows;i++)
     {
@@ -694,7 +688,7 @@ void cript(char *key16, int keysize, char *plain16)
         }
     }
     delete []arrp;
-     for(k=0;k<idec;k++)
+    for(k=0;k<idec;k++)
     {
         if(k>0 &&k%nb==0)
         {
@@ -733,7 +727,7 @@ void cript(char *key16, int keysize, char *plain16)
        }
         xorfuncN(keyfirst, keylast,keylast,rows);
         shiftKey(keyw, nk, rows);
-             xorfuncN(keyfirst, tmpstate,tmpstate,rows);
+        xorfuncN(keyfirst, tmpstate,tmpstate,rows);
         for(i=0;i<rows;i++)
         {
             state[i][col]=tmpstate[i];
@@ -745,7 +739,7 @@ void cript(char *key16, int keysize, char *plain16)
         }
         else if(col==1)
         {
-        col=2;
+            col=2;
         }
         else if(col==2)
         {
@@ -753,9 +747,8 @@ void cript(char *key16, int keysize, char *plain16)
         }
         else if(col==3)
         {
-        col=0;
+            col=0;
         }
-
     }
         copyState(state,nb,plain16);
 }
@@ -1041,8 +1034,8 @@ void desdecript(char *key16, char* plain16)
           int keyfsh[56];
     int kpkeyl[28];
     int kpkeyr[28];
-     int test1[64];
-      int test2[48];
+    int test1[64];
+    int test2[48];
     int kpkey[56];
     int fkey[56];
     int cpkey[48];
@@ -1053,7 +1046,7 @@ void desdecript(char *key16, char* plain16)
     int   dekey[64];
     int   key[64];
     int plain[64];
-       int ipplain[64];
+    int ipplain[64];
     int cypher[64];
     int exp[48];
     int rn[32];
@@ -1131,8 +1124,8 @@ void desdecript(char *key16, char* plain16)
 
 int main()
 {
-       int i,j,k,s,p,m;
-     fstream fin("in.txt",ios::in);
+    int i,j,k,s,p,m;
+    fstream fin("in.txt",ios::in);
     fstream fout("out.txt",ios::out);
     int rows=32;
     char plain16[33];
