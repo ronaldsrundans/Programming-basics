@@ -60,7 +60,7 @@ void deshift(int* arr,int n)
     }
     else if(n==1)
     {
-          arr[27]=tmp[1];
+        arr[27]=tmp[1];
         arr[0]=tmp[2];
     }
 }
@@ -198,29 +198,17 @@ void xorfuncN2(int p1,int p2, int p3,int *arr, int n)
         }
     }
 }
-void bintodec(int arr[],int j)
+void bintodec(int arr[],int j, int s)
 {
     int n=0;
     int b=1;
-    for(int i=3+j;i>=j;i--)
+    for(int i=s+j;i>=j;i--)
     {
         n=n+b*arr[i];
         b=b*2;
         arr[i]=0;
     }
     arr[j]=n;
-}
-void bintodec7(int arr[], int p)
-{
-    int n=0;
-    int b=1;
-    for(int i=7+p;i>=p;i--)
-    {
-        n=n+b*arr[i];
-        b=b*2;
-        arr[i]=0;
-    }
-    arr[p]=n;
 }
 void dectobin(int a,int *arr, int k, int s)
 {
@@ -244,8 +232,8 @@ void subbytes(int sbox[][16], int input[][4])
                 arr[k]=input[k+i*8][j];
                 arr[k+4]=input[k+4+i*8][j];
             }
-            bintodec(arr,0);
-            bintodec(arr,4);
+            bintodec(arr,0,3);
+            bintodec(arr,4,3);
             for(k=0;k<4;k++)///x and y
             {
                 input[k+i*8][j]=sbox[arr[4]*8+k][arr[0]];
@@ -265,8 +253,8 @@ void subRow(int *arr,int sbox[][16])
             arrx[j]=arr[j+i*8];
             arrx[j+4]=arr[j+4+i*8];
         }
-        bintodec(arrx,0);
-        bintodec(arrx,4);
+        bintodec(arrx,0,3);
+        bintodec(arrx,4,3);
         for(k=0;k<4;k++)///x and y
         {
             arr[k+i*8]=sbox[arrx[4]*8+k][arrx[0]];
@@ -276,8 +264,8 @@ void subRow(int *arr,int sbox[][16])
 }
 void binsumarr(int *arr, int i, int j, int k)
 {
-    bintodec7(arr,i);
-    bintodec7(arr,j);
+    bintodec(arr,i,7);
+    bintodec(arr,j,7);
     int n;
     n=arr[i]+arr[j];
     if(n>255)
@@ -420,10 +408,10 @@ void multiply(int tableL[][16], int tableE[][16], int p1,int *arr2,int p2, int p
             arr[i]=arr2[i+p1];
             arr[i+8]=arr2[i+p2];
         }
-        bintodec(arr,0);
-        bintodec(arr,4);
-        bintodec(arr,8);
-        bintodec(arr,12);
+        bintodec(arr,0,3);
+        bintodec(arr,4,3);
+        bintodec(arr,8,3);
+        bintodec(arr,12,3);
         if(arr[8]==0 && arr[12]==0)
         {
             for(i=0;i<8;i++)
@@ -439,8 +427,8 @@ void multiply(int tableL[][16], int tableE[][16], int p1,int *arr2,int p2, int p
                 arr[i+24]=tableL[8*arr[12]+i][arr[8]];
             }
             binsumarr(arr,16,24,32);
-            bintodec(arr,32);
-            bintodec(arr,36);
+            bintodec(arr,32,3);
+            bintodec(arr,36,3);
             for(i=0;i<8;i++)
             {
                 arr2[i+p3]=tableE[8*arr[36]+i][arr[32]];
