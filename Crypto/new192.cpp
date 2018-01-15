@@ -71,15 +71,7 @@ void permutation(int n, int* arr1, int *arr2, int *arrp)
             arr2[i]=arr1[arrp[i]-1];
     }
 }
-void desdectobin(int dec,int* bin)
-{
-    int tmp=dec;
-    for(int i=3;i>=0;i--)
-    {
-        bin[i]=tmp%2;
-        tmp=tmp/2;
-    }
-}
+
 void split(int *arr, int* arr1, int *arr2, int n)
 {
     for(int i=0;i<n;i++)
@@ -230,10 +222,10 @@ void bintodec7(int arr[], int p)
     }
     arr[p]=n;
 }
-void dectobin(int a,int *arr, int k)
+void dectobin(int a,int *arr, int k, int s)
 {
     int n=a;
-    for(int i=7+k;i>=k;i--)
+    for(int i=s+k;i>=k;i--)
     {
         arr[i]=n%2;
         n=n/2;
@@ -292,7 +284,7 @@ void binsumarr(int *arr, int i, int j, int k)
     {
         n=n-255;
     }
-    dectobin(n,arr, k);
+    dectobin(n,arr, k,7);
 }
 
 void shiftrows(int arr[][4])
@@ -1005,15 +997,14 @@ void descript(char *key16 ,char* plain16)//(int *keyfsh)
             if(j==30)stmp= sbox6[row][col];
             if(j==36)stmp=sbox7[row][col];
             if(j==42)stmp=sbox8[row][col];
-            desdectobin(stmp,bintmp);
-
+            dectobin(stmp,bintmp,0,3);
             for(int k=0;k<4;k++)
             {
                 sbox[ctmp+k]=bintmp[k];
             }
             ctmp=ctmp+4;
         }
-           permutation(32, sbox, xbox, pbox);
+        permutation(32, sbox, xbox, pbox);
         xorfuncN(xbox,ln,rn1,32);
         for(j=0;j<32;j++)
         {
@@ -1026,7 +1017,7 @@ void descript(char *key16 ,char* plain16)//(int *keyfsh)
             ipplain[j]=rn1[j];
             ipplain[j+32]=ln1[j];
         }
-        permutation(64, ipplain,cypher , fp);
+    permutation(64, ipplain,cypher , fp);
     copyDES(plain16,cypher);
 }
 void desdecript(char *key16, char* plain16)
@@ -1098,7 +1089,7 @@ void desdecript(char *key16, char* plain16)
             if(j==30)stmp= sbox6[row][col];
             if(j==36)stmp=sbox7[row][col];
             if(j==42)stmp=sbox8[row][col];
-            desdectobin(stmp,bintmp);
+            dectobin(stmp,bintmp,0,3);
             for(int k=0;k<4;k++)
             {
                 sbox[ctmp+k]=bintmp[k];
