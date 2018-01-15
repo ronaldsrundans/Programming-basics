@@ -466,44 +466,44 @@ void mixcol(int tableL[][16], int tableE[][16],int input[][4])
     hextobin(hex1,2,arr01);
     hextobin(hex2,2,arr02);
     hextobin(hex3,2,arr03);
-    int a[32];
-    int r[56];
+//int a[32];
+    int r[88];
     int j,i;
     for(j=0;j<4;j++)
     {
         for(i=0;i<32;i++)
         {
-            a[i]=input[i][j];
+            r[i+56]=input[i][j];
         }
 ///pirma rinda * pirma kolonna
-        multiply(tableL, tableE,arr02, a,0,r,0);
-        multiply(tableL, tableE,arr03, a,8,r,8);
-        multiply(tableL, tableE,arr01, a,16,r,16);
-        multiply(tableL, tableE,arr01, a,24,r,24);
+        multiply(tableL, tableE,arr02, r,56,r,0);
+        multiply(tableL, tableE,arr03, r,64,r,8);
+        multiply(tableL, tableE,arr01, r,72,r,16);
+        multiply(tableL, tableE,arr01, r,80,r,24);
         xorfuncN2(0,8,0,r,8);
         xorfuncN2(16,24,16,r,8);
         xorfuncN2(0,16,0,r,8);
     ///otra rinda * pirma kolonna
-        multiply(tableL, tableE,arr01, a,0,r,8);
-        multiply(tableL, tableE,arr02, a,8,r,16);
-        multiply(tableL, tableE,arr03, a,16,r,24);
-        multiply(tableL, tableE,arr01, a,24,r,32);
+        multiply(tableL, tableE,arr01, r,56,r,8);
+        multiply(tableL, tableE,arr02, r,64,r,16);
+        multiply(tableL, tableE,arr03, r,72,r,24);
+        multiply(tableL, tableE,arr01, r,80,r,32);
         xorfuncN2(8,16,8,r,8);
         xorfuncN2(24,32,24,r,8);
         xorfuncN2(8,24,8,r,8);
         ///tresa rinda * pirma kolonna
-        multiply(tableL, tableE,arr01, a,0,r,16);
-        multiply(tableL, tableE,arr01, a,8,r,24);
-        multiply(tableL, tableE,arr02, a,16,r,32);
-        multiply(tableL, tableE,arr03, a,24,r,40);
+        multiply(tableL, tableE,arr01, r,56,r,16);
+        multiply(tableL, tableE,arr01, r,64,r,24);
+        multiply(tableL, tableE,arr02, r,72,r,32);
+        multiply(tableL, tableE,arr03, r,80,r,40);
          xorfuncN2(16,24,16,r,8);
         xorfuncN2(32,40,32,r,8);
         xorfuncN2(16,32,16,r,8);
         ///ceturta rinda * pirma kolonna
-        multiply(tableL, tableE,arr03, a,0,r,24);
-        multiply(tableL, tableE,arr01, a,8,r,32);
-        multiply(tableL, tableE,arr01, a,16,r,40);
-        multiply(tableL, tableE,arr02, a,24,r,48);
+        multiply(tableL, tableE,arr03, r,56,r,24);
+        multiply(tableL, tableE,arr01, r,64,r,32);
+        multiply(tableL, tableE,arr01, r,72,r,40);
+        multiply(tableL, tableE,arr02, r,80,r,48);
          xorfuncN2(24,32,24,r,8);
         xorfuncN2(40,48,40,r,8);
         xorfuncN2(24,40,24,r,8);
@@ -527,7 +527,6 @@ void invmixcol(int tableL[][16], int tableE[][16],int input[][4])
     hextobin(hex2,2,arr0b);
     hextobin(hex3,2,arr0d);
     hextobin(hex4,2,arr09);
-//int a[32];
     int r[88];
     int i,j;
     for(j=0;j<4;j++)
