@@ -192,6 +192,20 @@ void xorfuncN(int *arr1, int *arr2, int *arr3, int n)
         }
     }
 }
+void xorfuncN2(int p1,int p2, int p3,int *arr, int n)
+{
+    for(int i=0;i<n;i++)
+    {
+        if(((arr[i+p1]==1) or (arr[i+p2]==1))&& (arr[i+p1]!= arr[i+p2]))
+        {
+            arr[i+p3]=1;
+        }
+        else
+        {
+            arr[i+p3]=0;
+        }
+    }
+}
 void bintodec(int arr[],int j)
 {
     int n=0;
@@ -405,23 +419,19 @@ void invshiftrows(int arr[][4])
         }
     }
 }
-void multiply(int tableL[][16], int tableE[][16], int *arr1,int *arr2,int p, int*arr3)
+void multiply(int tableL[][16], int tableE[][16], int *arr1,int *arr2,int p2, int*arr3)
 {
     int i;
     int arr[40];
-
-        for(i=0;i<4;i++)
+        for(i=0;i<8;i++)
         {
             arr[i]=arr1[i];
-            arr[i+4]=arr1[i+4];
-            arr[i+8]=arr2[i+p];
-            arr[i+12]=arr2[i+4+p];
+            arr[i+8]=arr2[i+p2];
         }
         bintodec(arr,0);
         bintodec(arr,4);
         bintodec(arr,8);
         bintodec(arr,12);
-
         if(arr[8]==0 && arr[12]==0)
         {
             for(i=0;i<8;i++)
