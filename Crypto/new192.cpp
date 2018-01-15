@@ -105,7 +105,7 @@ void xorfunc(int arr1[][4], int ** arr2, int arr3[][4], int n, int col)
 {
     for(int i=0;i<n;i++)
         {
-            if(((arr1[i][col]==1) or (arr2[i][col]==1))&& (arr1[i][col]!= arr2[i][col]))
+            if(((arr1[i][col]==1)||(arr2[i][col]==1))&& (arr1[i][col]!= arr2[i][col]))
             {
                 arr3[i][col]=1;
             }
@@ -174,7 +174,7 @@ void xorfuncN(int *arr1, int *arr2, int *arr3, int n)
 {
     for(int i=0;i<n;i++)
     {
-        if(((arr1[i]==1) or (arr2[i]==1))&& (arr1[i]!= arr2[i]))
+        if(((arr1[i]==1)||(arr2[i]==1))&& (arr1[i]!= arr2[i]))
         {
             arr3[i]=1;
         }
@@ -188,7 +188,7 @@ void xorfuncN2(int p1,int p2, int p3,int *arr, int n)
 {
     for(int i=0;i<n;i++)
     {
-        if(((arr[i+p1]==1) or (arr[i+p2]==1))&& (arr[i+p1]!= arr[i+p2]))
+        if(((arr[i+p1]==1)||(arr[i+p2]==1))&& (arr[i+p1]!= arr[i+p2]))
         {
             arr[i+p3]=1;
         }
