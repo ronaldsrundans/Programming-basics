@@ -109,6 +109,27 @@ void hextobin(char* hex,int hexcount, int *arr)
         }
     }
 }
+void hextobin2(char* hex,int hexcount, int *arr,int p)
+{
+    int n,k,i;
+    for(k=0;k<hexcount;k++)
+    {
+        n=(int)hex[k];
+        if(n>='a')
+        {
+            n=n-'a'+10;
+        }
+        else
+        {
+            n=n-'0';
+        }
+        for(i=3+p;i>=p;i--)
+        {
+            arr[i+k*4]=n%2;
+            n=n/2;
+        }
+    }
+}
 void xorfunc(int arr1[][4], int ** arr2, int arr3[][4], int n, int col)
 {
     for(int i=0;i<n;i++)
@@ -563,7 +584,7 @@ void invmixcol(int tableL[][16], int tableE[][16],int input[][4])
         multiply(tableL, tableE,arr0d, r,64,32);
         multiply(tableL, tableE,arr09, r,72,40);
         multiply(tableL, tableE,arr0e, r,80,48);
-         xorfuncN2(24,32,24,r,8);
+        xorfuncN2(24,32,24,r,8);
         xorfuncN2(40,48,40,r,8);
         xorfuncN2(24,40,24,r,8);
         for(i=0;i<32;i++)
@@ -594,9 +615,9 @@ void rotWord(int *arr, int n)
         {
             arrtmp[j]=arr[j];
         }
-        for(j=8;j<8*n;j++)
+        for(j=0;j<8*(n-1);j++)
         {
-            arr[j-8]=arr[j];
+            arr[j]=arr[j+8];
         }
         for(j=0;j<8;j++)
         {
