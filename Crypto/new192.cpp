@@ -467,7 +467,7 @@ void mixcol(int tableL[][16], int tableE[][16],int input[][4])
     hextobin(hex2,2,arr02);
     hextobin(hex3,2,arr03);
     int a[32];
-    int r[60];
+    int r[56];
     int j,i;
     for(j=0;j<4;j++)
     {
@@ -480,7 +480,6 @@ void mixcol(int tableL[][16], int tableE[][16],int input[][4])
         multiply(tableL, tableE,arr03, a,8,r,8);
         multiply(tableL, tableE,arr01, a,16,r,16);
         multiply(tableL, tableE,arr01, a,24,r,24);
-
         xorfuncN2(0,8,0,r,8);
         xorfuncN2(16,24,16,r,8);
         xorfuncN2(0,16,0,r,8);
@@ -529,34 +528,7 @@ void invmixcol(int tableL[][16], int tableE[][16],int input[][4])
     hextobin(hex3,2,arr0d);
     hextobin(hex4,2,arr09);
     int a[32];
-    int r11[8];
-    int r12[8];
-    int r13[8];
-    int r14[8];
-    int r21[8];
-    int r22[8];
-    int r23[8];
-    int r24[8];
-    int r31[8];
-    int r32[8];
-    int r33[8];
-    int r34[8];
-    int r41[8];
-    int r42[8];
-    int r43[8];
-    int r44[8];
-    int rx11[8];
-    int rx12[8];
-    int rx13[8];
-    int rx21[8];
-    int rx22[8];
-    int rx23[8];
-    int rx31[8];
-    int rx32[8];
-    int rx33[8];
-    int rx41[8];
-    int rx42[8];
-    int rx43[8];
+    int r[56];
     int i,j;
     for(j=0;j<4;j++)
     {
@@ -565,43 +537,41 @@ void invmixcol(int tableL[][16], int tableE[][16],int input[][4])
             a[i]=input[i][j];
         }
 ///pirma rinda * pirma kolonna
-        multiply(tableL, tableE,arr0e, a,0,r11,0);
-        multiply(tableL, tableE,arr0b, a,8,r12,0);
-        multiply(tableL, tableE,arr0d, a,16,r13,0);
-        multiply(tableL, tableE,arr09, a,24,r14,0);
-        xorfuncN(r11,r12,rx11,8);
-        xorfuncN(r13,r14,rx12,8);
-        xorfuncN(rx11,rx12,rx13,8);
+
+        multiply(tableL, tableE,arr0e, a,0,r,0);
+        multiply(tableL, tableE,arr0b, a,8,r,8);
+        multiply(tableL, tableE,arr0d, a,16,r,16);
+        multiply(tableL, tableE,arr09, a,24,r,24);
+        xorfuncN2(0,8,0,r,8);
+        xorfuncN2(16,24,16,r,8);
+        xorfuncN2(0,16,0,r,8);
     ///otra rinda * pirma kolonna
-        multiply(tableL, tableE,arr09, a,0,r21,0);
-        multiply(tableL, tableE,arr0e, a,8,r22,0);
-        multiply(tableL, tableE,arr0b, a,16,r23,0);
-        multiply(tableL, tableE,arr0d, a,24,r24,0);
-        xorfuncN(r21,r22,rx21,8);
-        xorfuncN(r23,r24,rx22,8);
-        xorfuncN(rx21,rx22,rx23,8);
+         multiply(tableL, tableE,arr09, a,0,r,8);
+        multiply(tableL, tableE,arr0e, a,8,r,16);
+        multiply(tableL, tableE,arr0b, a,16,r,24);
+        multiply(tableL, tableE,arr0d, a,24,r,32);
+        xorfuncN2(8,16,8,r,8);
+        xorfuncN2(24,32,24,r,8);
+        xorfuncN2(8,24,8,r,8);
         ///tresa rinda * pirma kolonna
-        multiply(tableL, tableE,arr0d, a,0,r31,0);
-        multiply(tableL, tableE,arr09, a,8,r32,0);
-        multiply(tableL, tableE,arr0e, a,16,r33,0);
-        multiply(tableL, tableE,arr0b, a,24,r34,0);
-        xorfuncN(r31,r32,rx31,8);
-        xorfuncN(r33,r34,rx32,8);
-        xorfuncN(rx31,rx32,rx33,8);
+        multiply(tableL, tableE,arr0d, a,0,r,16);
+        multiply(tableL, tableE,arr09, a,8,r,24);
+        multiply(tableL, tableE,arr0e, a,16,r,32);
+        multiply(tableL, tableE,arr0b, a,24,r,40);
+         xorfuncN2(16,24,16,r,8);
+        xorfuncN2(32,40,32,r,8);
+        xorfuncN2(16,32,16,r,8);
         ///ceturta rinda * pirma kolonna
-        multiply(tableL, tableE,arr0b, a,0,r41,0);
-        multiply(tableL, tableE,arr0d, a,8,r42,0);
-        multiply(tableL, tableE,arr09, a,16,r43,0);
-        multiply(tableL, tableE,arr0e, a,24,r44,0);
-        xorfuncN(r41,r42,rx41,8);
-        xorfuncN(r43,r44,rx42,8);
-        xorfuncN(rx41,rx42,rx43,8);
-        for(i=0;i<8;i++)
+        multiply(tableL, tableE,arr0b, a,0,r,24);
+        multiply(tableL, tableE,arr0d, a,8,r,32);
+        multiply(tableL, tableE,arr09, a,16,r,40);
+        multiply(tableL, tableE,arr0e, a,24,r,48);
+         xorfuncN2(24,32,24,r,8);
+        xorfuncN2(40,48,40,r,8);
+        xorfuncN2(24,40,24,r,8);
+        for(i=0;i<32;i++)
         {
-            input[i][j]=rx13[i];
-            input[i+8][j]=rx23[i];
-            input[i+16][j]=rx33[i];
-            input[i+24][j]=rx43[i];
+            input[i][j]=r[i];
         }
     }
 }
