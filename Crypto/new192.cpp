@@ -579,22 +579,30 @@ void rcon(int n, int *arr)///for 128bit key only
         tmp[i]=0;
         hextobin(tmp,8,arr,0);
 }
+
 void rotWord(int *arr, int n)
 {
     int arrtmp[8];
     int j;
-        for(j=0;j<8;j++)
+    for(j=0;j<8*n;j++)
+    {
+        if(j<8)
         {
             arrtmp[j]=arr[j];
-        }
-        for(j=0;j<8*(n-1);j++)
-        {
             arr[j]=arr[j+8];
         }
-        for(j=0;j<8;j++)
+        else
         {
-            arr[8*(n-1)+j]=arrtmp[j];
+            if(j<8*(n-1))
+            {
+                arr[j]=arr[j+8];
+            }
+            else
+            {
+                arr[j]=arrtmp[j-(8*(n-1))];
+            }
         }
+    }
 }
 
 void shiftKey(int **arr, int nk, int rows)
