@@ -457,9 +457,6 @@ void mixcol(int tableL[][16], int tableE[][16],int input[][4])
     hextobin(hex2,2,arr02);
     hextobin(hex3,2,arr03);
     int a[32];
-    int a2[8];
-    int a3[8];
-    int a4[8];
     int r11[8];
     int r12[8];
     int r13[8];
@@ -551,9 +548,6 @@ void invmixcol(int tableL[][16], int tableE[][16],int input[][4])
     hextobin(hex3,2,arr0d);
     hextobin(hex4,2,arr09);
     int a[32];
-    int a2[8];
-    int a3[8];
-    int a4[8];
     int r11[8];
     int r12[8];
     int r13[8];
