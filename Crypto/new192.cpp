@@ -414,8 +414,8 @@ void multiply(int tableL[][16], int tableE[][16], int *arr1,int *arr2,int p, int
         {
             arr[i]=arr1[i];
             arr[i+4]=arr1[i+4];
-            arr[i+8]=arr2[i];
-            arr[i+12]=arr2[i+4];
+            arr[i+8]=arr2[i+p];
+            arr[i+12]=arr2[i+4+p];
         }
         bintodec(arr,0);
         bintodec(arr,4);
@@ -456,7 +456,7 @@ void mixcol(int tableL[][16], int tableE[][16],int input[][4])
     hextobin(hex1,2,arr01);
     hextobin(hex2,2,arr02);
     hextobin(hex3,2,arr03);
-    int a1[8];
+    int a[32];
     int a2[8];
     int a3[8];
     int a4[8];
@@ -491,42 +491,39 @@ void mixcol(int tableL[][16], int tableE[][16],int input[][4])
     int j,i;
     for(j=0;j<4;j++)
     {
-        for(i=0;i<8;i++)
+        for(i=0;i<32;i++)
         {
-            a1[i]=input[i][j];
-            a2[i]=input[i+8][j];
-            a3[i]=input[i+16][j];
-            a4[i]=input[i+24][j];
+            a[i]=input[i][j];
         }
 ///pirma rinda * pirma kolonna
-        multiply(tableL, tableE,arr02, a1,0,r11);
-        multiply(tableL, tableE,arr03, a2,8,r12);
-        multiply(tableL, tableE,arr01, a3,16,r13);
-        multiply(tableL, tableE,arr01, a4,24,r14);
+        multiply(tableL, tableE,arr02, a,0,r11);
+        multiply(tableL, tableE,arr03, a,8,r12);
+        multiply(tableL, tableE,arr01, a,16,r13);
+        multiply(tableL, tableE,arr01, a,24,r14);
         xorfuncN(r11,r12,rx11,8);
         xorfuncN(r13,r14,rx12,8);
         xorfuncN(rx11,rx12,rx13,8);
     ///otra rinda * pirma kolonna
-        multiply(tableL, tableE,arr01, a1,0,r21);
-        multiply(tableL, tableE,arr02, a2,8,r22);
-        multiply(tableL, tableE,arr03, a3,16,r23);
-        multiply(tableL, tableE,arr01, a4,24,r24);
+        multiply(tableL, tableE,arr01, a,0,r21);
+        multiply(tableL, tableE,arr02, a,8,r22);
+        multiply(tableL, tableE,arr03, a,16,r23);
+        multiply(tableL, tableE,arr01, a,24,r24);
         xorfuncN(r21,r22,rx21,8);
         xorfuncN(r23,r24,rx22,8);
         xorfuncN(rx21,rx22,rx23,8);
         ///tresa rinda * pirma kolonna
-        multiply(tableL, tableE,arr01, a1,0,r31);
-        multiply(tableL, tableE,arr01, a2,8,r32);
-        multiply(tableL, tableE,arr02, a3,16,r33);
-        multiply(tableL, tableE,arr03, a4,24,r34);
+        multiply(tableL, tableE,arr01, a,0,r31);
+        multiply(tableL, tableE,arr01, a,8,r32);
+        multiply(tableL, tableE,arr02, a,16,r33);
+        multiply(tableL, tableE,arr03, a,24,r34);
         xorfuncN(r31,r32,rx31,8);
         xorfuncN(r33,r34,rx32,8);
         xorfuncN(rx31,rx32,rx33,8);
         ///ceturta rinda * pirma kolonna
-        multiply(tableL, tableE,arr03, a1,0,r41);
-        multiply(tableL, tableE,arr01, a2,8,r42);
-        multiply(tableL, tableE,arr01, a3,16,r43);
-        multiply(tableL, tableE,arr02, a4,24,r44);
+        multiply(tableL, tableE,arr03, a,0,r41);
+        multiply(tableL, tableE,arr01, a,8,r42);
+        multiply(tableL, tableE,arr01, a,16,r43);
+        multiply(tableL, tableE,arr02, a,24,r44);
         xorfuncN(r41,r42,rx41,8);
         xorfuncN(r43,r44,rx42,8);
         xorfuncN(rx41,rx42,rx43,8);
@@ -553,7 +550,7 @@ void invmixcol(int tableL[][16], int tableE[][16],int input[][4])
     hextobin(hex2,2,arr0b);
     hextobin(hex3,2,arr0d);
     hextobin(hex4,2,arr09);
-    int a1[8];
+    int a[32];
     int a2[8];
     int a3[8];
     int a4[8];
@@ -590,40 +587,37 @@ void invmixcol(int tableL[][16], int tableE[][16],int input[][4])
     {
         for(i=0;i<8;i++)
         {
-            a1[i]=input[i][j];
-            a2[i]=input[i+8][j];
-            a3[i]=input[i+16][j];
-            a4[i]=input[i+24][j];
+            a[i]=input[i][j];
         }
 ///pirma rinda * pirma kolonna
-        multiply(tableL, tableE,arr0e, a1,0,r11);
-        multiply(tableL, tableE,arr0b, a2,8,r12);
-        multiply(tableL, tableE,arr0d, a3,16,r13);
-        multiply(tableL, tableE,arr09, a4,24,r14);
+        multiply(tableL, tableE,arr0e, a,0,r11);
+        multiply(tableL, tableE,arr0b, a,8,r12);
+        multiply(tableL, tableE,arr0d, a,16,r13);
+        multiply(tableL, tableE,arr09, a,24,r14);
         xorfuncN(r11,r12,rx11,8);
         xorfuncN(r13,r14,rx12,8);
         xorfuncN(rx11,rx12,rx13,8);
     ///otra rinda * pirma kolonna
-        multiply(tableL, tableE,arr09, a1,0,r21);
-        multiply(tableL, tableE,arr0e, a2,8,r22);
-        multiply(tableL, tableE,arr0b, a3,16,r23);
-        multiply(tableL, tableE,arr0d, a4,24,r24);
+        multiply(tableL, tableE,arr09, a,0,r21);
+        multiply(tableL, tableE,arr0e, a,8,r22);
+        multiply(tableL, tableE,arr0b, a,16,r23);
+        multiply(tableL, tableE,arr0d, a,24,r24);
         xorfuncN(r21,r22,rx21,8);
         xorfuncN(r23,r24,rx22,8);
         xorfuncN(rx21,rx22,rx23,8);
         ///tresa rinda * pirma kolonna
-        multiply(tableL, tableE,arr0d, a1,0,r31);
-        multiply(tableL, tableE,arr09, a2,8,r32);
-        multiply(tableL, tableE,arr0e, a3,16,r33);
-        multiply(tableL, tableE,arr0b, a4,24,r34);
+        multiply(tableL, tableE,arr0d, a,0,r31);
+        multiply(tableL, tableE,arr09, a,8,r32);
+        multiply(tableL, tableE,arr0e, a,16,r33);
+        multiply(tableL, tableE,arr0b, a,24,r34);
         xorfuncN(r31,r32,rx31,8);
         xorfuncN(r33,r34,rx32,8);
         xorfuncN(rx31,rx32,rx33,8);
         ///ceturta rinda * pirma kolonna
-        multiply(tableL, tableE,arr0b, a1,0,r41);
-        multiply(tableL, tableE,arr0d, a2,8,r42);
-        multiply(tableL, tableE,arr09, a3,16,r43);
-        multiply(tableL, tableE,arr0e, a4,24,r44);
+        multiply(tableL, tableE,arr0b, a,0,r41);
+        multiply(tableL, tableE,arr0d, a,8,r42);
+        multiply(tableL, tableE,arr09, a,16,r43);
+        multiply(tableL, tableE,arr0e, a,24,r44);
         xorfuncN(r41,r42,rx41,8);
         xorfuncN(r43,r44,rx42,8);
         xorfuncN(rx41,rx42,rx43,8);
