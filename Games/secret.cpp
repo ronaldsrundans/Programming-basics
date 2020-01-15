@@ -23,7 +23,7 @@ int main()
 		//cin >> secret;
 		cout<<"Guess=";
 		guess=rand()%nmax+nmin;
-		while(guess>gmax || guess<=gmin)
+		while(guess>=gmax || guess<=gmin)
 		{
 			guess=rand()%nmax+1;
 		}
