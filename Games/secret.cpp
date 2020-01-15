@@ -1,3 +1,4 @@
+
 // Guess My Number
 // The classic number guessing game
 #include <iostream>
@@ -10,6 +11,7 @@ int main()
 	srand(static_cast<unsigned int>(time(0))); //seed random number generator
 	int nmax=100, nmin=1;
 	int guess; //= rand() % nmax + nmin; // random number between nmin and nmax
+	int gmax=101,gmin=0;
 	int tries = 0;
 	int secret;
 	cout << "\tWelcome to PC Guess My Number\n\n";
@@ -21,9 +23,9 @@ int main()
 		//cin >> secret;
 		cout<<"Guess=";
 		guess=rand()%nmax+nmin;
-		while(guess>nmax || guess<=nmin)
+		while(guess>gmax || guess<=gmin)
 		{
-			guess=rand()%nmax;
+			guess=rand()%nmax+1;
 		}
 		cout<<guess<<endl;
 		++tries;
@@ -31,11 +33,13 @@ int main()
 		{
 			cout << "Too high!\n\n";
 			nmax=guess;
+			gmax=guess;
 		}
 		else if (guess < secret)
 		{	
 			cout << "Too low!\n\n";
 			nmin=guess;
+			gmin=guess;
 		}
 		else
 		{
